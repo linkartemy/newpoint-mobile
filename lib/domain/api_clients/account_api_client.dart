@@ -54,8 +54,8 @@ class AccountApiClient {
     };
     final result = _networkClient.post(
       '/account/$accountId/favorite',
-      parameters,
       parser,
+      parameters,
       <String, dynamic>{
         'session_id': sessionId,
       },

@@ -9,8 +9,6 @@ import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/auth/auth_view_model.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/theme/app_button_style.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../theme/theme.dart';
 
@@ -21,7 +19,7 @@ class AuthView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        children: [_LogoWidget(), _TextWidget(), _AuthButtonsWidget()],
+        children: const [_LogoWidget(), _TextWidget(), _AuthButtonsWidget()],
       ),
     );
   }
@@ -45,7 +43,6 @@ class _TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var regular;
     return Container(
       alignment: Alignment.center,
       margin: const EdgeInsets.only(top: 100),
@@ -65,7 +62,7 @@ class _TextWidget extends StatelessWidget {
 }
 
 class _AuthButtonsWidget extends StatelessWidget {
-  _AuthButtonsWidget({Key? key}) : super(key: key);
+  const _AuthButtonsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +77,8 @@ class _AuthButtonsWidget extends StatelessWidget {
             onPressed: () => {
               Navigator.of(context).pushNamed(MainNavigationRouteNames.login),
             },
-            child: new Text("Sign in"),
             style: AdaptiveTheme.of(context).theme.elevatedButtonTheme.style,
+            child: const Text("Sign in"),
           ),
           TextButtonComponent(
             onPressed: () => {
