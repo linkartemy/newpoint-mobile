@@ -43,8 +43,8 @@ class AuthApiClient {
     };
     var response = await _networkClient.post(
       _url + "/register",
-      parameters,
       parser,
+      parameters,
     );
 
     print(response);
@@ -84,8 +84,8 @@ class AuthApiClient {
     };
     final result = _networkClient.post(
       _url + "/validate_with_login",
-      parameters,
       parser,
+      parameters,
       <String, dynamic>{'api_key': Configuration.apiKey},
     );
     return result;
@@ -105,8 +105,8 @@ class AuthApiClient {
     };
     final result = _networkClient.post(
       '/authentication/session/new',
-      parameters,
       parser,
+      parameters,
       <String, dynamic>{'api_key': Configuration.apiKey},
     );
     return result;

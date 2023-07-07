@@ -1,21 +1,50 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:newpoint/domain/models/post_date_parser.dart';
 
 class PostComponent extends StatelessWidget {
-  const PostComponent({Key? key}) : super(key: key);
+  const PostComponent(
+      {Key? key,
+      required this.name,
+      required this.surname,
+      required this.date,
+      required this.content,
+      required this.images})
+      : super(key: key);
+  final String name;
+  final String surname;
+  final DateTime date;
+  final String content;
+  final List<Image> images;
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [_Header(), SizedBox(height: 10), _Body()],
+          children: [
+            _Header(
+              name: name,
+              surname: surname,
+              date: date,
+            ),
+            const SizedBox(height: 10),
+            _Body(
+              content: content,
+            )
+          ],
         ));
   }
 }
 
 class _Header extends StatelessWidget {
-  const _Header({Key? key}) : super(key: key);
+  const _Header(
+      {Key? key, required this.name, required this.surname, required this.date})
+      : super(key: key);
+  final String name;
+  final String surname;
+  final DateTime date;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -24,32 +53,31 @@ class _Header extends StatelessWidget {
         Row(
           children: [
             Container(
-                child: Icon(Icons.ice_skating), margin: EdgeInsets.all(10)),
-            SizedBox(
+                margin: const EdgeInsets.all(10),
+                child: const Icon(Icons.ice_skating)),
+            const SizedBox(
               width: 10,
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                    child: Text(
-                  "Jack Krier",
-                  style: AdaptiveTheme.of(context).theme.textTheme.titleMedium,
-                )),
-                SizedBox(
+                Text(
+                  "$name $surname",
+                  style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
+                ),
+                const SizedBox(
                   height: 2,
                 ),
-                Container(
-                    child: Text("21.06.2017",
-                        style: AdaptiveTheme.of(context)
-                            .theme
-                            .textTheme
-                            .titleSmall))
+                Text(convertPostDateToString(date)!,
+                    style: AdaptiveTheme.of(context).theme.textTheme.titleSmall)
               ],
             )
           ],
         ),
-        Container(
-          child: Icon(Icons.ac_unit_sharp),
+        const Icon(
+          Icons.more_vert,
+          size: 25,
         )
       ],
     );
@@ -57,7 +85,8 @@ class _Header extends StatelessWidget {
 }
 
 class _Body extends StatelessWidget {
-  const _Body({Key? key}) : super(key: key);
+  const _Body({Key? key, required this.content}) : super(key: key);
+  final String content;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,10 +95,7 @@ class _Body extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Column(
               children: [
-                Text("Title",
-                    style:
-                        AdaptiveTheme.of(context).theme.textTheme.titleMedium),
-                Text("gfwfgwef",
+                Text(content,
                     style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium)
               ],
             ))

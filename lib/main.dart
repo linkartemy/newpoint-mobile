@@ -7,10 +7,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "lib/.env");
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
   runApp(MyApp(savedThemeMode: savedThemeMode));
-  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {

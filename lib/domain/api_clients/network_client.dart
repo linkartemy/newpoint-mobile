@@ -40,8 +40,8 @@ class NetworkClient {
 
   Future<T> post<T>(
     String path,
-    Map<String, dynamic> bodyParameters,
-    T Function(dynamic json) parser, [
+    T Function(dynamic json) parser,
+    Map<String, dynamic>? bodyParameters, [
     Map<String, dynamic>? urlParameters,
   ]) async {
     try {
@@ -54,7 +54,7 @@ class NetworkClient {
       final dynamic json = (await response.jsonDecode());
       _validateResponse(response, json);
 
-      final result = parser(json);
+      final result = parser(json["data"]);
       return result;
     } on SocketException {
       throw ApiClientException(ApiClientExceptionType.network);
@@ -67,17 +67,20 @@ class NetworkClient {
   }
 
   void _validateResponse(HttpClientResponse response, dynamic json) {
-    if (response.statusCode == 401) {
-      final dynamic status = json['status_code'];
-      final code = status is int ? status : 0;
-      if (code == 30) {
+    if (json["error"] == null && json["data"] == null) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    switch(response.statusCode) {
+      case 200:
+        if (json["error"] != null && json["error"] != "") {
+          throw ApiClientException.fromError(ApiClientExceptionType.other, json["error"]);
+        }
+        break;
+      case 401:
         throw ApiClientException(ApiClientExceptionType.auth);
-      } else if (code == 3) {
-        throw ApiClientException(ApiClientExceptionType.sessionExpired);
-      } else {
+      default:
         throw ApiClientException(ApiClientExceptionType.other);
       }
-    }
   }
 }
 

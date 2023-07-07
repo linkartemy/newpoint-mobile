@@ -12,6 +12,8 @@ import 'package:newpoint/views/post/post_view.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../views/main/main_view_model.dart';
+
 class ScreenFactory {
   Widget makeLoader() {
     return Provider(
@@ -50,6 +52,9 @@ class ScreenFactory {
   }
 
   Widget makeMain() {
-    return const MainView();
+    return ChangeNotifierProvider(
+      create: (_) => MainViewModel(),
+      child: const MainView(),
+    );
   }
 }
