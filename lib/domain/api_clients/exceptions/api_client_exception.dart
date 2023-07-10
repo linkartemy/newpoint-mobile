@@ -1,10 +1,10 @@
-enum ApiClientExceptionType { network, auth, other, sessionExpired }
+enum ApiClientExceptionType { network, auth, other, sessionExpired, badRequest }
 
 class ApiClientException implements Exception {
   final ApiClientExceptionType type;
-  late final String error;
+  final String error;
 
-  ApiClientException(this.type);
+  ApiClientException(this.type, [this.error = ""]);
 
   ApiClientException.fromError(this.type, this.error);
 }

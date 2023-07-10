@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:newpoint/configuration/configuration.dart';
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
+import 'package:newpoint/domain/models/network/response.dart';
 
 class NetworkClient {
   final _client = HttpClient();
@@ -38,10 +39,11 @@ class NetworkClient {
     }
   }
 
-  Future<T> post<T>(
+  Future<Response> post<T>(
     String path,
     T Function(dynamic json) parser,
     Map<String, dynamic>? bodyParameters, [
+    Map<String, dynamic>? headersParameters,
     Map<String, dynamic>? urlParameters,
   ]) async {
     try {
@@ -49,13 +51,16 @@ class NetworkClient {
       final request = await _client.postUrl(url);
 
       request.headers.contentType = ContentType.json;
+      headersParameters?.forEach((key, value) {
+        request.headers.add(key, value);
+      });
       request.write(jsonEncode(bodyParameters));
       final response = await request.close();
       final dynamic json = (await response.jsonDecode());
       _validateResponse(response, json);
 
       final result = parser(json["data"]);
-      return result;
+      return Response(body: result, headers: response.headers);
     } on SocketException {
       throw ApiClientException(ApiClientExceptionType.network);
     } on ApiClientException {
@@ -70,17 +75,23 @@ class NetworkClient {
     if (json["error"] == null && json["data"] == null) {
       throw ApiClientException(ApiClientExceptionType.other);
     }
-    switch(response.statusCode) {
+    switch (response.statusCode) {
       case 200:
         if (json["error"] != null && json["error"] != "") {
-          throw ApiClientException.fromError(ApiClientExceptionType.other, json["error"]);
+          throw ApiClientException.fromError(
+              ApiClientExceptionType.other, json["error"]);
         }
         break;
       case 401:
         throw ApiClientException(ApiClientExceptionType.auth);
+      case 400:
+        if (json["error"] != null && json["error"] != "") {
+          throw ApiClientException.fromError(ApiClientExceptionType.badRequest, json["error"]);
+        }
+        break;
       default:
         throw ApiClientException(ApiClientExceptionType.other);
-      }
+    }
   }
 }
 

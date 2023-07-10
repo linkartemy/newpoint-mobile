@@ -23,21 +23,29 @@ class RegisterViewModel extends ChangeNotifier {
   bool _isValid(String login, String password) =>
       login.isNotEmpty && password.isNotEmpty;
 
-  Future<String?> _register(String login, String password, String name, String surname, String email, String phone) async {
+  Future<String?> _register(String login, String password, String name, String surname, String email, String phone, DateTime birthDate) async {
     try {
-      await _authService.register(login, password, name, surname, email, '');
+      await _authService.register(login, password, name, surname, email, phone, birthDate);
     } on ApiClientException catch (e) {
       switch (e.type) {
         case ApiClientExceptionType.network:
-          return 'Сервер не доступен. Проверте подключение к интернету';
+          return 'No access to server. Check the Internet connection.';
         case ApiClientExceptionType.auth:
           return 'Неправильный логин пароль!';
+        case ApiClientExceptionType.badRequest:
+          if (e.error.isNotEmpty) {
+            return e.error;
+          }
+          return 'Something went wrong, please try again later';
         case ApiClientExceptionType.sessionExpired:
         case ApiClientExceptionType.other:
-          return 'Произошла ошибка. Попробуйте еще раз';
+          if (e.error.isNotEmpty) {
+            return e.error;
+          }
+          return 'Something went wrong, please try again later';
       }
     } catch (e) {
-      return 'Неизвестная ошибка, поторите попытку';
+      return 'Unknown error, please try again later';
     }
     return null;
   }
@@ -56,7 +64,7 @@ class RegisterViewModel extends ChangeNotifier {
     }
     _updateState(null, true);
 
-    _errorMessage = await _register(login, password, name, surname, email, '');
+    _errorMessage = await _register(login, password, name, surname, email, '', DateTime.now());
     if (_errorMessage == null) {
       MainNavigation.resetNavigation(context);
     } else {

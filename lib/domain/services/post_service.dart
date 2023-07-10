@@ -6,5 +6,8 @@ class PostService {
   final _postApiClient = PostApiClient();
   final _sessionDataProvider = SessionDataProvider();
 
-  Future<List<Post>> get() async => await _postApiClient.get();
+  Future<List<Post>> get() async {
+    String? token = await _sessionDataProvider.getToken();
+    return await _postApiClient.get(token!);
+  }
 }

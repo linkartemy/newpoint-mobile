@@ -8,33 +8,37 @@ class AuthService {
   final _sessionDataProvider = SessionDataProvider();
 
   Future<bool> isAuth() async {
-    final sessionId = await _sessionDataProvider.getSessionId();
-    return sessionId != null;
+    final token = await _sessionDataProvider.getToken();
+    return token != null;
   }
 
-  Future<void> register(String login, String password, String name, String surname, String email, String phone) async {
-    final sessionId = await _authApiClient.register(
-      login: login,
-      password: password,
-      name: name,
-      surname: surname,
-      email: email,
-      phone: phone,
-    );
+  Future<void> register(String login, String password, String name,
+      String surname, String email, String phone, DateTime birthDate) async {
+    final token = await _authApiClient.register(
+        login: login,
+        password: password,
+        name: name,
+        surname: surname,
+        email: email,
+        phone: phone,
+        birthDate: birthDate.toString());
+    //final accountId = await _accountApiClient.getAccountInfo(token);
+    await _sessionDataProvider.setToken(token);
+    //await _sessionDataProvider.setAccountId(accountId);
   }
 
   Future<void> login(String login, String password) async {
-    final sessionId = await _authApiClient.auth(
-      username: login,
+    final token = await _authApiClient.auth(
+      login: login,
       password: password,
     );
-    final accountId = await _accountApiClient.getAccountInfo(sessionId);
-    await _sessionDataProvider.setSessionId(sessionId);
-    await _sessionDataProvider.setAccountId(accountId);
+    //final accountId = await _accountApiClient.getAccountInfo(token);
+    await _sessionDataProvider.setToken(token);
+    //await _sessionDataProvider.setAccountId(accountId);
   }
 
   Future<void> logout() async {
-    await _sessionDataProvider.deleteSessionId();
+    await _sessionDataProvider.deleteToken();
     await _sessionDataProvider.deleteAccountId();
   }
 }

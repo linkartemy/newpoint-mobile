@@ -65,7 +65,7 @@ class MainViewState extends State<MainView> {
               ],
             ),
           ),
-          drawer: const DrawerComponent(),
+          drawer: DrawerComponent(),
           body: TabBarView(children: [
             _PostsView(
               isLoading: _isLoadingPosts,

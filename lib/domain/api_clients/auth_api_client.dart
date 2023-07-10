@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:newpoint/configuration/configuration.dart';
 import 'package:newpoint/domain/api_clients/network_client.dart';
 
@@ -6,30 +8,42 @@ class AuthApiClient {
   static const _url = "/user";
 
   Future<String> auth({
-    required String username,
-    required String password,
-  }) async {
-    final token = await _makeToken();
-    final validToken = await _validateUser(
-      username: username,
-      password: password,
-      requestToken: token,
-    );
-    final sessionId = await _makeSession(requestToken: validToken);
-    return sessionId;
-  }
-
-  Future<String> register({
     required String login,
     required String password,
-    required String name,
-    required String surname,
-    required String email,
-    required String phone,
   }) async {
     dynamic parser(dynamic json) {
-      final jsonMap = json as Map<String, dynamic>;
-      final data = jsonMap['data'] as List<dynamic>;
+      final data = json as List<dynamic>;
+      if (data.isNotEmpty) {
+        return data[0]['data'] as Map<String, dynamic>;
+      }
+      return json;
+    }
+
+    final parameters = <String, dynamic>{
+      'login': login,
+      'password': password,
+    };
+    var response = await _networkClient.post(
+      "$_url/login",
+      parser,
+      parameters,
+    );
+    return response.headers["Authorization"][0];
+  }
+
+  Future<String> register(
+      {required String login,
+      required String password,
+      required String name,
+      required String surname,
+      required String email,
+      required String phone,
+      required String birthDate}) async {
+    dynamic parser(dynamic json) {
+      final data = json as List<dynamic>;
+      if (data.isNotEmpty) {
+        return data[0]['data'] as Map<String, dynamic>;
+      }
       return json;
     }
 
@@ -40,34 +54,33 @@ class AuthApiClient {
       'surname': surname,
       'email': email,
       'phone': phone,
+      'birthDate': birthDate
     };
     var response = await _networkClient.post(
-      _url + "/register",
+      "$_url/register",
       parser,
       parameters,
     );
-
-    print(response);
-    return response["data"][0];
+    return response.headers["Authorization"][0];
   }
 
-  Future<String> _makeToken() async {
-    String parser(dynamic json) {
-      final jsonMap = json as Map<String, dynamic>;
-      final token = jsonMap['request_token'] as String;
-      return token;
-    }
-
-    final result = _networkClient.get(
-      _url + "/token",
-      parser,
-      <String, dynamic>{'api_key': Configuration.apiKey},
-    );
-    return result;
-  }
+  // Future<String> _makeToken() async {
+  //   String parser(dynamic json) {
+  //     final jsonMap = json as Map<String, dynamic>;
+  //     final token = jsonMap['request_token'] as String;
+  //     return token;
+  //   }
+  //
+  //   final result = _networkClient.get(
+  //     _url + "/token",
+  //     parser,
+  //     <String, dynamic>{'api_key': Configuration.apiKey},
+  //   );
+  //   return result;
+  // }
 
   Future<String> _validateUser({
-    required String username,
+    required String login,
     required String password,
     required String requestToken,
   }) async {
@@ -78,17 +91,17 @@ class AuthApiClient {
     }
 
     final parameters = <String, dynamic>{
-      'username': username,
+      'username': login,
       'password': password,
       'request_token': requestToken,
     };
-    final result = _networkClient.post(
+    final response = await _networkClient.post(
       _url + "/validate_with_login",
       parser,
       parameters,
       <String, dynamic>{'api_key': Configuration.apiKey},
     );
-    return result;
+    return response.body;
   }
 
   Future<String> _makeSession({
@@ -103,12 +116,12 @@ class AuthApiClient {
     final parameters = <String, dynamic>{
       'request_token': requestToken,
     };
-    final result = _networkClient.post(
+    final response = await _networkClient.post(
       '/authentication/session/new',
       parser,
       parameters,
       <String, dynamic>{'api_key': Configuration.apiKey},
     );
-    return result;
+    return response.body;
   }
 }
