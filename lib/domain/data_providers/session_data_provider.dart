@@ -33,4 +33,8 @@ class SessionDataProvider {
   Future<void> deleteAccountId() {
     return _secureStorage.delete(key: _Keys.accountId);
   }
+
+  Future<bool> hasToken() {
+    return _secureStorage.containsKey(key: _Keys.token);
+  }
 }

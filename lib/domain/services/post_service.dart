@@ -4,10 +4,8 @@ import 'package:newpoint/domain/models/post.dart';
 
 class PostService {
   final _postApiClient = PostApiClient();
-  final _sessionDataProvider = SessionDataProvider();
 
   Future<List<Post>> get() async {
-    String? token = await _sessionDataProvider.getToken();
-    return await _postApiClient.get(token!);
+    return await _postApiClient.get();
   }
 }

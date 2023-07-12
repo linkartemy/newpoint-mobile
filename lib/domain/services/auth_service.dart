@@ -1,6 +1,7 @@
 import 'package:newpoint/domain/api_clients/account_api_client.dart';
 import 'package:newpoint/domain/api_clients/auth_api_client.dart';
 import 'package:newpoint/domain/data_providers/session_data_provider.dart';
+import 'package:newpoint/domain/models/user/user.dart';
 
 class AuthService {
   final _authApiClient = AuthApiClient();
@@ -8,8 +9,7 @@ class AuthService {
   final _sessionDataProvider = SessionDataProvider();
 
   Future<bool> isAuth() async {
-    final token = await _sessionDataProvider.getToken();
-    return token != null;
+    return await _sessionDataProvider.hasToken();
   }
 
   Future<void> register(String login, String password, String name,
@@ -35,6 +35,10 @@ class AuthService {
     //final accountId = await _accountApiClient.getAccountInfo(token);
     await _sessionDataProvider.setToken(token);
     //await _sessionDataProvider.setAccountId(accountId);
+  }
+
+  Future<User> getUser() async {
+    return await _authApiClient.getUser();
   }
 
   Future<void> logout() async {

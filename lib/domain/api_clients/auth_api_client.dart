@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:newpoint/configuration/configuration.dart';
 import 'package:newpoint/domain/api_clients/network_client.dart';
+import 'package:newpoint/domain/models/user/user.dart';
 
 class AuthApiClient {
   final _networkClient = NetworkClient();
@@ -62,6 +63,24 @@ class AuthApiClient {
       parameters,
     );
     return response.headers["Authorization"][0];
+  }
+
+  Future<User> getUser() async {
+    dynamic parser(dynamic json) {
+      final data = json as List<dynamic>;
+      if (data.isNotEmpty) {
+        var user = User.fromJson(data[0]["data"]);
+        return user;
+      }
+      return json;
+    }
+
+    var response = await _networkClient.postAuthorized(
+      "$_url/get",
+      parser,
+      {},
+    );
+    return response.body;
   }
 
   // Future<String> _makeToken() async {
