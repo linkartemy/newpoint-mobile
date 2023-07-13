@@ -52,7 +52,7 @@ class AccountApiClient {
       'media_id': mediaId,
       'favorite': isFavorite,
     };
-    final result = _networkClient.post(
+    final response = await _networkClient.post(
       '/account/$accountId/favorite',
       parser,
       parameters,
@@ -60,6 +60,6 @@ class AccountApiClient {
         'session_id': sessionId,
       },
     );
-    return result;
+    return response.body;
   }
 }

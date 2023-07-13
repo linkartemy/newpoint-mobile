@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:newpoint/domain/api_clients/network_client.dart';
 import 'package:newpoint/domain/models/post.dart';
 
 class PostApiClient {
-  static const String _apiUrl = "/post/";
+  static const String _apiUrl = "/post";
   final _networkClient = NetworkClient();
 
   Future<List<Post>> get() async {
@@ -14,14 +15,12 @@ class PostApiClient {
       return posts;
     }
 
-    final posts = await _networkClient.post(
-      '${_apiUrl}get',
+    final response = await _networkClient.postAuthorized(
+      '$_apiUrl/get',
       parser,
       <String, dynamic>{
       },
-      <String, dynamic>{
-      }
     );
-    return posts;
+    return response.body;
   }
 }

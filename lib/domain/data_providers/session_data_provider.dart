@@ -1,21 +1,21 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 abstract class _Keys {
-  static const sessionId = 'session_id';
+  static const token = 'session_id';
   static const accountId = 'account_id';
 }
 
 class SessionDataProvider {
   static const _secureStorage = FlutterSecureStorage();
 
-  Future<String?> getSessionId() => _secureStorage.read(key: _Keys.sessionId);
+  Future<String?> getToken() => _secureStorage.read(key: _Keys.token);
 
-  Future<void> setSessionId(String value) {
-    return _secureStorage.write(key: _Keys.sessionId, value: value);
+  Future<void> setToken(String value) {
+    return _secureStorage.write(key: _Keys.token, value: value);
   }
 
-  Future<void> deleteSessionId() {
-    return _secureStorage.delete(key: _Keys.sessionId);
+  Future<void> deleteToken() {
+    return _secureStorage.delete(key: _Keys.token);
   }
 
   Future<int?> getAccountId() async {
@@ -32,5 +32,9 @@ class SessionDataProvider {
 
   Future<void> deleteAccountId() {
     return _secureStorage.delete(key: _Keys.accountId);
+  }
+
+  Future<bool> hasToken() {
+    return _secureStorage.containsKey(key: _Keys.token);
   }
 }

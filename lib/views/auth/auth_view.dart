@@ -33,7 +33,7 @@ class _LogoWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       margin: const EdgeInsets.only(top: 100),
-      child: Image.asset(AppImages.logoTitle),
+      child: Image.asset(AppImages.logoTitle, width: 200,),
     );
   }
 }

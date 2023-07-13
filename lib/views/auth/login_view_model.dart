@@ -25,6 +25,11 @@ class LoginViewModel extends ChangeNotifier {
           return "Check your network";
         case ApiClientExceptionType.auth:
           return "Invalid login or password";
+        case ApiClientExceptionType.badRequest:
+          if (e.error.isNotEmpty) {
+            return e.error;
+          }
+          return 'Something went wrong, please try again later';
         case ApiClientExceptionType.sessionExpired:
         case ApiClientExceptionType.other:
           return "Something went wrong, try again";

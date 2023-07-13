@@ -16,6 +16,7 @@ class MainView extends StatefulWidget {
 class MainViewState extends State<MainView> {
   int _selectedTab = 0;
   bool _isLoadingPosts = false;
+  var _user;
   void onSelectTab(int index) {
     if (_selectedTab == index) return;
     setState(() {
@@ -31,6 +32,14 @@ class MainViewState extends State<MainView> {
     });
   }
 
+  Future<void> getUser() async {
+    final model = Provider.of<MainViewModel>(context, listen: false);
+    await model.getUser();
+    setState(() {
+      _user = model.user;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +47,7 @@ class MainViewState extends State<MainView> {
       _isLoadingPosts = true;
     });
     getPosts();
+    getUser();
   }
 
   @override
@@ -65,7 +75,7 @@ class MainViewState extends State<MainView> {
               ],
             ),
           ),
-          drawer: const DrawerComponent(),
+          drawer: DrawerComponent(user: _user,),
           body: TabBarView(children: [
             _PostsView(
               isLoading: _isLoadingPosts,
@@ -89,6 +99,7 @@ class _PostsState extends State<_PostsView> {
     Future<void> onRefresh() async {
       final model = Provider.of<MainViewModel>(context, listen: false);
       await model.getPosts();
+      await model.getUser();
     }
 
     final model = Provider.of<MainViewModel>(context);
@@ -101,7 +112,7 @@ class _PostsState extends State<_PostsView> {
                   style:
                       AdaptiveTheme.of(context).theme.textTheme.bodyMedium)));
     } else {
-      var posts = model.posts();
+      var posts = model.posts;
       return (widget.isLoading
           ? const LoaderView()
           : RefreshIndicator(

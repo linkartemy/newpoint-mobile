@@ -21,7 +21,7 @@ class RegisterView extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            icon: Icon(Icons.arrow_back_ios_new_rounded)),
+            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
         centerTitle: true,
         title: Image.asset(AppImages.logoTitleOutline),
       ),
@@ -30,12 +30,12 @@ class RegisterView extends StatelessWidget {
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.only(left: 20, right: 20, top: 40),
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
               child: RichText(
                 text: TextSpan(
                   style: AdaptiveTheme.of(context).theme.textTheme.titleMedium,
                   children: <TextSpan>[
-                    TextSpan(
+                    const TextSpan(
                       text: 'Create a',
                     ),
                     TextSpan(
@@ -43,15 +43,15 @@ class RegisterView extends StatelessWidget {
                         style: TextStyle(
                             color:
                                 AdaptiveTheme.of(context).theme.primaryColor)),
-                    TextSpan(
+                    const TextSpan(
                       text: 'account',
                     ),
                   ],
                 ),
               )),
           Container(
-              padding: EdgeInsets.only(left: 20, right: 20, top: 70),
-              child: _FormWidget())
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 70),
+              child: const _FormWidget())
         ]),
       ),
     );
