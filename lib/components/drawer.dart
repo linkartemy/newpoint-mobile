@@ -24,17 +24,38 @@ class DrawerComponent extends StatelessWidget {
                       decoration: const BoxDecoration(color: Colors.blue),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [Text(user != null ? "${user?.name} ${user?.surname}" : "Unknown")])),
+                          children: [
+                            Text(
+                                user != null
+                                    ? "${user?.name} ${user?.surname}"
+                                    : "Unknown",
+                                style: AdaptiveTheme.of(context)
+                                    .theme
+                                    .textTheme
+                                    .titleMedium)
+                          ])),
                   ListTile(
-                    title: const Text('Main'),
+                    title: Text('Main',
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleMedium),
                     onTap: () {},
                   ),
                   ListTile(
-                    title: const Text('Profile'),
+                    title: Text('Profile',
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleMedium),
                     onTap: () {},
                   ),
                   ListTile(
-                    title: const Text('Bookmarks'),
+                    title: Text('Bookmarks',
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleMedium),
                     onTap: () {},
                   ),
                 ]),
@@ -44,9 +65,15 @@ class DrawerComponent extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   const Divider(),
-                  const ListTile(
+                  ListTile(
                       leading: Icon(Icons.settings),
-                      title: Text('Settings')),
+                      title: Text(
+                        'Settings',
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleMedium,
+                      )),
                   ListTile(
                       onTap: () {
                         AlertDialog alert = AlertDialog(
@@ -80,7 +107,7 @@ class DrawerComponent extends StatelessWidget {
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme
-                            .bodySmall,
+                            .titleMedium,
                       ))
                 ],
               )),

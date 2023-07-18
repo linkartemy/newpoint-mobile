@@ -1,67 +1,45 @@
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
+import 'package:newpoint/domain/models/post.dart';
+import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
+import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
 
 class PostViewModel extends ChangeNotifier {
+  PostViewModel(this.postId);
+
   final _authService = AuthService();
+  final _postService = PostService();
 
-  final loginTextController = TextEditingController();
-  final passwordTextController = TextEditingController();
+  late int postId;
+  User? user;
+  Post? post;
+  String error = "";
 
-  String? _errorMessage;
-  String? get errorMessage => _errorMessage;
-
-  bool _isAuthProgress = false;
-  bool get canStartAuth => !_isAuthProgress;
-  bool get isAuthProgress => _isAuthProgress;
-
-  bool _isValid(String login, String password) =>
-      login.isNotEmpty && password.isNotEmpty;
-
-  Future<String?> _login(String login, String password) async {
+  Future<void> getUser() async {
     try {
-      await _authService.login(login, password);
+      user = await _authService.getUser();
+      notifyListeners();
     } on ApiClientException catch (e) {
-      switch (e.type) {
-        case ApiClientExceptionType.network:
-          return 'Сервер не доступен. Проверте подключение к интернету';
-        case ApiClientExceptionType.auth:
-          return 'Неправильный логин пароль!';
-        case ApiClientExceptionType.sessionExpired:
-        case ApiClientExceptionType.other:
-          return 'Произошла ошибка. Попробуйте еще раз';
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
       }
     } catch (e) {
-      return 'Неизвестная ошибка, поторите попытку';
-    }
-    return null;
-  }
-
-  Future<void> auth(BuildContext context) async {
-    final login = loginTextController.text;
-    final password = passwordTextController.text;
-
-    if (!_isValid(login, password)) {
-      _updateState('Заполните логин и пароль', false);
-      return;
-    }
-    _updateState(null, true);
-
-    _errorMessage = await _login(login, password);
-    if (_errorMessage == null) {
-      MainNavigation.resetNavigation(context);
-    } else {
-      _updateState(_errorMessage, false);
+      error = "Something went wrong, please try again";
     }
   }
 
-  void _updateState(String? errorMessage, bool isAuthProgress) {
-    if (_errorMessage == errorMessage && _isAuthProgress == isAuthProgress) {
-      return;
+  Future<void> getPost() async {
+    try {
+      post = await _postService.getPost(postId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
     }
-    _errorMessage = errorMessage;
-    _isAuthProgress = isAuthProgress;
-    notifyListeners();
   }
 }

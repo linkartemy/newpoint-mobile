@@ -8,4 +8,8 @@ class PostService {
   Future<List<Post>> get() async {
     return await _postApiClient.get();
   }
+
+  Future<Post> getPost(int id) async {
+    return await _postApiClient.getPost(id);
+  }
 }

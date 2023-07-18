@@ -9,7 +9,7 @@ class AppTheme {
         backgroundColor: Colors.transparent,
         titleTextStyle: TextStyle(
             color: Colors.black, fontFamily: _Fonts.regular, fontSize: 20)),
-    inputDecorationTheme: InputDecorationTheme(
+    inputDecorationTheme: const InputDecorationTheme(
       border: OutlineInputBorder(),
       contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       isCollapsed: true,
@@ -28,7 +28,7 @@ class AppTheme {
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith<Color?>((s) {
       if (s.contains(MaterialState.disabled)) return Colors.grey;
-      return Color.fromRGBO(76, 144, 243, 1);
+      return const Color.fromRGBO(76, 144, 243, 1);
     }), foregroundColor: MaterialStateProperty.resolveWith<Color?>((s) {
       return Colors.white;
     }), shadowColor: MaterialStateProperty.resolveWith<Color?>((s) {
@@ -36,13 +36,13 @@ class AppTheme {
     }), elevation: MaterialStateProperty.resolveWith<double?>((s) {
       return 0;
     }), textStyle: MaterialStateProperty.resolveWith<TextStyle?>((s) {
-      return TextStyle(
+      return const TextStyle(
           fontSize: 16, fontFamily: _Fonts.regular, color: Colors.white);
     }))),
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
       textStyle: MaterialStateProperty.resolveWith<TextStyle?>((s) {
-        return TextStyle(
+        return const TextStyle(
             fontSize: 16, fontFamily: _Fonts.regular, color: Colors.white);
       }),
       backgroundColor: MaterialStateProperty.resolveWith<Color?>((s) {
@@ -50,17 +50,85 @@ class AppTheme {
         return Colors.transparent;
       }),
       foregroundColor: MaterialStateProperty.resolveWith<Color?>((s) {
-        return Color.fromRGBO(76, 144, 243, 1);
+        return const Color.fromRGBO(76, 144, 243, 1);
       }),
     )),
-    textTheme: TextTheme(
-        titleMedium: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+    textTheme: const TextTheme(
+        displayLarge: TextStyle(
+            fontSize: 57,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.normal),
+        displayMedium: TextStyle(
+            fontSize: 45,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.normal),
+        displaySmall: TextStyle(
+            fontSize: 36,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.normal),
+        headlineLarge: TextStyle(
+            fontSize: 32,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.normal),
+        headlineMedium: TextStyle(
+            fontSize: 28,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.normal),
+        headlineSmall: TextStyle(
+            fontSize: 24,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.normal),
+        titleLarge: TextStyle(
+            fontSize: 22,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.w500),
+        titleMedium: TextStyle(
+            fontSize: 16,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.w500),
         titleSmall: TextStyle(
-            fontSize: 16, fontFamily: _Fonts.regular, color: Colors.black),
-        bodySmall: TextStyle(
-            fontSize: 16, fontFamily: _Fonts.regular, color: Colors.black),
+            fontSize: 14,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.w500),
+        labelLarge: TextStyle(
+            fontSize: 14,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.w500),
+        labelMedium: TextStyle(
+            fontSize: 12,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.w500),
+        labelSmall: TextStyle(
+            fontSize: 11,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.w500),
+        bodyLarge: TextStyle(
+            fontSize: 16,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.normal),
         bodyMedium: TextStyle(
-            fontSize: 18, fontFamily: _Fonts.regular, color: Colors.black)),
+            fontSize: 14,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.normal),
+        bodySmall: TextStyle(
+            fontSize: 12,
+            fontFamily: _Fonts.regular,
+            color: Colors.black,
+            fontWeight: FontWeight.normal)),
   );
   static var darkTheme = ThemeData(
     appBarTheme: const AppBarTheme(

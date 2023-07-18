@@ -6,6 +6,7 @@ abstract class MainNavigationRouteNames {
   static const auth = '/auth';
   static const main = '/main';
   static const post = '/main/post';
+  static const profile = '/profile';
   static const register = '/register';
   static const login = '/login';
   static const movieTrailerWidget = '/main/movie_details/trailer';
@@ -20,7 +21,6 @@ class MainNavigation {
     MainNavigationRouteNames.register: (_) => _screenFactory.makeRegister(),
     MainNavigationRouteNames.login: (_) => _screenFactory.makeLogin(),
     MainNavigationRouteNames.main: (_) => _screenFactory.makeMain(),
-    MainNavigationRouteNames.post: (_) => _screenFactory.makePost(1),
   };
   Route<Object> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
