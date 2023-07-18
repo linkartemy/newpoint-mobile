@@ -18,8 +18,20 @@ class PostApiClient {
     final response = await _networkClient.postAuthorized(
       '$_apiUrl/get',
       parser,
-      <String, dynamic>{
-      },
+      <String, dynamic>{},
+    );
+    return response.body;
+  }
+
+  Future<Post> getPost(int id) async {
+    Post parser(dynamic data) {
+      return Post.fromJson(data[0]["data"]);
+    }
+
+    final response = await _networkClient.postAuthorized(
+      '$_apiUrl/get/post',
+      parser,
+      <String, dynamic>{'id': id},
     );
     return response.body;
   }

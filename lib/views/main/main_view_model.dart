@@ -19,8 +19,7 @@ class MainViewModel extends ChangeNotifier {
     try {
       postsLoadingError = "";
       isLoadingPosts = true;
-      List<Post> posts = await _postService.get();
-      _posts = posts;
+      _posts =  await _postService.get();
       isLoadingPosts = false;
       notifyListeners();
     } on ApiClientException catch (e) {

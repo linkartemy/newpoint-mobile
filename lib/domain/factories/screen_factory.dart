@@ -46,7 +46,7 @@ class ScreenFactory {
 
   Widget makePost(int id) {
     return ChangeNotifierProvider(
-      create: (_) => PostViewModel(),
+      create: (_) => PostViewModel(id),
       child: const PostView(),
     );
   }

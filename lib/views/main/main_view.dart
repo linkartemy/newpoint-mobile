@@ -75,7 +75,9 @@ class MainViewState extends State<MainView> {
               ],
             ),
           ),
-          drawer: DrawerComponent(user: _user,),
+          drawer: DrawerComponent(
+            user: _user,
+          ),
           body: TabBarView(children: [
             _PostsView(
               isLoading: _isLoadingPosts,
@@ -124,6 +126,7 @@ class _PostsState extends State<_PostsView> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: PostComponent(
+                        id: posts[index].id,
                         name: posts[index].name,
                         surname: posts[index].surname,
                         date: posts[index].creationTimestamp,
