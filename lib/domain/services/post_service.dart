@@ -12,4 +12,12 @@ class PostService {
   Future<Post> getPost(int id) async {
     return await _postApiClient.getPost(id);
   }
+
+  Future<Post> share(int id) async {
+    return await _postApiClient.share(id);
+  }
+
+  Future<Post> like(int id) async {
+    return await _postApiClient.like(id);
+  }
 }

@@ -122,6 +122,7 @@ class _PostState extends State<_PostView> {
                           await onHeaderTap(context);
                         },
                         child: _Header(
+                          login: model.post!.login,
                           name: model.post!.name,
                           surname: model.post!.surname,
                           date: model.post!.creationTimestamp,
@@ -136,6 +137,7 @@ class _PostState extends State<_PostView> {
                       likes: model.post!.likes,
                       shares: model.post!.shares,
                       comments: model.post!.comments,
+                      liked: model.post!.liked,
                     )
                   ],
                 ),
@@ -146,8 +148,13 @@ class _PostState extends State<_PostView> {
 
 class _Header extends StatelessWidget {
   const _Header(
-      {Key? key, required this.name, required this.surname, required this.date})
+      {Key? key,
+      required this.login,
+      required this.name,
+      required this.surname,
+      required this.date})
       : super(key: key);
+  final String login;
   final String name;
   final String surname;
   final DateTime date;
@@ -171,9 +178,21 @@ class _Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "$name $surname",
-                  style: AdaptiveTheme.of(context).theme.textTheme.titleMedium,
+                RichText(
+                  text: TextSpan(
+                      text: "$name $surname ",
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.titleMedium,
+                      children: [
+                        TextSpan(
+                            text: "@$login",
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                    color: CupertinoColors.secondaryLabel))
+                      ]),
                 ),
                 const SizedBox(
                   height: 2,
@@ -226,12 +245,25 @@ class _Footer extends StatelessWidget {
       required this.id,
       required this.likes,
       required this.shares,
-      required this.comments})
+      required this.comments,
+      required this.liked,})
       : super(key: key);
   final int id;
   final int likes;
   final int shares;
   final int comments;
+  final bool liked;
+
+  Future<void> onShareTap(BuildContext context) async {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+    await model.share();
+  }
+
+  Future<void> onLikeTap(BuildContext context) async {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+    await model.like();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -248,28 +280,43 @@ class _Footer extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Row(
-              children: [
-                Text(shares.toString(),
-                    style:
-                        AdaptiveTheme.of(context).theme.textTheme.titleMedium),
-                const SizedBox(
-                  width: 5,
-                ),
-                const Icon(CupertinoIcons.share),
-              ],
+            InkWell(
+              onTap: () async {
+                await onShareTap(context);
+              },
+              child: Row(
+                children: [
+                  Text(shares.toString(),
+                      style: AdaptiveTheme.of(context)
+                          .theme
+                          .textTheme
+                          .titleMedium),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Icon(CupertinoIcons.share),
+                ],
+              ),
             ),
-            Row(
-              children: [
-                Text(likes.toString(),
-                    style:
-                        AdaptiveTheme.of(context).theme.textTheme.titleMedium),
-                const SizedBox(
-                  width: 5,
-                ),
-                const Icon(CupertinoIcons.heart),
-              ],
-            )
+            const SizedBox(width: 5),
+            InkWell(
+              onTap: () async {
+                await onLikeTap(context);
+              },
+              child: Row(
+                children: [
+                  Text(likes.toString(),
+                      style: AdaptiveTheme.of(context)
+                          .theme
+                          .textTheme
+                          .titleMedium),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Icon(CupertinoIcons.heart),
+                ],
+              ),
+            ),
           ],
         )
       ],

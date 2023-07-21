@@ -42,4 +42,30 @@ class PostViewModel extends ChangeNotifier {
       error = "Something went wrong, please try again";
     }
   }
+
+  Future<void> share() async {
+    try {
+      post = await _postService.share(postId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> like() async {
+    try {
+      post = await _postService.like(postId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
 }

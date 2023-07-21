@@ -1,4 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/models/post_date_parser.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
@@ -7,6 +8,7 @@ class PostComponent extends StatelessWidget {
   const PostComponent(
       {Key? key,
       required this.id,
+      required this.login,
       required this.name,
       required this.surname,
       required this.date,
@@ -14,6 +16,7 @@ class PostComponent extends StatelessWidget {
       required this.images})
       : super(key: key);
   final int id;
+  final String login;
   final String name;
   final String surname;
   final DateTime date;
@@ -37,6 +40,7 @@ class PostComponent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 _Header(
+                  login: login,
                   name: name,
                   surname: surname,
                   date: date,
@@ -52,8 +56,13 @@ class PostComponent extends StatelessWidget {
 
 class _Header extends StatelessWidget {
   const _Header(
-      {Key? key, required this.name, required this.surname, required this.date})
+      {Key? key,
+      required this.login,
+      required this.name,
+      required this.surname,
+      required this.date})
       : super(key: key);
+  final String login;
   final String name;
   final String surname;
   final DateTime date;
@@ -77,9 +86,21 @@ class _Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "$name $surname",
-                  style: AdaptiveTheme.of(context).theme.textTheme.titleMedium,
+                RichText(
+                  text: TextSpan(
+                      text: "$name $surname ",
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.titleMedium,
+                      children: [
+                        TextSpan(
+                            text: "@$login",
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                    color: CupertinoColors.secondaryLabel))
+                      ]),
                 ),
                 const SizedBox(
                   height: 2,

@@ -127,6 +127,7 @@ class _PostsState extends State<_PostsView> {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: PostComponent(
                         id: posts[index].id,
+                        login: posts[index].login,
                         name: posts[index].name,
                         surname: posts[index].surname,
                         date: posts[index].creationTimestamp,
