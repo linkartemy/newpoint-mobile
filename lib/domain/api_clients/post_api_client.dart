@@ -35,4 +35,43 @@ class PostApiClient {
     );
     return response.body;
   }
+
+  Future<bool> share(int id) async {
+    bool parser(dynamic data) {
+      return data[0]["data"];
+    }
+
+    final response = await _networkClient.postAuthorized(
+      '$_apiUrl/share',
+      parser,
+      <String, dynamic>{'id': id},
+    );
+    return response.body;
+  }
+
+  Future<bool> like(int id) async {
+    bool parser(dynamic data) {
+      return data[0]["data"];
+    }
+
+    final response = await _networkClient.postAuthorized(
+      '$_apiUrl/like',
+      parser,
+      <String, dynamic>{'id': id},
+    );
+    return response.body;
+  }
+
+  Future<bool> unlike(int id) async {
+    bool parser(dynamic data) {
+      return data[0]["data"];
+    }
+
+    final response = await _networkClient.postAuthorized(
+      '$_apiUrl/unlike',
+      parser,
+      <String, dynamic>{'id': id},
+    );
+    return response.body;
+  }
 }

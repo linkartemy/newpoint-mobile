@@ -123,15 +123,50 @@ class _PostsState extends State<_PostsView> {
                   itemCount: posts.length,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
+                    Future<void> onShareTap(BuildContext context) async {
+                      final model =
+                          Provider.of<MainViewModel>(context, listen: false);
+                      model.share(posts[index].id);
+                      setState(() {
+                        posts[index].shares++;
+                      });
+                    }
+
+                    Future<void> onLikeTap(BuildContext context) async {
+                      final model =
+                          Provider.of<MainViewModel>(context, listen: false);
+                      setState(() {
+                        posts[index].liked = !posts[index].liked;
+                      });
+                      if (!posts[index].liked) {
+                        setState(() {
+                          posts[index].likes--;
+                        });
+                        await model.unlike(posts[index].id);
+                      } else {
+                        setState(() {
+                          posts[index].likes++;
+                        });
+                        await model.like(posts[index].id);
+                      }
+                    }
+
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: PostComponent(
                         id: posts[index].id,
+                        login: posts[index].login,
                         name: posts[index].name,
                         surname: posts[index].surname,
                         date: posts[index].creationTimestamp,
                         content: posts[index].content,
                         images: [],
+                        likes: posts[index].likes,
+                        liked: posts[index].liked,
+                        shares: posts[index].shares,
+                        comments: posts[index].comments,
+                        onLikeTap: onLikeTap,
+                        onShareTap: onShareTap,
                       ),
                     );
                   })));

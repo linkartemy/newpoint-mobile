@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:newpoint/components/drawer.dart';
 import 'package:newpoint/components/post.dart';
@@ -24,6 +26,41 @@ class PostViewState extends State<PostView> {
   Post? post;
   bool _isLoadingPost = false;
 
+  Timer? timer;
+
+  Future<void> onRefresh() async {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+    await model.getUser();
+    await model.getPost();
+    if (model.post != null) {
+      setState(() {
+        post = model.post!;
+      });
+    }
+  }
+
+  Future<void> onShareTap(BuildContext context) async {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+    await model.share();
+    setState(() {
+      post = model.post!;
+    });
+  }
+
+  Future<void> onLikeTap(BuildContext context) async {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+    await model.like();
+    setState(() {
+      post = model.post!;
+    });
+  }
+
+  Future<void> onHeaderTap(BuildContext context) async {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+    Navigator.of(context).pushNamed(MainNavigationRouteNames.profile,
+        arguments: model.post!.authorId);
+  }
+
   Future<void> getPost() async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.getPost();
@@ -41,6 +78,7 @@ class PostViewState extends State<PostView> {
     });
   }
 
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +91,9 @@ class PostViewState extends State<PostView> {
 
   @override
   Widget build(BuildContext context) {
+    final model = Provider.of<PostViewModel>(context);
+    var post = model.post;
+
     return Scaffold(
         appBar: AppBar(
           leading: InkWell(
@@ -63,91 +104,72 @@ class PostViewState extends State<PostView> {
           ),
           title: const Text(""),
         ),
-        body: _PostView(
-          isLoading: _isLoadingPost,
-        ));
-  }
-}
-
-class _PostView extends StatefulWidget {
-  const _PostView({Key? key, required this.isLoading}) : super(key: key);
-  final bool isLoading;
-  @override
-  _PostState createState() => _PostState();
-}
-
-class _PostState extends State<_PostView> {
-  @override
-  Widget build(BuildContext context) {
-    Future<void> onRefresh() async {
-      final model = Provider.of<PostViewModel>(context, listen: false);
-      await model.getUser();
-      await model.getPost();
-    }
-
-    Future<void> onHeaderTap(BuildContext context) async {
-      final model = Provider.of<PostViewModel>(context, listen: false);
-      Navigator.of(context).pushNamed(MainNavigationRouteNames.profile,
-          arguments: model.post!.authorId);
-    }
-
-    final model = Provider.of<PostViewModel>(context);
-    if (model.error.isNotEmpty) {
-      return RefreshIndicator(
-          onRefresh: onRefresh,
-          notificationPredicate: (ScrollNotification notification) {
-            return notification.depth == 0;
-          },
-          child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Text(model.error,
-                  style:
-                      AdaptiveTheme.of(context).theme.textTheme.bodyMedium)));
-    } else {
-      var post = model.post;
-      return widget.isLoading || post == null
-          ? const LoaderView()
-          : RefreshIndicator(
-              onRefresh: onRefresh,
-              notificationPredicate: (ScrollNotification notification) {
-                return notification.depth == 0;
-              },
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    InkWell(
-                        onTap: () async {
-                          await onHeaderTap(context);
-                        },
-                        child: _Header(
-                          name: model.post!.name,
-                          surname: model.post!.surname,
-                          date: model.post!.creationTimestamp,
-                        )),
-                    const SizedBox(height: 10),
-                    _Body(
-                      content: model.post!.content,
-                    ),
-                    const SizedBox(height: 5),
-                    _Footer(
-                      id: model.postId,
-                      likes: model.post!.likes,
-                      shares: model.post!.shares,
-                      comments: model.post!.comments,
-                    )
-                  ],
-                ),
-              ));
-    }
+        body: model.error.isNotEmpty
+            ? RefreshIndicator(
+                onRefresh: onRefresh,
+                notificationPredicate: (ScrollNotification notification) {
+                  return notification.depth == 0;
+                },
+                child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    child: Text(model.error,
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .bodyMedium)))
+            : _isLoadingPost || post == null
+                ? const LoaderView()
+                : RefreshIndicator(
+                    onRefresh: onRefresh,
+                    notificationPredicate: (ScrollNotification notification) {
+                      return notification.depth == 0;
+                    },
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          InkWell(
+                              onTap: () async {
+                                await onHeaderTap(context);
+                              },
+                              child: _Header(
+                                login: post.login,
+                                name: post.name,
+                                surname: post.surname,
+                                date: post.creationTimestamp,
+                              )),
+                          const SizedBox(height: 10),
+                          _Body(
+                            content: post.content,
+                          ),
+                          const SizedBox(height: 5),
+                          _Footer(
+                            id: post.id,
+                            likes: post.likes,
+                            shares: post.shares,
+                            comments: post.comments,
+                            liked: post.liked,
+                            onLikeTap: onLikeTap,
+                            onShareTap: onShareTap,
+                          )
+                        ],
+                      ),
+                    )));
   }
 }
 
 class _Header extends StatelessWidget {
   const _Header(
-      {Key? key, required this.name, required this.surname, required this.date})
+      {Key? key,
+      required this.login,
+      required this.name,
+      required this.surname,
+      required this.date})
       : super(key: key);
+  final String login;
   final String name;
   final String surname;
   final DateTime date;
@@ -171,9 +193,21 @@ class _Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "$name $surname",
-                  style: AdaptiveTheme.of(context).theme.textTheme.titleMedium,
+                RichText(
+                  text: TextSpan(
+                      text: "$name $surname ",
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.titleMedium,
+                      children: [
+                        TextSpan(
+                            text: "@$login",
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                    color: CupertinoColors.secondaryLabel))
+                      ]),
                 ),
                 const SizedBox(
                   height: 2,
@@ -221,17 +255,24 @@ class _Body extends StatelessWidget {
 }
 
 class _Footer extends StatelessWidget {
-  const _Footer(
-      {Key? key,
-      required this.id,
-      required this.likes,
-      required this.shares,
-      required this.comments})
-      : super(key: key);
+  const _Footer({
+    Key? key,
+    required this.id,
+    required this.likes,
+    required this.shares,
+    required this.comments,
+    required this.liked,
+    required this.onLikeTap,
+    required this.onShareTap,
+  }) : super(key: key);
   final int id;
   final int likes;
   final int shares;
   final int comments;
+  final bool liked;
+  final onLikeTap;
+  final onShareTap;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -248,28 +289,45 @@ class _Footer extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Row(
-              children: [
-                Text(shares.toString(),
-                    style:
-                        AdaptiveTheme.of(context).theme.textTheme.titleMedium),
-                const SizedBox(
-                  width: 5,
-                ),
-                const Icon(CupertinoIcons.share),
-              ],
+            InkWell(
+              onTap: () async {
+                await onShareTap(context);
+              },
+              child: Row(
+                children: [
+                  Text(shares.toString(),
+                      style: AdaptiveTheme.of(context)
+                          .theme
+                          .textTheme
+                          .titleMedium),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Icon(CupertinoIcons.share),
+                ],
+              ),
             ),
-            Row(
-              children: [
-                Text(likes.toString(),
-                    style:
-                        AdaptiveTheme.of(context).theme.textTheme.titleMedium),
-                const SizedBox(
-                  width: 5,
-                ),
-                const Icon(CupertinoIcons.heart),
-              ],
-            )
+            const SizedBox(width: 5),
+            InkWell(
+              onTap: () async {
+                await onLikeTap(context);
+              },
+              child: Row(
+                children: [
+                  Text(likes.toString(),
+                      style: AdaptiveTheme.of(context)
+                          .theme
+                          .textTheme
+                          .titleMedium),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  liked
+                      ? const Icon(CupertinoIcons.heart_solid)
+                      : const Icon(CupertinoIcons.heart),
+                ],
+              ),
+            ),
           ],
         )
       ],

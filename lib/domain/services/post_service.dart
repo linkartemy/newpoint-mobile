@@ -12,4 +12,16 @@ class PostService {
   Future<Post> getPost(int id) async {
     return await _postApiClient.getPost(id);
   }
+
+  Future<bool> share(int id) async {
+    return await _postApiClient.share(id);
+  }
+
+  Future<bool> like(int id) async {
+    return await _postApiClient.like(id);
+  }
+
+  Future<bool> unlike(int id) async {
+    return await _postApiClient.unlike(id);
+  }
 }

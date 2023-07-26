@@ -12,6 +12,7 @@ Post _$PostFromJson(Map<String, dynamic> json) {
     likes: json['likes'] as int,
     shares: json['shares'] as int,
     comments: json['comments'] as int,
+    liked: json['liked'] as bool,
     creationTimestamp: parsePostDateFromString(json['creation_timestamp'] as String?)!,
   );
 }
@@ -27,5 +28,6 @@ Map<String, dynamic> _$PostToJson(Post post) => <String, dynamic>{
   'likes': post.likes,
   'shares': post.shares,
   'comments': post.comments,
+  'liked': post.liked,
   'creation_timestamp': post.creationTimestamp.toIso8601String(),
 };
