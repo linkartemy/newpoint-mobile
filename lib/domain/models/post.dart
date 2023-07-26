@@ -14,10 +14,10 @@ class Post {
   final String surname;
   final String content;
   final String? images;
-  final int likes;
-  final int shares;
-  final int comments;
-  final bool liked;
+  int likes;
+  int shares;
+  int comments;
+  bool liked;
   @JsonKey(fromJson: parsePostDateFromString)
   final DateTime creationTimestamp;
 

@@ -36,9 +36,9 @@ class PostApiClient {
     return response.body;
   }
 
-  Future<Post> share(int id) async {
-    Post parser(dynamic data) {
-      return Post.fromJson(data[0]["data"]);
+  Future<bool> share(int id) async {
+    bool parser(dynamic data) {
+      return data[0]["data"];
     }
 
     final response = await _networkClient.postAuthorized(
@@ -49,13 +49,26 @@ class PostApiClient {
     return response.body;
   }
 
-  Future<Post> like(int id) async {
-    Post parser(dynamic data) {
-      return Post.fromJson(data[0]["data"]);
+  Future<bool> like(int id) async {
+    bool parser(dynamic data) {
+      return data[0]["data"];
     }
 
     final response = await _networkClient.postAuthorized(
       '$_apiUrl/like',
+      parser,
+      <String, dynamic>{'id': id},
+    );
+    return response.body;
+  }
+
+  Future<bool> unlike(int id) async {
+    bool parser(dynamic data) {
+      return data[0]["data"];
+    }
+
+    final response = await _networkClient.postAuthorized(
+      '$_apiUrl/unlike',
       parser,
       <String, dynamic>{'id': id},
     );

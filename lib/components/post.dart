@@ -13,7 +13,13 @@ class PostComponent extends StatelessWidget {
       required this.surname,
       required this.date,
       required this.content,
-      required this.images})
+      required this.images,
+      required this.likes,
+      required this.liked,
+      required this.shares,
+      required this.comments,
+      required this.onShareTap,
+      required this.onLikeTap})
       : super(key: key);
   final int id;
   final String login;
@@ -22,6 +28,12 @@ class PostComponent extends StatelessWidget {
   final DateTime date;
   final String content;
   final List<Image> images;
+  final int likes;
+  final bool liked;
+  final int shares;
+  final int comments;
+  final onShareTap;
+  final onLikeTap;
 
   Future<void> onTap(BuildContext context) async {
     Navigator.of(context)
@@ -49,6 +61,16 @@ class PostComponent extends StatelessWidget {
                 _Body(
                   content: content,
                 ),
+                const SizedBox(height: 5),
+                _Footer(
+                  id: id,
+                  likes: likes,
+                  shares: shares,
+                  comments: comments,
+                  liked: liked,
+                  onLikeTap: onLikeTap,
+                  onShareTap: onShareTap,
+                )
               ],
             )));
   }
@@ -142,6 +164,87 @@ class _Body extends StatelessWidget {
                     style: AdaptiveTheme.of(context).theme.textTheme.bodyLarge)
               ],
             ))
+      ],
+    );
+  }
+}
+
+class _Footer extends StatelessWidget {
+  const _Footer({
+    Key? key,
+    required this.id,
+    required this.likes,
+    required this.shares,
+    required this.comments,
+    required this.liked,
+    required this.onLikeTap,
+    required this.onShareTap,
+  }) : super(key: key);
+  final int id;
+  final int likes;
+  final int shares;
+  final int comments;
+  final bool liked;
+  final onLikeTap;
+  final onShareTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Row(
+            children: [
+              Text("${comments.toString()} comments",
+                  style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
+            ],
+          ),
+        ]),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            InkWell(
+              onTap: () async {
+                await onShareTap(context);
+              },
+              child: Row(
+                children: [
+                  Text(shares.toString(),
+                      style: AdaptiveTheme.of(context)
+                          .theme
+                          .textTheme
+                          .titleMedium),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Icon(CupertinoIcons.share),
+                ],
+              ),
+            ),
+            const SizedBox(width: 5),
+            InkWell(
+              onTap: () async {
+                await onLikeTap(context);
+              },
+              child: Row(
+                children: [
+                  Text(likes.toString(),
+                      style: AdaptiveTheme.of(context)
+                          .theme
+                          .textTheme
+                          .titleMedium),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  liked
+                      ? const Icon(CupertinoIcons.heart_solid)
+                      : const Icon(CupertinoIcons.heart),
+                ],
+              ),
+            ),
+          ],
+        )
       ],
     );
   }

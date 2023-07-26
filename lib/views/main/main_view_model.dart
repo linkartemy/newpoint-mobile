@@ -19,12 +19,13 @@ class MainViewModel extends ChangeNotifier {
     try {
       postsLoadingError = "";
       isLoadingPosts = true;
-      _posts =  await _postService.get();
+      _posts = await _postService.get();
       isLoadingPosts = false;
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
-        postsLoadingError = "Something is wrong with the connection to the server";
+        postsLoadingError =
+            "Something is wrong with the connection to the server";
       }
     } catch (e) {
       postsLoadingError = "Something went wrong, please try again";
@@ -39,7 +40,8 @@ class MainViewModel extends ChangeNotifier {
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
-        postsLoadingError = "Something is wrong with the connection to the server";
+        postsLoadingError =
+            "Something is wrong with the connection to the server";
       }
     } catch (e) {
       postsLoadingError = "Something went wrong, please try again";
@@ -47,4 +49,32 @@ class MainViewModel extends ChangeNotifier {
   }
 
   get user => _user;
+
+  Future<bool> share(int postId) async {
+    try {
+      var shared = _postService.share(postId);
+      notifyListeners();
+      return shared;
+    } on ApiClientException catch (e) {
+    } catch (e) {}
+    return false;
+  }
+
+  Future<void> like(int postId) async {
+    try {
+      _postService.like(postId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {}
+    } catch (e) {}
+  }
+
+  Future<void> unlike(int postId) async {
+    try {
+      _postService.unlike(postId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {}
+    } catch (e) {}
+  }
 }

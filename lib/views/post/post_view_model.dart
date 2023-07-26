@@ -45,7 +45,8 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> share() async {
     try {
-      post = await _postService.share(postId);
+      _postService.share(postId);
+      post!.shares++;
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -58,7 +59,14 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> like() async {
     try {
-      post = await _postService.like(postId);
+      if (post!.liked) {
+        _postService.unlike(postId);
+        post!.likes--;
+      } else {
+        _postService.like(postId);
+        post!.likes++;
+      }
+      post!.liked = !post!.liked;
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
