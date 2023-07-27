@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:newpoint/components/comment.dart';
 import 'package:newpoint/components/drawer.dart';
 import 'package:newpoint/components/post.dart';
+import 'package:newpoint/domain/models/comment/comment.dart';
 import 'package:newpoint/domain/models/post.dart';
 import 'package:newpoint/domain/models/post_date_parser.dart';
 import 'package:newpoint/domain/models/user/user.dart';
@@ -22,37 +24,34 @@ class PostView extends StatefulWidget {
 }
 
 class PostViewState extends State<PostView> {
-  User? user;
-  Post? post;
   bool _isLoadingPost = false;
-
-  Timer? timer;
 
   Future<void> onRefresh() async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.getUser();
     await model.getPost();
+    await model.getComments();
     if (model.post != null) {
-      setState(() {
-        post = model.post!;
-      });
+      setState(() {});
     }
   }
 
   Future<void> onShareTap(BuildContext context) async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.share();
-    setState(() {
-      post = model.post!;
-    });
+    setState(() {});
   }
 
   Future<void> onLikeTap(BuildContext context) async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.like();
-    setState(() {
-      post = model.post!;
-    });
+    setState(() {});
+  }
+
+  Future<void> onCommentLikeTap(BuildContext context, int index) async {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+    await model.likeComment(index);
+    setState(() {});
   }
 
   Future<void> onHeaderTap(BuildContext context) async {
@@ -65,7 +64,6 @@ class PostViewState extends State<PostView> {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.getPost();
     setState(() {
-      post = model.post;
       _isLoadingPost = false;
     });
   }
@@ -73,11 +71,14 @@ class PostViewState extends State<PostView> {
   Future<void> getUser() async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.getUser();
-    setState(() {
-      user = model.user;
-    });
+    setState(() {});
   }
 
+  Future<void> getComments() async {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+    await model.getComments();
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -87,6 +88,7 @@ class PostViewState extends State<PostView> {
       _isLoadingPost = true;
     });
     getPost();
+    getComments();
   }
 
   @override
@@ -104,60 +106,67 @@ class PostViewState extends State<PostView> {
           ),
           title: const Text(""),
         ),
-        body: model.error.isNotEmpty
-            ? RefreshIndicator(
-                onRefresh: onRefresh,
-                notificationPredicate: (ScrollNotification notification) {
-                  return notification.depth == 0;
-                },
-                child: SingleChildScrollView(
+        body: RefreshIndicator(
+            onRefresh: onRefresh,
+            notificationPredicate: (ScrollNotification notification) {
+              return notification.depth == 0;
+            },
+            child: model.error.isNotEmpty
+                ? SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    physics: const AlwaysScrollableScrollPhysics(),
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 10),
                     child: Text(model.error,
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme
-                            .bodyMedium)))
-            : _isLoadingPost || post == null
-                ? const LoaderView()
-                : RefreshIndicator(
-                    onRefresh: onRefresh,
-                    notificationPredicate: (ScrollNotification notification) {
-                      return notification.depth == 0;
-                    },
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          InkWell(
-                              onTap: () async {
-                                await onHeaderTap(context);
-                              },
-                              child: _Header(
-                                login: post.login,
-                                name: post.name,
-                                surname: post.surname,
-                                date: post.creationTimestamp,
-                              )),
-                          const SizedBox(height: 10),
-                          _Body(
-                            content: post.content,
+                            .bodyMedium))
+                : _isLoadingPost || post == null
+                    ? const LoaderView()
+                    : SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 5),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              InkWell(
+                                  onTap: () async {
+                                    await onHeaderTap(context);
+                                  },
+                                  child: _Header(
+                                    login: post.login,
+                                    name: post.name,
+                                    surname: post.surname,
+                                    date: post.creationTimestamp,
+                                  )),
+                              const SizedBox(height: 10),
+                              _Body(
+                                content: post.content,
+                              ),
+                              const SizedBox(height: 5),
+                              _Footer(
+                                id: post.id,
+                                likes: post.likes,
+                                shares: post.shares,
+                                comments: post.comments,
+                                liked: post.liked,
+                                onLikeTap: onLikeTap,
+                                onShareTap: onShareTap,
+                              ),
+                              const SizedBox(height: 5),
+                              _Comments(
+                                comments: model.comments,
+                                onLikeTap: onCommentLikeTap,
+                              )
+                            ],
                           ),
-                          const SizedBox(height: 5),
-                          _Footer(
-                            id: post.id,
-                            likes: post.likes,
-                            shares: post.shares,
-                            comments: post.comments,
-                            liked: post.liked,
-                            onLikeTap: onLikeTap,
-                            onShareTap: onShareTap,
-                          )
-                        ],
-                      ),
-                    )));
+                        ))));
   }
 }
 
@@ -332,5 +341,39 @@ class _Footer extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+class _Comments extends StatelessWidget {
+  const _Comments({
+    Key? key,
+    required this.comments,
+    required this.onLikeTap,
+  }) : super(key: key);
+  final List<Comment> comments;
+  final onLikeTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemCount: comments.length,
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          var comment = comments[index];
+
+          return CommentComponent(
+              index: index,
+              id: comment.id,
+              userId: comment.userId,
+              login: comment.login,
+              name: comment.name,
+              surname: comment.surname,
+              date: comment.creationTimestamp,
+              content: comment.content,
+              likes: comment.likes,
+              liked: comment.liked,
+              onLikeTap: onLikeTap);
+        });
   }
 }

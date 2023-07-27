@@ -1,7 +1,9 @@
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
+import 'package:newpoint/domain/models/comment/comment.dart';
 import 'package:newpoint/domain/models/post.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
+import 'package:newpoint/domain/services/comment_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +13,12 @@ class PostViewModel extends ChangeNotifier {
 
   final _authService = AuthService();
   final _postService = PostService();
+  final _commentService = CommentService();
 
   late int postId;
   User? user;
   Post? post;
+  List<Comment> comments = [];
   String error = "";
 
   Future<void> getUser() async {
@@ -33,6 +37,19 @@ class PostViewModel extends ChangeNotifier {
   Future<void> getPost() async {
     try {
       post = await _postService.getPost(postId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> getComments() async {
+    try {
+      comments = await _commentService.get(postId);
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -67,6 +84,27 @@ class PostViewModel extends ChangeNotifier {
         post!.likes++;
       }
       post!.liked = !post!.liked;
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> likeComment(int index) async {
+    try {
+      final comment = comments[index];
+      if (comment.liked) {
+        _commentService.unlike(comment.id);
+        comment.likes--;
+      } else {
+        _commentService.like(comment.id);
+        comment.likes++;
+      }
+      comment.liked = !comment.liked;
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
