@@ -171,13 +171,15 @@ class _Body extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-              liked? const Icon(
-                CupertinoIcons.heart_solid,
-                size: 18,
-              ) : const Icon(
-                CupertinoIcons.heart,
-                size: 18,
-              )
+              liked
+                  ? const Icon(
+                      CupertinoIcons.heart_solid,
+                      size: 18,
+                    )
+                  : const Icon(
+                      CupertinoIcons.heart,
+                      size: 18,
+                    )
             ],
           ),
         )

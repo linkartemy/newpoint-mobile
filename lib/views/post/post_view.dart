@@ -48,6 +48,13 @@ class PostViewState extends State<PostView> {
     setState(() {});
   }
 
+  Future<void> onCommentSendTap(BuildContext context) async {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+    await model.sendComment();
+    await model.getComments();
+    setState(() {});
+  }
+
   Future<void> onCommentLikeTap(BuildContext context, int index) async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.likeComment(index);
@@ -162,6 +169,7 @@ class PostViewState extends State<PostView> {
                               const SizedBox(height: 5),
                               _Comments(
                                 comments: model.comments,
+                                onSendTap: onCommentSendTap,
                                 onLikeTap: onCommentLikeTap,
                               )
                             ],
@@ -349,31 +357,53 @@ class _Comments extends StatelessWidget {
     Key? key,
     required this.comments,
     required this.onLikeTap,
+    required this.onSendTap,
   }) : super(key: key);
   final List<Comment> comments;
+  final onSendTap;
   final onLikeTap;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: comments.length,
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          var comment = comments[index];
+    final model = Provider.of<PostViewModel>(context, listen: false);
 
-          return CommentComponent(
-              index: index,
-              id: comment.id,
-              userId: comment.userId,
-              login: comment.login,
-              name: comment.name,
-              surname: comment.surname,
-              date: comment.creationTimestamp,
-              content: comment.content,
-              likes: comment.likes,
-              liked: comment.liked,
-              onLikeTap: onLikeTap);
-        });
+    return Column(children: [
+      TextFormField(
+        onChanged: model.onCommentTextChanged,
+        controller: model.commentFieldText,
+        decoration: InputDecoration(
+          border: const UnderlineInputBorder(),
+          labelText: 'Your thoughts?',
+          suffixIcon: InkWell(
+              onTap: () async {
+                await onSendTap(
+                  context,
+                );
+              },
+              child: const Icon(Icons.send)),
+        ),
+        style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
+      ),
+      ListView.builder(
+          itemCount: comments.length,
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            var comment = comments[index];
+
+            return CommentComponent(
+                index: index,
+                id: comment.id,
+                userId: comment.userId,
+                login: comment.login,
+                name: comment.name,
+                surname: comment.surname,
+                date: comment.creationTimestamp,
+                content: comment.content,
+                likes: comment.likes,
+                liked: comment.liked,
+                onLikeTap: onLikeTap);
+          })
+    ]);
   }
 }

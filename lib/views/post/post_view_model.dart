@@ -20,6 +20,12 @@ class PostViewModel extends ChangeNotifier {
   Post? post;
   List<Comment> comments = [];
   String error = "";
+  final commentFieldText = TextEditingController();
+  String comment = "";
+
+  void onCommentTextChanged(String value) {
+    comment = value;
+  }
 
   Future<void> getUser() async {
     try {
@@ -84,6 +90,22 @@ class PostViewModel extends ChangeNotifier {
         post!.likes++;
       }
       post!.liked = !post!.liked;
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> sendComment() async {
+    try {
+      await _commentService.add(postId, comment);
+      comment = "";
+      commentFieldText.clear();
+      post!.comments++;
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {

@@ -10,6 +10,10 @@ class CommentService {
     return await _commentApiClient.get(id);
   }
 
+  Future<bool> add(int postId, String content) async {
+    return await _commentApiClient.add(postId, content);
+  }
+
   Future<bool> like(int id) async {
     return await _commentApiClient.like(id);
   }
