@@ -91,8 +91,8 @@ class NetworkClient {
       headersParameters?.forEach((key, value) {
         request.headers.add(key, value);
       });
-      request.headers
-          .add("Authorization", "bearer ${(await _sessionDataProvider.getToken())!}");
+      request.headers.add("Authorization",
+          "bearer ${(await _sessionDataProvider.getToken())!}");
       request.write(jsonEncode(bodyParameters));
       final response = await request.close();
       final dynamic json = (await response.jsonDecode());

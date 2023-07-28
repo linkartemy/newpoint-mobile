@@ -1,5 +1,5 @@
-import 'package:newpoint/domain/factories/screen_factory.dart';
 import 'package:flutter/material.dart';
+import 'package:newpoint/domain/factories/screen_factory.dart';
 
 abstract class MainNavigationRouteNames {
   static const loader = '/';
@@ -22,6 +22,7 @@ class MainNavigation {
     MainNavigationRouteNames.login: (_) => _screenFactory.makeLogin(),
     MainNavigationRouteNames.main: (_) => _screenFactory.makeMain(),
   };
+
   Route<Object> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case MainNavigationRouteNames.post:
@@ -39,7 +40,7 @@ class MainNavigation {
   static void resetNavigation(BuildContext context) {
     Navigator.of(context).pushNamedAndRemoveUntil(
       MainNavigationRouteNames.loader,
-          (route) => false,
+      (route) => false,
     );
   }
 }

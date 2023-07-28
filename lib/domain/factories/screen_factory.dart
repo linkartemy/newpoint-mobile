@@ -1,13 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:newpoint/views/auth/auth_view.dart';
 import 'package:newpoint/views/auth/auth_view_model.dart';
 import 'package:newpoint/views/auth/login_view.dart';
 import 'package:newpoint/views/auth/login_view_model.dart';
 import 'package:newpoint/views/auth/register_view.dart';
 import 'package:newpoint/views/auth/register_view_model.dart';
-import 'package:newpoint/views/loader/loader_view_model.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
+import 'package:newpoint/views/loader/loader_view_model.dart';
 import 'package:newpoint/views/main/main_view.dart';
-import 'package:flutter/material.dart';
 import 'package:newpoint/views/post/post_view.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
 import 'package:provider/provider.dart';

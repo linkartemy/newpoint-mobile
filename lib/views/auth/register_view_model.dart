@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:flutter/material.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   final _authService = AuthService();
@@ -14,18 +14,23 @@ class RegisterViewModel extends ChangeNotifier {
   final phoneTextController = TextEditingController();
 
   String? _errorMessage;
+
   String? get errorMessage => _errorMessage;
 
   bool _isAuthProgress = false;
+
   bool get canStartAuth => !_isAuthProgress;
+
   bool get isAuthProgress => _isAuthProgress;
 
   bool _isValid(String login, String password) =>
       login.isNotEmpty && password.isNotEmpty;
 
-  Future<String?> _register(String login, String password, String name, String surname, String email, String phone, DateTime birthDate) async {
+  Future<String?> _register(String login, String password, String name,
+      String surname, String email, String phone, DateTime birthDate) async {
     try {
-      await _authService.register(login, password, name, surname, email, phone, birthDate);
+      await _authService.register(
+          login, password, name, surname, email, phone, birthDate);
     } on ApiClientException catch (e) {
       switch (e.type) {
         case ApiClientExceptionType.network:
@@ -64,7 +69,8 @@ class RegisterViewModel extends ChangeNotifier {
     }
     _updateState(null, true);
 
-    _errorMessage = await _register(login, password, name, surname, email, '', DateTime.now());
+    _errorMessage = await _register(
+        login, password, name, surname, email, '', DateTime.now());
     if (_errorMessage == null) {
       MainNavigation.resetNavigation(context);
     } else {

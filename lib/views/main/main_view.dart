@@ -17,6 +17,7 @@ class MainViewState extends State<MainView> {
   int _selectedTab = 0;
   bool _isLoadingPosts = false;
   var _user;
+
   void onSelectTab(int index) {
     if (_selectedTab == index) return;
     setState(() {
@@ -91,6 +92,7 @@ class MainViewState extends State<MainView> {
 class _PostsView extends StatefulWidget {
   const _PostsView({Key? key, required this.isLoading}) : super(key: key);
   final bool isLoading;
+
   @override
   _PostsState createState() => _PostsState();
 }
@@ -108,11 +110,20 @@ class _PostsState extends State<_PostsView> {
     if (model.postsLoadingError.isNotEmpty) {
       return RefreshIndicator(
           onRefresh: onRefresh,
-          child: Container(
+          notificationPredicate: (ScrollNotification notification) {
+            return notification.depth == 0;
+          },
+          child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Text(model.postsLoadingError,
-                  style:
-                      AdaptiveTheme.of(context).theme.textTheme.bodyMedium)));
+              child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: Text(model.postsLoadingError,
+                      style: AdaptiveTheme.of(context)
+                          .theme
+                          .textTheme
+                          .bodyMedium))));
     } else {
       var posts = model.posts;
       return (widget.isLoading

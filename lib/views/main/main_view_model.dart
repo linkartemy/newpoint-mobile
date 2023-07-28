@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/models/post.dart';
-import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 

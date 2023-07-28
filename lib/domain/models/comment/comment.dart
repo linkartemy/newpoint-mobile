@@ -1,40 +1,37 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:newpoint/domain/models/post_date_parser.dart';
 
-part 'post.g.dart';
+part 'comment.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class Post {
+class Comment {
   final int id;
-  final int authorId;
+  final int postId;
+  final int userId;
   final String login;
   final String name;
   final String surname;
   final String content;
-  final String? images;
   int likes;
-  int shares;
-  int comments;
   bool liked;
   @JsonKey(fromJson: parsePostDateFromString)
   final DateTime creationTimestamp;
 
-  Post({
+  Comment({
     required this.id,
-    required this.authorId,
+    required this.postId,
+    required this.userId,
     required this.login,
     required this.name,
     required this.surname,
     required this.content,
-    required this.images,
     required this.likes,
-    required this.shares,
-    required this.comments,
     required this.liked,
     required this.creationTimestamp,
   });
 
-  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
+  factory Comment.fromJson(Map<String, dynamic> json) =>
+      _$CommentFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PostToJson(this);
+  Map<String, dynamic> toJson() => _$CommentToJson(this);
 }
