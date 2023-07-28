@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:newpoint/domain/api_clients/network_client.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
 

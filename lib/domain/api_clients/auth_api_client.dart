@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:newpoint/configuration/configuration.dart';
 import 'package:newpoint/domain/api_clients/network_client.dart';
 import 'package:newpoint/domain/models/user/user.dart';

@@ -1,10 +1,9 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flutter/material.dart';
 import 'package:newpoint/components/button.dart';
 import 'package:newpoint/components/input.dart';
-import 'package:newpoint/views/auth/login_view_model.dart';
 import 'package:newpoint/resources/resources.dart';
-import 'package:newpoint/views/theme/app_button_style.dart';
-import 'package:flutter/material.dart';
+import 'package:newpoint/views/auth/login_view_model.dart';
 import 'package:provider/provider.dart';
 
 class LoginView extends StatelessWidget {
@@ -23,7 +22,10 @@ class LoginView extends StatelessWidget {
               },
               icon: const Icon(Icons.arrow_back_ios_new_rounded)),
           centerTitle: true,
-          title: Image.asset(AppImages.logoTitleOutline, width: 50,),
+          title: Image.asset(
+            AppImages.logoTitleOutline,
+            width: 50,
+          ),
         ),
         body: OverflowBox(
             maxHeight: double.infinity,

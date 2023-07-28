@@ -13,21 +13,22 @@ Post _$PostFromJson(Map<String, dynamic> json) {
     shares: json['shares'] as int,
     comments: json['comments'] as int,
     liked: json['liked'] as bool,
-    creationTimestamp: parsePostDateFromString(json['creation_timestamp'] as String?)!,
+    creationTimestamp:
+        parsePostDateFromString(json['creation_timestamp'] as String?)!,
   );
 }
 
 Map<String, dynamic> _$PostToJson(Post post) => <String, dynamic>{
-  'id': post.id,
-  'author_id': post.authorId,
-  'login': post.login,
-  'name': post.name,
-  'surname': post.surname,
-  'content': post.content,
-  'images': post.images,
-  'likes': post.likes,
-  'shares': post.shares,
-  'comments': post.comments,
-  'liked': post.liked,
-  'creation_timestamp': post.creationTimestamp.toIso8601String(),
-};
+      'id': post.id,
+      'author_id': post.authorId,
+      'login': post.login,
+      'name': post.name,
+      'surname': post.surname,
+      'content': post.content,
+      'images': post.images,
+      'likes': post.likes,
+      'shares': post.shares,
+      'comments': post.comments,
+      'liked': post.liked,
+      'creation_timestamp': post.creationTimestamp.toIso8601String(),
+    };

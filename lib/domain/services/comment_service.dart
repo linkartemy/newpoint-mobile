@@ -1,6 +1,4 @@
 import 'package:newpoint/domain/api_clients/comment_api_client.dart';
-import 'package:newpoint/domain/api_clients/post_api_client.dart';
-import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
 
 class CommentService {

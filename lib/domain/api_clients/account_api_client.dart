@@ -1,4 +1,3 @@
-import 'package:newpoint/configuration/configuration.dart';
 import 'package:newpoint/domain/api_clients/network_client.dart';
 
 enum MediaType { movie, tv }
@@ -18,8 +17,8 @@ class AccountApiClient {
   final _networkClient = NetworkClient();
 
   Future<int> getAccountInfo(
-      String sessionId,
-      ) async {
+    String sessionId,
+  ) async {
     int parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
       final result = jsonMap['id'] as int;

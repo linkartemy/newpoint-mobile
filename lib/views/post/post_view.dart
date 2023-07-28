@@ -1,19 +1,14 @@
 import 'dart:async';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:newpoint/components/comment.dart';
-import 'package:newpoint/components/drawer.dart';
-import 'package:newpoint/components/post.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
-import 'package:newpoint/domain/models/post.dart';
 import 'package:newpoint/domain/models/post_date_parser.dart';
-import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
-import 'package:newpoint/views/theme/app_button_style.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 class PostView extends StatefulWidget {
@@ -254,6 +249,7 @@ class _Header extends StatelessWidget {
 class _Body extends StatelessWidget {
   const _Body({Key? key, required this.content}) : super(key: key);
   final String content;
+
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:json_annotation/json_annotation.dart';
 import 'package:newpoint/domain/models/post_date_parser.dart';
 

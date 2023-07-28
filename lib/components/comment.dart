@@ -151,6 +151,7 @@ class _Body extends StatelessWidget {
   final int likes;
   final bool liked;
   final onLikeTap;
+
   @override
   Widget build(BuildContext context) {
     return Row(

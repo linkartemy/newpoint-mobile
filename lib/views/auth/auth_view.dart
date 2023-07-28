@@ -1,16 +1,9 @@
-import 'dart:async';
-
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:newpoint/components/button.dart';
 import 'package:newpoint/components/textButton.dart';
-import 'package:newpoint/domain/factories/screen_factory.dart';
 import 'package:newpoint/resources/resources.dart';
-import 'package:newpoint/views/auth/auth_view_model.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:newpoint/views/theme/app_button_style.dart';
-
-import '../theme/theme.dart';
 
 class AuthView extends StatelessWidget {
   const AuthView({Key? key}) : super(key: key);
@@ -33,7 +26,10 @@ class _LogoWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       margin: const EdgeInsets.only(top: 100),
-      child: Image.asset(AppImages.logoTitle, width: 200,),
+      child: Image.asset(
+        AppImages.logoTitle,
+        width: 200,
+      ),
     );
   }
 }

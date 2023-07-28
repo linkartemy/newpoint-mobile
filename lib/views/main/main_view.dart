@@ -17,6 +17,7 @@ class MainViewState extends State<MainView> {
   int _selectedTab = 0;
   bool _isLoadingPosts = false;
   var _user;
+
   void onSelectTab(int index) {
     if (_selectedTab == index) return;
     setState(() {
@@ -91,6 +92,7 @@ class MainViewState extends State<MainView> {
 class _PostsView extends StatefulWidget {
   const _PostsView({Key? key, required this.isLoading}) : super(key: key);
   final bool isLoading;
+
   @override
   _PostsState createState() => _PostsState();
 }

@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:flutter/material.dart';
 
 class AuthViewModel extends ChangeNotifier {
   final _authService = AuthService();
@@ -10,10 +10,13 @@ class AuthViewModel extends ChangeNotifier {
   final passwordTextController = TextEditingController();
 
   String? _errorMessage;
+
   String? get errorMessage => _errorMessage;
 
   bool _isAuthProgress = false;
+
   bool get canStartAuth => !_isAuthProgress;
+
   bool get isAuthProgress => _isAuthProgress;
 
   bool _isValid(String login, String password) =>

@@ -11,18 +11,19 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
     content: json['content'] as String,
     likes: json['likes'] as int,
     liked: json['liked'] as bool,
-    creationTimestamp: parsePostDateFromString(json['creation_timestamp'] as String?)!,
+    creationTimestamp:
+        parsePostDateFromString(json['creation_timestamp'] as String?)!,
   );
 }
 
 Map<String, dynamic> _$CommentToJson(Comment comment) => <String, dynamic>{
-  'id': comment.id,
-  'userId': comment.userId,
-  'postId': comment.postId,
-  'login': comment.login,
-  'name': comment.name,
-  'surname': comment.surname,
-  'content': comment.content,
-  'liked': comment.liked,
-  'creation_timestamp': comment.creationTimestamp.toIso8601String(),
-};
+      'id': comment.id,
+      'userId': comment.userId,
+      'postId': comment.postId,
+      'login': comment.login,
+      'name': comment.name,
+      'surname': comment.surname,
+      'content': comment.content,
+      'liked': comment.liked,
+      'creation_timestamp': comment.creationTimestamp.toIso8601String(),
+    };

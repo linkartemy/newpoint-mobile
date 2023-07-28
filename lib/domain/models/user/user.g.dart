@@ -13,11 +13,11 @@ User _$UserFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$UserToJson(User user) => <String, dynamic>{
-  'id': user.id,
-  'login': user.login,
-  'name': user.name,
-  'surname': user.surname,
-  'email': user.email,
-  'phone': user.phone,
-  'image': user.image,
-};
+      'id': user.id,
+      'login': user.login,
+      'name': user.name,
+      'surname': user.surname,
+      'email': user.email,
+      'phone': user.phone,
+      'image': user.image,
+    };

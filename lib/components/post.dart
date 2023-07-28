@@ -152,6 +152,7 @@ class _Header extends StatelessWidget {
 class _Body extends StatelessWidget {
   const _Body({Key? key, required this.content}) : super(key: key);
   final String content;
+
   @override
   Widget build(BuildContext context) {
     return Column(
