@@ -136,7 +136,7 @@ class PostViewState extends State<PostView> {
                         physics: const AlwaysScrollableScrollPhysics(),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 5, vertical: 5),
-                        child: Container(
+                        child: SizedBox(
                           height: MediaQuery.of(context).size.height,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
