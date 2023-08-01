@@ -1,5 +1,5 @@
 import 'package:newpoint/domain/api_clients/network_client.dart';
-import 'package:newpoint/domain/models/post.dart';
+import 'package:newpoint/domain/models/post/post.dart';
 
 class PostApiClient {
   static const String _apiUrl = "/post";

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:newpoint/protos.dart';
 
 part 'user.g.dart';
 
@@ -23,6 +24,7 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory User.fromModel(UserModel userModel) => _$UserFromModel(userModel);
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }

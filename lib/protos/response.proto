@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+option csharp_namespace = "NewPoint";
+
+package response;
+
+message Response {
+  int32 status = 1;
+  string error = 2;
+  google.protobuf.Any data = 3;
+}

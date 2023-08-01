@@ -18,6 +18,22 @@ Post _$PostFromJson(Map<String, dynamic> json) {
   );
 }
 
+Post _$PostFromModel(PostModel postModel) {
+  return Post(
+      id: postModel.id.toInt(),
+      authorId: postModel.authorId.toInt(),
+      login: postModel.login,
+      name: postModel.name,
+      surname: postModel.surname,
+      content: postModel.content,
+      images: postModel.images,
+      likes: postModel.likes,
+      shares: postModel.shares,
+      comments: postModel.comments,
+      liked: postModel.liked,
+      creationTimestamp: postModel.creationTimestamp.toDateTime());
+}
+
 Map<String, dynamic> _$PostToJson(Post post) => <String, dynamic>{
       'id': post.id,
       'author_id': post.authorId,
