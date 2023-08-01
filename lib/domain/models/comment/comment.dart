@@ -33,7 +33,8 @@ class Comment {
 
   factory Comment.fromJson(Map<String, dynamic> json) =>
       _$CommentFromJson(json);
-  factory Comment.fromModel(CommentModel commentModel) => _$CommentFromModel(commentModel);
+  factory Comment.fromModel(CommentModel commentModel) =>
+      _$CommentFromModel(commentModel);
 
   Map<String, dynamic> toJson() => _$CommentToJson(this);
 }

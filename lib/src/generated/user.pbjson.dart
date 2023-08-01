@@ -24,10 +24,31 @@ const UserModel$json = {
     {'1': 'image', '3': 5, '4': 1, '5': 9, '10': 'image'},
     {'1': 'email', '3': 6, '4': 1, '5': 9, '10': 'email'},
     {'1': 'phone', '3': 7, '4': 1, '5': 9, '10': 'phone'},
-    {'1': 'birth_date', '3': 8, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'birthDate'},
-    {'1': 'last_login_timestamp', '3': 9, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'lastLoginTimestamp'},
+    {
+      '1': 'birth_date',
+      '3': 8,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'birthDate'
+    },
+    {
+      '1': 'last_login_timestamp',
+      '3': 9,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'lastLoginTimestamp'
+    },
     {'1': 'ip', '3': 10, '4': 1, '5': 9, '10': 'ip'},
-    {'1': 'registration_timestamp', '3': 11, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'registrationTimestamp'},
+    {
+      '1': 'registration_timestamp',
+      '3': 11,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'registrationTimestamp'
+    },
   ],
 };
 
@@ -60,7 +81,14 @@ final $typed_data.Uint8List loginRequestDescriptor = $convert.base64Decode(
 const LoginResponse$json = {
   '1': 'LoginResponse',
   '2': [
-    {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.user.UserModel', '10': 'user'},
+    {
+      '1': 'user',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.user.UserModel',
+      '10': 'user'
+    },
   ],
 };
 
@@ -78,7 +106,14 @@ const RegisterRequest$json = {
     {'1': 'surname', '3': 5, '4': 1, '5': 9, '10': 'surname'},
     {'1': 'email', '3': 6, '4': 1, '5': 9, '10': 'email'},
     {'1': 'phone', '3': 7, '4': 1, '5': 9, '10': 'phone'},
-    {'1': 'birth_date', '3': 8, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'birthDate'},
+    {
+      '1': 'birth_date',
+      '3': 8,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'birthDate'
+    },
   ],
 };
 
@@ -93,7 +128,14 @@ final $typed_data.Uint8List registerRequestDescriptor = $convert.base64Decode(
 const RegisterResponse$json = {
   '1': 'RegisterResponse',
   '2': [
-    {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.user.UserModel', '10': 'user'},
+    {
+      '1': 'user',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.user.UserModel',
+      '10': 'user'
+    },
   ],
 };
 
@@ -108,19 +150,26 @@ const GetUserByTokenRequest$json = {
 };
 
 /// Descriptor for `GetUserByTokenRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getUserByTokenRequestDescriptor = $convert.base64Decode(
-    'ChVHZXRVc2VyQnlUb2tlblJlcXVlc3Q=');
+final $typed_data.Uint8List getUserByTokenRequestDescriptor =
+    $convert.base64Decode('ChVHZXRVc2VyQnlUb2tlblJlcXVlc3Q=');
 
 @$core.Deprecated('Use getUserByTokenResponseDescriptor instead')
 const GetUserByTokenResponse$json = {
   '1': 'GetUserByTokenResponse',
   '2': [
-    {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.user.UserModel', '10': 'user'},
+    {
+      '1': 'user',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.user.UserModel',
+      '10': 'user'
+    },
   ],
 };
 
 /// Descriptor for `GetUserByTokenResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getUserByTokenResponseDescriptor = $convert.base64Decode(
-    'ChZHZXRVc2VyQnlUb2tlblJlc3BvbnNlEiMKBHVzZXIYASABKAsyDy51c2VyLlVzZXJNb2RlbF'
-    'IEdXNlcg==');
-
+final $typed_data.Uint8List getUserByTokenResponseDescriptor =
+    $convert.base64Decode(
+        'ChZHZXRVc2VyQnlUb2tlblJlc3BvbnNlEiMKBHVzZXIYASABKAsyDy51c2VyLlVzZXJNb2RlbF'
+        'IEdXNlcg==');

@@ -9,7 +9,8 @@ import 'package:newpoint/src/generated/user.pbgrpc.dart';
 
 class CommentService {
   final _networkClient = NetworkClient();
-  late final _commentServiceClient = GrpcCommentClient(_networkClient.clientChannel);
+  late final _commentServiceClient =
+      GrpcCommentClient(_networkClient.clientChannel);
   final _sessionDataProvider = SessionDataProvider();
 
   Future<List<Comment>> getCommentsByPostId(int id) async {
@@ -21,8 +22,9 @@ class CommentService {
       throw ApiClientException(ApiClientExceptionType.other);
     }
     var getCommentsByPostIdResponse = GetCommentsByPostIdResponse();
-    final commentModels =
-        response.data.unpackInto<GetCommentsByPostIdResponse>(getCommentsByPostIdResponse).comments;
+    final commentModels = response.data
+        .unpackInto<GetCommentsByPostIdResponse>(getCommentsByPostIdResponse)
+        .comments;
     List<Comment> comments = [];
     for (final commentModel in commentModels) {
       final comment = Comment.fromModel(commentModel);
@@ -55,7 +57,9 @@ class CommentService {
       throw ApiClientException(ApiClientExceptionType.other);
     }
     final likeCommentResponse = LikeCommentResponse();
-    return response.data.unpackInto<LikeCommentResponse>(likeCommentResponse).liked;
+    return response.data
+        .unpackInto<LikeCommentResponse>(likeCommentResponse)
+        .liked;
   }
 
   Future<bool> unLikeComment(int id) async {
@@ -67,6 +71,8 @@ class CommentService {
       throw ApiClientException(ApiClientExceptionType.other);
     }
     final unLikeCommentResponse = UnLikeCommentResponse();
-    return response.data.unpackInto<UnLikeCommentResponse>(unLikeCommentResponse).liked;
+    return response.data
+        .unpackInto<UnLikeCommentResponse>(unLikeCommentResponse)
+        .liked;
   }
 }
