@@ -28,7 +28,14 @@ const PostModel$json = {
     {'1': 'shares', '3': 9, '4': 1, '5': 5, '10': 'shares'},
     {'1': 'comments', '3': 10, '4': 1, '5': 5, '10': 'comments'},
     {'1': 'liked', '3': 11, '4': 1, '5': 8, '10': 'liked'},
-    {'1': 'creation_timestamp', '3': 12, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'creationTimestamp'},
+    {
+      '1': 'creation_timestamp',
+      '3': 12,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'creationTimestamp'
+    },
   ],
 };
 
@@ -48,14 +55,21 @@ const GetPostsRequest$json = {
 };
 
 /// Descriptor for `GetPostsRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getPostsRequestDescriptor = $convert.base64Decode(
-    'Cg9HZXRQb3N0c1JlcXVlc3Q=');
+final $typed_data.Uint8List getPostsRequestDescriptor =
+    $convert.base64Decode('Cg9HZXRQb3N0c1JlcXVlc3Q=');
 
 @$core.Deprecated('Use getPostsResponseDescriptor instead')
 const GetPostsResponse$json = {
   '1': 'GetPostsResponse',
   '2': [
-    {'1': 'posts', '3': 1, '4': 3, '5': 11, '6': '.post.PostModel', '10': 'posts'},
+    {
+      '1': 'posts',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.post.PostModel',
+      '10': 'posts'
+    },
   ],
 };
 
@@ -73,14 +87,21 @@ const GetPostByIdRequest$json = {
 };
 
 /// Descriptor for `GetPostByIdRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getPostByIdRequestDescriptor = $convert.base64Decode(
-    'ChJHZXRQb3N0QnlJZFJlcXVlc3QSDgoCaWQYASABKANSAmlk');
+final $typed_data.Uint8List getPostByIdRequestDescriptor =
+    $convert.base64Decode('ChJHZXRQb3N0QnlJZFJlcXVlc3QSDgoCaWQYASABKANSAmlk');
 
 @$core.Deprecated('Use getPostByIdResponseDescriptor instead')
 const GetPostByIdResponse$json = {
   '1': 'GetPostByIdResponse',
   '2': [
-    {'1': 'post', '3': 1, '4': 1, '5': 11, '6': '.post.PostModel', '10': 'post'},
+    {
+      '1': 'post',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.post.PostModel',
+      '10': 'post'
+    },
   ],
 };
 
@@ -98,8 +119,8 @@ const LikePostRequest$json = {
 };
 
 /// Descriptor for `LikePostRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List likePostRequestDescriptor = $convert.base64Decode(
-    'Cg9MaWtlUG9zdFJlcXVlc3QSFwoHcG9zdF9pZBgBIAEoA1IGcG9zdElk');
+final $typed_data.Uint8List likePostRequestDescriptor = $convert
+    .base64Decode('Cg9MaWtlUG9zdFJlcXVlc3QSFwoHcG9zdF9pZBgBIAEoA1IGcG9zdElk');
 
 @$core.Deprecated('Use likePostResponseDescriptor instead')
 const LikePostResponse$json = {
@@ -110,8 +131,8 @@ const LikePostResponse$json = {
 };
 
 /// Descriptor for `LikePostResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List likePostResponseDescriptor = $convert.base64Decode(
-    'ChBMaWtlUG9zdFJlc3BvbnNlEhQKBWxpa2VkGAEgASgIUgVsaWtlZA==');
+final $typed_data.Uint8List likePostResponseDescriptor = $convert
+    .base64Decode('ChBMaWtlUG9zdFJlc3BvbnNlEhQKBWxpa2VkGAEgASgIUgVsaWtlZA==');
 
 @$core.Deprecated('Use unLikePostRequestDescriptor instead')
 const UnLikePostRequest$json = {
@@ -134,8 +155,8 @@ const UnLikePostResponse$json = {
 };
 
 /// Descriptor for `UnLikePostResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List unLikePostResponseDescriptor = $convert.base64Decode(
-    'ChJVbkxpa2VQb3N0UmVzcG9uc2USFAoFbGlrZWQYASABKAhSBWxpa2Vk');
+final $typed_data.Uint8List unLikePostResponseDescriptor = $convert
+    .base64Decode('ChJVbkxpa2VQb3N0UmVzcG9uc2USFAoFbGlrZWQYASABKAhSBWxpa2Vk');
 
 @$core.Deprecated('Use sharePostRequestDescriptor instead')
 const SharePostRequest$json = {
@@ -160,4 +181,3 @@ const SharePostResponse$json = {
 /// Descriptor for `SharePostResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List sharePostResponseDescriptor = $convert.base64Decode(
     'ChFTaGFyZVBvc3RSZXNwb25zZRIWCgZzaGFyZWQYASABKAhSBnNoYXJlZA==');
-

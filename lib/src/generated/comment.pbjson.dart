@@ -26,7 +26,14 @@ const CommentModel$json = {
     {'1': 'content', '3': 7, '4': 1, '5': 9, '10': 'content'},
     {'1': 'likes', '3': 8, '4': 1, '5': 5, '10': 'likes'},
     {'1': 'liked', '3': 9, '4': 1, '5': 8, '10': 'liked'},
-    {'1': 'creation_timestamp', '3': 10, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'creationTimestamp'},
+    {
+      '1': 'creation_timestamp',
+      '3': 10,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'creationTimestamp'
+    },
   ],
 };
 
@@ -48,21 +55,30 @@ const GetCommentsByPostIdRequest$json = {
 };
 
 /// Descriptor for `GetCommentsByPostIdRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getCommentsByPostIdRequestDescriptor = $convert.base64Decode(
-    'ChpHZXRDb21tZW50c0J5UG9zdElkUmVxdWVzdBIXCgdwb3N0X2lkGAEgASgDUgZwb3N0SWQ=');
+final $typed_data.Uint8List getCommentsByPostIdRequestDescriptor =
+    $convert.base64Decode(
+        'ChpHZXRDb21tZW50c0J5UG9zdElkUmVxdWVzdBIXCgdwb3N0X2lkGAEgASgDUgZwb3N0SWQ=');
 
 @$core.Deprecated('Use getCommentsByPostIdResponseDescriptor instead')
 const GetCommentsByPostIdResponse$json = {
   '1': 'GetCommentsByPostIdResponse',
   '2': [
-    {'1': 'comments', '3': 1, '4': 3, '5': 11, '6': '.comment.CommentModel', '10': 'comments'},
+    {
+      '1': 'comments',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.comment.CommentModel',
+      '10': 'comments'
+    },
   ],
 };
 
 /// Descriptor for `GetCommentsByPostIdResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getCommentsByPostIdResponseDescriptor = $convert.base64Decode(
-    'ChtHZXRDb21tZW50c0J5UG9zdElkUmVzcG9uc2USMQoIY29tbWVudHMYASADKAsyFS5jb21tZW'
-    '50LkNvbW1lbnRNb2RlbFIIY29tbWVudHM=');
+final $typed_data.Uint8List getCommentsByPostIdResponseDescriptor =
+    $convert.base64Decode(
+        'ChtHZXRDb21tZW50c0J5UG9zdElkUmVzcG9uc2USMQoIY29tbWVudHMYASADKAsyFS5jb21tZW'
+        '50LkNvbW1lbnRNb2RlbFIIY29tbWVudHM=');
 
 @$core.Deprecated('Use addCommentRequestDescriptor instead')
 const AddCommentRequest$json = {
@@ -87,8 +103,8 @@ const AddCommentResponse$json = {
 };
 
 /// Descriptor for `AddCommentResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addCommentResponseDescriptor = $convert.base64Decode(
-    'ChJBZGRDb21tZW50UmVzcG9uc2USFAoFYWRkZWQYASABKAhSBWFkZGVk');
+final $typed_data.Uint8List addCommentResponseDescriptor = $convert
+    .base64Decode('ChJBZGRDb21tZW50UmVzcG9uc2USFAoFYWRkZWQYASABKAhSBWFkZGVk');
 
 @$core.Deprecated('Use likeCommentRequestDescriptor instead')
 const LikeCommentRequest$json = {
@@ -99,8 +115,9 @@ const LikeCommentRequest$json = {
 };
 
 /// Descriptor for `LikeCommentRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List likeCommentRequestDescriptor = $convert.base64Decode(
-    'ChJMaWtlQ29tbWVudFJlcXVlc3QSHQoKY29tbWVudF9pZBgBIAEoA1IJY29tbWVudElk');
+final $typed_data.Uint8List likeCommentRequestDescriptor =
+    $convert.base64Decode(
+        'ChJMaWtlQ29tbWVudFJlcXVlc3QSHQoKY29tbWVudF9pZBgBIAEoA1IJY29tbWVudElk');
 
 @$core.Deprecated('Use likeCommentResponseDescriptor instead')
 const LikeCommentResponse$json = {
@@ -111,8 +128,9 @@ const LikeCommentResponse$json = {
 };
 
 /// Descriptor for `LikeCommentResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List likeCommentResponseDescriptor = $convert.base64Decode(
-    'ChNMaWtlQ29tbWVudFJlc3BvbnNlEhQKBWxpa2VkGAEgASgIUgVsaWtlZA==');
+final $typed_data.Uint8List likeCommentResponseDescriptor =
+    $convert.base64Decode(
+        'ChNMaWtlQ29tbWVudFJlc3BvbnNlEhQKBWxpa2VkGAEgASgIUgVsaWtlZA==');
 
 @$core.Deprecated('Use unLikeCommentRequestDescriptor instead')
 const UnLikeCommentRequest$json = {
@@ -135,6 +153,6 @@ const UnLikeCommentResponse$json = {
 };
 
 /// Descriptor for `UnLikeCommentResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List unLikeCommentResponseDescriptor = $convert.base64Decode(
-    'ChVVbkxpa2VDb21tZW50UmVzcG9uc2USFAoFbGlrZWQYASABKAhSBWxpa2Vk');
-
+final $typed_data.Uint8List unLikeCommentResponseDescriptor =
+    $convert.base64Decode(
+        'ChVVbkxpa2VDb21tZW50UmVzcG9uc2USFAoFbGlrZWQYASABKAhSBWxpa2Vk');

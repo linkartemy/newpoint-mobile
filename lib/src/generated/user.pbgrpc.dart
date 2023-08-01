@@ -30,26 +30,30 @@ class GrpcUserClient extends $grpc.Client {
       '/user.GrpcUser/Register',
       ($3.RegisterRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
-  static final _$getUserByToken = $grpc.ClientMethod<$3.GetUserByTokenRequest, $1.Response>(
-      '/user.GrpcUser/GetUserByToken',
-      ($3.GetUserByTokenRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$getUserByToken =
+      $grpc.ClientMethod<$3.GetUserByTokenRequest, $1.Response>(
+          '/user.GrpcUser/GetUserByToken',
+          ($3.GetUserByTokenRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
 
   GrpcUserClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
       $core.Iterable<$grpc.ClientInterceptor>? interceptors})
-      : super(channel, options: options,
-        interceptors: interceptors);
+      : super(channel, options: options, interceptors: interceptors);
 
-  $grpc.ResponseFuture<$1.Response> login($3.LoginRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.Response> login($3.LoginRequest request,
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$login, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Response> register($3.RegisterRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.Response> register($3.RegisterRequest request,
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$register, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Response> getUserByToken($3.GetUserByTokenRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.Response> getUserByToken(
+      $3.GetUserByTokenRequest request,
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getUserByToken, request, options: options);
   }
 }
@@ -78,23 +82,30 @@ abstract class GrpcUserServiceBase extends $grpc.Service {
         getUserByToken_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $3.GetUserByTokenRequest.fromBuffer(value),
+        ($core.List<$core.int> value) =>
+            $3.GetUserByTokenRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
   }
 
-  $async.Future<$1.Response> login_Pre($grpc.ServiceCall call, $async.Future<$3.LoginRequest> request) async {
+  $async.Future<$1.Response> login_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.LoginRequest> request) async {
     return login(call, await request);
   }
 
-  $async.Future<$1.Response> register_Pre($grpc.ServiceCall call, $async.Future<$3.RegisterRequest> request) async {
+  $async.Future<$1.Response> register_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.RegisterRequest> request) async {
     return register(call, await request);
   }
 
-  $async.Future<$1.Response> getUserByToken_Pre($grpc.ServiceCall call, $async.Future<$3.GetUserByTokenRequest> request) async {
+  $async.Future<$1.Response> getUserByToken_Pre($grpc.ServiceCall call,
+      $async.Future<$3.GetUserByTokenRequest> request) async {
     return getUserByToken(call, await request);
   }
 
-  $async.Future<$1.Response> login($grpc.ServiceCall call, $3.LoginRequest request);
-  $async.Future<$1.Response> register($grpc.ServiceCall call, $3.RegisterRequest request);
-  $async.Future<$1.Response> getUserByToken($grpc.ServiceCall call, $3.GetUserByTokenRequest request);
+  $async.Future<$1.Response> login(
+      $grpc.ServiceCall call, $3.LoginRequest request);
+  $async.Future<$1.Response> register(
+      $grpc.ServiceCall call, $3.RegisterRequest request);
+  $async.Future<$1.Response> getUserByToken(
+      $grpc.ServiceCall call, $3.GetUserByTokenRequest request);
 }
