@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:newpoint/domain/models/post_date_parser.dart';
+import 'package:newpoint/domain/models/date_parser.dart';
+import 'package:newpoint/protos.dart';
 
 part 'comment.g.dart';
 
@@ -32,6 +33,7 @@ class Comment {
 
   factory Comment.fromJson(Map<String, dynamic> json) =>
       _$CommentFromJson(json);
+  factory Comment.fromModel(CommentModel commentModel) => _$CommentFromModel(commentModel);
 
   Map<String, dynamic> toJson() => _$CommentToJson(this);
 }

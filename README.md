@@ -1,0 +1,1 @@
+protoc --dart_out=grpc:lib/src/generated -Ilib/protos lib/protos/* google/protobuf/any.proto

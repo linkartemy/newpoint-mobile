@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
+import 'package:newpoint/domain/services/user_service.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  final _authService = AuthService();
+  final _userService = UserService();
 
   final loginTextController = TextEditingController();
   final passwordTextController = TextEditingController();
 
   String? _errorMessage;
-
   String? get errorMessage => _errorMessage;
-
   bool _isAuthProgress = false;
-
   bool get canStartAuth => !_isAuthProgress;
-
   bool get isAuthProgress => _isAuthProgress;
 
   Future<String?> _login(String login, String password) async {
     try {
-      await _authService.login(login, password);
+      await _userService.login(login, password);
     } on ApiClientException catch (e) {
       switch (e.type) {
         case ApiClientExceptionType.network:

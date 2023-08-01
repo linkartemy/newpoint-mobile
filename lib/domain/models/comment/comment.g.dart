@@ -16,6 +16,20 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
   );
 }
 
+Comment _$CommentFromModel(CommentModel commentModel) {
+  return Comment(
+      id: commentModel.id.toInt(),
+      postId: commentModel.postId.toInt(),
+      userId: commentModel.userId.toInt(),
+      login: commentModel.login,
+      name: commentModel.name,
+      surname: commentModel.surname,
+      content: commentModel.content,
+      likes: commentModel.likes,
+      liked: commentModel.liked,
+      creationTimestamp: commentModel.creationTimestamp.toDateTime());
+}
+
 Map<String, dynamic> _$CommentToJson(Comment comment) => <String, dynamic>{
       'id': comment.id,
       'userId': comment.userId,

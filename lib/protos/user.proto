@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+import "response.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "NewPoint";
+
+package user;
+
+// The greeting service definition.
+service GrpcUser {
+  // Sends a greeting
+  rpc Login (LoginRequest) returns (response.Response);
+  rpc Register (RegisterRequest) returns (response.Response);
+  rpc GetUserByToken (GetUserByTokenRequest) returns (response.Response);
+}
+
+message UserModel {
+  int64 id = 1;
+  string login = 2;
+  string name = 3;
+  string surname = 4;
+  string image = 5;
+  string email = 6;
+  string phone = 7;
+  google.protobuf.Timestamp birth_date = 8;
+  google.protobuf.Timestamp last_login_timestamp = 9;
+  string ip = 10;
+  google.protobuf.Timestamp registration_timestamp = 11;
+}
+
+message LoginRequest {
+  string login = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  UserModel user = 1;
+}
+
+message RegisterRequest {
+  string login = 2;
+  string password = 3;
+  string name = 4;
+  string surname = 5;
+  string email = 6;
+  string phone = 7;
+  google.protobuf.Timestamp birth_date = 8;
+}
+
+message RegisterResponse {
+  UserModel user = 1;
+}
+
+message GetUserByTokenRequest {}
+
+message GetUserByTokenResponse {
+  UserModel user = 1;
+}

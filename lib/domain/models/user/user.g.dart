@@ -12,6 +12,17 @@ User _$UserFromJson(Map<String, dynamic> json) {
   );
 }
 
+User _$UserFromModel(UserModel userModel) {
+  return User(
+      id: userModel.id.toInt(),
+      login: userModel.login,
+      name: userModel.name,
+      surname: userModel.surname,
+      email: userModel.email,
+      phone: userModel.phone,
+      image: userModel.image);
+}
+
 Map<String, dynamic> _$UserToJson(User user) => <String, dynamic>{
       'id': user.id,
       'login': user.login,

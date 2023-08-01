@@ -1,22 +1,72 @@
-import 'package:newpoint/domain/api_clients/comment_api_client.dart';
+import 'package:fixnum/src/int64.dart';
+import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
+import 'package:newpoint/domain/data_providers/session_data_provider.dart';
+import 'package:newpoint/domain/grpc_clients/network_client.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
+import 'package:newpoint/domain/models/post/post.dart';
+import 'package:newpoint/protos.dart';
+import 'package:newpoint/src/generated/user.pbgrpc.dart';
 
 class CommentService {
-  final _commentApiClient = CommentApiClient();
+  final _networkClient = NetworkClient();
+  late final _commentServiceClient = GrpcCommentClient(_networkClient.clientChannel);
+  final _sessionDataProvider = SessionDataProvider();
 
-  Future<List<Comment>> get(int id) async {
-    return await _commentApiClient.get(id);
+  Future<List<Comment>> getCommentsByPostId(int id) async {
+    final request = GetCommentsByPostIdRequest();
+    request.postId = Int64.parseInt(id.toString());
+    var response = await _commentServiceClient.getCommentsByPostId(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var getCommentsByPostIdResponse = GetCommentsByPostIdResponse();
+    final commentModels =
+        response.data.unpackInto<GetCommentsByPostIdResponse>(getCommentsByPostIdResponse).comments;
+    List<Comment> comments = [];
+    for (final commentModel in commentModels) {
+      final comment = Comment.fromModel(commentModel);
+      comments.add(comment);
+    }
+    return comments;
   }
 
-  Future<bool> add(int postId, String content) async {
-    return await _commentApiClient.add(postId, content);
+  Future<bool> addComment(int id, String content) async {
+    final request = AddCommentRequest();
+    request.postId = Int64.parseInt(id.toString());
+    request.content = content;
+    final response = await _commentServiceClient.addComment(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var addCommentResponse = AddCommentResponse();
+    return response.data
+        .unpackInto<AddCommentResponse>(addCommentResponse)
+        .added;
   }
 
-  Future<bool> like(int id) async {
-    return await _commentApiClient.like(id);
+  Future<bool> likeComment(int id) async {
+    final request = LikeCommentRequest();
+    request.commentId = Int64.parseInt(id.toString());
+    final response = await _commentServiceClient.likeComment(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    final likeCommentResponse = LikeCommentResponse();
+    return response.data.unpackInto<LikeCommentResponse>(likeCommentResponse).liked;
   }
 
-  Future<bool> unlike(int id) async {
-    return await _commentApiClient.unlike(id);
+  Future<bool> unLikeComment(int id) async {
+    final request = UnLikeCommentRequest();
+    request.commentId = Int64.parseInt(id.toString());
+    final response = await _commentServiceClient.unLikeComment(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    final unLikeCommentResponse = UnLikeCommentResponse();
+    return response.data.unpackInto<UnLikeCommentResponse>(unLikeCommentResponse).liked;
   }
 }

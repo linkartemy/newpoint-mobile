@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:newpoint/domain/models/post_date_parser.dart';
+import 'package:newpoint/domain/models/date_parser.dart';
+import 'package:newpoint/protos.dart';
 
 part 'post.g.dart';
 
@@ -35,6 +36,7 @@ class Post {
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
+  factory Post.fromModel(PostModel postModel) => _$PostFromModel(postModel);
 
   Map<String, dynamic> toJson() => _$PostToJson(this);
 }

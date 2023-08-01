@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
-import 'package:newpoint/domain/models/post.dart';
+import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/domain/services/comment_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
+import 'package:newpoint/domain/services/user_service.dart';
 
 class PostViewModel extends ChangeNotifier {
   PostViewModel(this.postId);
 
-  final _authService = AuthService();
+  final _userService = UserService();
   final _postService = PostService();
   final _commentService = CommentService();
 
@@ -28,7 +29,7 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> getUser() async {
     try {
-      user = await _authService.getUser();
+      user = await _userService.getUser();
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -41,7 +42,7 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> getPost() async {
     try {
-      post = await _postService.getPost(postId);
+      post = await _postService.getPostById(postId);
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -54,7 +55,7 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> getComments() async {
     try {
-      comments = await _commentService.get(postId);
+      comments = await _commentService.getCommentsByPostId(postId);
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -67,7 +68,7 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> share() async {
     try {
-      _postService.share(postId);
+      _postService.sharePost(postId);
       post!.shares++;
       notifyListeners();
     } on ApiClientException catch (e) {
@@ -82,10 +83,10 @@ class PostViewModel extends ChangeNotifier {
   Future<void> like() async {
     try {
       if (post!.liked) {
-        _postService.unlike(postId);
+        _postService.unLikePost(postId);
         post!.likes--;
       } else {
-        _postService.like(postId);
+        _postService.likePost(postId);
         post!.likes++;
       }
       post!.liked = !post!.liked;
@@ -101,7 +102,7 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> sendComment() async {
     try {
-      await _commentService.add(postId, comment);
+      await _commentService.addComment(postId, comment);
       comment = "";
       commentFieldText.clear();
       post!.comments++;
@@ -119,10 +120,10 @@ class PostViewModel extends ChangeNotifier {
     try {
       final comment = comments[index];
       if (comment.liked) {
-        _commentService.unlike(comment.id);
+        _commentService.unLikeComment(comment.id);
         comment.likes--;
       } else {
-        _commentService.like(comment.id);
+        _commentService.likeComment(comment.id);
         comment.likes++;
       }
       comment.liked = !comment.liked;

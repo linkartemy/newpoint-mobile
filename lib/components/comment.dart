@@ -1,7 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:newpoint/domain/models/post_date_parser.dart';
+import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 
 class CommentComponent extends StatelessWidget {
