@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DrawerComponent extends StatelessWidget {
   DrawerComponent({Key? key, required this.user}) : super(key: key);
@@ -35,7 +36,17 @@ class DrawerComponent extends StatelessWidget {
                                     .titleMedium)
                           ])),
                   ListTile(
-                    title: Text('Main',
+                    title: Text(AppLocalizations.of(context)!.main,
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleMedium),
+                    onTap: () {
+                      Navigator.of(context).popAndPushNamed(MainNavigationRouteNames.main);
+                    },
+                  ),
+                  ListTile(
+                    title: Text(AppLocalizations.of(context)!.profile,
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme
@@ -43,15 +54,7 @@ class DrawerComponent extends StatelessWidget {
                     onTap: () {},
                   ),
                   ListTile(
-                    title: Text('Profile',
-                        style: AdaptiveTheme.of(context)
-                            .theme
-                            .textTheme
-                            .titleMedium),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    title: Text('Bookmarks',
+                    title: Text(AppLocalizations.of(context)!.bookMarks,
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme
@@ -68,7 +71,7 @@ class DrawerComponent extends StatelessWidget {
                   ListTile(
                       leading: Icon(Icons.settings),
                       title: Text(
-                        'Settings',
+                        AppLocalizations.of(context)!.settings,
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme
@@ -77,16 +80,16 @@ class DrawerComponent extends StatelessWidget {
                   ListTile(
                       onTap: () {
                         AlertDialog alert = AlertDialog(
-                          title: const Text("Would you like to log out?"),
+                          title: Text(AppLocalizations.of(context)!.logOutConfirmation),
                           actions: [
                             TextButton(
-                              child: const Text("Cancel"),
+                              child: Text(AppLocalizations.of(context)!.cancel),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
                             ),
                             TextButton(
-                              child: const Text("Log out"),
+                              child: Text(AppLocalizations.of(context)!.logOut),
                               onPressed: () async {
                                 await _authService.logout();
                                 MainNavigation.resetNavigation(context);
@@ -103,7 +106,7 @@ class DrawerComponent extends StatelessWidget {
                       },
                       leading: const Icon(Icons.logout),
                       title: Text(
-                        'Log out',
+                        AppLocalizations.of(context)!.logOut,
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme

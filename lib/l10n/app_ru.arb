@@ -1,0 +1,48 @@
+{
+    "forYou": "Для вас",
+    "youRead": "Вы читаете",
+
+    "nComments": "{count, plural, =0{0 комментариев} =1{1 комментарий} =2{2 комментария} many{{count} комментариев} other{{count} комментариев}}",
+    "@nComments": {
+      "placeholders": {
+        "count": {
+          "type": "num",
+          "format": "compact"
+        }
+      }
+    },
+    "postDateTime": "{date} {time}",
+      "@postDateTime": {
+        "placeholders": {
+          "date": {
+            "type": "DateTime",
+            "format": "yMMMMd"
+          },
+          "time": {
+            "type": "DateTime",
+            "format": "jm"
+          }
+        }
+      },
+      "commentDateTime": "{date} {time}",
+          "@commentDateTime": {
+            "placeholders": {
+              "date": {
+                "type": "DateTime",
+                "format": "yMd"
+              },
+              "time": {
+                "type": "DateTime",
+                "format": "jm"
+              }
+            }
+          },
+
+    "main": "Главная",
+    "profile": "Профиль",
+    "bookMarks": "Заметки",
+    "settings": "Настройки",
+    "logOut": "Выйти",
+    "logOutConfirmation": "Вы точно хотите выйти?",
+    "cancel": "Отмена"
+}

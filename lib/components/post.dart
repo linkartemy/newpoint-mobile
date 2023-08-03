@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostComponent extends StatelessWidget {
   const PostComponent(
@@ -127,7 +128,7 @@ class _Header extends StatelessWidget {
                 const SizedBox(
                   height: 2,
                 ),
-                Text(convertPostDateToString(date)!,
+                Text(AppLocalizations.of(context)!.postDateTime(date, date),
                     style: AdaptiveTheme.of(context).theme.textTheme.titleSmall)
               ],
             )
@@ -195,12 +196,15 @@ class _Footer extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Row(
-            children: [
-              Text("${comments.toString()} comments",
-                  style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
-            ],
-          ),
+              Text(comments.toString(),
+                  style: AdaptiveTheme.of(context)
+                      .theme
+                      .textTheme
+                      .titleMedium),
+              const SizedBox(
+                width: 5,
+              ),
+              const Icon(Icons.comment_rounded, size: 22,),
         ]),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

@@ -1,0 +1,48 @@
+{
+  "forYou": "For you",
+  "youRead": "You read",
+
+  "nComments": "{count, plural, other{{count} comments}}",
+  "@nComments": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "postDateTime": "{date} {time}",
+  "@postDateTime": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMMd"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "jm"
+      }
+    }
+  },
+  "commentDateTime": "{date} {time}",
+    "@commentDateTime": {
+      "placeholders": {
+        "date": {
+          "type": "DateTime",
+          "format": "yMd"
+        },
+        "time": {
+          "type": "DateTime",
+          "format": "jm"
+        }
+      }
+    },
+
+    "main": "Main",
+    "profile": "Profile",
+    "bookMarks": "Bookmarks",
+    "settings": "Settings",
+    "logOut": "Log out",
+    "logOutConfirmation": "Would you like to log out?",
+    "cancel": "Cancel"
+}
