@@ -5,6 +5,7 @@ import 'package:newpoint/components/post.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/main/main_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -63,13 +64,13 @@ class MainViewState extends State<MainView> {
               tabs: [
                 Tab(
                   child: Text(
-                    "For you",
+                    AppLocalizations.of(context)!.forYou,
                     style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
                   ),
                 ),
                 Tab(
                   child: Text(
-                    "You read",
+                    AppLocalizations.of(context)!.youRead,
                     style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
                   ),
                 ),

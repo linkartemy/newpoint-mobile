@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CommentComponent extends StatelessWidget {
   const CommentComponent(
@@ -117,7 +118,7 @@ class _Header extends StatelessWidget {
             const SizedBox(
               width: 2,
             ),
-            Text(convertCommentDateToString(date)!,
+            Text(AppLocalizations.of(context)!.commentDateTime(date, date),
                 style: AdaptiveTheme.of(context).theme.textTheme.titleSmall)
           ],
         ),

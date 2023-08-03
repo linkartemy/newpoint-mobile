@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/theme/theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,13 +38,14 @@ class _MyAppState extends State<MyApp> {
           darkTheme: darkTheme,
           title: 'NewPoint',
           localizationsDelegates: const [
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: const [
             Locale('ru', 'RU'),
-            Locale('en', ''),
+            Locale('en', 'US'),
           ],
           routes: mainNavigation.routes,
           initialRoute: MainNavigationRouteNames.loader,

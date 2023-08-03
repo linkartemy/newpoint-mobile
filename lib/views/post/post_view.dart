@@ -10,6 +10,7 @@ import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostView extends StatefulWidget {
   const PostView({Key? key}) : super(key: key);
@@ -224,7 +225,7 @@ class _Header extends StatelessWidget {
                 const SizedBox(
                   height: 2,
                 ),
-                Text(convertPostDateToString(date)!,
+                Text(AppLocalizations.of(context)!.postDateTime(date, date),
                     style: AdaptiveTheme.of(context).theme.textTheme.titleSmall)
               ],
             )
@@ -294,7 +295,7 @@ class _Footer extends StatelessWidget {
         Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Row(
             children: [
-              Text("${comments.toString()} comments",
+              Text(AppLocalizations.of(context)!.nComments(comments),
                   style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
             ],
           ),
