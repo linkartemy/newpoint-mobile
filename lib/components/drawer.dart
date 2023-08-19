@@ -2,6 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
+import 'package:newpoint/domain/services/user_service.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -9,7 +10,7 @@ class DrawerComponent extends StatelessWidget {
   DrawerComponent({Key? key, required this.user}) : super(key: key);
 
   final User? user;
-  final _authService = AuthService();
+  final _userService = UserService();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,9 @@ class DrawerComponent extends StatelessWidget {
                             .theme
                             .textTheme
                             .titleMedium),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).pushNamed(MainNavigationRouteNames.profile, arguments: user!.id);
+                    },
                   ),
                   ListTile(
                     title: Text(AppLocalizations.of(context)!.bookMarks,
@@ -91,7 +94,7 @@ class DrawerComponent extends StatelessWidget {
                             TextButton(
                               child: Text(AppLocalizations.of(context)!.logOut),
                               onPressed: () async {
-                                await _authService.logout();
+                                await _userService.logout();
                                 MainNavigation.resetNavigation(context);
                               },
                             ),

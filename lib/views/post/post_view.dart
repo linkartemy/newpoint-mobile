@@ -4,6 +4,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:newpoint/components/comment.dart';
+import 'package:newpoint/components/dynamic_sliver_appbar.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
@@ -100,6 +101,7 @@ class PostViewState extends State<PostView> {
     var post = model.post;
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
@@ -112,7 +114,10 @@ class PostViewState extends State<PostView> {
         body: RefreshIndicator(
             onRefresh: onRefresh,
             notificationPredicate: (ScrollNotification notification) {
-              return notification.depth == 0;
+              if (model.error.isNotEmpty || _isLoadingPost || post == null) {
+                return notification.depth == 0;
+              }
+              return notification.depth == 1;
             },
             child: model.error.isNotEmpty
                 ? SingleChildScrollView(
@@ -127,49 +132,47 @@ class PostViewState extends State<PostView> {
                             .bodyMedium))
                 : _isLoadingPost || post == null
                     ? const LoaderView()
-                    : SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 5),
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              InkWell(
-                                  onTap: () async {
-                                    await onHeaderTap(context);
-                                  },
-                                  child: _Header(
-                                    login: post.login,
-                                    name: post.name,
-                                    surname: post.surname,
-                                    date: post.creationTimestamp,
-                                  )),
-                              const SizedBox(height: 10),
-                              _Body(
-                                content: post.content,
+                    : NestedScrollView(
+                        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                              DynamicSliverAppBar(
+                                forceElevated: innerBoxIsScrolled,
+                                maxHeight: 300,
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      InkWell(
+                                          onTap: () async {
+                                            await onHeaderTap(context);
+                                          },
+                                          child: _Header(
+                                            login: post.login,
+                                            name: post.name,
+                                            surname: post.surname,
+                                            date: post.creationTimestamp,
+                                          )),
+                                      const SizedBox(height: 10),
+                                      _Body(
+                                        content: post.content,
+                                      ),
+                                      const SizedBox(height: 5),
+                                      _Footer(
+                                        id: post.id,
+                                        likes: post.likes,
+                                        shares: post.shares,
+                                        comments: post.comments,
+                                        liked: post.liked,
+                                        onLikeTap: onLikeTap,
+                                        onShareTap: onShareTap,
+                                      ),
+                                    ]),
                               ),
-                              const SizedBox(height: 5),
-                              _Footer(
-                                id: post.id,
-                                likes: post.likes,
-                                shares: post.shares,
-                                comments: post.comments,
-                                liked: post.liked,
-                                onLikeTap: onLikeTap,
-                                onShareTap: onShareTap,
-                              ),
-                              const SizedBox(height: 5),
-                              _Comments(
-                                comments: model.comments,
-                                onSendTap: onCommentSendTap,
-                                onLikeTap: onCommentLikeTap,
-                              )
                             ],
-                          ),
+                        body: _Comments(
+                          comments: model.comments,
+                          onSendTap: onCommentSendTap,
+                          onLikeTap: onCommentLikeTap,
                         ))));
   }
 }
@@ -253,18 +256,21 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-            alignment: Alignment.topLeft,
-            child: Column(
-              children: [
-                Text(content,
-                    style: AdaptiveTheme.of(context).theme.textTheme.bodyLarge)
-              ],
-            ))
-      ],
-    );
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        child: Column(
+          children: [
+            Container(
+                alignment: Alignment.topLeft,
+                child: Column(
+                  children: [
+                    Text(content,
+                        style:
+                            AdaptiveTheme.of(context).theme.textTheme.bodyLarge)
+                  ],
+                ))
+          ],
+        ));
   }
 }
 
@@ -289,63 +295,68 @@ class _Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Row(
-            children: [
-              Text(AppLocalizations.of(context)!.nComments(comments),
-                  style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
-            ],
-          ),
-        ]),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            InkWell(
-              onTap: () async {
-                await onShareTap(context);
-              },
-              child: Row(
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Row(
                 children: [
-                  Text(shares.toString(),
+                  Text(AppLocalizations.of(context)!.nComments(comments),
                       style: AdaptiveTheme.of(context)
                           .theme
                           .textTheme
                           .titleMedium),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const Icon(CupertinoIcons.share),
                 ],
               ),
-            ),
-            const SizedBox(width: 5),
-            InkWell(
-              onTap: () async {
-                await onLikeTap(context);
-              },
-              child: Row(
-                children: [
-                  Text(likes.toString(),
-                      style: AdaptiveTheme.of(context)
-                          .theme
-                          .textTheme
-                          .titleMedium),
-                  const SizedBox(
-                    width: 5,
+            ]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  onTap: () async {
+                    await onShareTap(context);
+                  },
+                  child: Row(
+                    children: [
+                      Text(shares.toString(),
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .titleMedium),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const Icon(CupertinoIcons.share),
+                    ],
                   ),
-                  liked
-                      ? const Icon(CupertinoIcons.heart_solid)
-                      : const Icon(CupertinoIcons.heart),
-                ],
-              ),
-            ),
+                ),
+                const SizedBox(width: 5),
+                InkWell(
+                  onTap: () async {
+                    await onLikeTap(context);
+                  },
+                  child: Row(
+                    children: [
+                      Text(likes.toString(),
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .titleMedium),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      liked
+                          ? const Icon(CupertinoIcons.heart_solid)
+                          : const Icon(CupertinoIcons.heart),
+                    ],
+                  ),
+                ),
+              ],
+            )
           ],
-        )
-      ],
-    );
+        ));
   }
 }
 
