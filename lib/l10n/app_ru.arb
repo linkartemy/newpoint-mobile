@@ -12,31 +12,31 @@
       }
     },
     "postDateTime": "{date} {time}",
-      "@postDateTime": {
-        "placeholders": {
-          "date": {
-            "type": "DateTime",
-            "format": "yMMMMd"
-          },
-          "time": {
-            "type": "DateTime",
-            "format": "jm"
-          }
+    "@postDateTime": {
+      "placeholders": {
+        "date": {
+          "type": "DateTime",
+          "format": "yMMMMd"
+        },
+        "time": {
+          "type": "DateTime",
+          "format": "jm"
         }
-      },
-      "commentDateTime": "{date} {time}",
-          "@commentDateTime": {
-            "placeholders": {
-              "date": {
-                "type": "DateTime",
-                "format": "yMd"
-              },
-              "time": {
-                "type": "DateTime",
-                "format": "jm"
-              }
-            }
-          },
+      }
+    },
+    "commentDateTime": "{date} {time}",
+    "@commentDateTime": {
+      "placeholders": {
+        "date": {
+          "type": "DateTime",
+          "format": "yMd"
+        },
+        "time": {
+          "type": "DateTime",
+          "format": "jm"
+        }
+      }
+    },
 
     "main": "Главная",
     "profile": "Профиль",
@@ -44,5 +44,33 @@
     "settings": "Настройки",
     "logOut": "Выйти",
     "logOutConfirmation": "Вы точно хотите выйти?",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+
+    "registrationDate": "{date}",
+    "@registrationDate": {
+      "placeholders": {
+        "date": {
+          "type": "DateTime",
+          "format": "yMd"
+        }
+      }
+    },
+    "birthDate": "{date}",
+    "@birthDate": {
+      "placeholders": {
+        "date": {
+          "type": "DateTime",
+          "format": "yMd"
+        }
+      }
+    },
+    "nPosts": "{count, plural, other{Постов: {count}}}",
+    "@nPosts": {
+      "placeholders": {
+        "count": {
+          "type": "num",
+          "format": "compact"
+        }
+      }
+    }
 }

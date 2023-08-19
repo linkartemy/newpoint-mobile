@@ -26,53 +26,54 @@ class GrpcPostClient extends $grpc.Client {
       '/post.GrpcPost/GetPosts',
       ($2.GetPostsRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
-  static final _$getPostById =
-      $grpc.ClientMethod<$2.GetPostByIdRequest, $1.Response>(
-          '/post.GrpcPost/GetPostById',
-          ($2.GetPostByIdRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$getPostsByUserId = $grpc.ClientMethod<$2.GetPostsByUserIdRequest, $1.Response>(
+      '/post.GrpcPost/GetPostsByUserId',
+      ($2.GetPostsByUserIdRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$getPostById = $grpc.ClientMethod<$2.GetPostByIdRequest, $1.Response>(
+      '/post.GrpcPost/GetPostById',
+      ($2.GetPostByIdRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
   static final _$likePost = $grpc.ClientMethod<$2.LikePostRequest, $1.Response>(
       '/post.GrpcPost/LikePost',
       ($2.LikePostRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
-  static final _$unLikePost =
-      $grpc.ClientMethod<$2.UnLikePostRequest, $1.Response>(
-          '/post.GrpcPost/UnLikePost',
-          ($2.UnLikePostRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
-  static final _$sharePost =
-      $grpc.ClientMethod<$2.SharePostRequest, $1.Response>(
-          '/post.GrpcPost/SharePost',
-          ($2.SharePostRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$unLikePost = $grpc.ClientMethod<$2.UnLikePostRequest, $1.Response>(
+      '/post.GrpcPost/UnLikePost',
+      ($2.UnLikePostRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$sharePost = $grpc.ClientMethod<$2.SharePostRequest, $1.Response>(
+      '/post.GrpcPost/SharePost',
+      ($2.SharePostRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
 
   GrpcPostClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
       $core.Iterable<$grpc.ClientInterceptor>? interceptors})
-      : super(channel, options: options, interceptors: interceptors);
+      : super(channel, options: options,
+        interceptors: interceptors);
 
-  $grpc.ResponseFuture<$1.Response> getPosts($2.GetPostsRequest request,
-      {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.Response> getPosts($2.GetPostsRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getPosts, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Response> getPostById($2.GetPostByIdRequest request,
-      {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.Response> getPostsByUserId($2.GetPostsByUserIdRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getPostsByUserId, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> getPostById($2.GetPostByIdRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getPostById, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Response> likePost($2.LikePostRequest request,
-      {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.Response> likePost($2.LikePostRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$likePost, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Response> unLikePost($2.UnLikePostRequest request,
-      {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.Response> unLikePost($2.UnLikePostRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unLikePost, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Response> sharePost($2.SharePostRequest request,
-      {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.Response> sharePost($2.SharePostRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$sharePost, request, options: options);
   }
 }
@@ -89,13 +90,19 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $2.GetPostsRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.GetPostsByUserIdRequest, $1.Response>(
+        'GetPostsByUserId',
+        getPostsByUserId_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.GetPostsByUserIdRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$2.GetPostByIdRequest, $1.Response>(
         'GetPostById',
         getPostById_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
-            $2.GetPostByIdRequest.fromBuffer(value),
+        ($core.List<$core.int> value) => $2.GetPostByIdRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$2.LikePostRequest, $1.Response>(
         'LikePost',
@@ -120,39 +127,34 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
         ($1.Response value) => value.writeToBuffer()));
   }
 
-  $async.Future<$1.Response> getPosts_Pre(
-      $grpc.ServiceCall call, $async.Future<$2.GetPostsRequest> request) async {
+  $async.Future<$1.Response> getPosts_Pre($grpc.ServiceCall call, $async.Future<$2.GetPostsRequest> request) async {
     return getPosts(call, await request);
   }
 
-  $async.Future<$1.Response> getPostById_Pre($grpc.ServiceCall call,
-      $async.Future<$2.GetPostByIdRequest> request) async {
+  $async.Future<$1.Response> getPostsByUserId_Pre($grpc.ServiceCall call, $async.Future<$2.GetPostsByUserIdRequest> request) async {
+    return getPostsByUserId(call, await request);
+  }
+
+  $async.Future<$1.Response> getPostById_Pre($grpc.ServiceCall call, $async.Future<$2.GetPostByIdRequest> request) async {
     return getPostById(call, await request);
   }
 
-  $async.Future<$1.Response> likePost_Pre(
-      $grpc.ServiceCall call, $async.Future<$2.LikePostRequest> request) async {
+  $async.Future<$1.Response> likePost_Pre($grpc.ServiceCall call, $async.Future<$2.LikePostRequest> request) async {
     return likePost(call, await request);
   }
 
-  $async.Future<$1.Response> unLikePost_Pre($grpc.ServiceCall call,
-      $async.Future<$2.UnLikePostRequest> request) async {
+  $async.Future<$1.Response> unLikePost_Pre($grpc.ServiceCall call, $async.Future<$2.UnLikePostRequest> request) async {
     return unLikePost(call, await request);
   }
 
-  $async.Future<$1.Response> sharePost_Pre($grpc.ServiceCall call,
-      $async.Future<$2.SharePostRequest> request) async {
+  $async.Future<$1.Response> sharePost_Pre($grpc.ServiceCall call, $async.Future<$2.SharePostRequest> request) async {
     return sharePost(call, await request);
   }
 
-  $async.Future<$1.Response> getPosts(
-      $grpc.ServiceCall call, $2.GetPostsRequest request);
-  $async.Future<$1.Response> getPostById(
-      $grpc.ServiceCall call, $2.GetPostByIdRequest request);
-  $async.Future<$1.Response> likePost(
-      $grpc.ServiceCall call, $2.LikePostRequest request);
-  $async.Future<$1.Response> unLikePost(
-      $grpc.ServiceCall call, $2.UnLikePostRequest request);
-  $async.Future<$1.Response> sharePost(
-      $grpc.ServiceCall call, $2.SharePostRequest request);
+  $async.Future<$1.Response> getPosts($grpc.ServiceCall call, $2.GetPostsRequest request);
+  $async.Future<$1.Response> getPostsByUserId($grpc.ServiceCall call, $2.GetPostsByUserIdRequest request);
+  $async.Future<$1.Response> getPostById($grpc.ServiceCall call, $2.GetPostByIdRequest request);
+  $async.Future<$1.Response> likePost($grpc.ServiceCall call, $2.LikePostRequest request);
+  $async.Future<$1.Response> unLikePost($grpc.ServiceCall call, $2.UnLikePostRequest request);
+  $async.Future<$1.Response> sharePost($grpc.ServiceCall call, $2.SharePostRequest request);
 }

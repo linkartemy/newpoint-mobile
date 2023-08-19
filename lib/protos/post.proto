@@ -9,6 +9,7 @@ package post;
 
 service GrpcPost {
   rpc GetPosts (GetPostsRequest) returns (response.Response);
+  rpc GetPostsByUserId (GetPostsByUserIdRequest) returns (response.Response);
   rpc GetPostById (GetPostByIdRequest) returns (response.Response);
   rpc LikePost (LikePostRequest) returns (response.Response);
   rpc UnLikePost (UnLikePostRequest) returns (response.Response);
@@ -33,6 +34,14 @@ message PostModel {
 message GetPostsRequest {}
 
 message GetPostsResponse {
+  repeated PostModel posts = 1;
+}
+
+message GetPostsByUserIdRequest {
+  int64 user_id = 1;
+}
+
+message GetPostsByUserIdResponse {
   repeated PostModel posts = 1;
 }
 

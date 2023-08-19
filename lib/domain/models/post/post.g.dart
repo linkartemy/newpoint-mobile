@@ -14,7 +14,7 @@ Post _$PostFromJson(Map<String, dynamic> json) {
     comments: json['comments'] as int,
     liked: json['liked'] as bool,
     creationTimestamp:
-        parsePostDateFromString(json['creation_timestamp'] as String?)!,
+        parseDateFromString(json['creation_timestamp'] as String?)!,
   );
 }
 

@@ -1,26 +1,42 @@
 part of 'user.dart';
 
+
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
     id: json['id'] as int,
     login: json['login'] as String,
     name: json['name'] as String,
     surname: json['surname'] as String,
+    description: json['description'] as String,
+    location: json['location'] as String,
     email: json['email'] as String,
     phone: json['phone'] as String,
-    image: json['image'] as String?,
+    profileImage: json['profile_image'] as String?,
+    headerImage: json['header_image'] as String?,
+    birthDate: json['birth_date'] as DateTime?,
+    registrationTimestamp: json['registration_timestamp'] as DateTime?,
+    lastLoginTimestamp: json['last_login_timestamp'] as DateTime?,
   );
 }
 
 User _$UserFromModel(UserModel userModel) {
   return User(
-      id: userModel.id.toInt(),
-      login: userModel.login,
-      name: userModel.name,
-      surname: userModel.surname,
-      email: userModel.email,
-      phone: userModel.phone,
-      image: userModel.image);
+    id: userModel.id.toInt(),
+    login: userModel.login,
+    name: userModel.name,
+    surname: userModel.surname,
+    description: userModel.description.parseNullable(),
+    location: userModel.location.parseNullable(),
+    email: userModel.email.parseNullable(),
+    phone: userModel.phone.parseNullable(),
+    profileImage: userModel.profileImage.parseNullable(),
+    headerImage: userModel.headerImage.parseNullable(),
+    birthDate: userModel.birthDate.parseNullable()?.toDateTime(),
+    registrationTimestamp:
+        userModel.registrationTimestamp.parseNullable()?.toDateTime(),
+    lastLoginTimestamp:
+        userModel.lastLoginTimestamp.parseNullable()?.toDateTime(),
+  );
 }
 
 Map<String, dynamic> _$UserToJson(User user) => <String, dynamic>{
@@ -30,5 +46,27 @@ Map<String, dynamic> _$UserToJson(User user) => <String, dynamic>{
       'surname': user.surname,
       'email': user.email,
       'phone': user.phone,
-      'image': user.image,
+      'profile_image': user.profileImage,
+      'header_image': user.headerImage,
     };
+
+extension NullableStringParser on NullableString {
+  String? parseNullable() {
+    return hasData() ? data : null;
+  }
+}
+
+extension NullableTimestampParser on NullableTimestamp {
+  Timestamp? parseNullable() {
+    return hasData() ? data : null;
+  }
+}
+
+extension DateTimeToTimestamp on DateTime {
+  Timestamp toTimestamp() {
+    var ts = Timestamp();
+    ts.seconds = Int64(microsecondsSinceEpoch ~/ Duration.microsecondsPerSecond);
+    return ts;
+  }
+}
+

@@ -12,7 +12,7 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
     likes: json['likes'] as int,
     liked: json['liked'] as bool,
     creationTimestamp:
-        parsePostDateFromString(json['creation_timestamp'] as String?)!,
+        parseDateFromString(json['creation_timestamp'] as String?)!,
   );
 }
 

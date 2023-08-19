@@ -22,6 +22,8 @@ class RegisterViewModel extends ChangeNotifier {
   bool _isValid(String login, String password) =>
       login.isNotEmpty && password.isNotEmpty;
 
+  int stage = 0;
+
   Future<String?> _register(String login, String password, String name,
       String surname, String email, String phone, DateTime birthDate) async {
     try {
@@ -65,6 +67,11 @@ class RegisterViewModel extends ChangeNotifier {
     }
     _updateState(null, true);
 
+    if (stage != 2) {
+      stage++;
+      _updateState(null, false);
+      return;
+    }
     _errorMessage = await _register(
         login, password, name, surname, email, '', DateTime.now());
     if (_errorMessage == null) {
