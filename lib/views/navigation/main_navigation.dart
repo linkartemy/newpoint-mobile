@@ -31,6 +31,12 @@ class MainNavigation {
         return MaterialPageRoute(
           builder: (_) => _screenFactory.makePost(postId),
         );
+      case MainNavigationRouteNames.profile:
+        final arguments = settings.arguments;
+        final profileId = arguments is int ? arguments : 0;
+        return MaterialPageRoute(
+          builder: (_) => _screenFactory.makeProfile(profileId),
+        );
       default:
         const widget = Text('Navigation error!!!');
         return MaterialPageRoute(builder: (_) => widget);
