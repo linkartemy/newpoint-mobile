@@ -1,3 +1,4 @@
+import 'package:fixnum/src/int64.dart';
 import 'package:grpc/grpc.dart';
 import 'package:newpoint/domain/api_clients/account_api_client.dart';
 import 'package:newpoint/domain/api_clients/auth_api_client.dart';
@@ -26,9 +27,7 @@ class UserService {
     request.surname = surname;
     request.email = email;
     request.phone = phone;
-    var ts = Timestamp();
-    ts.nanos = birthDate.millisecondsSinceEpoch;
-    request.birthDate = ts;
+    request.birthDate = birthDate.toTimestamp();
     var response = _userServiceClient.register(request);
     var headers = await response.headers;
     await _sessionDataProvider.setToken(headers["authorization"].toString());
@@ -51,14 +50,27 @@ class UserService {
       throw ApiClientException(ApiClientExceptionType.other);
     }
     var getUserByTokenResponse = GetUserByTokenResponse();
-    var user = User.fromModel(response.data
+    return User.fromModel(response.data
         .unpackInto<GetUserByTokenResponse>(getUserByTokenResponse)
         .user);
-    return user;
   }
 
   Future<void> logout() async {
     await _sessionDataProvider.deleteToken();
     await _sessionDataProvider.deleteAccountId();
+  }
+
+  Future<User> getProfileById(int id) async {
+    var request = GetProfileByIdRequest();
+    request.id = Int64.parseInt(id.toString());
+    var response = await _userServiceClient.getProfileById(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var getProfileByIdResponse = GetProfileByIdResponse();
+    return User.fromModel(response.data
+        .unpackInto<GetProfileByIdResponse>(getProfileByIdResponse)
+        .user);
   }
 }
