@@ -28,6 +28,26 @@ class PostService {
     return posts;
   }
 
+  Future<List<Post>> getPostsByUserId(int id) async {
+    final request = GetPostsByUserIdRequest();
+    request.userId = Int64.parseInt(id.toString());
+    var response = await _postServiceClient.getPostsByUserId(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var getPostsByUserIdResponse = GetPostsByUserIdResponse();
+    final postModels = response.data
+        .unpackInto<GetPostsByUserIdResponse>(getPostsByUserIdResponse)
+        .posts;
+    List<Post> posts = [];
+    for (final postModel in postModels) {
+      final post = Post.fromModel(postModel);
+      posts.add(post);
+    }
+    return posts;
+  }
+
   Future<Post> getPostById(int id) async {
     final request = GetPostByIdRequest();
     request.id = Int64.parseInt(id.toString());

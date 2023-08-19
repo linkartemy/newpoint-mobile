@@ -10,6 +10,8 @@ import 'package:newpoint/views/loader/loader_view_model.dart';
 import 'package:newpoint/views/main/main_view.dart';
 import 'package:newpoint/views/post/post_view.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
+import 'package:newpoint/views/profile/profile_view.dart';
+import 'package:newpoint/views/profile/profile_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../views/main/main_view_model.dart';
@@ -18,8 +20,8 @@ class ScreenFactory {
   Widget makeLoader() {
     return Provider(
       create: (context) => LoaderViewModel(context),
-      child: const LoaderView(),
       lazy: false,
+      child: const LoaderView(),
     );
   }
 
@@ -55,6 +57,13 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => MainViewModel(),
       child: const MainView(),
+    );
+  }
+
+  Widget makeProfile(int id) {
+    return ChangeNotifierProvider(
+      create: (_) => ProfileViewModel(id),
+      child: const ProfileView(),
     );
   }
 }
