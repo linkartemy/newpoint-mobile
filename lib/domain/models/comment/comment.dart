@@ -15,7 +15,7 @@ class Comment {
   final String content;
   int likes;
   bool liked;
-  @JsonKey(fromJson: parsePostDateFromString)
+  @JsonKey(fromJson: parseDateFromString)
   final DateTime creationTimestamp;
 
   Comment({

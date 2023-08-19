@@ -17,7 +17,7 @@ class Post {
   int shares;
   int comments;
   bool liked;
-  @JsonKey(fromJson: parsePostDateFromString)
+  @JsonKey(fromJson: parseDateFromString)
   final DateTime creationTimestamp;
 
   Post({

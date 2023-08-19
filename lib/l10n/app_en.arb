@@ -25,18 +25,18 @@
     }
   },
   "commentDateTime": "{date} {time}",
-    "@commentDateTime": {
-      "placeholders": {
-        "date": {
-          "type": "DateTime",
-          "format": "yMd"
-        },
-        "time": {
-          "type": "DateTime",
-          "format": "jm"
-        }
+  "@commentDateTime": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "jm"
       }
-    },
+    }
+  },
 
     "main": "Main",
     "profile": "Profile",
@@ -44,5 +44,33 @@
     "settings": "Settings",
     "logOut": "Log out",
     "logOutConfirmation": "Would you like to log out?",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+
+    "registrationDate": "{date}",
+    "@registrationDate": {
+      "placeholders": {
+        "date": {
+          "type": "DateTime",
+          "format": "yMd"
+        }
+      }
+    },
+    "birthDate": "{date}",
+    "@birthDate": {
+      "placeholders": {
+        "date": {
+          "type": "DateTime",
+          "format": "yMd"
+        }
+      }
+    },
+    "nPosts": "{count, plural, other{{count} posts}}",
+    "@nPosts": {
+      "placeholders": {
+        "count": {
+          "type": "num",
+          "format": "compact"
+        }
+      }
+    }
 }
