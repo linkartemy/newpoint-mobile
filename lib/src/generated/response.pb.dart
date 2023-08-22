@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -13,10 +13,26 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/any.pb.dart' as $4;
+import 'google/protobuf/any.pb.dart' as $5;
 
 class Response extends $pb.GeneratedMessage {
-  factory Response() => create();
+  factory Response({
+    $core.int? status,
+    $core.String? error,
+    $5.Any? data,
+  }) {
+    final $result = create();
+    if (status != null) {
+      $result.status = status;
+    }
+    if (error != null) {
+      $result.error = error;
+    }
+    if (data != null) {
+      $result.data = data;
+    }
+    return $result;
+  }
   Response._() : super();
   factory Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -24,7 +40,7 @@ class Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Response', package: const $pb.PackageName(_omitMessageNames ? '' : 'response'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'status', $pb.PbFieldType.O3)
     ..aOS(2, _omitFieldNames ? '' : 'error')
-    ..aOM<$4.Any>(3, _omitFieldNames ? '' : 'data', subBuilder: $4.Any.create)
+    ..aOM<$5.Any>(3, _omitFieldNames ? '' : 'data', subBuilder: $5.Any.create)
     ..hasRequiredFields = false
   ;
 
@@ -68,15 +84,15 @@ class Response extends $pb.GeneratedMessage {
   void clearError() => clearField(2);
 
   @$pb.TagNumber(3)
-  $4.Any get data => $_getN(2);
+  $5.Any get data => $_getN(2);
   @$pb.TagNumber(3)
-  set data($4.Any v) { setField(3, v); }
+  set data($5.Any v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasData() => $_has(2);
   @$pb.TagNumber(3)
   void clearData() => clearField(3);
   @$pb.TagNumber(3)
-  $4.Any ensureData() => $_ensure(2);
+  $5.Any ensureData() => $_ensure(2);
 }
 
 

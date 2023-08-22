@@ -1,10 +1,13 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:newpoint/components/button.dart';
 import 'package:newpoint/components/input.dart';
 import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/auth/register_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -17,6 +20,12 @@ class RegisterViewState extends State<RegisterView> {
   Future<void> proceed() async {
     final model = context.read<RegisterViewModel>();
     await model.auth(context);
+    setState(() {});
+  }
+
+  Future<void> goBack() async {
+    final model = context.read<RegisterViewModel>();
+    await model.goBack();
     setState(() {});
   }
 
@@ -66,23 +75,41 @@ class RegisterViewState extends State<RegisterView> {
               )),
           Container(
               padding: const EdgeInsets.only(left: 20, right: 20, top: 70),
-              child: model.stage == 0
-                  ? _FormWidget(
-                      onPressed: () async {
-                        await proceed();
-                      },
-                    )
-                  : (model.stage == 1
-                      ? _EmailConfirmationWidget(
+              child: Column(
+                children: [
+                  model.stage == 0
+                      ? _FormWidget()
+                      : (model.stage == 1
+                          ? _EmailConfirmationWidget()
+                          : _DataFormWidget()),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        alignment: Alignment.bottomRight,
+                        child: _AuthButtonWidget(
+                          title: "Previous",
+                          onPressed: () async {
+                            await goBack();
+                          },
+                          activated: model.stage > 0,
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.bottomRight,
+                        child: _AuthButtonWidget(
+                          title: "Next",
                           onPressed: () async {
                             await proceed();
                           },
-                        )
-                      : _EmailConfirmationWidget(
-                          onPressed: () async {
-                            await proceed();
-                          },
-                        )))
+                          activated: true,
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ))
         ]),
       ),
     );
@@ -90,9 +117,8 @@ class RegisterViewState extends State<RegisterView> {
 }
 
 class _FormWidget extends StatelessWidget {
-  const _FormWidget({Key? key, required this.onPressed}) : super(key: key);
+  const _FormWidget({Key? key}) : super(key: key);
 
-  final onPressed;
   @override
   Widget build(BuildContext context) {
     final model = context.read<RegisterViewModel>();
@@ -123,20 +149,14 @@ class _FormWidget extends StatelessWidget {
         ),
         const SizedBox(height: 25),
         const _ErrorMessageWidget(),
-        Container(
-          alignment: Alignment.bottomRight,
-          child: _AuthButtonWidget(onPressed: onPressed),
-        )
       ],
     );
   }
 }
 
 class _EmailConfirmationWidget extends StatelessWidget {
-  const _EmailConfirmationWidget({Key? key, required this.onPressed})
-      : super(key: key);
+  const _EmailConfirmationWidget({Key? key}) : super(key: key);
 
-  final onPressed;
   @override
   Widget build(BuildContext context) {
     final model = context.read<RegisterViewModel>();
@@ -144,44 +164,22 @@ class _EmailConfirmationWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        InputComponent(controller: model.loginTextController, label: "Login"),
-        const SizedBox(height: 10),
-        InputComponent(
-            controller: model.passwordTextController,
-            label: "Password",
-            obscureText: true),
-        const SizedBox(height: 10),
-        InputComponent(
-          controller: model.nameTextController,
-          label: "Name",
+        Text(
+          "We sent the code on your email",
+          style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
         ),
         const SizedBox(height: 10),
-        InputComponent(
-          controller: model.surnameTextController,
-          label: "Surname",
-        ),
-        const SizedBox(height: 10),
-        InputComponent(
-          controller: model.emailTextController,
-          label: "Email",
-        ),
+        InputComponent(controller: model.codeTextController, label: "Code"),
         const SizedBox(height: 25),
         const _ErrorMessageWidget(),
-        Container(
-          alignment: Alignment.bottomRight,
-          child: _AuthButtonWidget(
-            onPressed: onPressed,
-          ),
-        )
       ],
     );
   }
 }
 
 class _DataFormWidget extends StatelessWidget {
-  const _DataFormWidget({Key? key, required this.onPressed}) : super(key: key);
+  const _DataFormWidget({Key? key}) : super(key: key);
 
-  final onPressed;
   @override
   Widget build(BuildContext context) {
     final model = context.read<RegisterViewModel>();
@@ -189,59 +187,55 @@ class _DataFormWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        InputComponent(controller: model.loginTextController, label: "Login"),
-        const SizedBox(height: 10),
-        InputComponent(
-            controller: model.passwordTextController,
-            label: "Password",
-            obscureText: true),
-        const SizedBox(height: 10),
-        InputComponent(
-          controller: model.nameTextController,
-          label: "Name",
-        ),
-        const SizedBox(height: 10),
-        InputComponent(
-          controller: model.surnameTextController,
-          label: "Surname",
-        ),
-        const SizedBox(height: 10),
-        InputComponent(
-          controller: model.emailTextController,
-          label: "Email",
+        TextField(
+          controller: model.birthDateController,
+          decoration: const InputDecoration(
+            icon: Icon(CupertinoIcons.calendar),
+            labelText: "Birth date",
+            border: UnderlineInputBorder(),
+          ),
+          readOnly: true,
+          onTap: () async {
+            DateTime? pickedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(1800),
+                lastDate: DateTime(2100));
+
+            if (pickedDate != null) {
+              final formattedDate =
+                  AppLocalizations.of(context)!.birthDate(pickedDate);
+              model.birthDateController.text = formattedDate;
+              model.birthDate = pickedDate;
+            }
+          },
         ),
         const SizedBox(height: 25),
         const _ErrorMessageWidget(),
-        Container(
-          alignment: Alignment.bottomRight,
-          child: _AuthButtonWidget(
-            onPressed: onPressed,
-          ),
-        )
       ],
     );
   }
 }
 
 class _AuthButtonWidget extends StatelessWidget {
-  const _AuthButtonWidget({Key? key, required this.onPressed})
+  const _AuthButtonWidget(
+      {Key? key,
+      required this.title,
+      required this.onPressed,
+      required this.activated})
       : super(key: key);
 
+  final String title;
   final onPressed;
+  final bool activated;
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<RegisterViewModel>();
-    final child = model.isAuthProgress
-        ? const SizedBox(
-            width: 15,
-            height: 15,
-            child: CircularProgressIndicator(strokeWidth: 2),
+    return activated
+        ? ButtonComponent(
+            onPressed: onPressed,
+            child: Text(title),
           )
-        : const Text('Next');
-    return ButtonComponent(
-      onPressed: onPressed,
-      child: child,
-    );
+        : Container();
   }
 }
 

@@ -73,4 +73,24 @@ class UserService {
         .unpackInto<GetProfileByIdResponse>(getProfileByIdResponse)
         .user);
   }
+
+  Future<bool> validateUser(String login, String password, String name,
+      String surname, String email, String phone) async {
+    var request = ValidateUserRequest();
+    request.login = login;
+    request.password = password;
+    request.name = name;
+    request.surname = surname;
+    request.email = email;
+    request.phone = phone;
+    var response = await _userServiceClient.validateUser(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var validateUserResponse = ValidateUserResponse();
+    return response.data
+        .unpackInto<ValidateUserResponse>(validateUserResponse)
+        .valid;
+  }
 }

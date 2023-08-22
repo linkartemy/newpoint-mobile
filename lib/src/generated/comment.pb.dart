@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -14,10 +14,54 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $5;
+import 'google/protobuf/timestamp.pb.dart' as $6;
 
 class CommentModel extends $pb.GeneratedMessage {
-  factory CommentModel() => create();
+  factory CommentModel({
+    $fixnum.Int64? id,
+    $fixnum.Int64? userId,
+    $fixnum.Int64? postId,
+    $core.String? login,
+    $core.String? name,
+    $core.String? surname,
+    $core.String? content,
+    $core.int? likes,
+    $core.bool? liked,
+    $6.Timestamp? creationTimestamp,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    if (userId != null) {
+      $result.userId = userId;
+    }
+    if (postId != null) {
+      $result.postId = postId;
+    }
+    if (login != null) {
+      $result.login = login;
+    }
+    if (name != null) {
+      $result.name = name;
+    }
+    if (surname != null) {
+      $result.surname = surname;
+    }
+    if (content != null) {
+      $result.content = content;
+    }
+    if (likes != null) {
+      $result.likes = likes;
+    }
+    if (liked != null) {
+      $result.liked = liked;
+    }
+    if (creationTimestamp != null) {
+      $result.creationTimestamp = creationTimestamp;
+    }
+    return $result;
+  }
   CommentModel._() : super();
   factory CommentModel.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory CommentModel.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -32,7 +76,7 @@ class CommentModel extends $pb.GeneratedMessage {
     ..aOS(7, _omitFieldNames ? '' : 'content')
     ..a<$core.int>(8, _omitFieldNames ? '' : 'likes', $pb.PbFieldType.O3)
     ..aOB(9, _omitFieldNames ? '' : 'liked')
-    ..aOM<$5.Timestamp>(10, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $5.Timestamp.create)
+    ..aOM<$6.Timestamp>(10, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $6.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -139,19 +183,27 @@ class CommentModel extends $pb.GeneratedMessage {
   void clearLiked() => clearField(9);
 
   @$pb.TagNumber(10)
-  $5.Timestamp get creationTimestamp => $_getN(9);
+  $6.Timestamp get creationTimestamp => $_getN(9);
   @$pb.TagNumber(10)
-  set creationTimestamp($5.Timestamp v) { setField(10, v); }
+  set creationTimestamp($6.Timestamp v) { setField(10, v); }
   @$pb.TagNumber(10)
   $core.bool hasCreationTimestamp() => $_has(9);
   @$pb.TagNumber(10)
   void clearCreationTimestamp() => clearField(10);
   @$pb.TagNumber(10)
-  $5.Timestamp ensureCreationTimestamp() => $_ensure(9);
+  $6.Timestamp ensureCreationTimestamp() => $_ensure(9);
 }
 
 class GetCommentsByPostIdRequest extends $pb.GeneratedMessage {
-  factory GetCommentsByPostIdRequest() => create();
+  factory GetCommentsByPostIdRequest({
+    $fixnum.Int64? postId,
+  }) {
+    final $result = create();
+    if (postId != null) {
+      $result.postId = postId;
+    }
+    return $result;
+  }
   GetCommentsByPostIdRequest._() : super();
   factory GetCommentsByPostIdRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetCommentsByPostIdRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -193,7 +245,15 @@ class GetCommentsByPostIdRequest extends $pb.GeneratedMessage {
 }
 
 class GetCommentsByPostIdResponse extends $pb.GeneratedMessage {
-  factory GetCommentsByPostIdResponse() => create();
+  factory GetCommentsByPostIdResponse({
+    $core.Iterable<CommentModel>? comments,
+  }) {
+    final $result = create();
+    if (comments != null) {
+      $result.comments.addAll(comments);
+    }
+    return $result;
+  }
   GetCommentsByPostIdResponse._() : super();
   factory GetCommentsByPostIdResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetCommentsByPostIdResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -229,7 +289,19 @@ class GetCommentsByPostIdResponse extends $pb.GeneratedMessage {
 }
 
 class AddCommentRequest extends $pb.GeneratedMessage {
-  factory AddCommentRequest() => create();
+  factory AddCommentRequest({
+    $fixnum.Int64? postId,
+    $core.String? content,
+  }) {
+    final $result = create();
+    if (postId != null) {
+      $result.postId = postId;
+    }
+    if (content != null) {
+      $result.content = content;
+    }
+    return $result;
+  }
   AddCommentRequest._() : super();
   factory AddCommentRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory AddCommentRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -281,7 +353,15 @@ class AddCommentRequest extends $pb.GeneratedMessage {
 }
 
 class AddCommentResponse extends $pb.GeneratedMessage {
-  factory AddCommentResponse() => create();
+  factory AddCommentResponse({
+    $core.bool? added,
+  }) {
+    final $result = create();
+    if (added != null) {
+      $result.added = added;
+    }
+    return $result;
+  }
   AddCommentResponse._() : super();
   factory AddCommentResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory AddCommentResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -323,7 +403,15 @@ class AddCommentResponse extends $pb.GeneratedMessage {
 }
 
 class LikeCommentRequest extends $pb.GeneratedMessage {
-  factory LikeCommentRequest() => create();
+  factory LikeCommentRequest({
+    $fixnum.Int64? commentId,
+  }) {
+    final $result = create();
+    if (commentId != null) {
+      $result.commentId = commentId;
+    }
+    return $result;
+  }
   LikeCommentRequest._() : super();
   factory LikeCommentRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LikeCommentRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -365,7 +453,15 @@ class LikeCommentRequest extends $pb.GeneratedMessage {
 }
 
 class LikeCommentResponse extends $pb.GeneratedMessage {
-  factory LikeCommentResponse() => create();
+  factory LikeCommentResponse({
+    $core.bool? liked,
+  }) {
+    final $result = create();
+    if (liked != null) {
+      $result.liked = liked;
+    }
+    return $result;
+  }
   LikeCommentResponse._() : super();
   factory LikeCommentResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LikeCommentResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -407,7 +503,15 @@ class LikeCommentResponse extends $pb.GeneratedMessage {
 }
 
 class UnLikeCommentRequest extends $pb.GeneratedMessage {
-  factory UnLikeCommentRequest() => create();
+  factory UnLikeCommentRequest({
+    $fixnum.Int64? commentId,
+  }) {
+    final $result = create();
+    if (commentId != null) {
+      $result.commentId = commentId;
+    }
+    return $result;
+  }
   UnLikeCommentRequest._() : super();
   factory UnLikeCommentRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UnLikeCommentRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -449,7 +553,15 @@ class UnLikeCommentRequest extends $pb.GeneratedMessage {
 }
 
 class UnLikeCommentResponse extends $pb.GeneratedMessage {
-  factory UnLikeCommentResponse() => create();
+  factory UnLikeCommentResponse({
+    $core.bool? liked,
+  }) {
+    final $result = create();
+    if (liked != null) {
+      $result.liked = liked;
+    }
+    return $result;
+  }
   UnLikeCommentResponse._() : super();
   factory UnLikeCommentResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UnLikeCommentResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+import "response.proto";
+
+option csharp_namespace = "NewPoint";
+
+package user;
+
+service GrpcCode {
+  rpc AddEmailCode (AddEmailCodeRequest) returns (response.Response);
+  rpc VerifyEmailCode (VerifyEmailCodeRequest) returns (response.Response);
+}
+
+message AddEmailCodeRequest {
+  string email = 2;
+}
+
+message AddEmailCodeResponse {
+  bool sent = 1;
+}
+
+message VerifyEmailCodeRequest {
+  string email = 2;
+  string code = 3;
+}
+
+message VerifyEmailCodeResponse {
+  bool verified = 1;
+}

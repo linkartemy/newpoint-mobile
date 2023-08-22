@@ -18,3 +18,8 @@ export 'src/generated/comment.pb.dart';
 export 'src/generated/comment.pbenum.dart';
 export 'src/generated/comment.pbgrpc.dart';
 export 'src/generated/comment.pbjson.dart';
+export 'src/generated/code.pb.dart';
+export 'src/generated/code.pbenum.dart';
+export 'src/generated/code.pbgrpc.dart';
+export 'src/generated/code.pbjson.dart';
+

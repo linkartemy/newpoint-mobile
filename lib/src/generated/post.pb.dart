@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -14,10 +14,62 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $5;
+import 'google/protobuf/timestamp.pb.dart' as $6;
 
 class PostModel extends $pb.GeneratedMessage {
-  factory PostModel() => create();
+  factory PostModel({
+    $fixnum.Int64? id,
+    $fixnum.Int64? authorId,
+    $core.String? login,
+    $core.String? name,
+    $core.String? surname,
+    $core.String? content,
+    $core.String? images,
+    $core.int? likes,
+    $core.int? shares,
+    $core.int? comments,
+    $core.bool? liked,
+    $6.Timestamp? creationTimestamp,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    if (authorId != null) {
+      $result.authorId = authorId;
+    }
+    if (login != null) {
+      $result.login = login;
+    }
+    if (name != null) {
+      $result.name = name;
+    }
+    if (surname != null) {
+      $result.surname = surname;
+    }
+    if (content != null) {
+      $result.content = content;
+    }
+    if (images != null) {
+      $result.images = images;
+    }
+    if (likes != null) {
+      $result.likes = likes;
+    }
+    if (shares != null) {
+      $result.shares = shares;
+    }
+    if (comments != null) {
+      $result.comments = comments;
+    }
+    if (liked != null) {
+      $result.liked = liked;
+    }
+    if (creationTimestamp != null) {
+      $result.creationTimestamp = creationTimestamp;
+    }
+    return $result;
+  }
   PostModel._() : super();
   factory PostModel.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory PostModel.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -34,7 +86,7 @@ class PostModel extends $pb.GeneratedMessage {
     ..a<$core.int>(9, _omitFieldNames ? '' : 'shares', $pb.PbFieldType.O3)
     ..a<$core.int>(10, _omitFieldNames ? '' : 'comments', $pb.PbFieldType.O3)
     ..aOB(11, _omitFieldNames ? '' : 'liked')
-    ..aOM<$5.Timestamp>(12, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $5.Timestamp.create)
+    ..aOM<$6.Timestamp>(12, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $6.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -159,15 +211,15 @@ class PostModel extends $pb.GeneratedMessage {
   void clearLiked() => clearField(11);
 
   @$pb.TagNumber(12)
-  $5.Timestamp get creationTimestamp => $_getN(11);
+  $6.Timestamp get creationTimestamp => $_getN(11);
   @$pb.TagNumber(12)
-  set creationTimestamp($5.Timestamp v) { setField(12, v); }
+  set creationTimestamp($6.Timestamp v) { setField(12, v); }
   @$pb.TagNumber(12)
   $core.bool hasCreationTimestamp() => $_has(11);
   @$pb.TagNumber(12)
   void clearCreationTimestamp() => clearField(12);
   @$pb.TagNumber(12)
-  $5.Timestamp ensureCreationTimestamp() => $_ensure(11);
+  $6.Timestamp ensureCreationTimestamp() => $_ensure(11);
 }
 
 class GetPostsRequest extends $pb.GeneratedMessage {
@@ -203,7 +255,15 @@ class GetPostsRequest extends $pb.GeneratedMessage {
 }
 
 class GetPostsResponse extends $pb.GeneratedMessage {
-  factory GetPostsResponse() => create();
+  factory GetPostsResponse({
+    $core.Iterable<PostModel>? posts,
+  }) {
+    final $result = create();
+    if (posts != null) {
+      $result.posts.addAll(posts);
+    }
+    return $result;
+  }
   GetPostsResponse._() : super();
   factory GetPostsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetPostsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -239,7 +299,15 @@ class GetPostsResponse extends $pb.GeneratedMessage {
 }
 
 class GetPostsByUserIdRequest extends $pb.GeneratedMessage {
-  factory GetPostsByUserIdRequest() => create();
+  factory GetPostsByUserIdRequest({
+    $fixnum.Int64? userId,
+  }) {
+    final $result = create();
+    if (userId != null) {
+      $result.userId = userId;
+    }
+    return $result;
+  }
   GetPostsByUserIdRequest._() : super();
   factory GetPostsByUserIdRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetPostsByUserIdRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -281,7 +349,15 @@ class GetPostsByUserIdRequest extends $pb.GeneratedMessage {
 }
 
 class GetPostsByUserIdResponse extends $pb.GeneratedMessage {
-  factory GetPostsByUserIdResponse() => create();
+  factory GetPostsByUserIdResponse({
+    $core.Iterable<PostModel>? posts,
+  }) {
+    final $result = create();
+    if (posts != null) {
+      $result.posts.addAll(posts);
+    }
+    return $result;
+  }
   GetPostsByUserIdResponse._() : super();
   factory GetPostsByUserIdResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetPostsByUserIdResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -317,7 +393,15 @@ class GetPostsByUserIdResponse extends $pb.GeneratedMessage {
 }
 
 class GetPostByIdRequest extends $pb.GeneratedMessage {
-  factory GetPostByIdRequest() => create();
+  factory GetPostByIdRequest({
+    $fixnum.Int64? id,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    return $result;
+  }
   GetPostByIdRequest._() : super();
   factory GetPostByIdRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetPostByIdRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -359,7 +443,15 @@ class GetPostByIdRequest extends $pb.GeneratedMessage {
 }
 
 class GetPostByIdResponse extends $pb.GeneratedMessage {
-  factory GetPostByIdResponse() => create();
+  factory GetPostByIdResponse({
+    PostModel? post,
+  }) {
+    final $result = create();
+    if (post != null) {
+      $result.post = post;
+    }
+    return $result;
+  }
   GetPostByIdResponse._() : super();
   factory GetPostByIdResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetPostByIdResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -403,7 +495,15 @@ class GetPostByIdResponse extends $pb.GeneratedMessage {
 }
 
 class LikePostRequest extends $pb.GeneratedMessage {
-  factory LikePostRequest() => create();
+  factory LikePostRequest({
+    $fixnum.Int64? postId,
+  }) {
+    final $result = create();
+    if (postId != null) {
+      $result.postId = postId;
+    }
+    return $result;
+  }
   LikePostRequest._() : super();
   factory LikePostRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LikePostRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -445,7 +545,15 @@ class LikePostRequest extends $pb.GeneratedMessage {
 }
 
 class LikePostResponse extends $pb.GeneratedMessage {
-  factory LikePostResponse() => create();
+  factory LikePostResponse({
+    $core.bool? liked,
+  }) {
+    final $result = create();
+    if (liked != null) {
+      $result.liked = liked;
+    }
+    return $result;
+  }
   LikePostResponse._() : super();
   factory LikePostResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LikePostResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -487,7 +595,15 @@ class LikePostResponse extends $pb.GeneratedMessage {
 }
 
 class UnLikePostRequest extends $pb.GeneratedMessage {
-  factory UnLikePostRequest() => create();
+  factory UnLikePostRequest({
+    $fixnum.Int64? postId,
+  }) {
+    final $result = create();
+    if (postId != null) {
+      $result.postId = postId;
+    }
+    return $result;
+  }
   UnLikePostRequest._() : super();
   factory UnLikePostRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UnLikePostRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -529,7 +645,15 @@ class UnLikePostRequest extends $pb.GeneratedMessage {
 }
 
 class UnLikePostResponse extends $pb.GeneratedMessage {
-  factory UnLikePostResponse() => create();
+  factory UnLikePostResponse({
+    $core.bool? liked,
+  }) {
+    final $result = create();
+    if (liked != null) {
+      $result.liked = liked;
+    }
+    return $result;
+  }
   UnLikePostResponse._() : super();
   factory UnLikePostResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UnLikePostResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -571,7 +695,15 @@ class UnLikePostResponse extends $pb.GeneratedMessage {
 }
 
 class SharePostRequest extends $pb.GeneratedMessage {
-  factory SharePostRequest() => create();
+  factory SharePostRequest({
+    $fixnum.Int64? postId,
+  }) {
+    final $result = create();
+    if (postId != null) {
+      $result.postId = postId;
+    }
+    return $result;
+  }
   SharePostRequest._() : super();
   factory SharePostRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SharePostRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -613,7 +745,15 @@ class SharePostRequest extends $pb.GeneratedMessage {
 }
 
 class SharePostResponse extends $pb.GeneratedMessage {
-  factory SharePostResponse() => create();
+  factory SharePostResponse({
+    $core.bool? shared,
+  }) {
+    final $result = create();
+    if (shared != null) {
+      $result.shared = shared;
+    }
+    return $result;
+  }
   SharePostResponse._() : super();
   factory SharePostResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SharePostResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);

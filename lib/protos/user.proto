@@ -13,6 +13,7 @@ service GrpcUser {
   rpc Register (RegisterRequest) returns (response.Response);
   rpc GetUserByToken (GetUserByTokenRequest) returns (response.Response);
   rpc GetProfileById (GetProfileByIdRequest) returns (response.Response);
+  rpc ValidateUser (ValidateUserRequest) returns (response.Response);
 }
 
 message UserModel {
@@ -67,4 +68,17 @@ message GetProfileByIdRequest {
 
 message GetProfileByIdResponse {
   UserModel user = 1;
+}
+
+message ValidateUserRequest {
+  string login = 2;
+  string password = 3;
+  string name = 4;
+  string surname = 5;
+  string email = 6;
+  string phone = 7;
+}
+
+message ValidateUserResponse {
+  bool valid = 1;
 }

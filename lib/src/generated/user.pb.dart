@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -14,11 +14,71 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $5;
-import 'nullable.pb.dart' as $7;
+import 'google/protobuf/timestamp.pb.dart' as $6;
+import 'nullable.pb.dart' as $8;
 
 class UserModel extends $pb.GeneratedMessage {
-  factory UserModel() => create();
+  factory UserModel({
+    $fixnum.Int64? id,
+    $core.String? login,
+    $core.String? name,
+    $core.String? surname,
+    $8.NullableString? description,
+    $8.NullableString? location,
+    $8.NullableString? email,
+    $8.NullableString? phone,
+    $8.NullableString? profileImage,
+    $8.NullableString? headerImage,
+    $8.NullableTimestamp? birthDate,
+    $8.NullableTimestamp? registrationTimestamp,
+    $8.NullableTimestamp? lastLoginTimestamp,
+    $8.NullableString? ip,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    if (login != null) {
+      $result.login = login;
+    }
+    if (name != null) {
+      $result.name = name;
+    }
+    if (surname != null) {
+      $result.surname = surname;
+    }
+    if (description != null) {
+      $result.description = description;
+    }
+    if (location != null) {
+      $result.location = location;
+    }
+    if (email != null) {
+      $result.email = email;
+    }
+    if (phone != null) {
+      $result.phone = phone;
+    }
+    if (profileImage != null) {
+      $result.profileImage = profileImage;
+    }
+    if (headerImage != null) {
+      $result.headerImage = headerImage;
+    }
+    if (birthDate != null) {
+      $result.birthDate = birthDate;
+    }
+    if (registrationTimestamp != null) {
+      $result.registrationTimestamp = registrationTimestamp;
+    }
+    if (lastLoginTimestamp != null) {
+      $result.lastLoginTimestamp = lastLoginTimestamp;
+    }
+    if (ip != null) {
+      $result.ip = ip;
+    }
+    return $result;
+  }
   UserModel._() : super();
   factory UserModel.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UserModel.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -28,16 +88,16 @@ class UserModel extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'login')
     ..aOS(3, _omitFieldNames ? '' : 'name')
     ..aOS(4, _omitFieldNames ? '' : 'surname')
-    ..aOM<$7.NullableString>(5, _omitFieldNames ? '' : 'description', subBuilder: $7.NullableString.create)
-    ..aOM<$7.NullableString>(6, _omitFieldNames ? '' : 'location', subBuilder: $7.NullableString.create)
-    ..aOM<$7.NullableString>(7, _omitFieldNames ? '' : 'email', subBuilder: $7.NullableString.create)
-    ..aOM<$7.NullableString>(8, _omitFieldNames ? '' : 'phone', subBuilder: $7.NullableString.create)
-    ..aOM<$7.NullableString>(9, _omitFieldNames ? '' : 'profileImage', protoName: 'profileImage', subBuilder: $7.NullableString.create)
-    ..aOM<$7.NullableString>(10, _omitFieldNames ? '' : 'headerImage', protoName: 'headerImage', subBuilder: $7.NullableString.create)
-    ..aOM<$7.NullableTimestamp>(11, _omitFieldNames ? '' : 'birthDate', subBuilder: $7.NullableTimestamp.create)
-    ..aOM<$7.NullableTimestamp>(12, _omitFieldNames ? '' : 'registrationTimestamp', subBuilder: $7.NullableTimestamp.create)
-    ..aOM<$7.NullableTimestamp>(13, _omitFieldNames ? '' : 'lastLoginTimestamp', subBuilder: $7.NullableTimestamp.create)
-    ..aOM<$7.NullableString>(14, _omitFieldNames ? '' : 'ip', subBuilder: $7.NullableString.create)
+    ..aOM<$8.NullableString>(5, _omitFieldNames ? '' : 'description', subBuilder: $8.NullableString.create)
+    ..aOM<$8.NullableString>(6, _omitFieldNames ? '' : 'location', subBuilder: $8.NullableString.create)
+    ..aOM<$8.NullableString>(7, _omitFieldNames ? '' : 'email', subBuilder: $8.NullableString.create)
+    ..aOM<$8.NullableString>(8, _omitFieldNames ? '' : 'phone', subBuilder: $8.NullableString.create)
+    ..aOM<$8.NullableString>(9, _omitFieldNames ? '' : 'profileImage', protoName: 'profileImage', subBuilder: $8.NullableString.create)
+    ..aOM<$8.NullableString>(10, _omitFieldNames ? '' : 'headerImage', protoName: 'headerImage', subBuilder: $8.NullableString.create)
+    ..aOM<$8.NullableTimestamp>(11, _omitFieldNames ? '' : 'birthDate', subBuilder: $8.NullableTimestamp.create)
+    ..aOM<$8.NullableTimestamp>(12, _omitFieldNames ? '' : 'registrationTimestamp', subBuilder: $8.NullableTimestamp.create)
+    ..aOM<$8.NullableTimestamp>(13, _omitFieldNames ? '' : 'lastLoginTimestamp', subBuilder: $8.NullableTimestamp.create)
+    ..aOM<$8.NullableString>(14, _omitFieldNames ? '' : 'ip', subBuilder: $8.NullableString.create)
     ..hasRequiredFields = false
   ;
 
@@ -99,118 +159,130 @@ class UserModel extends $pb.GeneratedMessage {
   void clearSurname() => clearField(4);
 
   @$pb.TagNumber(5)
-  $7.NullableString get description => $_getN(4);
+  $8.NullableString get description => $_getN(4);
   @$pb.TagNumber(5)
-  set description($7.NullableString v) { setField(5, v); }
+  set description($8.NullableString v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasDescription() => $_has(4);
   @$pb.TagNumber(5)
   void clearDescription() => clearField(5);
   @$pb.TagNumber(5)
-  $7.NullableString ensureDescription() => $_ensure(4);
+  $8.NullableString ensureDescription() => $_ensure(4);
 
   @$pb.TagNumber(6)
-  $7.NullableString get location => $_getN(5);
+  $8.NullableString get location => $_getN(5);
   @$pb.TagNumber(6)
-  set location($7.NullableString v) { setField(6, v); }
+  set location($8.NullableString v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasLocation() => $_has(5);
   @$pb.TagNumber(6)
   void clearLocation() => clearField(6);
   @$pb.TagNumber(6)
-  $7.NullableString ensureLocation() => $_ensure(5);
+  $8.NullableString ensureLocation() => $_ensure(5);
 
   @$pb.TagNumber(7)
-  $7.NullableString get email => $_getN(6);
+  $8.NullableString get email => $_getN(6);
   @$pb.TagNumber(7)
-  set email($7.NullableString v) { setField(7, v); }
+  set email($8.NullableString v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasEmail() => $_has(6);
   @$pb.TagNumber(7)
   void clearEmail() => clearField(7);
   @$pb.TagNumber(7)
-  $7.NullableString ensureEmail() => $_ensure(6);
+  $8.NullableString ensureEmail() => $_ensure(6);
 
   @$pb.TagNumber(8)
-  $7.NullableString get phone => $_getN(7);
+  $8.NullableString get phone => $_getN(7);
   @$pb.TagNumber(8)
-  set phone($7.NullableString v) { setField(8, v); }
+  set phone($8.NullableString v) { setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasPhone() => $_has(7);
   @$pb.TagNumber(8)
   void clearPhone() => clearField(8);
   @$pb.TagNumber(8)
-  $7.NullableString ensurePhone() => $_ensure(7);
+  $8.NullableString ensurePhone() => $_ensure(7);
 
   @$pb.TagNumber(9)
-  $7.NullableString get profileImage => $_getN(8);
+  $8.NullableString get profileImage => $_getN(8);
   @$pb.TagNumber(9)
-  set profileImage($7.NullableString v) { setField(9, v); }
+  set profileImage($8.NullableString v) { setField(9, v); }
   @$pb.TagNumber(9)
   $core.bool hasProfileImage() => $_has(8);
   @$pb.TagNumber(9)
   void clearProfileImage() => clearField(9);
   @$pb.TagNumber(9)
-  $7.NullableString ensureProfileImage() => $_ensure(8);
+  $8.NullableString ensureProfileImage() => $_ensure(8);
 
   @$pb.TagNumber(10)
-  $7.NullableString get headerImage => $_getN(9);
+  $8.NullableString get headerImage => $_getN(9);
   @$pb.TagNumber(10)
-  set headerImage($7.NullableString v) { setField(10, v); }
+  set headerImage($8.NullableString v) { setField(10, v); }
   @$pb.TagNumber(10)
   $core.bool hasHeaderImage() => $_has(9);
   @$pb.TagNumber(10)
   void clearHeaderImage() => clearField(10);
   @$pb.TagNumber(10)
-  $7.NullableString ensureHeaderImage() => $_ensure(9);
+  $8.NullableString ensureHeaderImage() => $_ensure(9);
 
   @$pb.TagNumber(11)
-  $7.NullableTimestamp get birthDate => $_getN(10);
+  $8.NullableTimestamp get birthDate => $_getN(10);
   @$pb.TagNumber(11)
-  set birthDate($7.NullableTimestamp v) { setField(11, v); }
+  set birthDate($8.NullableTimestamp v) { setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasBirthDate() => $_has(10);
   @$pb.TagNumber(11)
   void clearBirthDate() => clearField(11);
   @$pb.TagNumber(11)
-  $7.NullableTimestamp ensureBirthDate() => $_ensure(10);
+  $8.NullableTimestamp ensureBirthDate() => $_ensure(10);
 
   @$pb.TagNumber(12)
-  $7.NullableTimestamp get registrationTimestamp => $_getN(11);
+  $8.NullableTimestamp get registrationTimestamp => $_getN(11);
   @$pb.TagNumber(12)
-  set registrationTimestamp($7.NullableTimestamp v) { setField(12, v); }
+  set registrationTimestamp($8.NullableTimestamp v) { setField(12, v); }
   @$pb.TagNumber(12)
   $core.bool hasRegistrationTimestamp() => $_has(11);
   @$pb.TagNumber(12)
   void clearRegistrationTimestamp() => clearField(12);
   @$pb.TagNumber(12)
-  $7.NullableTimestamp ensureRegistrationTimestamp() => $_ensure(11);
+  $8.NullableTimestamp ensureRegistrationTimestamp() => $_ensure(11);
 
   @$pb.TagNumber(13)
-  $7.NullableTimestamp get lastLoginTimestamp => $_getN(12);
+  $8.NullableTimestamp get lastLoginTimestamp => $_getN(12);
   @$pb.TagNumber(13)
-  set lastLoginTimestamp($7.NullableTimestamp v) { setField(13, v); }
+  set lastLoginTimestamp($8.NullableTimestamp v) { setField(13, v); }
   @$pb.TagNumber(13)
   $core.bool hasLastLoginTimestamp() => $_has(12);
   @$pb.TagNumber(13)
   void clearLastLoginTimestamp() => clearField(13);
   @$pb.TagNumber(13)
-  $7.NullableTimestamp ensureLastLoginTimestamp() => $_ensure(12);
+  $8.NullableTimestamp ensureLastLoginTimestamp() => $_ensure(12);
 
   @$pb.TagNumber(14)
-  $7.NullableString get ip => $_getN(13);
+  $8.NullableString get ip => $_getN(13);
   @$pb.TagNumber(14)
-  set ip($7.NullableString v) { setField(14, v); }
+  set ip($8.NullableString v) { setField(14, v); }
   @$pb.TagNumber(14)
   $core.bool hasIp() => $_has(13);
   @$pb.TagNumber(14)
   void clearIp() => clearField(14);
   @$pb.TagNumber(14)
-  $7.NullableString ensureIp() => $_ensure(13);
+  $8.NullableString ensureIp() => $_ensure(13);
 }
 
 class LoginRequest extends $pb.GeneratedMessage {
-  factory LoginRequest() => create();
+  factory LoginRequest({
+    $core.String? login,
+    $core.String? password,
+  }) {
+    final $result = create();
+    if (login != null) {
+      $result.login = login;
+    }
+    if (password != null) {
+      $result.password = password;
+    }
+    return $result;
+  }
   LoginRequest._() : super();
   factory LoginRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LoginRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -262,7 +334,15 @@ class LoginRequest extends $pb.GeneratedMessage {
 }
 
 class LoginResponse extends $pb.GeneratedMessage {
-  factory LoginResponse() => create();
+  factory LoginResponse({
+    UserModel? user,
+  }) {
+    final $result = create();
+    if (user != null) {
+      $result.user = user;
+    }
+    return $result;
+  }
   LoginResponse._() : super();
   factory LoginResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LoginResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -306,7 +386,39 @@ class LoginResponse extends $pb.GeneratedMessage {
 }
 
 class RegisterRequest extends $pb.GeneratedMessage {
-  factory RegisterRequest() => create();
+  factory RegisterRequest({
+    $core.String? login,
+    $core.String? password,
+    $core.String? name,
+    $core.String? surname,
+    $core.String? email,
+    $core.String? phone,
+    $6.Timestamp? birthDate,
+  }) {
+    final $result = create();
+    if (login != null) {
+      $result.login = login;
+    }
+    if (password != null) {
+      $result.password = password;
+    }
+    if (name != null) {
+      $result.name = name;
+    }
+    if (surname != null) {
+      $result.surname = surname;
+    }
+    if (email != null) {
+      $result.email = email;
+    }
+    if (phone != null) {
+      $result.phone = phone;
+    }
+    if (birthDate != null) {
+      $result.birthDate = birthDate;
+    }
+    return $result;
+  }
   RegisterRequest._() : super();
   factory RegisterRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory RegisterRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -318,7 +430,7 @@ class RegisterRequest extends $pb.GeneratedMessage {
     ..aOS(5, _omitFieldNames ? '' : 'surname')
     ..aOS(6, _omitFieldNames ? '' : 'email')
     ..aOS(7, _omitFieldNames ? '' : 'phone')
-    ..aOM<$5.Timestamp>(8, _omitFieldNames ? '' : 'birthDate', subBuilder: $5.Timestamp.create)
+    ..aOM<$6.Timestamp>(8, _omitFieldNames ? '' : 'birthDate', subBuilder: $6.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -398,19 +510,27 @@ class RegisterRequest extends $pb.GeneratedMessage {
   void clearPhone() => clearField(7);
 
   @$pb.TagNumber(8)
-  $5.Timestamp get birthDate => $_getN(6);
+  $6.Timestamp get birthDate => $_getN(6);
   @$pb.TagNumber(8)
-  set birthDate($5.Timestamp v) { setField(8, v); }
+  set birthDate($6.Timestamp v) { setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasBirthDate() => $_has(6);
   @$pb.TagNumber(8)
   void clearBirthDate() => clearField(8);
   @$pb.TagNumber(8)
-  $5.Timestamp ensureBirthDate() => $_ensure(6);
+  $6.Timestamp ensureBirthDate() => $_ensure(6);
 }
 
 class RegisterResponse extends $pb.GeneratedMessage {
-  factory RegisterResponse() => create();
+  factory RegisterResponse({
+    UserModel? user,
+  }) {
+    final $result = create();
+    if (user != null) {
+      $result.user = user;
+    }
+    return $result;
+  }
   RegisterResponse._() : super();
   factory RegisterResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory RegisterResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -486,7 +606,15 @@ class GetUserByTokenRequest extends $pb.GeneratedMessage {
 }
 
 class GetUserByTokenResponse extends $pb.GeneratedMessage {
-  factory GetUserByTokenResponse() => create();
+  factory GetUserByTokenResponse({
+    UserModel? user,
+  }) {
+    final $result = create();
+    if (user != null) {
+      $result.user = user;
+    }
+    return $result;
+  }
   GetUserByTokenResponse._() : super();
   factory GetUserByTokenResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetUserByTokenResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -530,7 +658,15 @@ class GetUserByTokenResponse extends $pb.GeneratedMessage {
 }
 
 class GetProfileByIdRequest extends $pb.GeneratedMessage {
-  factory GetProfileByIdRequest() => create();
+  factory GetProfileByIdRequest({
+    $fixnum.Int64? id,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    return $result;
+  }
   GetProfileByIdRequest._() : super();
   factory GetProfileByIdRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetProfileByIdRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -572,7 +708,15 @@ class GetProfileByIdRequest extends $pb.GeneratedMessage {
 }
 
 class GetProfileByIdResponse extends $pb.GeneratedMessage {
-  factory GetProfileByIdResponse() => create();
+  factory GetProfileByIdResponse({
+    UserModel? user,
+  }) {
+    final $result = create();
+    if (user != null) {
+      $result.user = user;
+    }
+    return $result;
+  }
   GetProfileByIdResponse._() : super();
   factory GetProfileByIdResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetProfileByIdResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -613,6 +757,176 @@ class GetProfileByIdResponse extends $pb.GeneratedMessage {
   void clearUser() => clearField(1);
   @$pb.TagNumber(1)
   UserModel ensureUser() => $_ensure(0);
+}
+
+class ValidateUserRequest extends $pb.GeneratedMessage {
+  factory ValidateUserRequest({
+    $core.String? login,
+    $core.String? password,
+    $core.String? name,
+    $core.String? surname,
+    $core.String? email,
+    $core.String? phone,
+  }) {
+    final $result = create();
+    if (login != null) {
+      $result.login = login;
+    }
+    if (password != null) {
+      $result.password = password;
+    }
+    if (name != null) {
+      $result.name = name;
+    }
+    if (surname != null) {
+      $result.surname = surname;
+    }
+    if (email != null) {
+      $result.email = email;
+    }
+    if (phone != null) {
+      $result.phone = phone;
+    }
+    return $result;
+  }
+  ValidateUserRequest._() : super();
+  factory ValidateUserRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ValidateUserRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ValidateUserRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+    ..aOS(2, _omitFieldNames ? '' : 'login')
+    ..aOS(3, _omitFieldNames ? '' : 'password')
+    ..aOS(4, _omitFieldNames ? '' : 'name')
+    ..aOS(5, _omitFieldNames ? '' : 'surname')
+    ..aOS(6, _omitFieldNames ? '' : 'email')
+    ..aOS(7, _omitFieldNames ? '' : 'phone')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ValidateUserRequest clone() => ValidateUserRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ValidateUserRequest copyWith(void Function(ValidateUserRequest) updates) => super.copyWith((message) => updates(message as ValidateUserRequest)) as ValidateUserRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ValidateUserRequest create() => ValidateUserRequest._();
+  ValidateUserRequest createEmptyInstance() => create();
+  static $pb.PbList<ValidateUserRequest> createRepeated() => $pb.PbList<ValidateUserRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ValidateUserRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ValidateUserRequest>(create);
+  static ValidateUserRequest? _defaultInstance;
+
+  @$pb.TagNumber(2)
+  $core.String get login => $_getSZ(0);
+  @$pb.TagNumber(2)
+  set login($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasLogin() => $_has(0);
+  @$pb.TagNumber(2)
+  void clearLogin() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get password => $_getSZ(1);
+  @$pb.TagNumber(3)
+  set password($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasPassword() => $_has(1);
+  @$pb.TagNumber(3)
+  void clearPassword() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get name => $_getSZ(2);
+  @$pb.TagNumber(4)
+  set name($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasName() => $_has(2);
+  @$pb.TagNumber(4)
+  void clearName() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get surname => $_getSZ(3);
+  @$pb.TagNumber(5)
+  set surname($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasSurname() => $_has(3);
+  @$pb.TagNumber(5)
+  void clearSurname() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get email => $_getSZ(4);
+  @$pb.TagNumber(6)
+  set email($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasEmail() => $_has(4);
+  @$pb.TagNumber(6)
+  void clearEmail() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get phone => $_getSZ(5);
+  @$pb.TagNumber(7)
+  set phone($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasPhone() => $_has(5);
+  @$pb.TagNumber(7)
+  void clearPhone() => clearField(7);
+}
+
+class ValidateUserResponse extends $pb.GeneratedMessage {
+  factory ValidateUserResponse({
+    $core.bool? valid,
+  }) {
+    final $result = create();
+    if (valid != null) {
+      $result.valid = valid;
+    }
+    return $result;
+  }
+  ValidateUserResponse._() : super();
+  factory ValidateUserResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ValidateUserResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ValidateUserResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'valid')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ValidateUserResponse clone() => ValidateUserResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ValidateUserResponse copyWith(void Function(ValidateUserResponse) updates) => super.copyWith((message) => updates(message as ValidateUserResponse)) as ValidateUserResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ValidateUserResponse create() => ValidateUserResponse._();
+  ValidateUserResponse createEmptyInstance() => create();
+  static $pb.PbList<ValidateUserResponse> createRepeated() => $pb.PbList<ValidateUserResponse>();
+  @$core.pragma('dart2js:noInline')
+  static ValidateUserResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ValidateUserResponse>(create);
+  static ValidateUserResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get valid => $_getBF(0);
+  @$pb.TagNumber(1)
+  set valid($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasValid() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearValid() => clearField(1);
 }
 
 
