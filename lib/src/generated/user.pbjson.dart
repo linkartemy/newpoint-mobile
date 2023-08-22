@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -154,4 +154,35 @@ const GetProfileByIdResponse$json = {
 final $typed_data.Uint8List getProfileByIdResponseDescriptor = $convert.base64Decode(
     'ChZHZXRQcm9maWxlQnlJZFJlc3BvbnNlEiMKBHVzZXIYASABKAsyDy51c2VyLlVzZXJNb2RlbF'
     'IEdXNlcg==');
+
+@$core.Deprecated('Use validateUserRequestDescriptor instead')
+const ValidateUserRequest$json = {
+  '1': 'ValidateUserRequest',
+  '2': [
+    {'1': 'login', '3': 2, '4': 1, '5': 9, '10': 'login'},
+    {'1': 'password', '3': 3, '4': 1, '5': 9, '10': 'password'},
+    {'1': 'name', '3': 4, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'surname', '3': 5, '4': 1, '5': 9, '10': 'surname'},
+    {'1': 'email', '3': 6, '4': 1, '5': 9, '10': 'email'},
+    {'1': 'phone', '3': 7, '4': 1, '5': 9, '10': 'phone'},
+  ],
+};
+
+/// Descriptor for `ValidateUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List validateUserRequestDescriptor = $convert.base64Decode(
+    'ChNWYWxpZGF0ZVVzZXJSZXF1ZXN0EhQKBWxvZ2luGAIgASgJUgVsb2dpbhIaCghwYXNzd29yZB'
+    'gDIAEoCVIIcGFzc3dvcmQSEgoEbmFtZRgEIAEoCVIEbmFtZRIYCgdzdXJuYW1lGAUgASgJUgdz'
+    'dXJuYW1lEhQKBWVtYWlsGAYgASgJUgVlbWFpbBIUCgVwaG9uZRgHIAEoCVIFcGhvbmU=');
+
+@$core.Deprecated('Use validateUserResponseDescriptor instead')
+const ValidateUserResponse$json = {
+  '1': 'ValidateUserResponse',
+  '2': [
+    {'1': 'valid', '3': 1, '4': 1, '5': 8, '10': 'valid'},
+  ],
+};
+
+/// Descriptor for `ValidateUserResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List validateUserResponseDescriptor = $convert.base64Decode(
+    'ChRWYWxpZGF0ZVVzZXJSZXNwb25zZRIUCgV2YWxpZBgBIAEoCFIFdmFsaWQ=');
 
