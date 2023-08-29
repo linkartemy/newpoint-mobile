@@ -83,13 +83,6 @@ class ProfileViewState extends State<ProfileView> {
     var profile = model.profile;
 
     return Scaffold(
-        appBar: AppBar(
-            leading: InkWell(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: Icon(Icons.arrow_back))),
-        extendBodyBehindAppBar: true,
         body: RefreshIndicator(
             onRefresh: onRefresh,
             notificationPredicate: (ScrollNotification notification) {
@@ -116,6 +109,7 @@ class ProfileViewState extends State<ProfileView> {
                               DynamicSliverAppBar(
                                 forceElevated: innerBoxIsScrolled,
                                 maxHeight: 100,
+                                implyLeading: true,
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -374,61 +368,5 @@ class _Footer extends StatelessWidget {
             ),
           );
         });
-  }
-}
-
-class _Comments extends StatelessWidget {
-  const _Comments({
-    Key? key,
-    required this.comments,
-    required this.onLikeTap,
-    required this.onSendTap,
-  }) : super(key: key);
-  final List<Comment> comments;
-  final onSendTap;
-  final onLikeTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final model = Provider.of<PostViewModel>(context, listen: false);
-
-    return Column(children: [
-      TextFormField(
-        onChanged: model.onCommentTextChanged,
-        controller: model.commentFieldText,
-        decoration: InputDecoration(
-          border: const UnderlineInputBorder(),
-          labelText: 'Your thoughts?',
-          suffixIcon: InkWell(
-              onTap: () async {
-                await onSendTap(
-                  context,
-                );
-              },
-              child: const Icon(Icons.send)),
-        ),
-        style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
-      ),
-      ListView.builder(
-          itemCount: comments.length,
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            var comment = comments[index];
-
-            return CommentComponent(
-                index: index,
-                id: comment.id,
-                userId: comment.userId,
-                login: comment.login,
-                name: comment.name,
-                surname: comment.surname,
-                date: comment.creationTimestamp,
-                content: comment.content,
-                likes: comment.likes,
-                liked: comment.liked,
-                onLikeTap: onLikeTap);
-          })
-    ]);
   }
 }

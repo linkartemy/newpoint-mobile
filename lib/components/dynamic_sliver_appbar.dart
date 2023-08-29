@@ -5,12 +5,14 @@ class DynamicSliverAppBar extends StatefulWidget {
       {Key? key,
       required this.child,
       required this.maxHeight,
-      required this.forceElevated})
+      required this.forceElevated,
+      required this.implyLeading})
       : super(key: key);
 
   final Widget child;
   final double maxHeight;
   final forceElevated;
+  final implyLeading;
 
   @override
   _DynamicSliverAppBarState createState() => _DynamicSliverAppBarState();
@@ -36,7 +38,12 @@ class _DynamicSliverAppBarState extends State<DynamicSliverAppBar> {
 
     return SliverAppBar(
       forceElevated: widget.forceElevated,
-      automaticallyImplyLeading: false,
+      automaticallyImplyLeading: widget.implyLeading,
+      leading: InkWell(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back)),
       pinned: true,
       elevation: 0,
       expandedHeight: isHeightCalculated ? height : widget.maxHeight,
