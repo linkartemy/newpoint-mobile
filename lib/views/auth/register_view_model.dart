@@ -4,6 +4,7 @@ import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/domain/services/code_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
+import 'package:email_validator/email_validator.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   final _userService = UserService();
@@ -11,6 +12,7 @@ class RegisterViewModel extends ChangeNotifier {
 
   final loginTextController = TextEditingController();
   final passwordTextController = TextEditingController();
+  final passwordVerificationTextController = TextEditingController();
   final nameTextController = TextEditingController();
   final surnameTextController = TextEditingController();
   final emailTextController = TextEditingController();
@@ -70,6 +72,7 @@ class RegisterViewModel extends ChangeNotifier {
     try {
       final login = loginTextController.text;
       final password = passwordTextController.text;
+      final passwordVerification = passwordVerificationTextController.text;
       final name = nameTextController.text;
       final surname = surnameTextController.text;
       final email = emailTextController.text;
@@ -80,6 +83,17 @@ class RegisterViewModel extends ChangeNotifier {
         _updateState('You must fill all fields', false);
         return;
       }
+
+      if (!EmailValidator.validate(email)) {
+        _updateState('Email is invalid', false);
+        return;
+      }
+
+      if (password != passwordVerification) {
+        _updateState('Passwords are not the same', false);
+        return;
+      }
+
       _updateState(null, true);
 
       if (stage == 0) {

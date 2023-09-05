@@ -134,6 +134,11 @@ class _FormWidget extends StatelessWidget {
             obscureText: true),
         const SizedBox(height: 10),
         InputComponent(
+            controller: model.passwordVerificationTextController,
+            label: "Password verification",
+            obscureText: true),
+        const SizedBox(height: 10),
+        InputComponent(
           controller: model.nameTextController,
           label: "Name",
         ),
