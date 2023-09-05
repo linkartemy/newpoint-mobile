@@ -137,6 +137,7 @@ class PostViewState extends State<PostView> {
                               DynamicSliverAppBar(
                                 forceElevated: innerBoxIsScrolled,
                                 maxHeight: 300,
+                                implyLeading: false,
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:

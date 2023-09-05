@@ -16,16 +16,8 @@ class MainView extends StatefulWidget {
 }
 
 class MainViewState extends State<MainView> {
-  int _selectedTab = 0;
   bool _isLoadingPosts = false;
   var _user;
-
-  void onSelectTab(int index) {
-    if (_selectedTab == index) return;
-    setState(() {
-      _selectedTab = index;
-    });
-  }
 
   Future<void> getPosts() async {
     final model = Provider.of<MainViewModel>(context, listen: false);
