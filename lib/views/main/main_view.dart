@@ -2,6 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:newpoint/components/drawer.dart';
 import 'package:newpoint/components/post.dart';
+import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/main/main_view_model.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,11 @@ class MainViewState extends State<MainView> {
       length: 2,
       child: Scaffold(
           appBar: AppBar(
-            title: Text(""),
+            title: Image.asset(
+              AppImages.logoTitleOutline,
+              width: 100,
+            ),
+            centerTitle: true,
             bottom: TabBar(
               indicatorColor: AdaptiveTheme.of(context).theme.primaryColor,
               tabs: [

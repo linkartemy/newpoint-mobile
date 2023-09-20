@@ -43,6 +43,7 @@ dependencies:
   intl: ^0.18.0
   grpc: ^3.2.3
   email_validator: ^2.1.16
+  protoc_plugin: ^21.1.1
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/light-theme/logo-title.png
+    - assets/images/light-theme/logo-title-rounded.png
+    - assets/images/light-theme/logo-title-outline.png
     - assets/images/dark-theme/logo-title.png
     - lib/.env
 

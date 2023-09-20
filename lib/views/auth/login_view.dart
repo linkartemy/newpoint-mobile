@@ -24,7 +24,7 @@ class LoginView extends StatelessWidget {
           centerTitle: true,
           title: Image.asset(
             AppImages.logoTitleOutline,
-            width: 50,
+            width: 100,
           ),
         ),
         body: OverflowBox(

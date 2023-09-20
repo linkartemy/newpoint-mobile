@@ -22,4 +22,9 @@ export 'src/generated/code.pb.dart';
 export 'src/generated/code.pbenum.dart';
 export 'src/generated/code.pbgrpc.dart';
 export 'src/generated/code.pbjson.dart';
+export 'src/generated/image.pb.dart';
+export 'src/generated/image.pbenum.dart';
+export 'src/generated/image.pbgrpc.dart';
+export 'src/generated/image.pbjson.dart';
+
 
