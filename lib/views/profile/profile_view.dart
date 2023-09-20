@@ -173,7 +173,7 @@ class _Header extends StatelessWidget {
               )),
             )),
         Container(
-            margin: const EdgeInsets.only(left: 10, top: 180),
+            margin: const EdgeInsets.only(left: 10, top: 195),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
