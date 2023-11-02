@@ -153,11 +153,11 @@ class PostViewState extends State<PostView> {
                                             surname: post.surname,
                                             date: post.creationTimestamp,
                                           )),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 16),
                                       _Body(
                                         content: post.content,
                                       ),
-                                      const SizedBox(height: 5),
+                                      const SizedBox(height: 10),
                                       _Footer(
                                         id: post.id,
                                         likes: post.likes,
@@ -201,7 +201,7 @@ class _Header extends StatelessWidget {
         Row(
           children: [
             Container(
-                margin: const EdgeInsets.all(10),
+                margin: const EdgeInsets.symmetric(horizontal: 24),
                 child: const Icon(Icons.ice_skating)),
             const SizedBox(
               width: 10,
@@ -221,7 +221,7 @@ class _Header extends StatelessWidget {
                             style: AdaptiveTheme.of(context)
                                 .theme
                                 .textTheme
-                                .titleMedium!
+                                .titleSmall!
                                 .copyWith(
                                     color: CupertinoColors.secondaryLabel))
                       ]),
@@ -258,7 +258,7 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5),
+        padding: EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: [
             Container(
@@ -297,7 +297,7 @@ class _Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5),
+        padding: EdgeInsets.symmetric(horizontal: 24),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

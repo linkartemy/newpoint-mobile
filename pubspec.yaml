@@ -44,6 +44,7 @@ dependencies:
   grpc: ^3.2.3
   email_validator: ^2.1.16
   protoc_plugin: ^21.1.1
+  image_picker: ^1.0.4
 
 dev_dependencies:
   flutter_test:

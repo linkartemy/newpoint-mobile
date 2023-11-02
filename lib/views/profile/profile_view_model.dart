@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
 import 'package:newpoint/domain/models/post/post.dart';
@@ -19,6 +20,22 @@ class ProfileViewModel extends ChangeNotifier {
   User? profile;
   List<Post> posts = [];
   String error = "";
+
+  ImagePicker picker = ImagePicker();
+  XFile? image;
+
+  Future<void> onImageTap() async {
+    try {
+      image = await picker.pickImage(source: ImageSource.gallery);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
 
   Future<void> getUser() async {
     try {
