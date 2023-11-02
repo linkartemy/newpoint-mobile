@@ -12,10 +12,11 @@ class AppTheme {
     inputDecorationTheme: const InputDecorationTheme(
       border: OutlineInputBorder(),
       contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      isCollapsed: true,
+      isCollapsed: false,
       fillColor: Color.fromRGBO(243, 243, 243, 1),
       focusColor: Colors.red,
       hoverColor: Colors.red,
+      labelStyle: TextStyle(color: AppColors.textColor, fontFamily: _Fonts.regular)
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.mainDarkBlue,
@@ -152,6 +153,7 @@ class AppColors {
   static var textButtonStyle = TextButton.styleFrom(
       foregroundColor: buttonTextColor, backgroundColor: buttonBackgroundColor);
   static const likeButtonColor = Colors.pink;
+  static const textColor = Colors.black;
 }
 
 class _Fonts {

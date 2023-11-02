@@ -9,6 +9,7 @@ import 'package:newpoint/components/dynamic_sliver_appbar.dart';
 import 'package:newpoint/components/post.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
+import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
@@ -105,32 +106,35 @@ class ProfileViewState extends State<ProfileView> {
                     : NestedScrollView(
                         headerSliverBuilder: (context, innerBoxIsScrolled) => [
                               DynamicSliverAppBar(
-                                forceElevated: innerBoxIsScrolled,
-                                maxHeight: 1000,
-                                implyLeading: false,
-                                child: Padding(padding: EdgeInsets.only(top: 16),child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      _Header(
-                                        login: profile.login,
-                                        name: profile.name,
-                                        surname: profile.surname,
-                                        headerImageUrl:
-                                            "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg",
-                                        profileImageUrl:
-                                            "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg",
-                                      ),
-                                      _Body(
-                                        description: profile.description,
-                                        location: profile.location,
-                                        birthDate: profile.birthDate,
-                                        registrationDate:
-                                            profile.registrationTimestamp,
-                                      ),
-                                    ]),
-                              )),
+                                  forceElevated: innerBoxIsScrolled,
+                                  maxHeight: 1000,
+                                  implyLeading: false,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 16),
+                                    child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        children: [
+                                          _Header(
+                                            login: profile.login,
+                                            name: profile.name,
+                                            surname: profile.surname,
+                                            headerImageUrl:
+                                                "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg",
+                                            profileImageUrl:
+                                                "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg",
+                                          ),
+                                          _Body(
+                                            description: profile.description,
+                                            location: profile.location,
+                                            birthDate: profile.birthDate,
+                                            registrationDate:
+                                                profile.registrationTimestamp,
+                                          ),
+                                        ]),
+                                  )),
                             ],
                         body: const Padding(
                           padding: EdgeInsets.only(top: 30),
@@ -343,7 +347,7 @@ class _FooterState extends State<_Footer> {
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          final post = model.posts[index];
+          var post = model.posts[index];
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
             child: PostComponent(
@@ -365,6 +369,14 @@ class _FooterState extends State<_Footer> {
               },
               onShareTap: (BuildContext context) async {
                 await onShareTap(context, index);
+              },
+              onTap: (BuildContext context) async {
+                final postUpdated = await Navigator.of(context)
+                    .pushNamed(MainNavigationRouteNames.post,
+                        arguments: post.id);
+                setState(() {
+                  model.posts[index] = postUpdated as Post;
+                });
               },
             ),
           );

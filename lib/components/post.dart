@@ -22,7 +22,8 @@ class PostComponent extends StatelessWidget {
       required this.shares,
       required this.comments,
       required this.onShareTap,
-      required this.onLikeTap})
+      required this.onLikeTap,
+      required this.onTap})
       : super(key: key);
   final int id;
   final String login;
@@ -38,11 +39,7 @@ class PostComponent extends StatelessWidget {
   final int comments;
   final onShareTap;
   final onLikeTap;
-
-  Future<void> onTap(BuildContext context) async {
-    Navigator.of(context)
-        .pushNamed(MainNavigationRouteNames.post, arguments: id);
-  }
+  final onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +104,7 @@ class _Header extends StatelessWidget {
                 margin: const EdgeInsets.all(10),
                 child: CircleAvatar(
                     radius: 28,
-                    backgroundImage: profileImage ?? NetworkImage(""))),
+                    backgroundImage: profileImage ?? NetworkImage("https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"))),
             const SizedBox(
               width: 10,
             ),

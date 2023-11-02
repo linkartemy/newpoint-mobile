@@ -5,6 +5,7 @@ import 'package:newpoint/components/post.dart';
 import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/main/main_view_model.dart';
+import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -132,9 +133,9 @@ class _PostsState extends State<_PostsView> {
                   itemCount: posts.length,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
+                    final model =
+                        Provider.of<MainViewModel>(context, listen: false);
                     Future<void> onShareTap(BuildContext context) async {
-                      final model =
-                          Provider.of<MainViewModel>(context, listen: false);
                       model.share(posts[index].id);
                       setState(() {
                         posts[index].shares++;
@@ -142,8 +143,6 @@ class _PostsState extends State<_PostsView> {
                     }
 
                     Future<void> onLikeTap(BuildContext context) async {
-                      final model =
-                          Provider.of<MainViewModel>(context, listen: false);
                       setState(() {
                         posts[index].liked = !posts[index].liked;
                       });
@@ -160,23 +159,33 @@ class _PostsState extends State<_PostsView> {
                       }
                     }
 
+                    Future<void> onPostTap(BuildContext context) async {
+                      final post = await Navigator.of(context).pushNamed(
+                          MainNavigationRouteNames.post,
+                          arguments: posts[index].id);
+                      setState(() {
+                        posts[index] = post;
+                      });
+                    }
+
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 16),
                       child: PostComponent(
-                        id: posts[index].id,
-                        login: posts[index].login,
-                        name: posts[index].name,
-                        surname: posts[index].surname,
-                        date: posts[index].creationTimestamp,
-                        content: posts[index].content,
-                        images: [],
-                        likes: posts[index].likes,
-                        liked: posts[index].liked,
-                        shares: posts[index].shares,
-                        comments: posts[index].comments,
-                        onLikeTap: onLikeTap,
-                        onShareTap: onShareTap,
-                      ),
+                          id: posts[index].id,
+                          login: posts[index].login,
+                          name: posts[index].name,
+                          surname: posts[index].surname,
+                          date: posts[index].creationTimestamp,
+                          content: posts[index].content,
+                          images: [],
+                          likes: posts[index].likes,
+                          liked: posts[index].liked,
+                          shares: posts[index].shares,
+                          comments: posts[index].comments,
+                          onLikeTap: onLikeTap,
+                          onShareTap: onShareTap,
+                          onTap: onPostTap),
                     );
                   })));
     }
