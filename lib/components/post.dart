@@ -131,7 +131,7 @@ class _Header extends StatelessWidget {
                 const SizedBox(
                   height: 2,
                 ),
-                Text(AppLocalizations.of(context)!.postDateTime(date, date),
+                Text(dateToAgoString(context, date),
                     style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium)
               ],
             )
