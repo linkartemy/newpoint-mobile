@@ -46,7 +46,7 @@
     "logOutConfirmation": "Вы точно хотите выйти?",
     "cancel": "Отмена",
 
-    "registrationDate": "{date}",
+    "registrationDate": "В NewPoint с {date}",
     "@registrationDate": {
       "placeholders": {
         "date": {
@@ -72,5 +72,9 @@
           "format": "compact"
         }
       }
-    }
+    },
+
+    "posts": "Посты",
+        "articles": "Статьи",
+        "yourThoughts": "Ваши мысли?"
 }

@@ -391,7 +391,7 @@ class _Comments extends StatelessWidget {
           border: const UnderlineInputBorder(),
           labelStyle:
               AdaptiveTheme.of(context).theme.inputDecorationTheme.labelStyle,
-          labelText: 'Your thoughts?',
+          labelText: AppLocalizations.of(context)!.yourThoughts,
           isCollapsed:
               AdaptiveTheme.of(context).theme.inputDecorationTheme.isCollapsed,
           fillColor:

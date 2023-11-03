@@ -46,7 +46,7 @@
     "logOutConfirmation": "Would you like to log out?",
     "cancel": "Cancel",
 
-    "registrationDate": "{date}",
+    "registrationDate": "Since {date}",
     "@registrationDate": {
       "placeholders": {
         "date": {
@@ -72,5 +72,9 @@
           "format": "compact"
         }
       }
-    }
+    },
+
+    "posts": "Posts",
+    "articles": "Articles",
+    "yourThoughts": "Your Thoughts?"
 }

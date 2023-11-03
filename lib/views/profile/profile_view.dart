@@ -14,6 +14,7 @@ import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
 import 'package:newpoint/views/profile/profile_view_model.dart';
+import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -72,74 +73,134 @@ class ProfileViewState extends State<ProfileView> {
     final model = Provider.of<ProfileViewModel>(context);
     var profile = model.profile;
 
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          leading: InkWell(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: const Icon(Icons.arrow_back_rounded, size: 25),
-          ),
-        ),
-        body: RefreshIndicator(
-            onRefresh: onRefresh,
-            notificationPredicate: (ScrollNotification notification) {
-              if (model.error.isNotEmpty ||
-                  _isLoadingProfile ||
-                  profile == null) return notification.depth == 0;
-              return notification.depth == 1;
-            },
-            child: model.error.isNotEmpty
-                ? SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 300, horizontal: 10),
-                    child: Text(model.error,
-                        style: AdaptiveTheme.of(context)
-                            .theme
-                            .textTheme
-                            .bodyMedium))
-                : _isLoadingProfile || profile == null
-                    ? const LoaderView()
-                    : NestedScrollView(
-                        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                              DynamicSliverAppBar(
-                                  forceElevated: innerBoxIsScrolled,
-                                  maxHeight: 1000,
-                                  implyLeading: false,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top: 16),
-                                    child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          _Header(
-                                            login: profile.login,
-                                            name: profile.name,
-                                            surname: profile.surname,
-                                            headerImageUrl:
-                                                "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg",
-                                            profileImageUrl:
-                                                "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg",
-                                          ),
-                                          _Body(
-                                            description: profile.description,
-                                            location: profile.location,
-                                            birthDate: profile.birthDate,
-                                            registrationDate:
-                                                profile.registrationTimestamp,
-                                          ),
-                                        ]),
-                                  )),
-                            ],
-                        body: const Padding(
-                          padding: EdgeInsets.only(top: 30),
-                          child: _Footer(),
-                        ))));
+    return DefaultTabController(
+        length: 2,
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              leading: InkWell(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Icon(Icons.arrow_back_rounded, size: 25),
+              ),
+            ),
+            body: RefreshIndicator(
+                onRefresh: onRefresh,
+                notificationPredicate: (ScrollNotification notification) {
+                  if (model.error.isNotEmpty ||
+                      _isLoadingProfile ||
+                      profile == null) return notification.depth == 0;
+                  return notification.depth == 1;
+                },
+                child: model.error.isNotEmpty
+                    ? SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 300, horizontal: 10),
+                        child: Text(model.error,
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .bodyMedium))
+                    : _isLoadingProfile || profile == null
+                        ? const LoaderView()
+                        : NestedScrollView(
+                            headerSliverBuilder: (context,
+                                    innerBoxIsScrolled) =>
+                                [
+                                  DynamicSliverAppBar(
+                                      forceElevated: innerBoxIsScrolled,
+                                      maxHeight: 1000,
+                                      implyLeading: false,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 16),
+                                        child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            children: [
+                                              _Header(
+                                                login: profile.login,
+                                                name: profile.name,
+                                                surname: profile.surname,
+                                                headerImageUrl:
+                                                    "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg",
+                                                profileImageUrl:
+                                                    "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg",
+                                              ),
+                                              _Body(
+                                                description:
+                                                    profile.description,
+                                                location: profile.location,
+                                                birthDate: profile.birthDate,
+                                                registrationDate: profile
+                                                    .registrationTimestamp,
+                                              ),
+                                              SizedBox(
+                                                height: 24,
+                                              ),
+                                              TabBar(
+                                                indicatorColor:
+                                                    AdaptiveTheme.of(context)
+                                                        .theme
+                                                        .primaryColor,
+                                                tabs: [
+                                                  Tab(
+                                                    child: Text(
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .posts,
+                                                      style: AdaptiveTheme.of(
+                                                              context)
+                                                          .theme
+                                                          .textTheme
+                                                          .titleSmall,
+                                                    ),
+                                                  ),
+                                                  Tab(
+                                                      child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                        SizedBox(
+                                                          width: 50,
+                                                        ),
+                                                        Text(
+                                                          AppLocalizations.of(
+                                                                  context)!
+                                                              .articles,
+                                                          style:
+                                                              AdaptiveTheme.of(
+                                                                      context)
+                                                                  .theme
+                                                                  .textTheme
+                                                                  .titleSmall,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 25,
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {},
+                                                          child: Icon(
+                                                            Icons.search,
+                                                            color: AppColors
+                                                                .primary,
+                                                          ),
+                                                        ),
+                                                      ])),
+                                                ],
+                                              )
+                                            ]),
+                                      )),
+                                ],
+                            body: TabBarView(children: [
+                              _FooterPosts(),
+                              _FooterArticles(),
+                            ])))));
   }
 }
 
@@ -254,7 +315,7 @@ class _Body extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
-            height: 16,
+            height: 21,
           ),
           description != null
               ? Text(
@@ -264,7 +325,7 @@ class _Body extends StatelessWidget {
               : Container(),
           description != null
               ? const SizedBox(
-                  height: 16,
+                  height: 21,
                 )
               : Container(),
           location != null
@@ -305,7 +366,7 @@ class _Body extends StatelessWidget {
             height: 5,
           ),
           Text(
-            "Since ${AppLocalizations.of(context)!.registrationDate(registrationDate!)}",
+            AppLocalizations.of(context)!.registrationDate(registrationDate!),
             style: AdaptiveTheme.of(context)
                 .theme
                 .textTheme
@@ -318,14 +379,14 @@ class _Body extends StatelessWidget {
   }
 }
 
-class _Footer extends StatefulWidget {
-  const _Footer({Key? key}) : super(key: key);
+class _FooterPosts extends StatefulWidget {
+  const _FooterPosts({Key? key}) : super(key: key);
 
   @override
-  _FooterState createState() => _FooterState();
+  _FooterPostsState createState() => _FooterPostsState();
 }
 
-class _FooterState extends State<_Footer> {
+class _FooterPostsState extends State<_FooterPosts> {
   Future<void> onShareTap(BuildContext context, int index) async {
     final model = Provider.of<ProfileViewModel>(context, listen: false);
     model.share(index);
@@ -371,9 +432,75 @@ class _FooterState extends State<_Footer> {
                 await onShareTap(context, index);
               },
               onTap: (BuildContext context) async {
-                final postUpdated = await Navigator.of(context)
-                    .pushNamed(MainNavigationRouteNames.post,
-                        arguments: post.id);
+                final postUpdated = await Navigator.of(context).pushNamed(
+                    MainNavigationRouteNames.post,
+                    arguments: post.id);
+                setState(() {
+                  model.posts[index] = postUpdated as Post;
+                });
+              },
+            ),
+          );
+        });
+  }
+}
+
+class _FooterArticles extends StatefulWidget {
+  const _FooterArticles({Key? key}) : super(key: key);
+
+  @override
+  _FooterArticlesState createState() => _FooterArticlesState();
+}
+
+class _FooterArticlesState extends State<_FooterArticles> {
+  Future<void> onShareTap(BuildContext context, int index) async {
+    final model = Provider.of<ProfileViewModel>(context, listen: false);
+    model.share(index);
+    setState(() {});
+  }
+
+  Future<void> onLikeTap(BuildContext context, int index) async {
+    final model = Provider.of<ProfileViewModel>(context, listen: false);
+    await model.like(index);
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final model = Provider.of<ProfileViewModel>(context);
+
+    return ListView.builder(
+        itemCount: model.posts.length,
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          var post = model.posts[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+            child: PostComponent(
+              id: post.id,
+              login: post.login,
+              name: post.name,
+              surname: post.surname,
+              profileImage: const NetworkImage(
+                  "https://yt3.googleusercontent.com/ytc/APkrFKa1J_iBVN8AD7RUkNXfRJvcVK_Y0bzmxnX1t-ee=s176-c-k-c0x00ffffff-no-rj"),
+              date: post.creationTimestamp,
+              content: post.content,
+              images: [],
+              likes: post.likes,
+              liked: post.liked,
+              shares: post.shares,
+              comments: post.comments,
+              onLikeTap: (BuildContext context) async {
+                await onLikeTap(context, index);
+              },
+              onShareTap: (BuildContext context) async {
+                await onShareTap(context, index);
+              },
+              onTap: (BuildContext context) async {
+                final postUpdated = await Navigator.of(context).pushNamed(
+                    MainNavigationRouteNames.post,
+                    arguments: post.id);
                 setState(() {
                   model.posts[index] = postUpdated as Post;
                 });
