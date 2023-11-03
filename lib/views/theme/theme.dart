@@ -12,18 +12,19 @@ class AppTheme {
     inputDecorationTheme: const InputDecorationTheme(
       border: OutlineInputBorder(),
       contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      isCollapsed: true,
+      isCollapsed: false,
       fillColor: Color.fromRGBO(243, 243, 243, 1),
       focusColor: Colors.red,
       hoverColor: Colors.red,
+      labelStyle: TextStyle(color: AppColors.textColor, fontFamily: _Fonts.regular)
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: _Colors.mainDarkBlue,
+      backgroundColor: AppColors.mainDarkBlue,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.grey,
     ),
     fontFamily: _Fonts.regular,
-    primaryColor: _Colors.primary,
+    primaryColor: AppColors.primary,
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith<Color?>((s) {
@@ -70,72 +71,72 @@ class AppTheme {
             color: Colors.black,
             fontWeight: FontWeight.normal),
         headlineLarge: TextStyle(
-            fontSize: 32,
+            fontSize: 34, // 32
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.normal),
         headlineMedium: TextStyle(
-            fontSize: 28,
+            fontSize: 30, // 28
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.normal),
         headlineSmall: TextStyle(
-            fontSize: 24,
+            fontSize: 26, // 24
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.normal),
         titleLarge: TextStyle(
-            fontSize: 22,
+            fontSize: 24, // 22
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.w500),
         titleMedium: TextStyle(
-            fontSize: 16,
+            fontSize: 18, // 16
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.w500),
         titleSmall: TextStyle(
-            fontSize: 14,
+            fontSize: 16, // 14
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.w500),
         labelLarge: TextStyle(
-            fontSize: 14,
+            fontSize: 16, // 14
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.w500),
         labelMedium: TextStyle(
-            fontSize: 12,
+            fontSize: 14, // 12
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.w500),
         labelSmall: TextStyle(
-            fontSize: 11,
+            fontSize: 13, // 11
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.w500),
         bodyLarge: TextStyle(
-            fontSize: 16,
+            fontSize: 18, // 16
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.normal),
         bodyMedium: TextStyle(
-            fontSize: 14,
+            fontSize: 16, // 14
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.normal),
         bodySmall: TextStyle(
-            fontSize: 12,
+            fontSize: 14, // 12
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.normal)),
   );
   static var darkTheme = ThemeData(
     appBarTheme: const AppBarTheme(
-      backgroundColor: _Colors.mainDarkBlue,
+      backgroundColor: AppColors.mainDarkBlue,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: _Colors.mainDarkBlue,
+      backgroundColor: AppColors.mainDarkBlue,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.grey,
     ),
@@ -143,7 +144,7 @@ class AppTheme {
   );
 }
 
-class _Colors {
+class AppColors {
   static const mainDarkBlue = Color.fromRGBO(3, 37, 65, 1);
   static const primary = Color.fromRGBO(76, 144, 243, 1);
   static const buttonBackgroundColor = Color.fromRGBO(76, 144, 243, 1);
@@ -151,6 +152,8 @@ class _Colors {
   static const buttonNoBackgroundTextColor = Color.fromRGBO(255, 255, 255, 1);
   static var textButtonStyle = TextButton.styleFrom(
       foregroundColor: buttonTextColor, backgroundColor: buttonBackgroundColor);
+  static const likeButtonColor = Colors.pink;
+  static const textColor = Colors.black;
 }
 
 class _Fonts {

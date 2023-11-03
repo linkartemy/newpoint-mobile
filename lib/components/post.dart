@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:newpoint/views/theme/theme.dart';
 
 class PostComponent extends StatelessWidget {
   const PostComponent(
@@ -12,6 +13,7 @@ class PostComponent extends StatelessWidget {
       required this.login,
       required this.name,
       required this.surname,
+      this.profileImage,
       required this.date,
       required this.content,
       required this.images,
@@ -20,12 +22,14 @@ class PostComponent extends StatelessWidget {
       required this.shares,
       required this.comments,
       required this.onShareTap,
-      required this.onLikeTap})
+      required this.onLikeTap,
+      required this.onTap})
       : super(key: key);
   final int id;
   final String login;
   final String name;
   final String surname;
+  final NetworkImage? profileImage;
   final DateTime date;
   final String content;
   final List<Image> images;
@@ -35,45 +39,40 @@ class PostComponent extends StatelessWidget {
   final int comments;
   final onShareTap;
   final onLikeTap;
-
-  Future<void> onTap(BuildContext context) async {
-    Navigator.of(context)
-        .pushNamed(MainNavigationRouteNames.post, arguments: id);
-  }
+  final onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: InkWell(
-            onTap: () async {
-              await onTap(context);
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _Header(
-                  login: login,
-                  name: name,
-                  surname: surname,
-                  date: date,
-                ),
-                const SizedBox(height: 10),
-                _Body(
-                  content: content,
-                ),
-                const SizedBox(height: 5),
-                _Footer(
-                  id: id,
-                  likes: likes,
-                  shares: shares,
-                  comments: comments,
-                  liked: liked,
-                  onLikeTap: onLikeTap,
-                  onShareTap: onShareTap,
-                )
-              ],
-            )));
+    return InkWell(
+        onTap: () async {
+          await onTap(context);
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _Header(
+              login: login,
+              name: name,
+              surname: surname,
+              profileImage: profileImage,
+              date: date,
+            ),
+            const SizedBox(height: 10),
+            _Body(
+              content: content,
+            ),
+            const SizedBox(height: 16),
+            _Footer(
+              id: id,
+              likes: likes,
+              shares: shares,
+              comments: comments,
+              liked: liked,
+              onLikeTap: onLikeTap,
+              onShareTap: onShareTap,
+            )
+          ],
+        ));
   }
 }
 
@@ -83,11 +82,13 @@ class _Header extends StatelessWidget {
       required this.login,
       required this.name,
       required this.surname,
+      this.profileImage,
       required this.date})
       : super(key: key);
   final String login;
   final String name;
   final String surname;
+  final NetworkImage? profileImage;
   final DateTime date;
 
   Future<void> onDetailsTap() async {}
@@ -101,7 +102,9 @@ class _Header extends StatelessWidget {
           children: [
             Container(
                 margin: const EdgeInsets.all(10),
-                child: const Icon(Icons.ice_skating)),
+                child: CircleAvatar(
+                    radius: 28,
+                    backgroundImage: profileImage ?? NetworkImage("https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"))),
             const SizedBox(
               width: 10,
             ),
@@ -120,7 +123,7 @@ class _Header extends StatelessWidget {
                             style: AdaptiveTheme.of(context)
                                 .theme
                                 .textTheme
-                                .titleMedium!
+                                .titleSmall!
                                 .copyWith(
                                     color: CupertinoColors.secondaryLabel))
                       ]),
@@ -128,8 +131,8 @@ class _Header extends StatelessWidget {
                 const SizedBox(
                   height: 2,
                 ),
-                Text(AppLocalizations.of(context)!.postDateTime(date, date),
-                    style: AdaptiveTheme.of(context).theme.textTheme.titleSmall)
+                Text(dateToAgoString(context, date),
+                    style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium)
               ],
             )
           ],
@@ -196,60 +199,59 @@ class _Footer extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Text(comments.toString(),
-                  style: AdaptiveTheme.of(context)
-                      .theme
-                      .textTheme
-                      .titleMedium),
+          Text(comments.toString(),
+              style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
+          const SizedBox(
+            width: 5,
+          ),
+          const Icon(
+            Icons.mode_comment,
+            size: 22,
+          ),
+        ]),
+        InkWell(
+          onTap: () async {
+            await onShareTap(context);
+          },
+          child: Row(
+            children: [
+              Text(shares.toString(),
+                  style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
               const SizedBox(
                 width: 5,
               ),
-              const Icon(Icons.comment_rounded, size: 22,),
+              const Icon(CupertinoIcons.share),
+            ],
+          ),
+        ),
+        InkWell(
+          onTap: () async {
+            await onLikeTap(context);
+          },
+          child: Row(
+            children: [
+              Text(likes.toString(),
+                  style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
+              const SizedBox(
+                width: 5,
+              ),
+              liked
+                  ? const Icon(CupertinoIcons.heart_solid, color: AppColors.primary)
+                  : const Icon(CupertinoIcons.heart),
+            ],
+          ),
+        ),
+        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Text(comments.toString(),
+              style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
+          const SizedBox(
+            width: 5,
+          ),
+          const Icon(
+            Icons.query_stats,
+            size: 22,
+          ),
         ]),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            InkWell(
-              onTap: () async {
-                await onShareTap(context);
-              },
-              child: Row(
-                children: [
-                  Text(shares.toString(),
-                      style: AdaptiveTheme.of(context)
-                          .theme
-                          .textTheme
-                          .titleMedium),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const Icon(CupertinoIcons.share),
-                ],
-              ),
-            ),
-            const SizedBox(width: 5),
-            InkWell(
-              onTap: () async {
-                await onLikeTap(context);
-              },
-              child: Row(
-                children: [
-                  Text(likes.toString(),
-                      style: AdaptiveTheme.of(context)
-                          .theme
-                          .textTheme
-                          .titleMedium),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  liked
-                      ? const Icon(CupertinoIcons.heart_solid)
-                      : const Icon(CupertinoIcons.heart),
-                ],
-              ),
-            ),
-          ],
-        )
       ],
     );
   }

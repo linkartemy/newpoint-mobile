@@ -34,4 +34,7 @@
     </application>
     <!-- Добавлено для flutter_secure_storage (18 v.) -->
     <uses-sdk tools:overrideLibrary="android.support.v7.appcompat" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

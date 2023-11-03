@@ -10,6 +10,7 @@ import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
+import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -105,7 +106,7 @@ class PostViewState extends State<PostView> {
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(model.post);
             },
             child: const Icon(Icons.arrow_back_rounded, size: 25),
           ),
@@ -152,12 +153,13 @@ class PostViewState extends State<PostView> {
                                             name: post.name,
                                             surname: post.surname,
                                             date: post.creationTimestamp,
+                                            profileImage: null,
                                           )),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 16),
                                       _Body(
                                         content: post.content,
                                       ),
-                                      const SizedBox(height: 5),
+                                      const SizedBox(height: 10),
                                       _Footer(
                                         id: post.id,
                                         likes: post.likes,
@@ -184,12 +186,14 @@ class _Header extends StatelessWidget {
       required this.login,
       required this.name,
       required this.surname,
-      required this.date})
+      required this.date,
+      required this.profileImage})
       : super(key: key);
   final String login;
   final String name;
   final String surname;
   final DateTime date;
+  final NetworkImage? profileImage;
 
   Future<void> onDetailsTap() async {}
 
@@ -202,7 +206,9 @@ class _Header extends StatelessWidget {
           children: [
             Container(
                 margin: const EdgeInsets.all(10),
-                child: const Icon(Icons.ice_skating)),
+                child: CircleAvatar(
+                    radius: 28,
+                    backgroundImage: profileImage ?? NetworkImage("https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"))),
             const SizedBox(
               width: 10,
             ),
@@ -221,7 +227,7 @@ class _Header extends StatelessWidget {
                             style: AdaptiveTheme.of(context)
                                 .theme
                                 .textTheme
-                                .titleMedium!
+                                .titleSmall!
                                 .copyWith(
                                     color: CupertinoColors.secondaryLabel))
                       ]),
@@ -258,7 +264,7 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5),
+        padding: EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: [
             Container(
@@ -297,7 +303,7 @@ class _Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5),
+        padding: EdgeInsets.symmetric(horizontal: 24),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -349,7 +355,8 @@ class _Footer extends StatelessWidget {
                         width: 5,
                       ),
                       liked
-                          ? const Icon(CupertinoIcons.heart_solid)
+                          ? const Icon(CupertinoIcons.heart_solid,
+                              color: AppColors.primary)
                           : const Icon(CupertinoIcons.heart),
                     ],
                   ),
@@ -382,37 +389,47 @@ class _Comments extends StatelessWidget {
         controller: model.commentFieldText,
         decoration: InputDecoration(
           border: const UnderlineInputBorder(),
-          labelText: 'Your thoughts?',
+          labelStyle:
+              AdaptiveTheme.of(context).theme.inputDecorationTheme.labelStyle,
+          labelText: AppLocalizations.of(context)!.yourThoughts,
+          isCollapsed:
+              AdaptiveTheme.of(context).theme.inputDecorationTheme.isCollapsed,
+          fillColor:
+              AdaptiveTheme.of(context).theme.inputDecorationTheme.fillColor,
+          focusColor:
+              AdaptiveTheme.of(context).theme.inputDecorationTheme.focusColor,
+          hoverColor:
+              AdaptiveTheme.of(context).theme.inputDecorationTheme.hoverColor,
           suffixIcon: InkWell(
               onTap: () async {
-                await onSendTap(
-                  context,
-                );
+                await onSendTap(context);
               },
-              child: const Icon(Icons.send)),
+              child: const Icon(Icons.send, color: AppColors.primary)),
         ),
         style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
       ),
-      ListView.builder(
-          itemCount: comments.length,
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            var comment = comments[index];
+      Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: ListView.builder(
+              itemCount: comments.length,
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                var comment = comments[index];
 
-            return CommentComponent(
-                index: index,
-                id: comment.id,
-                userId: comment.userId,
-                login: comment.login,
-                name: comment.name,
-                surname: comment.surname,
-                date: comment.creationTimestamp,
-                content: comment.content,
-                likes: comment.likes,
-                liked: comment.liked,
-                onLikeTap: onLikeTap);
-          })
+                return CommentComponent(
+                    index: index,
+                    id: comment.id,
+                    userId: comment.userId,
+                    login: comment.login,
+                    name: comment.name,
+                    surname: comment.surname,
+                    date: comment.creationTimestamp,
+                    content: comment.content,
+                    likes: comment.likes,
+                    liked: comment.liked,
+                    onLikeTap: onLikeTap);
+              }))
     ]);
   }
 }

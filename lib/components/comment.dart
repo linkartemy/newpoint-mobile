@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:newpoint/views/theme/theme.dart';
 
 class CommentComponent extends StatelessWidget {
   const CommentComponent(
@@ -44,36 +45,34 @@ class CommentComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            InkWell(
-                onTap: () async {
-                  await onHeaderTap(context);
-                },
-                child: _Header(
-                  login: login,
-                  name: name,
-                  surname: surname,
-                  date: date,
-                )),
-            _Body(
-              index: index,
-              content: content,
-              likes: likes,
-              liked: liked,
-              onLikeTap: onLikeTap,
-            ),
-            const SizedBox(height: 5),
-            _Footer(
-              id: id,
-              likes: likes,
-              liked: liked,
-            )
-          ],
-        ));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        InkWell(
+            onTap: () async {
+              await onHeaderTap(context);
+            },
+            child: _Header(
+              login: login,
+              name: name,
+              surname: surname,
+              date: date,
+            )),
+        _Body(
+          index: index,
+          content: content,
+          likes: likes,
+          liked: liked,
+          onLikeTap: onLikeTap,
+        ),
+        const SizedBox(height: 5),
+        _Footer(
+          id: id,
+          likes: likes,
+          liked: liked,
+        )
+      ],
+    );
   }
 }
 
@@ -111,7 +110,7 @@ class _Header extends StatelessWidget {
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme
-                            .titleSmall!
+                            .bodySmall!
                             .copyWith(color: CupertinoColors.secondaryLabel))
                   ]),
             ),
@@ -119,7 +118,7 @@ class _Header extends StatelessWidget {
               width: 2,
             ),
             Text(AppLocalizations.of(context)!.commentDateTime(date, date),
-                style: AdaptiveTheme.of(context).theme.textTheme.titleSmall)
+                style: AdaptiveTheme.of(context).theme.textTheme.bodySmall)
           ],
         ),
         InkWell(
@@ -176,6 +175,7 @@ class _Body extends StatelessWidget {
               liked
                   ? const Icon(
                       CupertinoIcons.heart_solid,
+                      color: AppColors.primary,
                       size: 18,
                     )
                   : const Icon(
