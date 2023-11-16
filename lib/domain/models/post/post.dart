@@ -16,6 +16,7 @@ class Post {
   int likes;
   int shares;
   int comments;
+  int views;
   bool liked;
   @JsonKey(fromJson: parseDateFromString)
   final DateTime creationTimestamp;
@@ -31,6 +32,7 @@ class Post {
     required this.likes,
     required this.shares,
     required this.comments,
+    required this.views,
     required this.liked,
     required this.creationTimestamp,
   });

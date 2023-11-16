@@ -165,6 +165,7 @@ class PostViewState extends State<PostView> {
                                         likes: post.likes,
                                         shares: post.shares,
                                         comments: post.comments,
+                                        views: post.views,
                                         liked: post.liked,
                                         onLikeTap: onLikeTap,
                                         onShareTap: onShareTap,
@@ -208,7 +209,9 @@ class _Header extends StatelessWidget {
                 margin: const EdgeInsets.all(10),
                 child: CircleAvatar(
                     radius: 28,
-                    backgroundImage: profileImage ?? NetworkImage("https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"))),
+                    backgroundImage: profileImage ??
+                        NetworkImage(
+                            "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"))),
             const SizedBox(
               width: 10,
             ),
@@ -288,6 +291,7 @@ class _Footer extends StatelessWidget {
     required this.likes,
     required this.shares,
     required this.comments,
+    required this.views,
     required this.liked,
     required this.onLikeTap,
     required this.onShareTap,
@@ -296,6 +300,7 @@ class _Footer extends StatelessWidget {
   final int likes;
   final int shares;
   final int comments;
+  final int views;
   final bool liked;
   final onLikeTap;
   final onShareTap;
@@ -361,6 +366,21 @@ class _Footer extends StatelessWidget {
                     ],
                   ),
                 ),
+                const SizedBox(width: 5),
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Text(views.toString(),
+                      style: AdaptiveTheme.of(context)
+                          .theme
+                          .textTheme
+                          .titleMedium),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Icon(
+                    Icons.query_stats,
+                    size: 22,
+                  ),
+                ])
               ],
             )
           ],

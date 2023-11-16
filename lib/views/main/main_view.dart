@@ -8,6 +8,7 @@ import 'package:newpoint/views/main/main_view_model.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -42,8 +43,8 @@ class MainViewState extends State<MainView> {
     setState(() {
       _isLoadingPosts = true;
     });
-    getPosts();
     getUser();
+    getPosts();
   }
 
   @override
@@ -101,8 +102,9 @@ class _PostsState extends State<_PostsView> {
   Widget build(BuildContext context) {
     Future<void> onRefresh() async {
       final model = Provider.of<MainViewModel>(context, listen: false);
-      await model.getPosts();
       await model.getUser();
+      await model.getPosts();
+      setState(() {});
     }
 
     final model = Provider.of<MainViewModel>(context);
@@ -168,25 +170,40 @@ class _PostsState extends State<_PostsView> {
                       });
                     }
 
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 16),
-                      child: PostComponent(
-                          id: posts[index].id,
-                          login: posts[index].login,
-                          name: posts[index].name,
-                          surname: posts[index].surname,
-                          date: posts[index].creationTimestamp,
-                          content: posts[index].content,
-                          images: [],
-                          likes: posts[index].likes,
-                          liked: posts[index].liked,
-                          shares: posts[index].shares,
-                          comments: posts[index].comments,
-                          onLikeTap: onLikeTap,
-                          onShareTap: onShareTap,
-                          onTap: onPostTap),
-                    );
+                    return VisibilityDetector(
+                        key: Key('postkey$index'),
+                        onVisibilityChanged: (visibilityInfo) async {
+                          if (visibilityInfo.visibleFraction >= 0.9) {
+                            if (!model.viewedPosts.contains(posts[index].id) &&
+                                !model.isLoadingDatabase) {
+                              model.viewedPosts.add(posts[index].id);
+                              await model.addView(posts[index].id);
+                              setState(() {
+                                posts[index].views++;
+                              });
+                            }
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 16),
+                          child: PostComponent(
+                              id: posts[index].id,
+                              login: posts[index].login,
+                              name: posts[index].name,
+                              surname: posts[index].surname,
+                              date: posts[index].creationTimestamp,
+                              content: posts[index].content,
+                              images: [],
+                              likes: posts[index].likes,
+                              liked: posts[index].liked,
+                              shares: posts[index].shares,
+                              comments: posts[index].comments,
+                              views: posts[index].views,
+                              onLikeTap: onLikeTap,
+                              onShareTap: onShareTap,
+                              onTap: onPostTap),
+                        ));
                   })));
     }
   }

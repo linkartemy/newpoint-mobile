@@ -46,6 +46,10 @@ class GrpcPostClient extends $grpc.Client {
       '/post.GrpcPost/SharePost',
       ($4.SharePostRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$addPostView = $grpc.ClientMethod<$4.AddPostViewRequest, $1.Response>(
+      '/post.GrpcPost/AddPostView',
+      ($4.AddPostViewRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
 
   GrpcPostClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -75,6 +79,10 @@ class GrpcPostClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$1.Response> sharePost($4.SharePostRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$sharePost, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> addPostView($4.AddPostViewRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$addPostView, request, options: options);
   }
 }
 
@@ -125,6 +133,13 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $4.SharePostRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$4.AddPostViewRequest, $1.Response>(
+        'AddPostView',
+        addPostView_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $4.AddPostViewRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.Response> getPosts_Pre($grpc.ServiceCall call, $async.Future<$4.GetPostsRequest> request) async {
@@ -151,10 +166,15 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
     return sharePost(call, await request);
   }
 
+  $async.Future<$1.Response> addPostView_Pre($grpc.ServiceCall call, $async.Future<$4.AddPostViewRequest> request) async {
+    return addPostView(call, await request);
+  }
+
   $async.Future<$1.Response> getPosts($grpc.ServiceCall call, $4.GetPostsRequest request);
   $async.Future<$1.Response> getPostsByUserId($grpc.ServiceCall call, $4.GetPostsByUserIdRequest request);
   $async.Future<$1.Response> getPostById($grpc.ServiceCall call, $4.GetPostByIdRequest request);
   $async.Future<$1.Response> likePost($grpc.ServiceCall call, $4.LikePostRequest request);
   $async.Future<$1.Response> unLikePost($grpc.ServiceCall call, $4.UnLikePostRequest request);
   $async.Future<$1.Response> sharePost($grpc.ServiceCall call, $4.SharePostRequest request);
+  $async.Future<$1.Response> addPostView($grpc.ServiceCall call, $4.AddPostViewRequest request);
 }

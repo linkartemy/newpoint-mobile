@@ -98,4 +98,19 @@ class PostService {
     final shareResponse = SharePostResponse();
     return response.data.unpackInto<SharePostResponse>(shareResponse).shared;
   }
+
+  Future<int> addPostView(int id) async {
+    final request = AddPostViewRequest();
+    request.postId = Int64.parseInt(id.toString());
+    final response = await _postServiceClient.addPostView(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    final addPostViewResponse = AddPostViewResponse();
+    return int.parse(response.data
+        .unpackInto<AddPostViewResponse>(addPostViewResponse)
+        .views
+        .toString());
+  }
 }
