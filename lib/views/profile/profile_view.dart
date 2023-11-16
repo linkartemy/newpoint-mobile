@@ -17,6 +17,7 @@ import 'package:newpoint/views/profile/profile_view_model.dart';
 import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -425,6 +426,7 @@ class _FooterPostsState extends State<_FooterPosts> {
               liked: post.liked,
               shares: post.shares,
               comments: post.comments,
+              views: post.views,
               onLikeTap: (BuildContext context) async {
                 await onLikeTap(context, index);
               },
@@ -475,38 +477,54 @@ class _FooterArticlesState extends State<_FooterArticles> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           var post = model.posts[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
-            child: PostComponent(
-              id: post.id,
-              login: post.login,
-              name: post.name,
-              surname: post.surname,
-              profileImage: const NetworkImage(
-                  "https://yt3.googleusercontent.com/ytc/APkrFKa1J_iBVN8AD7RUkNXfRJvcVK_Y0bzmxnX1t-ee=s176-c-k-c0x00ffffff-no-rj"),
-              date: post.creationTimestamp,
-              content: post.content,
-              images: [],
-              likes: post.likes,
-              liked: post.liked,
-              shares: post.shares,
-              comments: post.comments,
-              onLikeTap: (BuildContext context) async {
-                await onLikeTap(context, index);
+          return VisibilityDetector(
+              key: Key('postkey$index'),
+              onVisibilityChanged: (visibilityInfo) async {
+                if (visibilityInfo.visibleFraction >= 0.9) {
+                  if (!model.viewedPosts.contains(model.posts[index].id) &&
+                      !model.isLoadingDatabase) {
+                    model.viewedPosts.add(post.id);
+                    await model.addView(post.id);
+                    setState(() {
+                      post.views++;
+                    });
+                  }
+                }
               },
-              onShareTap: (BuildContext context) async {
-                await onShareTap(context, index);
-              },
-              onTap: (BuildContext context) async {
-                final postUpdated = await Navigator.of(context).pushNamed(
-                    MainNavigationRouteNames.post,
-                    arguments: post.id);
-                setState(() {
-                  model.posts[index] = postUpdated as Post;
-                });
-              },
-            ),
-          );
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+                child: PostComponent(
+                  id: post.id,
+                  login: post.login,
+                  name: post.name,
+                  surname: post.surname,
+                  profileImage: const NetworkImage(
+                      "https://yt3.googleusercontent.com/ytc/APkrFKa1J_iBVN8AD7RUkNXfRJvcVK_Y0bzmxnX1t-ee=s176-c-k-c0x00ffffff-no-rj"),
+                  date: post.creationTimestamp,
+                  content: post.content,
+                  images: [],
+                  likes: post.likes,
+                  liked: post.liked,
+                  shares: post.shares,
+                  comments: post.comments,
+                  views: post.views,
+                  onLikeTap: (BuildContext context) async {
+                    await onLikeTap(context, index);
+                  },
+                  onShareTap: (BuildContext context) async {
+                    await onShareTap(context, index);
+                  },
+                  onTap: (BuildContext context) async {
+                    final postUpdated = await Navigator.of(context).pushNamed(
+                        MainNavigationRouteNames.post,
+                        arguments: post.id);
+                    setState(() {
+                      model.posts[index] = postUpdated as Post;
+                    });
+                  },
+                ),
+              ));
         });
   }
 }

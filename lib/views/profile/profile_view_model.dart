@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
+import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
 import 'package:newpoint/domain/models/post/post.dart';
+import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/domain/services/comment_service.dart';
@@ -14,11 +16,14 @@ class ProfileViewModel extends ChangeNotifier {
 
   final _userService = UserService();
   final _postService = PostService();
+  final postViewEntryTable = PostViewEntryTable();
 
   late int profileId;
   User? user;
   User? profile;
   List<Post> posts = [];
+  var viewedPosts = <int>[];
+  var isLoadingDatabase = true;
   String error = "";
 
   ImagePicker picker = ImagePicker();
@@ -35,6 +40,21 @@ class ProfileViewModel extends ChangeNotifier {
     } catch (e) {
       error = "Something went wrong, please try again";
     }
+  }
+
+  Future<List<PostViewEntry>> getViewedPosts() async {
+    try {
+      final viewedPostsEntries =
+          await postViewEntryTable.getAllByUserId(userId: user!.id);
+      isLoadingDatabase = false;
+      for (var i = 0; i < viewedPostsEntries.length; ++i) {
+        viewedPosts.add(viewedPostsEntries[i].postId);
+      }
+      return viewedPostsEntries;
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+    return <PostViewEntry>[];
   }
 
   Future<void> getUser() async {
@@ -111,6 +131,22 @@ class ProfileViewModel extends ChangeNotifier {
         error = "Something is wrong with the connection to the server";
       }
     } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> addView(int postId) async {
+    try {
+      await postViewEntryTable.create(userId: user!.id, postId: postId);
+      await _postService.addPostView(postId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+      print(e);
+    } catch (e) {
+      print(e);
       error = "Something went wrong, please try again";
     }
   }

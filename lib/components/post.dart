@@ -21,6 +21,7 @@ class PostComponent extends StatelessWidget {
       required this.liked,
       required this.shares,
       required this.comments,
+      required this.views,
       required this.onShareTap,
       required this.onLikeTap,
       required this.onTap})
@@ -37,6 +38,7 @@ class PostComponent extends StatelessWidget {
   final bool liked;
   final int shares;
   final int comments;
+  final int views;
   final onShareTap;
   final onLikeTap;
   final onTap;
@@ -67,6 +69,7 @@ class PostComponent extends StatelessWidget {
               likes: likes,
               shares: shares,
               comments: comments,
+              views: views,
               liked: liked,
               onLikeTap: onLikeTap,
               onShareTap: onShareTap,
@@ -181,6 +184,7 @@ class _Footer extends StatelessWidget {
     required this.likes,
     required this.shares,
     required this.comments,
+    required this.views,
     required this.liked,
     required this.onLikeTap,
     required this.onShareTap,
@@ -189,6 +193,7 @@ class _Footer extends StatelessWidget {
   final int likes;
   final int shares;
   final int comments;
+  final int views;
   final bool liked;
   final onLikeTap;
   final onShareTap;
@@ -242,7 +247,7 @@ class _Footer extends StatelessWidget {
           ),
         ),
         Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Text(comments.toString(),
+          Text(views.toString(),
               style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
           const SizedBox(
             width: 5,

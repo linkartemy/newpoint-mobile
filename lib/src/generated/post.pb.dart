@@ -28,6 +28,7 @@ class PostModel extends $pb.GeneratedMessage {
     $core.int? likes,
     $core.int? shares,
     $core.int? comments,
+    $core.int? views,
     $core.bool? liked,
     $7.Timestamp? creationTimestamp,
   }) {
@@ -62,6 +63,9 @@ class PostModel extends $pb.GeneratedMessage {
     if (comments != null) {
       $result.comments = comments;
     }
+    if (views != null) {
+      $result.views = views;
+    }
     if (liked != null) {
       $result.liked = liked;
     }
@@ -85,8 +89,9 @@ class PostModel extends $pb.GeneratedMessage {
     ..a<$core.int>(8, _omitFieldNames ? '' : 'likes', $pb.PbFieldType.O3)
     ..a<$core.int>(9, _omitFieldNames ? '' : 'shares', $pb.PbFieldType.O3)
     ..a<$core.int>(10, _omitFieldNames ? '' : 'comments', $pb.PbFieldType.O3)
-    ..aOB(11, _omitFieldNames ? '' : 'liked')
-    ..aOM<$7.Timestamp>(12, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $7.Timestamp.create)
+    ..a<$core.int>(11, _omitFieldNames ? '' : 'views', $pb.PbFieldType.O3)
+    ..aOB(12, _omitFieldNames ? '' : 'liked')
+    ..aOM<$7.Timestamp>(13, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $7.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -202,24 +207,33 @@ class PostModel extends $pb.GeneratedMessage {
   void clearComments() => clearField(10);
 
   @$pb.TagNumber(11)
-  $core.bool get liked => $_getBF(10);
+  $core.int get views => $_getIZ(10);
   @$pb.TagNumber(11)
-  set liked($core.bool v) { $_setBool(10, v); }
+  set views($core.int v) { $_setSignedInt32(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasLiked() => $_has(10);
+  $core.bool hasViews() => $_has(10);
   @$pb.TagNumber(11)
-  void clearLiked() => clearField(11);
+  void clearViews() => clearField(11);
 
   @$pb.TagNumber(12)
-  $7.Timestamp get creationTimestamp => $_getN(11);
+  $core.bool get liked => $_getBF(11);
   @$pb.TagNumber(12)
-  set creationTimestamp($7.Timestamp v) { setField(12, v); }
+  set liked($core.bool v) { $_setBool(11, v); }
   @$pb.TagNumber(12)
-  $core.bool hasCreationTimestamp() => $_has(11);
+  $core.bool hasLiked() => $_has(11);
   @$pb.TagNumber(12)
-  void clearCreationTimestamp() => clearField(12);
-  @$pb.TagNumber(12)
-  $7.Timestamp ensureCreationTimestamp() => $_ensure(11);
+  void clearLiked() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $7.Timestamp get creationTimestamp => $_getN(12);
+  @$pb.TagNumber(13)
+  set creationTimestamp($7.Timestamp v) { setField(13, v); }
+  @$pb.TagNumber(13)
+  $core.bool hasCreationTimestamp() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearCreationTimestamp() => clearField(13);
+  @$pb.TagNumber(13)
+  $7.Timestamp ensureCreationTimestamp() => $_ensure(12);
 }
 
 class GetPostsRequest extends $pb.GeneratedMessage {
@@ -792,6 +806,120 @@ class SharePostResponse extends $pb.GeneratedMessage {
   $core.bool hasShared() => $_has(0);
   @$pb.TagNumber(1)
   void clearShared() => clearField(1);
+}
+
+class AddPostViewRequest extends $pb.GeneratedMessage {
+  factory AddPostViewRequest({
+    $fixnum.Int64? userId,
+    $fixnum.Int64? postId,
+  }) {
+    final $result = create();
+    if (userId != null) {
+      $result.userId = userId;
+    }
+    if (postId != null) {
+      $result.postId = postId;
+    }
+    return $result;
+  }
+  AddPostViewRequest._() : super();
+  factory AddPostViewRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddPostViewRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddPostViewRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
+    ..aInt64(1, _omitFieldNames ? '' : 'userId')
+    ..aInt64(2, _omitFieldNames ? '' : 'postId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  AddPostViewRequest clone() => AddPostViewRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AddPostViewRequest copyWith(void Function(AddPostViewRequest) updates) => super.copyWith((message) => updates(message as AddPostViewRequest)) as AddPostViewRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AddPostViewRequest create() => AddPostViewRequest._();
+  AddPostViewRequest createEmptyInstance() => create();
+  static $pb.PbList<AddPostViewRequest> createRepeated() => $pb.PbList<AddPostViewRequest>();
+  @$core.pragma('dart2js:noInline')
+  static AddPostViewRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddPostViewRequest>(create);
+  static AddPostViewRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get userId => $_getI64(0);
+  @$pb.TagNumber(1)
+  set userId($fixnum.Int64 v) { $_setInt64(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUserId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get postId => $_getI64(1);
+  @$pb.TagNumber(2)
+  set postId($fixnum.Int64 v) { $_setInt64(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPostId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPostId() => clearField(2);
+}
+
+class AddPostViewResponse extends $pb.GeneratedMessage {
+  factory AddPostViewResponse({
+    $fixnum.Int64? views,
+  }) {
+    final $result = create();
+    if (views != null) {
+      $result.views = views;
+    }
+    return $result;
+  }
+  AddPostViewResponse._() : super();
+  factory AddPostViewResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddPostViewResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddPostViewResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
+    ..aInt64(1, _omitFieldNames ? '' : 'views')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  AddPostViewResponse clone() => AddPostViewResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AddPostViewResponse copyWith(void Function(AddPostViewResponse) updates) => super.copyWith((message) => updates(message as AddPostViewResponse)) as AddPostViewResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AddPostViewResponse create() => AddPostViewResponse._();
+  AddPostViewResponse createEmptyInstance() => create();
+  static $pb.PbList<AddPostViewResponse> createRepeated() => $pb.PbList<AddPostViewResponse>();
+  @$core.pragma('dart2js:noInline')
+  static AddPostViewResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddPostViewResponse>(create);
+  static AddPostViewResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get views => $_getI64(0);
+  @$pb.TagNumber(1)
+  set views($fixnum.Int64 v) { $_setInt64(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasViews() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearViews() => clearField(1);
 }
 
 

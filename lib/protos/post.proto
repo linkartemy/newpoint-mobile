@@ -14,6 +14,7 @@ service GrpcPost {
   rpc LikePost (LikePostRequest) returns (response.Response);
   rpc UnLikePost (UnLikePostRequest) returns (response.Response);
   rpc SharePost (SharePostRequest) returns (response.Response);
+  rpc AddPostView (AddPostViewRequest) returns (response.Response);
 }
 
 message PostModel {
@@ -27,8 +28,9 @@ message PostModel {
   int32 likes = 8;
   int32 shares = 9;
   int32 comments = 10;
-  bool liked = 11;
-  google.protobuf.Timestamp creation_timestamp = 12;
+  int32 views = 11;
+  bool liked = 12;
+  google.protobuf.Timestamp creation_timestamp = 13;
 }
 
 message GetPostsRequest {}
@@ -75,4 +77,13 @@ message SharePostRequest {
 
 message SharePostResponse {
   bool shared = 1;
+}
+
+message AddPostViewRequest {
+  int64 user_id = 1;
+  int64 post_id = 2;
+}
+
+message AddPostViewResponse {
+  int64 views = 1;
 }

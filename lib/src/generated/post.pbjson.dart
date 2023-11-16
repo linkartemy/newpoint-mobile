@@ -27,8 +27,9 @@ const PostModel$json = {
     {'1': 'likes', '3': 8, '4': 1, '5': 5, '10': 'likes'},
     {'1': 'shares', '3': 9, '4': 1, '5': 5, '10': 'shares'},
     {'1': 'comments', '3': 10, '4': 1, '5': 5, '10': 'comments'},
-    {'1': 'liked', '3': 11, '4': 1, '5': 8, '10': 'liked'},
-    {'1': 'creation_timestamp', '3': 12, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'creationTimestamp'},
+    {'1': 'views', '3': 11, '4': 1, '5': 5, '10': 'views'},
+    {'1': 'liked', '3': 12, '4': 1, '5': 8, '10': 'liked'},
+    {'1': 'creation_timestamp', '3': 13, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'creationTimestamp'},
   ],
 };
 
@@ -38,9 +39,9 @@ final $typed_data.Uint8List postModelDescriptor = $convert.base64Decode(
     'QSFAoFbG9naW4YAyABKAlSBWxvZ2luEhIKBG5hbWUYBCABKAlSBG5hbWUSGAoHc3VybmFtZRgF'
     'IAEoCVIHc3VybmFtZRIYCgdjb250ZW50GAYgASgJUgdjb250ZW50EhYKBmltYWdlcxgHIAEoCV'
     'IGaW1hZ2VzEhQKBWxpa2VzGAggASgFUgVsaWtlcxIWCgZzaGFyZXMYCSABKAVSBnNoYXJlcxIa'
-    'Cghjb21tZW50cxgKIAEoBVIIY29tbWVudHMSFAoFbGlrZWQYCyABKAhSBWxpa2VkEkkKEmNyZW'
-    'F0aW9uX3RpbWVzdGFtcBgMIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSEWNyZWF0'
-    'aW9uVGltZXN0YW1w');
+    'Cghjb21tZW50cxgKIAEoBVIIY29tbWVudHMSFAoFdmlld3MYCyABKAVSBXZpZXdzEhQKBWxpa2'
+    'VkGAwgASgIUgVsaWtlZBJJChJjcmVhdGlvbl90aW1lc3RhbXAYDSABKAsyGi5nb29nbGUucHJv'
+    'dG9idWYuVGltZXN0YW1wUhFjcmVhdGlvblRpbWVzdGFtcA==');
 
 @$core.Deprecated('Use getPostsRequestDescriptor instead')
 const GetPostsRequest$json = {
@@ -185,4 +186,30 @@ const SharePostResponse$json = {
 /// Descriptor for `SharePostResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List sharePostResponseDescriptor = $convert.base64Decode(
     'ChFTaGFyZVBvc3RSZXNwb25zZRIWCgZzaGFyZWQYASABKAhSBnNoYXJlZA==');
+
+@$core.Deprecated('Use addPostViewRequestDescriptor instead')
+const AddPostViewRequest$json = {
+  '1': 'AddPostViewRequest',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 3, '10': 'userId'},
+    {'1': 'post_id', '3': 2, '4': 1, '5': 3, '10': 'postId'},
+  ],
+};
+
+/// Descriptor for `AddPostViewRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List addPostViewRequestDescriptor = $convert.base64Decode(
+    'ChJBZGRQb3N0Vmlld1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoA1IGdXNlcklkEhcKB3Bvc3RfaW'
+    'QYAiABKANSBnBvc3RJZA==');
+
+@$core.Deprecated('Use addPostViewResponseDescriptor instead')
+const AddPostViewResponse$json = {
+  '1': 'AddPostViewResponse',
+  '2': [
+    {'1': 'views', '3': 1, '4': 1, '5': 3, '10': 'views'},
+  ],
+};
+
+/// Descriptor for `AddPostViewResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List addPostViewResponseDescriptor = $convert.base64Decode(
+    'ChNBZGRQb3N0Vmlld1Jlc3BvbnNlEhQKBXZpZXdzGAEgASgDUgV2aWV3cw==');
 
