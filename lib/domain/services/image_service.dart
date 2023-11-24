@@ -6,7 +6,7 @@ import 'package:newpoint/protos.dart';
 
 class ImageService {
   final _networkClient = NetworkClient();
-  late final _imageServiceClient = GrpcImageClient(_networkClient.clientChannel);
+  late final _imageServiceClient = GrpcImageClient(_networkClient.storageClientChannel);
 
   Future<Image> getImageById(int id) async {
     var request = GetImageByIdRequest();
