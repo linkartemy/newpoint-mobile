@@ -1,6 +1,5 @@
 part of 'user.dart';
 
-
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
     id: json['id'] as int,
@@ -64,9 +63,6 @@ extension NullableTimestampParser on NullableTimestamp {
 
 extension DateTimeToTimestamp on DateTime {
   Timestamp toTimestamp() {
-    var ts = Timestamp();
-    ts.seconds = Int64(microsecondsSinceEpoch ~/ Duration.microsecondsPerSecond);
-    return ts;
+    return Timestamp.fromDateTime(this);
   }
 }
-

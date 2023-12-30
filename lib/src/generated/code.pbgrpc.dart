@@ -20,14 +20,14 @@ import 'response.pb.dart' as $1;
 
 export 'code.pb.dart';
 
-@$pb.GrpcServiceName('user.GrpcCode')
+@$pb.GrpcServiceName('code.GrpcCode')
 class GrpcCodeClient extends $grpc.Client {
   static final _$addEmailCode = $grpc.ClientMethod<$0.AddEmailCodeRequest, $1.Response>(
-      '/user.GrpcCode/AddEmailCode',
+      '/code.GrpcCode/AddEmailCode',
       ($0.AddEmailCodeRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
   static final _$verifyEmailCode = $grpc.ClientMethod<$0.VerifyEmailCodeRequest, $1.Response>(
-      '/user.GrpcCode/VerifyEmailCode',
+      '/code.GrpcCode/VerifyEmailCode',
       ($0.VerifyEmailCodeRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
 
@@ -46,9 +46,9 @@ class GrpcCodeClient extends $grpc.Client {
   }
 }
 
-@$pb.GrpcServiceName('user.GrpcCode')
+@$pb.GrpcServiceName('code.GrpcCode')
 abstract class GrpcCodeServiceBase extends $grpc.Service {
-  $core.String get $name => 'user.GrpcCode';
+  $core.String get $name => 'code.GrpcCode';
 
   GrpcCodeServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.AddEmailCodeRequest, $1.Response>(

@@ -27,7 +27,7 @@ class AddEmailCodeRequest extends $pb.GeneratedMessage {
   factory AddEmailCodeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory AddEmailCodeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddEmailCodeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddEmailCodeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'code'), createEmptyInstance: create)
     ..aOS(2, _omitFieldNames ? '' : 'email')
     ..hasRequiredFields = false
   ;
@@ -77,7 +77,7 @@ class AddEmailCodeResponse extends $pb.GeneratedMessage {
   factory AddEmailCodeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory AddEmailCodeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddEmailCodeResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddEmailCodeResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'code'), createEmptyInstance: create)
     ..aOB(1, _omitFieldNames ? '' : 'sent')
     ..hasRequiredFields = false
   ;
@@ -131,7 +131,7 @@ class VerifyEmailCodeRequest extends $pb.GeneratedMessage {
   factory VerifyEmailCodeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory VerifyEmailCodeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'VerifyEmailCodeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'VerifyEmailCodeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'code'), createEmptyInstance: create)
     ..aOS(2, _omitFieldNames ? '' : 'email')
     ..aOS(3, _omitFieldNames ? '' : 'code')
     ..hasRequiredFields = false
@@ -191,7 +191,7 @@ class VerifyEmailCodeResponse extends $pb.GeneratedMessage {
   factory VerifyEmailCodeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory VerifyEmailCodeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'VerifyEmailCodeResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'VerifyEmailCodeResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'code'), createEmptyInstance: create)
     ..aOB(1, _omitFieldNames ? '' : 'verified')
     ..hasRequiredFields = false
   ;

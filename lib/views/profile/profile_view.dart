@@ -277,14 +277,17 @@ class _HeaderState extends State<_Header> {
                 ]),
             Container(
               margin: const EdgeInsets.only(top: 10),
-              child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    model.profileId == model.user!.id
-                        ? Icons.account_circle_outlined
-                        : CupertinoIcons.plus_circled,
-                    size: 28,
-                  )),
+              child: model.profileId == model.user!.id
+                  ? IconButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(MainNavigationRouteNames.profileEditor);
+                      },
+                      icon: Icon(
+                        Icons.account_circle_outlined,
+                        size: 28,
+                      ))
+                  : IconButton(onPressed: () {}, icon: Icon(Icons.add)),
             )
           ],
         ));

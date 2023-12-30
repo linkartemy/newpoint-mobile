@@ -54,7 +54,7 @@ class RegisterViewModel extends ChangeNotifier {
           if (e.error.isNotEmpty) {
             return e.error;
           }
-          return 'Something went wrong, please try again later';
+          return 'Something went wrong, please try again later (bad request)';
         case ApiClientExceptionType.sessionExpired:
         case ApiClientExceptionType.other:
           if (e.error.isNotEmpty) {

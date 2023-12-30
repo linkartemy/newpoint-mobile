@@ -7,6 +7,7 @@ abstract class MainNavigationRouteNames {
   static const main = '/main';
   static const post = '/main/post';
   static const profile = '/profile';
+  static const profileEditor = '/profile/editor';
   static const register = '/register';
   static const login = '/login';
   static const movieTrailerWidget = '/main/movie_details/trailer';
@@ -32,6 +33,12 @@ class MainNavigation {
           builder: (_) => _screenFactory.makePost(postId),
         );
       case MainNavigationRouteNames.profile:
+        final arguments = settings.arguments;
+        final profileId = arguments is int ? arguments : 0;
+        return MaterialPageRoute(
+          builder: (_) => _screenFactory.makeProfile(profileId),
+        );
+      case MainNavigationRouteNames.profileEditor:
         final arguments = settings.arguments;
         final profileId = arguments is int ? arguments : 0;
         return MaterialPageRoute(
