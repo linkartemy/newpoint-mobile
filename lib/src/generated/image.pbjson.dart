@@ -19,12 +19,14 @@ const ImageModel$json = {
   '2': [
     {'1': 'id', '3': 1, '4': 1, '5': 3, '10': 'id'},
     {'1': 'data', '3': 2, '4': 1, '5': 12, '10': 'data'},
+    {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
   ],
 };
 
 /// Descriptor for `ImageModel`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List imageModelDescriptor = $convert.base64Decode(
-    'CgpJbWFnZU1vZGVsEg4KAmlkGAEgASgDUgJpZBISCgRkYXRhGAIgASgMUgRkYXRh');
+    'CgpJbWFnZU1vZGVsEg4KAmlkGAEgASgDUgJpZBISCgRkYXRhGAIgASgMUgRkYXRhEhIKBG5hbW'
+    'UYAyABKAlSBG5hbWU=');
 
 @$core.Deprecated('Use getImageByIdRequestDescriptor instead')
 const GetImageByIdRequest$json = {

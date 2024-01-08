@@ -15,6 +15,7 @@ service GrpcImage {
 message ImageModel {
   int64 id = 1;
   bytes data = 2;
+  string name = 3;
 }
 
 message GetImageByIdRequest {

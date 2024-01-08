@@ -18,6 +18,7 @@ class ImageModel extends $pb.GeneratedMessage {
   factory ImageModel({
     $fixnum.Int64? id,
     $core.List<$core.int>? data,
+    $core.String? name,
   }) {
     final $result = create();
     if (id != null) {
@@ -25,6 +26,9 @@ class ImageModel extends $pb.GeneratedMessage {
     }
     if (data != null) {
       $result.data = data;
+    }
+    if (name != null) {
+      $result.name = name;
     }
     return $result;
   }
@@ -35,6 +39,7 @@ class ImageModel extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ImageModel', package: const $pb.PackageName(_omitMessageNames ? '' : 'image'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'id')
     ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'data', $pb.PbFieldType.OY)
+    ..aOS(3, _omitFieldNames ? '' : 'name')
     ..hasRequiredFields = false
   ;
 
@@ -76,6 +81,15 @@ class ImageModel extends $pb.GeneratedMessage {
   $core.bool hasData() => $_has(1);
   @$pb.TagNumber(2)
   void clearData() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get name => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set name($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasName() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearName() => clearField(3);
 }
 
 class GetImageByIdRequest extends $pb.GeneratedMessage {

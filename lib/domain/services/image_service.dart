@@ -1,7 +1,6 @@
 import 'package:fixnum/src/int64.dart';
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/grpc_clients/network_client.dart';
-import 'package:newpoint/domain/models/image/image.dart';
 import 'package:newpoint/protos.dart';
 
 class ImageService {
@@ -20,22 +19,7 @@ class ImageService {
     var getImageByIdResponse = GetImageByIdResponse();
     return response.data
         .unpackInto<GetImageByIdResponse>(getImageByIdResponse)
-        .image.data;
-  }
-
-  Future<int> addImage(List<int> data, String name) async {
-    var request = AddImageRequest();
-    request.data = data;
-    request.name = name;
-    var response = await _imageServiceClient.addImage(request,
-        options: await _networkClient.getAuthorizedCallOptions());
-    if (await _networkClient.proceed(response) == false) {
-      throw ApiClientException(ApiClientExceptionType.other);
-    }
-    var addImageResponse = AddImageResponse();
-    return response.data
-        .unpackInto<AddImageResponse>(addImageResponse)
-        .id
-        .toInt();
+        .image
+        .data;
   }
 }
