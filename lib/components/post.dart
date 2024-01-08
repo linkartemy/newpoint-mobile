@@ -1,9 +1,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:newpoint/components/profileImage.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
-import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/views/theme/theme.dart';
 
 class PostComponent extends StatelessWidget {
@@ -13,7 +12,7 @@ class PostComponent extends StatelessWidget {
       required this.login,
       required this.name,
       required this.surname,
-      this.profileImage,
+      required this.profileImageId,
       required this.date,
       required this.content,
       required this.images,
@@ -30,7 +29,7 @@ class PostComponent extends StatelessWidget {
   final String login;
   final String name;
   final String surname;
-  final NetworkImage? profileImage;
+  final int profileImageId;
   final DateTime date;
   final String content;
   final List<Image> images;
@@ -56,7 +55,7 @@ class PostComponent extends StatelessWidget {
               login: login,
               name: name,
               surname: surname,
-              profileImage: profileImage,
+              profileImageId: profileImageId,
               date: date,
             ),
             const SizedBox(height: 10),
@@ -85,13 +84,13 @@ class _Header extends StatelessWidget {
       required this.login,
       required this.name,
       required this.surname,
-      this.profileImage,
+      required this.profileImageId,
       required this.date})
       : super(key: key);
   final String login;
   final String name;
   final String surname;
-  final NetworkImage? profileImage;
+  final int profileImageId;
   final DateTime date;
 
   Future<void> onDetailsTap() async {}
@@ -105,9 +104,9 @@ class _Header extends StatelessWidget {
           children: [
             Container(
                 margin: const EdgeInsets.all(10),
-                child: CircleAvatar(
-                    radius: 28,
-                    backgroundImage: profileImage ?? NetworkImage("https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"))),
+                child: ProfileImage(
+                  profileImageId: profileImageId,
+                )),
             const SizedBox(
               width: 10,
             ),
@@ -241,7 +240,8 @@ class _Footer extends StatelessWidget {
                 width: 5,
               ),
               liked
-                  ? const Icon(CupertinoIcons.heart_solid, color: AppColors.primary)
+                  ? const Icon(CupertinoIcons.heart_solid,
+                      color: AppColors.primary)
                   : const Icon(CupertinoIcons.heart),
             ],
           ),
