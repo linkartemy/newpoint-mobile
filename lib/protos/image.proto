@@ -10,7 +10,6 @@ package image;
 
 service GrpcImage {
   rpc GetImageById (GetImageByIdRequest) returns (response.Response);
-  rpc AddImage (AddImageRequest) returns (response.Response);
 }
 
 message ImageModel {
@@ -24,12 +23,4 @@ message GetImageByIdRequest {
 
 message GetImageByIdResponse {
   ImageModel image = 1;
-}
-
-message AddImageRequest {
-  bytes data = 1;
-}
-
-message AddImageResponse {
-  int64 id = 1;
 }

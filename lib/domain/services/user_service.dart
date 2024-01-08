@@ -1,13 +1,9 @@
 import 'package:fixnum/src/int64.dart';
-import 'package:grpc/grpc.dart';
-import 'package:newpoint/domain/api_clients/account_api_client.dart';
-import 'package:newpoint/domain/api_clients/auth_api_client.dart';
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/domain/grpc_clients/network_client.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/protos.dart';
-import 'package:newpoint/src/generated/google/protobuf/timestamp.pb.dart';
 
 class UserService {
   final _networkClient = NetworkClient();
@@ -92,5 +88,39 @@ class UserService {
     return response.data
         .unpackInto<ValidateUserResponse>(validateUserResponse)
         .valid;
+  }
+
+  Future<User> updateProfile(
+      String name, String surname, String description, String location) async {
+    var request = UpdateProfileRequest();
+    request.name = name;
+    request.surname = surname;
+    request.description = description;
+    request.location = location;
+    var response = await _userServiceClient.updateProfile(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var updateProfileResponse = UpdateProfileResponse();
+    return User.fromModel(response.data
+        .unpackInto<UpdateProfileResponse>(updateProfileResponse)
+        .user);
+  }
+
+  Future<int> updateProfileImage(List<int> data, String name) async {
+    var request = UpdateProfileImageRequest();
+    request.data = data;
+    request.name = name;
+    var response = await _userServiceClient.updateProfileImage(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var updateProfileImageResponse = UpdateProfileImageResponse();
+    return response.data
+        .unpackInto<UpdateProfileImageResponse>(updateProfileImageResponse)
+        .id
+        .toInt();
   }
 }

@@ -53,11 +53,10 @@ class MainViewState extends State<MainView> {
       length: 2,
       child: Scaffold(
           appBar: AppBar(
-            title: Image.asset(
+            title: Container(alignment: Alignment.centerRight, child: Image.asset(
               AppImages.logoTitleOutline,
               width: 100,
-            ),
-            centerTitle: true,
+            )),
             bottom: TabBar(
               indicatorColor: AdaptiveTheme.of(context).theme.primaryColor,
               tabs: [
@@ -192,6 +191,7 @@ class _PostsState extends State<_PostsView> {
                               login: posts[index].login,
                               name: posts[index].name,
                               surname: posts[index].surname,
+                              profileImageId: posts[index].profileImageId,
                               date: posts[index].creationTimestamp,
                               content: posts[index].content,
                               images: [],

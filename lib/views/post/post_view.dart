@@ -3,16 +3,16 @@ import 'dart:async';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/comment.dart';
 import 'package:newpoint/components/dynamic_sliver_appbar.dart';
+import 'package:newpoint/components/profileImage.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
-import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
 import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostView extends StatefulWidget {
   const PostView({Key? key}) : super(key: key);
@@ -153,7 +153,7 @@ class PostViewState extends State<PostView> {
                                             name: post.name,
                                             surname: post.surname,
                                             date: post.creationTimestamp,
-                                            profileImage: null,
+                                            profileImageId: post.profileImageId,
                                           )),
                                       const SizedBox(height: 16),
                                       _Body(
@@ -188,13 +188,13 @@ class _Header extends StatelessWidget {
       required this.name,
       required this.surname,
       required this.date,
-      required this.profileImage})
+      required this.profileImageId})
       : super(key: key);
   final String login;
   final String name;
   final String surname;
   final DateTime date;
-  final NetworkImage? profileImage;
+  final int profileImageId;
 
   Future<void> onDetailsTap() async {}
 
@@ -207,11 +207,7 @@ class _Header extends StatelessWidget {
           children: [
             Container(
                 margin: const EdgeInsets.all(10),
-                child: CircleAvatar(
-                    radius: 28,
-                    backgroundImage: profileImage ??
-                        NetworkImage(
-                            "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"))),
+                child: ProfileImage(profileImageId: profileImageId,)),
             const SizedBox(
               width: 10,
             ),

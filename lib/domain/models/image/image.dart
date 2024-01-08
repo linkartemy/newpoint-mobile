@@ -11,10 +11,12 @@ part 'image.g.dart';
 class Image {
   final int id;
   final List<int>? data;
+  final String name;
 
   Image({
     required this.id,
     required this.data,
+    required this.name,
   });
 
   factory Image.fromJson(Map<String, dynamic> json) => _$ImageFromJson(json);

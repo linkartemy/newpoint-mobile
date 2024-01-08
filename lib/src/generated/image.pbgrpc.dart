@@ -26,10 +26,6 @@ class GrpcImageClient extends $grpc.Client {
       '/image.GrpcImage/GetImageById',
       ($3.GetImageByIdRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
-  static final _$addImage = $grpc.ClientMethod<$3.AddImageRequest, $1.Response>(
-      '/image.GrpcImage/AddImage',
-      ($3.AddImageRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
 
   GrpcImageClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -39,10 +35,6 @@ class GrpcImageClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$1.Response> getImageById($3.GetImageByIdRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getImageById, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$1.Response> addImage($3.AddImageRequest request, {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$addImage, request, options: options);
   }
 }
 
@@ -58,23 +50,11 @@ abstract class GrpcImageServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $3.GetImageByIdRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$3.AddImageRequest, $1.Response>(
-        'AddImage',
-        addImage_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $3.AddImageRequest.fromBuffer(value),
-        ($1.Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.Response> getImageById_Pre($grpc.ServiceCall call, $async.Future<$3.GetImageByIdRequest> request) async {
     return getImageById(call, await request);
   }
 
-  $async.Future<$1.Response> addImage_Pre($grpc.ServiceCall call, $async.Future<$3.AddImageRequest> request) async {
-    return addImage(call, await request);
-  }
-
   $async.Future<$1.Response> getImageById($grpc.ServiceCall call, $3.GetImageByIdRequest request);
-  $async.Future<$1.Response> addImage($grpc.ServiceCall call, $3.AddImageRequest request);
 }

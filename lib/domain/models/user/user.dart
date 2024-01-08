@@ -15,8 +15,8 @@ class User {
   final String? location;
   final String? email;
   final String? phone;
-  final String? profileImage;
-  final String? headerImage;
+  int profileImageId;
+  int headerImageId;
   final DateTime? birthDate;
   final DateTime? registrationTimestamp;
   final DateTime? lastLoginTimestamp;
@@ -30,8 +30,8 @@ class User {
     required this.location,
     required this.email,
     required this.phone,
-    required this.profileImage,
-    required this.headerImage,
+    required this.profileImageId,
+    required this.headerImageId,
     required this.birthDate,
     required this.registrationTimestamp,
     required this.lastLoginTimestamp,

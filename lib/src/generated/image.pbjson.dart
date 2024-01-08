@@ -51,27 +51,3 @@ final $typed_data.Uint8List getImageByIdResponseDescriptor = $convert.base64Deco
     'ChRHZXRJbWFnZUJ5SWRSZXNwb25zZRInCgVpbWFnZRgBIAEoCzIRLmltYWdlLkltYWdlTW9kZW'
     'xSBWltYWdl');
 
-@$core.Deprecated('Use addImageRequestDescriptor instead')
-const AddImageRequest$json = {
-  '1': 'AddImageRequest',
-  '2': [
-    {'1': 'data', '3': 1, '4': 1, '5': 12, '10': 'data'},
-  ],
-};
-
-/// Descriptor for `AddImageRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addImageRequestDescriptor = $convert.base64Decode(
-    'Cg9BZGRJbWFnZVJlcXVlc3QSEgoEZGF0YRgBIAEoDFIEZGF0YQ==');
-
-@$core.Deprecated('Use addImageResponseDescriptor instead')
-const AddImageResponse$json = {
-  '1': 'AddImageResponse',
-  '2': [
-    {'1': 'id', '3': 1, '4': 1, '5': 3, '10': 'id'},
-  ],
-};
-
-/// Descriptor for `AddImageResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List addImageResponseDescriptor = $convert.base64Decode(
-    'ChBBZGRJbWFnZVJlc3BvbnNlEg4KAmlkGAEgASgDUgJpZA==');
-

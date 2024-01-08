@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
-import 'package:newpoint/domain/models/comment/comment.dart';
 import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
 import 'package:newpoint/domain/models/user/user.dart';
-import 'package:newpoint/domain/services/auth_service.dart';
-import 'package:newpoint/domain/services/comment_service.dart';
+import 'package:newpoint/domain/services/image_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
 
@@ -32,6 +30,13 @@ class ProfileViewModel extends ChangeNotifier {
   Future<void> onImageTap() async {
     try {
       image = await picker.pickImage(source: ImageSource.gallery);
+      if (image == null) {
+        throw Exception("Error occurred while getting photo");
+      }
+      final id = await _userService.updateProfileImage(
+          (await image!.readAsBytes()).toList(), image!.name);
+      user?.profileImageId = id;
+      getProfile();
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {

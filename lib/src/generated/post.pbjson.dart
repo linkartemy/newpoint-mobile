@@ -22,14 +22,15 @@ const PostModel$json = {
     {'1': 'login', '3': 3, '4': 1, '5': 9, '10': 'login'},
     {'1': 'name', '3': 4, '4': 1, '5': 9, '10': 'name'},
     {'1': 'surname', '3': 5, '4': 1, '5': 9, '10': 'surname'},
-    {'1': 'content', '3': 6, '4': 1, '5': 9, '10': 'content'},
-    {'1': 'images', '3': 7, '4': 1, '5': 9, '10': 'images'},
-    {'1': 'likes', '3': 8, '4': 1, '5': 5, '10': 'likes'},
-    {'1': 'shares', '3': 9, '4': 1, '5': 5, '10': 'shares'},
-    {'1': 'comments', '3': 10, '4': 1, '5': 5, '10': 'comments'},
-    {'1': 'views', '3': 11, '4': 1, '5': 5, '10': 'views'},
-    {'1': 'liked', '3': 12, '4': 1, '5': 8, '10': 'liked'},
-    {'1': 'creation_timestamp', '3': 13, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'creationTimestamp'},
+    {'1': 'profile_image_id', '3': 6, '4': 1, '5': 3, '10': 'profileImageId'},
+    {'1': 'content', '3': 7, '4': 1, '5': 9, '10': 'content'},
+    {'1': 'images', '3': 8, '4': 1, '5': 9, '10': 'images'},
+    {'1': 'likes', '3': 9, '4': 1, '5': 5, '10': 'likes'},
+    {'1': 'shares', '3': 10, '4': 1, '5': 5, '10': 'shares'},
+    {'1': 'comments', '3': 11, '4': 1, '5': 5, '10': 'comments'},
+    {'1': 'views', '3': 12, '4': 1, '5': 5, '10': 'views'},
+    {'1': 'liked', '3': 13, '4': 1, '5': 8, '10': 'liked'},
+    {'1': 'creation_timestamp', '3': 14, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'creationTimestamp'},
   ],
 };
 
@@ -37,11 +38,12 @@ const PostModel$json = {
 final $typed_data.Uint8List postModelDescriptor = $convert.base64Decode(
     'CglQb3N0TW9kZWwSDgoCaWQYASABKANSAmlkEhsKCWF1dGhvcl9pZBgCIAEoA1IIYXV0aG9ySW'
     'QSFAoFbG9naW4YAyABKAlSBWxvZ2luEhIKBG5hbWUYBCABKAlSBG5hbWUSGAoHc3VybmFtZRgF'
-    'IAEoCVIHc3VybmFtZRIYCgdjb250ZW50GAYgASgJUgdjb250ZW50EhYKBmltYWdlcxgHIAEoCV'
-    'IGaW1hZ2VzEhQKBWxpa2VzGAggASgFUgVsaWtlcxIWCgZzaGFyZXMYCSABKAVSBnNoYXJlcxIa'
-    'Cghjb21tZW50cxgKIAEoBVIIY29tbWVudHMSFAoFdmlld3MYCyABKAVSBXZpZXdzEhQKBWxpa2'
-    'VkGAwgASgIUgVsaWtlZBJJChJjcmVhdGlvbl90aW1lc3RhbXAYDSABKAsyGi5nb29nbGUucHJv'
-    'dG9idWYuVGltZXN0YW1wUhFjcmVhdGlvblRpbWVzdGFtcA==');
+    'IAEoCVIHc3VybmFtZRIoChBwcm9maWxlX2ltYWdlX2lkGAYgASgDUg5wcm9maWxlSW1hZ2VJZB'
+    'IYCgdjb250ZW50GAcgASgJUgdjb250ZW50EhYKBmltYWdlcxgIIAEoCVIGaW1hZ2VzEhQKBWxp'
+    'a2VzGAkgASgFUgVsaWtlcxIWCgZzaGFyZXMYCiABKAVSBnNoYXJlcxIaCghjb21tZW50cxgLIA'
+    'EoBVIIY29tbWVudHMSFAoFdmlld3MYDCABKAVSBXZpZXdzEhQKBWxpa2VkGA0gASgIUgVsaWtl'
+    'ZBJJChJjcmVhdGlvbl90aW1lc3RhbXAYDiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW'
+    '1wUhFjcmVhdGlvblRpbWVzdGFtcA==');
 
 @$core.Deprecated('Use getPostsRequestDescriptor instead')
 const GetPostsRequest$json = {
