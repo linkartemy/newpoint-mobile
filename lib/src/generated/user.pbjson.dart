@@ -25,8 +25,8 @@ const UserModel$json = {
     {'1': 'location', '3': 6, '4': 1, '5': 11, '6': '.NullableString', '10': 'location'},
     {'1': 'email', '3': 7, '4': 1, '5': 11, '6': '.NullableString', '10': 'email'},
     {'1': 'phone', '3': 8, '4': 1, '5': 11, '6': '.NullableString', '10': 'phone'},
-    {'1': 'profileImage', '3': 9, '4': 1, '5': 11, '6': '.NullableString', '10': 'profileImage'},
-    {'1': 'headerImage', '3': 10, '4': 1, '5': 11, '6': '.NullableString', '10': 'headerImage'},
+    {'1': 'profile_image_id', '3': 9, '4': 1, '5': 3, '10': 'profileImageId'},
+    {'1': 'header_image_id', '3': 10, '4': 1, '5': 3, '10': 'headerImageId'},
     {'1': 'birth_date', '3': 11, '4': 1, '5': 11, '6': '.NullableTimestamp', '10': 'birthDate'},
     {'1': 'registration_timestamp', '3': 12, '4': 1, '5': 11, '6': '.NullableTimestamp', '10': 'registrationTimestamp'},
     {'1': 'last_login_timestamp', '3': 13, '4': 1, '5': 11, '6': '.NullableTimestamp', '10': 'lastLoginTimestamp'},
@@ -40,13 +40,13 @@ final $typed_data.Uint8List userModelDescriptor = $convert.base64Decode(
     '1lGAMgASgJUgRuYW1lEhgKB3N1cm5hbWUYBCABKAlSB3N1cm5hbWUSMQoLZGVzY3JpcHRpb24Y'
     'BSABKAsyDy5OdWxsYWJsZVN0cmluZ1ILZGVzY3JpcHRpb24SKwoIbG9jYXRpb24YBiABKAsyDy'
     '5OdWxsYWJsZVN0cmluZ1IIbG9jYXRpb24SJQoFZW1haWwYByABKAsyDy5OdWxsYWJsZVN0cmlu'
-    'Z1IFZW1haWwSJQoFcGhvbmUYCCABKAsyDy5OdWxsYWJsZVN0cmluZ1IFcGhvbmUSMwoMcHJvZm'
-    'lsZUltYWdlGAkgASgLMg8uTnVsbGFibGVTdHJpbmdSDHByb2ZpbGVJbWFnZRIxCgtoZWFkZXJJ'
-    'bWFnZRgKIAEoCzIPLk51bGxhYmxlU3RyaW5nUgtoZWFkZXJJbWFnZRIxCgpiaXJ0aF9kYXRlGA'
-    'sgASgLMhIuTnVsbGFibGVUaW1lc3RhbXBSCWJpcnRoRGF0ZRJJChZyZWdpc3RyYXRpb25fdGlt'
-    'ZXN0YW1wGAwgASgLMhIuTnVsbGFibGVUaW1lc3RhbXBSFXJlZ2lzdHJhdGlvblRpbWVzdGFtcB'
-    'JEChRsYXN0X2xvZ2luX3RpbWVzdGFtcBgNIAEoCzISLk51bGxhYmxlVGltZXN0YW1wUhJsYXN0'
-    'TG9naW5UaW1lc3RhbXASHwoCaXAYDiABKAsyDy5OdWxsYWJsZVN0cmluZ1ICaXA=');
+    'Z1IFZW1haWwSJQoFcGhvbmUYCCABKAsyDy5OdWxsYWJsZVN0cmluZ1IFcGhvbmUSKAoQcHJvZm'
+    'lsZV9pbWFnZV9pZBgJIAEoA1IOcHJvZmlsZUltYWdlSWQSJgoPaGVhZGVyX2ltYWdlX2lkGAog'
+    'ASgDUg1oZWFkZXJJbWFnZUlkEjEKCmJpcnRoX2RhdGUYCyABKAsyEi5OdWxsYWJsZVRpbWVzdG'
+    'FtcFIJYmlydGhEYXRlEkkKFnJlZ2lzdHJhdGlvbl90aW1lc3RhbXAYDCABKAsyEi5OdWxsYWJs'
+    'ZVRpbWVzdGFtcFIVcmVnaXN0cmF0aW9uVGltZXN0YW1wEkQKFGxhc3RfbG9naW5fdGltZXN0YW'
+    '1wGA0gASgLMhIuTnVsbGFibGVUaW1lc3RhbXBSEmxhc3RMb2dpblRpbWVzdGFtcBIfCgJpcBgO'
+    'IAEoCzIPLk51bGxhYmxlU3RyaW5nUgJpcA==');
 
 @$core.Deprecated('Use loginRequestDescriptor instead')
 const LoginRequest$json = {
@@ -78,22 +78,22 @@ final $typed_data.Uint8List loginResponseDescriptor = $convert.base64Decode(
 const RegisterRequest$json = {
   '1': 'RegisterRequest',
   '2': [
-    {'1': 'login', '3': 2, '4': 1, '5': 9, '10': 'login'},
-    {'1': 'password', '3': 3, '4': 1, '5': 9, '10': 'password'},
-    {'1': 'name', '3': 4, '4': 1, '5': 9, '10': 'name'},
-    {'1': 'surname', '3': 5, '4': 1, '5': 9, '10': 'surname'},
-    {'1': 'email', '3': 6, '4': 1, '5': 9, '10': 'email'},
-    {'1': 'phone', '3': 7, '4': 1, '5': 9, '10': 'phone'},
-    {'1': 'birth_date', '3': 8, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'birthDate'},
+    {'1': 'login', '3': 1, '4': 1, '5': 9, '10': 'login'},
+    {'1': 'password', '3': 2, '4': 1, '5': 9, '10': 'password'},
+    {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'surname', '3': 4, '4': 1, '5': 9, '10': 'surname'},
+    {'1': 'email', '3': 5, '4': 1, '5': 9, '10': 'email'},
+    {'1': 'phone', '3': 6, '4': 1, '5': 9, '10': 'phone'},
+    {'1': 'birth_date', '3': 7, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'birthDate'},
   ],
 };
 
 /// Descriptor for `RegisterRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List registerRequestDescriptor = $convert.base64Decode(
-    'Cg9SZWdpc3RlclJlcXVlc3QSFAoFbG9naW4YAiABKAlSBWxvZ2luEhoKCHBhc3N3b3JkGAMgAS'
-    'gJUghwYXNzd29yZBISCgRuYW1lGAQgASgJUgRuYW1lEhgKB3N1cm5hbWUYBSABKAlSB3N1cm5h'
-    'bWUSFAoFZW1haWwYBiABKAlSBWVtYWlsEhQKBXBob25lGAcgASgJUgVwaG9uZRI5CgpiaXJ0aF'
-    '9kYXRlGAggASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJYmlydGhEYXRl');
+    'Cg9SZWdpc3RlclJlcXVlc3QSFAoFbG9naW4YASABKAlSBWxvZ2luEhoKCHBhc3N3b3JkGAIgAS'
+    'gJUghwYXNzd29yZBISCgRuYW1lGAMgASgJUgRuYW1lEhgKB3N1cm5hbWUYBCABKAlSB3N1cm5h'
+    'bWUSFAoFZW1haWwYBSABKAlSBWVtYWlsEhQKBXBob25lGAYgASgJUgVwaG9uZRI5CgpiaXJ0aF'
+    '9kYXRlGAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJYmlydGhEYXRl');
 
 @$core.Deprecated('Use registerResponseDescriptor instead')
 const RegisterResponse$json = {
@@ -159,20 +159,20 @@ final $typed_data.Uint8List getProfileByIdResponseDescriptor = $convert.base64De
 const ValidateUserRequest$json = {
   '1': 'ValidateUserRequest',
   '2': [
-    {'1': 'login', '3': 2, '4': 1, '5': 9, '10': 'login'},
-    {'1': 'password', '3': 3, '4': 1, '5': 9, '10': 'password'},
-    {'1': 'name', '3': 4, '4': 1, '5': 9, '10': 'name'},
-    {'1': 'surname', '3': 5, '4': 1, '5': 9, '10': 'surname'},
-    {'1': 'email', '3': 6, '4': 1, '5': 9, '10': 'email'},
-    {'1': 'phone', '3': 7, '4': 1, '5': 9, '10': 'phone'},
+    {'1': 'login', '3': 1, '4': 1, '5': 9, '10': 'login'},
+    {'1': 'password', '3': 2, '4': 1, '5': 9, '10': 'password'},
+    {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'surname', '3': 4, '4': 1, '5': 9, '10': 'surname'},
+    {'1': 'email', '3': 5, '4': 1, '5': 9, '10': 'email'},
+    {'1': 'phone', '3': 6, '4': 1, '5': 9, '10': 'phone'},
   ],
 };
 
 /// Descriptor for `ValidateUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List validateUserRequestDescriptor = $convert.base64Decode(
-    'ChNWYWxpZGF0ZVVzZXJSZXF1ZXN0EhQKBWxvZ2luGAIgASgJUgVsb2dpbhIaCghwYXNzd29yZB'
-    'gDIAEoCVIIcGFzc3dvcmQSEgoEbmFtZRgEIAEoCVIEbmFtZRIYCgdzdXJuYW1lGAUgASgJUgdz'
-    'dXJuYW1lEhQKBWVtYWlsGAYgASgJUgVlbWFpbBIUCgVwaG9uZRgHIAEoCVIFcGhvbmU=');
+    'ChNWYWxpZGF0ZVVzZXJSZXF1ZXN0EhQKBWxvZ2luGAEgASgJUgVsb2dpbhIaCghwYXNzd29yZB'
+    'gCIAEoCVIIcGFzc3dvcmQSEgoEbmFtZRgDIAEoCVIEbmFtZRIYCgdzdXJuYW1lGAQgASgJUgdz'
+    'dXJuYW1lEhQKBWVtYWlsGAUgASgJUgVlbWFpbBIUCgVwaG9uZRgGIAEoCVIFcGhvbmU=');
 
 @$core.Deprecated('Use validateUserResponseDescriptor instead')
 const ValidateUserResponse$json = {
@@ -185,4 +185,60 @@ const ValidateUserResponse$json = {
 /// Descriptor for `ValidateUserResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List validateUserResponseDescriptor = $convert.base64Decode(
     'ChRWYWxpZGF0ZVVzZXJSZXNwb25zZRIUCgV2YWxpZBgBIAEoCFIFdmFsaWQ=');
+
+@$core.Deprecated('Use updateProfileRequestDescriptor instead')
+const UpdateProfileRequest$json = {
+  '1': 'UpdateProfileRequest',
+  '2': [
+    {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'surname', '3': 2, '4': 1, '5': 9, '10': 'surname'},
+    {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
+    {'1': 'location', '3': 4, '4': 1, '5': 9, '10': 'location'},
+  ],
+};
+
+/// Descriptor for `UpdateProfileRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateProfileRequestDescriptor = $convert.base64Decode(
+    'ChRVcGRhdGVQcm9maWxlUmVxdWVzdBISCgRuYW1lGAEgASgJUgRuYW1lEhgKB3N1cm5hbWUYAi'
+    'ABKAlSB3N1cm5hbWUSIAoLZGVzY3JpcHRpb24YAyABKAlSC2Rlc2NyaXB0aW9uEhoKCGxvY2F0'
+    'aW9uGAQgASgJUghsb2NhdGlvbg==');
+
+@$core.Deprecated('Use updateProfileResponseDescriptor instead')
+const UpdateProfileResponse$json = {
+  '1': 'UpdateProfileResponse',
+  '2': [
+    {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.user.UserModel', '10': 'user'},
+  ],
+};
+
+/// Descriptor for `UpdateProfileResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateProfileResponseDescriptor = $convert.base64Decode(
+    'ChVVcGRhdGVQcm9maWxlUmVzcG9uc2USIwoEdXNlchgBIAEoCzIPLnVzZXIuVXNlck1vZGVsUg'
+    'R1c2Vy');
+
+@$core.Deprecated('Use updateProfileImageRequestDescriptor instead')
+const UpdateProfileImageRequest$json = {
+  '1': 'UpdateProfileImageRequest',
+  '2': [
+    {'1': 'data', '3': 1, '4': 1, '5': 12, '10': 'data'},
+    {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
+  ],
+};
+
+/// Descriptor for `UpdateProfileImageRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateProfileImageRequestDescriptor = $convert.base64Decode(
+    'ChlVcGRhdGVQcm9maWxlSW1hZ2VSZXF1ZXN0EhIKBGRhdGEYASABKAxSBGRhdGESEgoEbmFtZR'
+    'gCIAEoCVIEbmFtZQ==');
+
+@$core.Deprecated('Use updateProfileImageResponseDescriptor instead')
+const UpdateProfileImageResponse$json = {
+  '1': 'UpdateProfileImageResponse',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 3, '10': 'id'},
+  ],
+};
+
+/// Descriptor for `UpdateProfileImageResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateProfileImageResponseDescriptor = $convert.base64Decode(
+    'ChpVcGRhdGVQcm9maWxlSW1hZ2VSZXNwb25zZRIOCgJpZBgBIAEoA1ICaWQ=');
 

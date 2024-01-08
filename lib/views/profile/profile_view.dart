@@ -3,20 +3,17 @@ import 'dart:async';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:newpoint/components/comment.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/dynamic_sliver_appbar.dart';
 import 'package:newpoint/components/post.dart';
-import 'package:newpoint/domain/models/comment/comment.dart';
-import 'package:newpoint/domain/models/date_parser.dart';
+import 'package:newpoint/components/profileImage.dart';
+import 'package:newpoint/domain/factories/screen_factory.dart';
 import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:newpoint/views/post/post_view_model.dart';
 import 'package:newpoint/views/profile/profile_view_model.dart';
 import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ProfileView extends StatefulWidget {
@@ -127,10 +124,7 @@ class ProfileViewState extends State<ProfileView> {
                                                 login: profile.login,
                                                 name: profile.name,
                                                 surname: profile.surname,
-                                                headerImageUrl:
-                                                    "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg",
-                                                profileImageUrl:
-                                                    "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg",
+                                                headerImage: [],
                                               ),
                                               _Body(
                                                 description:
@@ -211,15 +205,13 @@ class _Header extends StatefulWidget {
       required this.login,
       required this.name,
       required this.surname,
-      required this.profileImageUrl,
-      required this.headerImageUrl})
+      required this.headerImage})
       : super(key: key);
 
   final String login;
   final String name;
   final String surname;
-  final String profileImageUrl;
-  final String headerImageUrl;
+  final List<int> headerImage;
 
   @override
   _HeaderState createState() => _HeaderState();
@@ -244,12 +236,13 @@ class _HeaderState extends State<_Header> {
                 children: [
                   InkWell(
                       onTap: () async {
-                        await model.onImageTap();
-                        setState(() {});
+                        if (model.profileId == model.user?.id) {
+                          await model.onImageTap();
+                          setState(() {});
+                        }
                       },
-                      child: CircleAvatar(
-                        radius: 36,
-                        backgroundImage: NetworkImage(widget.profileImageUrl),
+                      child: ProfileImage(
+                        profileImageId: model.profile!.profileImageId,
                       )),
                   Container(
                     margin: const EdgeInsets.only(top: 0, left: 16),
@@ -277,14 +270,33 @@ class _HeaderState extends State<_Header> {
                 ]),
             Container(
               margin: const EdgeInsets.only(top: 10),
-              child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    model.profileId == model.user!.id
-                        ? Icons.account_circle_outlined
-                        : CupertinoIcons.plus_circled,
-                    size: 28,
-                  )),
+              child: model.profileId == model.user!.id
+                  ? IconButton(
+                      onPressed: () async {
+                        model.profile = await showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (BuildContext context) {
+                              return Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.8,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFF737373),
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: const Radius.circular(25.0),
+                                          topRight:
+                                              const Radius.circular(25.0))),
+                                  child: ScreenFactory()
+                                      .makeProfileEditor(model.profileId));
+                            });
+                        await model.getProfile();
+                      },
+                      icon: Icon(
+                        Icons.account_circle_outlined,
+                        size: 28,
+                      ))
+                  : IconButton(onPressed: () {}, icon: Icon(Icons.add)),
             )
           ],
         ));
@@ -417,8 +429,7 @@ class _FooterPostsState extends State<_FooterPosts> {
               login: post.login,
               name: post.name,
               surname: post.surname,
-              profileImage: const NetworkImage(
-                  "https://yt3.googleusercontent.com/ytc/APkrFKa1J_iBVN8AD7RUkNXfRJvcVK_Y0bzmxnX1t-ee=s176-c-k-c0x00ffffff-no-rj"),
+              profileImageId: post.profileImageId,
               date: post.creationTimestamp,
               content: post.content,
               images: [],
@@ -499,8 +510,7 @@ class _FooterArticlesState extends State<_FooterArticles> {
                   login: post.login,
                   name: post.name,
                   surname: post.surname,
-                  profileImage: const NetworkImage(
-                      "https://yt3.googleusercontent.com/ytc/APkrFKa1J_iBVN8AD7RUkNXfRJvcVK_Y0bzmxnX1t-ee=s176-c-k-c0x00ffffff-no-rj"),
+                  profileImageId: post.profileImageId,
                   date: post.creationTimestamp,
                   content: post.content,
                   images: [],

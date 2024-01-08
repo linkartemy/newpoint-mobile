@@ -6,9 +6,10 @@ import 'package:newpoint/protos.dart';
 
 class ImageService {
   final _networkClient = NetworkClient();
-  late final _imageServiceClient = GrpcImageClient(_networkClient.clientChannel);
+  late final _imageServiceClient =
+      GrpcImageClient(_networkClient.clientChannel);
 
-  Future<Image> getImageById(int id) async {
+  Future<List<int>> getImageById(int id) async {
     var request = GetImageByIdRequest();
     request.id = Int64.parseInt(id.toString());
     var response = await _imageServiceClient.getImageById(request,
@@ -17,14 +18,15 @@ class ImageService {
       throw ApiClientException(ApiClientExceptionType.other);
     }
     var getImageByIdResponse = GetImageByIdResponse();
-    return Image.fromModel(response.data
+    return response.data
         .unpackInto<GetImageByIdResponse>(getImageByIdResponse)
-        .image);
+        .image.data;
   }
 
-  Future<int> addImage(List<int> data) async {
+  Future<int> addImage(List<int> data, String name) async {
     var request = AddImageRequest();
     request.data = data;
+    request.name = name;
     var response = await _imageServiceClient.addImage(request,
         options: await _networkClient.getAuthorizedCallOptions());
     if (await _networkClient.proceed(response) == false) {
@@ -33,6 +35,7 @@ class ImageService {
     var addImageResponse = AddImageResponse();
     return response.data
         .unpackInto<AddImageResponse>(addImageResponse)
-        .id.toInt();
+        .id
+        .toInt();
   }
 }

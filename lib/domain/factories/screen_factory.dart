@@ -12,6 +12,8 @@ import 'package:newpoint/views/post/post_view.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
 import 'package:newpoint/views/profile/profile_view.dart';
 import 'package:newpoint/views/profile/profile_view_model.dart';
+import 'package:newpoint/views/profile_editor/profile_editor_view.dart';
+import 'package:newpoint/views/profile_editor/profile_editor_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../views/main/main_view_model.dart';
@@ -64,6 +66,13 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => ProfileViewModel(id),
       child: const ProfileView(),
+    );
+  }
+
+  Widget makeProfileEditor(int id) {
+    return ChangeNotifierProvider(
+      create: (_) => ProfileEditorViewModel(id),
+      child: const ProfileEditorView(),
     );
   }
 }

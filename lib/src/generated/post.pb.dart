@@ -23,6 +23,7 @@ class PostModel extends $pb.GeneratedMessage {
     $core.String? login,
     $core.String? name,
     $core.String? surname,
+    $fixnum.Int64? profileImageId,
     $core.String? content,
     $core.String? images,
     $core.int? likes,
@@ -47,6 +48,9 @@ class PostModel extends $pb.GeneratedMessage {
     }
     if (surname != null) {
       $result.surname = surname;
+    }
+    if (profileImageId != null) {
+      $result.profileImageId = profileImageId;
     }
     if (content != null) {
       $result.content = content;
@@ -84,14 +88,15 @@ class PostModel extends $pb.GeneratedMessage {
     ..aOS(3, _omitFieldNames ? '' : 'login')
     ..aOS(4, _omitFieldNames ? '' : 'name')
     ..aOS(5, _omitFieldNames ? '' : 'surname')
-    ..aOS(6, _omitFieldNames ? '' : 'content')
-    ..aOS(7, _omitFieldNames ? '' : 'images')
-    ..a<$core.int>(8, _omitFieldNames ? '' : 'likes', $pb.PbFieldType.O3)
-    ..a<$core.int>(9, _omitFieldNames ? '' : 'shares', $pb.PbFieldType.O3)
-    ..a<$core.int>(10, _omitFieldNames ? '' : 'comments', $pb.PbFieldType.O3)
-    ..a<$core.int>(11, _omitFieldNames ? '' : 'views', $pb.PbFieldType.O3)
-    ..aOB(12, _omitFieldNames ? '' : 'liked')
-    ..aOM<$7.Timestamp>(13, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $7.Timestamp.create)
+    ..aInt64(6, _omitFieldNames ? '' : 'profileImageId')
+    ..aOS(7, _omitFieldNames ? '' : 'content')
+    ..aOS(8, _omitFieldNames ? '' : 'images')
+    ..a<$core.int>(9, _omitFieldNames ? '' : 'likes', $pb.PbFieldType.O3)
+    ..a<$core.int>(10, _omitFieldNames ? '' : 'shares', $pb.PbFieldType.O3)
+    ..a<$core.int>(11, _omitFieldNames ? '' : 'comments', $pb.PbFieldType.O3)
+    ..a<$core.int>(12, _omitFieldNames ? '' : 'views', $pb.PbFieldType.O3)
+    ..aOB(13, _omitFieldNames ? '' : 'liked')
+    ..aOM<$7.Timestamp>(14, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $7.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -162,78 +167,87 @@ class PostModel extends $pb.GeneratedMessage {
   void clearSurname() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get content => $_getSZ(5);
+  $fixnum.Int64 get profileImageId => $_getI64(5);
   @$pb.TagNumber(6)
-  set content($core.String v) { $_setString(5, v); }
+  set profileImageId($fixnum.Int64 v) { $_setInt64(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasContent() => $_has(5);
+  $core.bool hasProfileImageId() => $_has(5);
   @$pb.TagNumber(6)
-  void clearContent() => clearField(6);
+  void clearProfileImageId() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get images => $_getSZ(6);
+  $core.String get content => $_getSZ(6);
   @$pb.TagNumber(7)
-  set images($core.String v) { $_setString(6, v); }
+  set content($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasImages() => $_has(6);
+  $core.bool hasContent() => $_has(6);
   @$pb.TagNumber(7)
-  void clearImages() => clearField(7);
+  void clearContent() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.int get likes => $_getIZ(7);
+  $core.String get images => $_getSZ(7);
   @$pb.TagNumber(8)
-  set likes($core.int v) { $_setSignedInt32(7, v); }
+  set images($core.String v) { $_setString(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasLikes() => $_has(7);
+  $core.bool hasImages() => $_has(7);
   @$pb.TagNumber(8)
-  void clearLikes() => clearField(8);
+  void clearImages() => clearField(8);
 
   @$pb.TagNumber(9)
-  $core.int get shares => $_getIZ(8);
+  $core.int get likes => $_getIZ(8);
   @$pb.TagNumber(9)
-  set shares($core.int v) { $_setSignedInt32(8, v); }
+  set likes($core.int v) { $_setSignedInt32(8, v); }
   @$pb.TagNumber(9)
-  $core.bool hasShares() => $_has(8);
+  $core.bool hasLikes() => $_has(8);
   @$pb.TagNumber(9)
-  void clearShares() => clearField(9);
+  void clearLikes() => clearField(9);
 
   @$pb.TagNumber(10)
-  $core.int get comments => $_getIZ(9);
+  $core.int get shares => $_getIZ(9);
   @$pb.TagNumber(10)
-  set comments($core.int v) { $_setSignedInt32(9, v); }
+  set shares($core.int v) { $_setSignedInt32(9, v); }
   @$pb.TagNumber(10)
-  $core.bool hasComments() => $_has(9);
+  $core.bool hasShares() => $_has(9);
   @$pb.TagNumber(10)
-  void clearComments() => clearField(10);
+  void clearShares() => clearField(10);
 
   @$pb.TagNumber(11)
-  $core.int get views => $_getIZ(10);
+  $core.int get comments => $_getIZ(10);
   @$pb.TagNumber(11)
-  set views($core.int v) { $_setSignedInt32(10, v); }
+  set comments($core.int v) { $_setSignedInt32(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasViews() => $_has(10);
+  $core.bool hasComments() => $_has(10);
   @$pb.TagNumber(11)
-  void clearViews() => clearField(11);
+  void clearComments() => clearField(11);
 
   @$pb.TagNumber(12)
-  $core.bool get liked => $_getBF(11);
+  $core.int get views => $_getIZ(11);
   @$pb.TagNumber(12)
-  set liked($core.bool v) { $_setBool(11, v); }
+  set views($core.int v) { $_setSignedInt32(11, v); }
   @$pb.TagNumber(12)
-  $core.bool hasLiked() => $_has(11);
+  $core.bool hasViews() => $_has(11);
   @$pb.TagNumber(12)
-  void clearLiked() => clearField(12);
+  void clearViews() => clearField(12);
 
   @$pb.TagNumber(13)
-  $7.Timestamp get creationTimestamp => $_getN(12);
+  $core.bool get liked => $_getBF(12);
   @$pb.TagNumber(13)
-  set creationTimestamp($7.Timestamp v) { setField(13, v); }
+  set liked($core.bool v) { $_setBool(12, v); }
   @$pb.TagNumber(13)
-  $core.bool hasCreationTimestamp() => $_has(12);
+  $core.bool hasLiked() => $_has(12);
   @$pb.TagNumber(13)
-  void clearCreationTimestamp() => clearField(13);
-  @$pb.TagNumber(13)
-  $7.Timestamp ensureCreationTimestamp() => $_ensure(12);
+  void clearLiked() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $7.Timestamp get creationTimestamp => $_getN(13);
+  @$pb.TagNumber(14)
+  set creationTimestamp($7.Timestamp v) { setField(14, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasCreationTimestamp() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearCreationTimestamp() => clearField(14);
+  @$pb.TagNumber(14)
+  $7.Timestamp ensureCreationTimestamp() => $_ensure(13);
 }
 
 class GetPostsRequest extends $pb.GeneratedMessage {

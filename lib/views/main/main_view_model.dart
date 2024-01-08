@@ -4,7 +4,6 @@ import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
 import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
 import 'package:newpoint/domain/models/user/user.dart';
-import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
 
@@ -53,6 +52,7 @@ class MainViewModel extends ChangeNotifier {
         postsLoadingError = e.error;
       }
     } catch (e) {
+      print(e);
       postsLoadingError = "Something went wrong, please try again";
     }
   }
@@ -67,8 +67,10 @@ class MainViewModel extends ChangeNotifier {
       if (e.type == ApiClientExceptionType.network) {
         postsLoadingError =
             "Something is wrong with the connection to the server";
+      } else {
+        postsLoadingError = e.error;
       }
-      print(e);
+      print(e.error);
     } catch (e) {
       print(e);
       postsLoadingError = "Something went wrong, please try again";

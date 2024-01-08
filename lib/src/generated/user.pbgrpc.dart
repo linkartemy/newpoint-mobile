@@ -42,6 +42,14 @@ class GrpcUserClient extends $grpc.Client {
       '/user.GrpcUser/ValidateUser',
       ($5.ValidateUserRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$updateProfile = $grpc.ClientMethod<$5.UpdateProfileRequest, $1.Response>(
+      '/user.GrpcUser/UpdateProfile',
+      ($5.UpdateProfileRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$updateProfileImage = $grpc.ClientMethod<$5.UpdateProfileImageRequest, $1.Response>(
+      '/user.GrpcUser/UpdateProfileImage',
+      ($5.UpdateProfileImageRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
 
   GrpcUserClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -67,6 +75,14 @@ class GrpcUserClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$1.Response> validateUser($5.ValidateUserRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$validateUser, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> updateProfile($5.UpdateProfileRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$updateProfile, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> updateProfileImage($5.UpdateProfileImageRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$updateProfileImage, request, options: options);
   }
 }
 
@@ -110,6 +126,20 @@ abstract class GrpcUserServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $5.ValidateUserRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$5.UpdateProfileRequest, $1.Response>(
+        'UpdateProfile',
+        updateProfile_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $5.UpdateProfileRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$5.UpdateProfileImageRequest, $1.Response>(
+        'UpdateProfileImage',
+        updateProfileImage_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $5.UpdateProfileImageRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.Response> login_Pre($grpc.ServiceCall call, $async.Future<$5.LoginRequest> request) async {
@@ -132,9 +162,19 @@ abstract class GrpcUserServiceBase extends $grpc.Service {
     return validateUser(call, await request);
   }
 
+  $async.Future<$1.Response> updateProfile_Pre($grpc.ServiceCall call, $async.Future<$5.UpdateProfileRequest> request) async {
+    return updateProfile(call, await request);
+  }
+
+  $async.Future<$1.Response> updateProfileImage_Pre($grpc.ServiceCall call, $async.Future<$5.UpdateProfileImageRequest> request) async {
+    return updateProfileImage(call, await request);
+  }
+
   $async.Future<$1.Response> login($grpc.ServiceCall call, $5.LoginRequest request);
   $async.Future<$1.Response> register($grpc.ServiceCall call, $5.RegisterRequest request);
   $async.Future<$1.Response> getUserByToken($grpc.ServiceCall call, $5.GetUserByTokenRequest request);
   $async.Future<$1.Response> getProfileById($grpc.ServiceCall call, $5.GetProfileByIdRequest request);
   $async.Future<$1.Response> validateUser($grpc.ServiceCall call, $5.ValidateUserRequest request);
+  $async.Future<$1.Response> updateProfile($grpc.ServiceCall call, $5.UpdateProfileRequest request);
+  $async.Future<$1.Response> updateProfileImage($grpc.ServiceCall call, $5.UpdateProfileImageRequest request);
 }

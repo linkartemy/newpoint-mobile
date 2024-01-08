@@ -14,6 +14,8 @@ service GrpcUser {
   rpc GetUserByToken (GetUserByTokenRequest) returns (response.Response);
   rpc GetProfileById (GetProfileByIdRequest) returns (response.Response);
   rpc ValidateUser (ValidateUserRequest) returns (response.Response);
+  rpc UpdateProfile (UpdateProfileRequest) returns (response.Response);
+  rpc UpdateProfileImage (UpdateProfileImageRequest) returns (response.Response);
 }
 
 message UserModel {
@@ -25,8 +27,8 @@ message UserModel {
   NullableString location = 6;
   NullableString email = 7;
   NullableString phone = 8;
-  NullableString profileImage = 9;
-  NullableString headerImage = 10;
+  int64 profile_image_id = 9;
+  int64 header_image_id = 10;
   NullableTimestamp birth_date = 11;
   NullableTimestamp registration_timestamp = 12;
   NullableTimestamp last_login_timestamp = 13;
@@ -43,13 +45,13 @@ message LoginResponse {
 }
 
 message RegisterRequest {
-  string login = 2;
-  string password = 3;
-  string name = 4;
-  string surname = 5;
-  string email = 6;
-  string phone = 7;
-  google.protobuf.Timestamp birth_date = 8;
+  string login = 1;
+  string password = 2;
+  string name = 3;
+  string surname = 4;
+  string email = 5;
+  string phone = 6;
+  google.protobuf.Timestamp birth_date = 7;
 }
 
 message RegisterResponse {
@@ -71,14 +73,34 @@ message GetProfileByIdResponse {
 }
 
 message ValidateUserRequest {
-  string login = 2;
-  string password = 3;
-  string name = 4;
-  string surname = 5;
-  string email = 6;
-  string phone = 7;
+  string login = 1;
+  string password = 2;
+  string name = 3;
+  string surname = 4;
+  string email = 5;
+  string phone = 6;
 }
 
 message ValidateUserResponse {
   bool valid = 1;
+}
+
+message UpdateProfileRequest {
+  string name = 1;
+  string surname = 2;
+  string description = 3;
+  string location = 4;
+}
+
+message UpdateProfileResponse {
+  UserModel user = 1;
+}
+
+message UpdateProfileImageRequest {
+  bytes data = 1;
+  string name = 2;
+}
+
+message UpdateProfileImageResponse {
+  int64 id = 1;
 }

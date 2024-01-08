@@ -4,7 +4,7 @@ import "response.proto";
 
 option csharp_namespace = "NewPoint";
 
-package user;
+package code;
 
 service GrpcCode {
   rpc AddEmailCode (AddEmailCodeRequest) returns (response.Response);

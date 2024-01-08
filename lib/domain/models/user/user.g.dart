@@ -1,6 +1,5 @@
 part of 'user.dart';
 
-
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
     id: json['id'] as int,
@@ -11,8 +10,8 @@ User _$UserFromJson(Map<String, dynamic> json) {
     location: json['location'] as String,
     email: json['email'] as String,
     phone: json['phone'] as String,
-    profileImage: json['profile_image'] as String?,
-    headerImage: json['header_image'] as String?,
+    profileImageId: json['profile_image_id'] as int,
+    headerImageId: json['header_image_id'] as int,
     birthDate: json['birth_date'] as DateTime?,
     registrationTimestamp: json['registration_timestamp'] as DateTime?,
     lastLoginTimestamp: json['last_login_timestamp'] as DateTime?,
@@ -29,8 +28,8 @@ User _$UserFromModel(UserModel userModel) {
     location: userModel.location.parseNullable(),
     email: userModel.email.parseNullable(),
     phone: userModel.phone.parseNullable(),
-    profileImage: userModel.profileImage.parseNullable(),
-    headerImage: userModel.headerImage.parseNullable(),
+    profileImageId: userModel.profileImageId.toInt(),
+    headerImageId: userModel.headerImageId.toInt(),
     birthDate: userModel.birthDate.parseNullable()?.toDateTime(),
     registrationTimestamp:
         userModel.registrationTimestamp.parseNullable()?.toDateTime(),
@@ -46,8 +45,8 @@ Map<String, dynamic> _$UserToJson(User user) => <String, dynamic>{
       'surname': user.surname,
       'email': user.email,
       'phone': user.phone,
-      'profile_image': user.profileImage,
-      'header_image': user.headerImage,
+      'profile_image_id': user.profileImageId,
+      'header_image_id': user.headerImageId,
     };
 
 extension NullableStringParser on NullableString {
@@ -64,9 +63,6 @@ extension NullableTimestampParser on NullableTimestamp {
 
 extension DateTimeToTimestamp on DateTime {
   Timestamp toTimestamp() {
-    var ts = Timestamp();
-    ts.seconds = Int64(microsecondsSinceEpoch ~/ Duration.microsecondsPerSecond);
-    return ts;
+    return Timestamp.fromDateTime(this);
   }
 }
-

@@ -23,14 +23,15 @@ message PostModel {
   string login = 3;
   string name = 4;
   string surname = 5;
-  string content = 6;
-  string images = 7;
-  int32 likes = 8;
-  int32 shares = 9;
-  int32 comments = 10;
-  int32 views = 11;
-  bool liked = 12;
-  google.protobuf.Timestamp creation_timestamp = 13;
+  int64 profile_image_id = 6;
+  string content = 7;
+  string images = 8;
+  int32 likes = 9;
+  int32 shares = 10;
+  int32 comments = 11;
+  int32 views = 12;
+  bool liked = 13;
+  google.protobuf.Timestamp creation_timestamp = 14;
 }
 
 message GetPostsRequest {}

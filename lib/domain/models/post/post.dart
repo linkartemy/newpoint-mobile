@@ -11,6 +11,7 @@ class Post {
   final String login;
   final String name;
   final String surname;
+  final int profileImageId;
   final String content;
   final String? images;
   int likes;
@@ -27,6 +28,7 @@ class Post {
     required this.login,
     required this.name,
     required this.surname,
+    required this.profileImageId,
     required this.content,
     required this.images,
     required this.likes,

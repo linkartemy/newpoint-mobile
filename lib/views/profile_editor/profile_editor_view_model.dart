@@ -1,0 +1,105 @@
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
+import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
+import 'package:newpoint/domain/models/post/post.dart';
+import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
+import 'package:newpoint/domain/models/user/user.dart';
+import 'package:newpoint/domain/services/post_service.dart';
+import 'package:newpoint/domain/services/user_service.dart';
+
+class ProfileEditorViewModel extends ChangeNotifier {
+  ProfileEditorViewModel(this.profileId);
+
+  final _userService = UserService();
+  final _postService = PostService();
+  final postViewEntryTable = PostViewEntryTable();
+
+  final loginTextController = TextEditingController();
+  final nameTextController = TextEditingController();
+  final surnameTextController = TextEditingController();
+  final descriptionTextController = TextEditingController();
+  final locationTextController = TextEditingController();
+
+  late int profileId;
+  User? user;
+  User? profile;
+  List<Post> posts = [];
+  var viewedPosts = <int>[];
+  var isLoadingDatabase = true;
+  String error = "";
+
+  ImagePicker picker = ImagePicker();
+  XFile? image;
+
+  Future<void> onImageTap() async {
+    try {
+      image = await picker.pickImage(source: ImageSource.gallery);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> getUser() async {
+    try {
+      user = await _userService.getUser();
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> getProfile() async {
+    try {
+      profile = await _userService.getProfileById(profileId);
+      if (profile != null) {
+        loginTextController.text = profile!.login;
+        nameTextController.text = profile!.name;
+        surnameTextController.text = profile!.surname;
+        descriptionTextController.text = profile!.description ?? "";
+        locationTextController.text = profile!.location ?? "";
+      }
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+      error = e.error;
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> updateProfile() async {
+    try {
+      final name = nameTextController.text;
+      final surname = surnameTextController.text;
+      final description = descriptionTextController.text;
+      final location = locationTextController.text;
+      if (name.isEmpty || surname.isEmpty) {
+        error = "Name or surname can't be empty";
+        return;
+      }
+      profile = await _userService.updateProfile(
+          name, surname, description, location);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      } else {
+        error = e.error;
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+}
