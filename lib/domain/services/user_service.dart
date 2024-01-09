@@ -90,13 +90,14 @@ class UserService {
         .valid;
   }
 
-  Future<User> updateProfile(
-      String name, String surname, String description, String location) async {
+  Future<User> updateProfile(String name, String surname, String description,
+      String location, DateTime birthDate) async {
     var request = UpdateProfileRequest();
     request.name = name;
     request.surname = surname;
     request.description = description;
     request.location = location;
+    request.birthDate = birthDate.toTimestamp();
     var response = await _userServiceClient.updateProfile(request,
         options: await _networkClient.getAuthorizedCallOptions());
     if (await _networkClient.proceed(response) == false) {

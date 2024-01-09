@@ -194,6 +194,7 @@ const UpdateProfileRequest$json = {
     {'1': 'surname', '3': 2, '4': 1, '5': 9, '10': 'surname'},
     {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
     {'1': 'location', '3': 4, '4': 1, '5': 9, '10': 'location'},
+    {'1': 'birth_date', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'birthDate'},
   ],
 };
 
@@ -201,7 +202,8 @@ const UpdateProfileRequest$json = {
 final $typed_data.Uint8List updateProfileRequestDescriptor = $convert.base64Decode(
     'ChRVcGRhdGVQcm9maWxlUmVxdWVzdBISCgRuYW1lGAEgASgJUgRuYW1lEhgKB3N1cm5hbWUYAi'
     'ABKAlSB3N1cm5hbWUSIAoLZGVzY3JpcHRpb24YAyABKAlSC2Rlc2NyaXB0aW9uEhoKCGxvY2F0'
-    'aW9uGAQgASgJUghsb2NhdGlvbg==');
+    'aW9uGAQgASgJUghsb2NhdGlvbhI5CgpiaXJ0aF9kYXRlGAUgASgLMhouZ29vZ2xlLnByb3RvYn'
+    'VmLlRpbWVzdGFtcFIJYmlydGhEYXRl');
 
 @$core.Deprecated('Use updateProfileResponseDescriptor instead')
 const UpdateProfileResponse$json = {

@@ -931,6 +931,7 @@ class UpdateProfileRequest extends $pb.GeneratedMessage {
     $core.String? surname,
     $core.String? description,
     $core.String? location,
+    $7.Timestamp? birthDate,
   }) {
     final $result = create();
     if (name != null) {
@@ -945,6 +946,9 @@ class UpdateProfileRequest extends $pb.GeneratedMessage {
     if (location != null) {
       $result.location = location;
     }
+    if (birthDate != null) {
+      $result.birthDate = birthDate;
+    }
     return $result;
   }
   UpdateProfileRequest._() : super();
@@ -956,6 +960,7 @@ class UpdateProfileRequest extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'surname')
     ..aOS(3, _omitFieldNames ? '' : 'description')
     ..aOS(4, _omitFieldNames ? '' : 'location')
+    ..aOM<$7.Timestamp>(5, _omitFieldNames ? '' : 'birthDate', subBuilder: $7.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -1015,6 +1020,17 @@ class UpdateProfileRequest extends $pb.GeneratedMessage {
   $core.bool hasLocation() => $_has(3);
   @$pb.TagNumber(4)
   void clearLocation() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $7.Timestamp get birthDate => $_getN(4);
+  @$pb.TagNumber(5)
+  set birthDate($7.Timestamp v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasBirthDate() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearBirthDate() => clearField(5);
+  @$pb.TagNumber(5)
+  $7.Timestamp ensureBirthDate() => $_ensure(4);
 }
 
 class UpdateProfileResponse extends $pb.GeneratedMessage {

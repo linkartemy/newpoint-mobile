@@ -7,6 +7,7 @@ import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileEditorViewModel extends ChangeNotifier {
   ProfileEditorViewModel(this.profileId);
@@ -20,6 +21,9 @@ class ProfileEditorViewModel extends ChangeNotifier {
   final surnameTextController = TextEditingController();
   final descriptionTextController = TextEditingController();
   final locationTextController = TextEditingController();
+  final birthDateController = TextEditingController();
+
+  var birthDate = DateTime.now();
 
   late int profileId;
   User? user;
@@ -58,6 +62,10 @@ class ProfileEditorViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> setBirthDate(BuildContext context, DateTime birthDate) async {
+    birthDateController.text = AppLocalizations.of(context)!.birthDate(birthDate);
+  }
+
   Future<void> getProfile() async {
     try {
       profile = await _userService.getProfileById(profileId);
@@ -90,7 +98,7 @@ class ProfileEditorViewModel extends ChangeNotifier {
         return;
       }
       profile = await _userService.updateProfile(
-          name, surname, description, location);
+          name, surname, description, location, birthDate);
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {

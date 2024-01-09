@@ -1,7 +1,6 @@
 {
   "forYou": "For you",
   "youRead": "You read",
-
   "nComments": "{count, plural, other{{count} comments}}",
   "@nComments": {
     "placeholders": {
@@ -37,44 +36,43 @@
       }
     }
   },
-
-    "main": "Main",
-    "profile": "Profile",
-    "bookMarks": "Bookmarks",
-    "settings": "Settings",
-    "logOut": "Log out",
-    "logOutConfirmation": "Would you like to log out?",
-    "cancel": "Cancel",
-
-    "registrationDate": "Since {date}",
-    "@registrationDate": {
-      "placeholders": {
-        "date": {
-          "type": "DateTime",
-          "format": "yMd"
-        }
+  "main": "Main",
+  "profile": "Profile",
+  "bookMarks": "Bookmarks",
+  "settings": "Settings",
+  "logOut": "Log out",
+  "logOutConfirmation": "Would you like to log out?",
+  "cancel": "Cancel",
+  "registrationDate": "Since {date}",
+  "@registrationDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
       }
-    },
-    "birthDate": "{date}",
-    "@birthDate": {
-      "placeholders": {
-        "date": {
-          "type": "DateTime",
-          "format": "yMd"
-        }
+    }
+  },
+  "birthDate": "{date}",
+  "@birthDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
       }
-    },
-    "nPosts": "{count, plural, other{{count} posts}}",
-    "@nPosts": {
-      "placeholders": {
-        "count": {
-          "type": "num",
-          "format": "compact"
-        }
+    }
+  },
+  "nPosts": "{count, plural, other{{count} posts}}",
+  "@nPosts": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
       }
-    },
-
-    "posts": "Posts",
-    "articles": "Articles",
-    "yourThoughts": "Your Thoughts?"
+    }
+  },
+  "posts": "Posts",
+  "articles": "Articles",
+  "yourThoughts": "Your Thoughts?",
+  "profileImages": "Profile images",
+  "changeProfileImage": "Change profile image"
 }

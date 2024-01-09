@@ -237,8 +237,47 @@ class _HeaderState extends State<_Header> {
                   InkWell(
                       onTap: () async {
                         if (model.profileId == model.user?.id) {
-                          await model.onImageTap();
-                          setState(() {});
+                          AlertDialog alert = AlertDialog(
+                            actionsAlignment: MainAxisAlignment.start,
+                            actionsOverflowAlignment:
+                                OverflowBarAlignment.center,
+                            title: Text(
+                              AppLocalizations.of(context)!.profileImages,
+                              textAlign: TextAlign.center,
+                              style: AdaptiveTheme.of(context)
+                                  .theme
+                                  .textTheme
+                                  .titleLarge,
+                            ),
+                            actions: [
+                              TextButton(
+                                child: Text(
+                                    AppLocalizations.of(context)!
+                                        .changeProfileImage,
+                                    textAlign: TextAlign.center),
+                                onPressed: () async {
+                                  await model.onImageTap();
+                                  setState(() {});
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text(
+                                  AppLocalizations.of(context)!.cancel,
+                                  textAlign: TextAlign.center,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return alert;
+                            },
+                          );
                         }
                       },
                       child: ProfileImage(

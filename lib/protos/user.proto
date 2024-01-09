@@ -90,6 +90,7 @@ message UpdateProfileRequest {
   string surname = 2;
   string description = 3;
   string location = 4;
+  google.protobuf.Timestamp birth_date = 5;
 }
 
 message UpdateProfileResponse {
