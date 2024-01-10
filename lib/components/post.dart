@@ -1,7 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:newpoint/components/profileImage.dart';
+import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/views/theme/theme.dart';
 

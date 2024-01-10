@@ -250,6 +250,102 @@ class PostModel extends $pb.GeneratedMessage {
   $7.Timestamp ensureCreationTimestamp() => $_ensure(13);
 }
 
+class AddPostRequest extends $pb.GeneratedMessage {
+  factory AddPostRequest({
+    $fixnum.Int64? authorId,
+    $core.String? content,
+  }) {
+    final $result = create();
+    if (authorId != null) {
+      $result.authorId = authorId;
+    }
+    if (content != null) {
+      $result.content = content;
+    }
+    return $result;
+  }
+  AddPostRequest._() : super();
+  factory AddPostRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddPostRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddPostRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
+    ..aInt64(1, _omitFieldNames ? '' : 'authorId')
+    ..aOS(2, _omitFieldNames ? '' : 'content')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  AddPostRequest clone() => AddPostRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AddPostRequest copyWith(void Function(AddPostRequest) updates) => super.copyWith((message) => updates(message as AddPostRequest)) as AddPostRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AddPostRequest create() => AddPostRequest._();
+  AddPostRequest createEmptyInstance() => create();
+  static $pb.PbList<AddPostRequest> createRepeated() => $pb.PbList<AddPostRequest>();
+  @$core.pragma('dart2js:noInline')
+  static AddPostRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddPostRequest>(create);
+  static AddPostRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get authorId => $_getI64(0);
+  @$pb.TagNumber(1)
+  set authorId($fixnum.Int64 v) { $_setInt64(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAuthorId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAuthorId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get content => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set content($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasContent() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearContent() => clearField(2);
+}
+
+class AddPostResponse extends $pb.GeneratedMessage {
+  factory AddPostResponse() => create();
+  AddPostResponse._() : super();
+  factory AddPostResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddPostResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddPostResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  AddPostResponse clone() => AddPostResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AddPostResponse copyWith(void Function(AddPostResponse) updates) => super.copyWith((message) => updates(message as AddPostResponse)) as AddPostResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AddPostResponse create() => AddPostResponse._();
+  AddPostResponse createEmptyInstance() => create();
+  static $pb.PbList<AddPostResponse> createRepeated() => $pb.PbList<AddPostResponse>();
+  @$core.pragma('dart2js:noInline')
+  static AddPostResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddPostResponse>(create);
+  static AddPostResponse? _defaultInstance;
+}
+
 class GetPostsRequest extends $pb.GeneratedMessage {
   factory GetPostsRequest() => create();
   GetPostsRequest._() : super();
