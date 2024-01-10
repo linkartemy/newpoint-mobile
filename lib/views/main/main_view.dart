@@ -1,5 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/drawer.dart';
 import 'package:newpoint/components/post.dart';
 import 'package:newpoint/resources/resources.dart';
@@ -7,7 +9,6 @@ import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/main/main_view_model.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class MainView extends StatefulWidget {
@@ -52,38 +53,90 @@ class MainViewState extends State<MainView> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-          appBar: AppBar(
-            title: Container(alignment: Alignment.centerRight, child: Image.asset(
-              AppImages.logoTitleOutline,
-              width: 100,
-            )),
-            bottom: TabBar(
-              indicatorColor: AdaptiveTheme.of(context).theme.primaryColor,
-              tabs: [
-                Tab(
-                  child: Text(
-                    AppLocalizations.of(context)!.forYou,
-                    style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
-                  ),
+        appBar: AppBar(
+          title: Container(
+              alignment: Alignment.centerRight,
+              child: Image.asset(
+                AppImages.logoTitleOutline,
+                width: 100,
+              )),
+          bottom: TabBar(
+            indicatorColor: AdaptiveTheme.of(context).theme.primaryColor,
+            tabs: [
+              Tab(
+                child: Text(
+                  AppLocalizations.of(context)!.forYou,
+                  style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
                 ),
-                Tab(
+              ),
+              Tab(
+                child: Text(
+                  AppLocalizations.of(context)!.youRead,
+                  style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
+                ),
+              ),
+            ],
+          ),
+        ),
+        drawer: DrawerComponent(
+          user: _user,
+        ),
+        body: TabBarView(children: [
+          _PostsView(
+            isLoading: _isLoadingPosts,
+          ),
+          _SubscribedPostsView(),
+        ]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            AlertDialog alert = AlertDialog(
+              actionsAlignment: MainAxisAlignment.start,
+              actionsOverflowAlignment: OverflowBarAlignment.center,
+              title: Text(
+                AppLocalizations.of(context)!.actions,
+                textAlign: TextAlign.center,
+                style: AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+              ),
+              actions: [
+                TextButton(
+                  child: Text(AppLocalizations.of(context)!.createPost,
+                      textAlign: TextAlign.center),
+                  onPressed: () async {
+                    Navigator.of(context)
+                        .pushNamed(MainNavigationRouteNames.postCreator);
+                  },
+                ),
+                TextButton(
+                  child: Text(AppLocalizations.of(context)!.createArticle,
+                      textAlign: TextAlign.center),
+                  onPressed: () async {
+                    setState(() {});
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
                   child: Text(
-                    AppLocalizations.of(context)!.youRead,
-                    style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
+                    AppLocalizations.of(context)!.cancel,
+                    textAlign: TextAlign.center,
                   ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
               ],
-            ),
-          ),
-          drawer: DrawerComponent(
-            user: _user,
-          ),
-          body: TabBarView(children: [
-            _PostsView(
-              isLoading: _isLoadingPosts,
-            ),
-            _SubscribedPostsView(),
-          ])),
+            );
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return alert;
+              },
+            );
+          },
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+          child: Icon(CupertinoIcons.pen),
+        ),
+      ),
     );
   }
 }

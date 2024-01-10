@@ -11,6 +11,17 @@ class PostService {
   late final _postServiceClient = GrpcPostClient(_networkClient.clientChannel);
   final _sessionDataProvider = SessionDataProvider();
 
+  Future<void> addPost(int authorId, String content, List<int> images) async {
+    final request = AddPostRequest();
+    request.authorId = Int64.parseInt(authorId.toString());
+    request.content = content;
+    var response = await _postServiceClient.addPost(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+  }
+
   Future<List<Post>> getPosts() async {
     var response = await _postServiceClient.getPosts(GetPostsRequest(),
         options: await _networkClient.getAuthorizedCallOptions());

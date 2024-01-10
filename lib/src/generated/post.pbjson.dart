@@ -45,6 +45,29 @@ final $typed_data.Uint8List postModelDescriptor = $convert.base64Decode(
     'ZBJJChJjcmVhdGlvbl90aW1lc3RhbXAYDiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW'
     '1wUhFjcmVhdGlvblRpbWVzdGFtcA==');
 
+@$core.Deprecated('Use addPostRequestDescriptor instead')
+const AddPostRequest$json = {
+  '1': 'AddPostRequest',
+  '2': [
+    {'1': 'author_id', '3': 1, '4': 1, '5': 3, '10': 'authorId'},
+    {'1': 'content', '3': 2, '4': 1, '5': 9, '10': 'content'},
+  ],
+};
+
+/// Descriptor for `AddPostRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List addPostRequestDescriptor = $convert.base64Decode(
+    'Cg5BZGRQb3N0UmVxdWVzdBIbCglhdXRob3JfaWQYASABKANSCGF1dGhvcklkEhgKB2NvbnRlbn'
+    'QYAiABKAlSB2NvbnRlbnQ=');
+
+@$core.Deprecated('Use addPostResponseDescriptor instead')
+const AddPostResponse$json = {
+  '1': 'AddPostResponse',
+};
+
+/// Descriptor for `AddPostResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List addPostResponseDescriptor = $convert.base64Decode(
+    'Cg9BZGRQb3N0UmVzcG9uc2U=');
+
 @$core.Deprecated('Use getPostsRequestDescriptor instead')
 const GetPostsRequest$json = {
   '1': 'GetPostsRequest',

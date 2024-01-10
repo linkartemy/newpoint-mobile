@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/comment.dart';
 import 'package:newpoint/components/dynamic_sliver_appbar.dart';
-import 'package:newpoint/components/profileImage.dart';
+import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';

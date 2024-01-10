@@ -22,6 +22,10 @@ export 'post.pb.dart';
 
 @$pb.GrpcServiceName('post.GrpcPost')
 class GrpcPostClient extends $grpc.Client {
+  static final _$addPost = $grpc.ClientMethod<$4.AddPostRequest, $1.Response>(
+      '/post.GrpcPost/AddPost',
+      ($4.AddPostRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
   static final _$getPosts = $grpc.ClientMethod<$4.GetPostsRequest, $1.Response>(
       '/post.GrpcPost/GetPosts',
       ($4.GetPostsRequest value) => value.writeToBuffer(),
@@ -57,6 +61,10 @@ class GrpcPostClient extends $grpc.Client {
       : super(channel, options: options,
         interceptors: interceptors);
 
+  $grpc.ResponseFuture<$1.Response> addPost($4.AddPostRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$addPost, request, options: options);
+  }
+
   $grpc.ResponseFuture<$1.Response> getPosts($4.GetPostsRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getPosts, request, options: options);
   }
@@ -91,6 +99,13 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
   $core.String get $name => 'post.GrpcPost';
 
   GrpcPostServiceBase() {
+    $addMethod($grpc.ServiceMethod<$4.AddPostRequest, $1.Response>(
+        'AddPost',
+        addPost_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $4.AddPostRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$4.GetPostsRequest, $1.Response>(
         'GetPosts',
         getPosts_Pre,
@@ -142,6 +157,10 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
         ($1.Response value) => value.writeToBuffer()));
   }
 
+  $async.Future<$1.Response> addPost_Pre($grpc.ServiceCall call, $async.Future<$4.AddPostRequest> request) async {
+    return addPost(call, await request);
+  }
+
   $async.Future<$1.Response> getPosts_Pre($grpc.ServiceCall call, $async.Future<$4.GetPostsRequest> request) async {
     return getPosts(call, await request);
   }
@@ -170,6 +189,7 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
     return addPostView(call, await request);
   }
 
+  $async.Future<$1.Response> addPost($grpc.ServiceCall call, $4.AddPostRequest request);
   $async.Future<$1.Response> getPosts($grpc.ServiceCall call, $4.GetPostsRequest request);
   $async.Future<$1.Response> getPostsByUserId($grpc.ServiceCall call, $4.GetPostsByUserIdRequest request);
   $async.Future<$1.Response> getPostById($grpc.ServiceCall call, $4.GetPostByIdRequest request);

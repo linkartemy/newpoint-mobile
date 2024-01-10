@@ -72,7 +72,11 @@
   },
   "posts": "Posts",
   "articles": "Articles",
-  "yourThoughts": "Your Thoughts?",
+  "yourThoughts": "Your thoughts?",
   "profileImages": "Profile images",
-  "changeProfileImage": "Change profile image"
+  "changeProfileImage": "Change profile image",
+  "actions": "Actions",
+  "createPost": "Create a post",
+  "createArticle": "Create an article",
+  "wordsHaveAGreatPower": "Words have a great power"
 }

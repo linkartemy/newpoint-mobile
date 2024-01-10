@@ -74,5 +74,9 @@
   "articles": "Статьи",
   "yourThoughts": "Ваши мысли?",
   "profileImages": "Изображения профиля",
-  "changeProfileImage": "Изменить изображение профиля"
+  "changeProfileImage": "Изменить изображение профиля",
+  "actions": "Действия",
+  "createPost": "Написать пост",
+  "createArticle": "Написать статью",
+  "wordsHaveAGreatPower": "Слова имеют большую силу"
 }

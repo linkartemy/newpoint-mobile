@@ -5,7 +5,8 @@ abstract class MainNavigationRouteNames {
   static const loader = '/';
   static const auth = '/auth';
   static const main = '/main';
-  static const post = '/main/post';
+  static const post = '/post';
+  static const postCreator = '/post/creator';
   static const profile = '/profile';
   static const profileEditor = '/profile/editor';
   static const register = '/register';
@@ -22,6 +23,7 @@ class MainNavigation {
     MainNavigationRouteNames.register: (_) => _screenFactory.makeRegister(),
     MainNavigationRouteNames.login: (_) => _screenFactory.makeLogin(),
     MainNavigationRouteNames.main: (_) => _screenFactory.makeMain(),
+    MainNavigationRouteNames.postCreator: (_) => _screenFactory.makePostCreator(),
   };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {

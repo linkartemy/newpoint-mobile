@@ -10,6 +10,8 @@ import 'package:newpoint/views/loader/loader_view_model.dart';
 import 'package:newpoint/views/main/main_view.dart';
 import 'package:newpoint/views/post/post_view.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
+import 'package:newpoint/views/post_creator/post_creator_view.dart';
+import 'package:newpoint/views/post_creator/post_creator_view_model.dart';
 import 'package:newpoint/views/profile/profile_view.dart';
 import 'package:newpoint/views/profile/profile_view_model.dart';
 import 'package:newpoint/views/profile_editor/profile_editor_view.dart';
@@ -52,6 +54,13 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => PostViewModel(id),
       child: const PostView(),
+    );
+  }
+
+  Widget makePostCreator() {
+    return ChangeNotifierProvider(
+      create: (_) => PostCreatorViewModel(),
+      child: const PostCreatorView(),
     );
   }
 
