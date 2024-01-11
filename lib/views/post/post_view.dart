@@ -30,7 +30,9 @@ class PostViewState extends State<PostView> {
     await model.getPost();
     await model.getComments();
     if (model.post != null) {
-      setState(() {});
+      setState(() {
+        _isLoadingPost = false;
+      });
     }
   }
 
@@ -61,8 +63,12 @@ class PostViewState extends State<PostView> {
 
   Future<void> onHeaderTap(BuildContext context) async {
     final model = Provider.of<PostViewModel>(context, listen: false);
-    Navigator.of(context).pushNamed(MainNavigationRouteNames.profile,
+    await Navigator.of(context).pushNamed(MainNavigationRouteNames.profile,
         arguments: model.post!.authorId);
+    setState(() {
+      _isLoadingPost = true;
+    });
+    await onRefresh();
   }
 
   Future<void> getPost() async {
@@ -207,7 +213,9 @@ class _Header extends StatelessWidget {
           children: [
             Container(
                 margin: const EdgeInsets.all(10),
-                child: ProfileImage(profileImageId: profileImageId,)),
+                child: ProfileImage(
+                  profileImageId: profileImageId,
+                )),
             const SizedBox(
               width: 10,
             ),

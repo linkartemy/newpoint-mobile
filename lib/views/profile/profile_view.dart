@@ -55,6 +55,15 @@ class ProfileViewState extends State<ProfileView> {
     });
   }
 
+  Future<void> reload() async {
+    setState(() {
+      _isLoadingProfile = true;
+    });
+    getUser();
+    getProfile();
+    getPosts();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -193,8 +202,12 @@ class ProfileViewState extends State<ProfileView> {
                                       )),
                                 ],
                             body: TabBarView(children: [
-                              _FooterPosts(),
-                              _FooterArticles(),
+                              _FooterPosts(
+                                reload: reload,
+                              ),
+                              _FooterArticles(
+                                reload: reload,
+                              ),
                             ])))));
   }
 }
@@ -432,7 +445,9 @@ class _Body extends StatelessWidget {
 }
 
 class _FooterPosts extends StatefulWidget {
-  const _FooterPosts({Key? key}) : super(key: key);
+  const _FooterPosts({Key? key, required this.reload}) : super(key: key);
+
+  final Future<void> Function() reload;
 
   @override
   _FooterPostsState createState() => _FooterPostsState();
@@ -487,9 +502,7 @@ class _FooterPostsState extends State<_FooterPosts> {
                 final postUpdated = await Navigator.of(context).pushNamed(
                     MainNavigationRouteNames.post,
                     arguments: post.id);
-                setState(() {
-                  model.posts[index] = postUpdated as Post;
-                });
+                widget.reload();
               },
             ),
           );
@@ -498,7 +511,9 @@ class _FooterPostsState extends State<_FooterPosts> {
 }
 
 class _FooterArticles extends StatefulWidget {
-  const _FooterArticles({Key? key}) : super(key: key);
+  const _FooterArticles({Key? key, required this.reload}) : super(key: key);
+
+  final Future<void> Function() reload;
 
   @override
   _FooterArticlesState createState() => _FooterArticlesState();
@@ -565,12 +580,10 @@ class _FooterArticlesState extends State<_FooterArticles> {
                     await onShareTap(context, index);
                   },
                   onTap: (BuildContext context) async {
-                    final postUpdated = await Navigator.of(context).pushNamed(
+                    await Navigator.of(context).pushNamed(
                         MainNavigationRouteNames.post,
                         arguments: post.id);
-                    setState(() {
-                      model.posts[index] = postUpdated as Post;
-                    });
+                    widget.reload();
                   },
                 ),
               ));
