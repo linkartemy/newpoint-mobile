@@ -7,10 +7,11 @@ import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DrawerComponent extends StatelessWidget {
-  DrawerComponent({Key? key, required this.user}) : super(key: key);
+  DrawerComponent({Key? key, required this.user, required this.reload}) : super(key: key);
 
   final User? user;
   final _userService = UserService();
+  final Future<void> Function() reload;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +53,9 @@ class DrawerComponent extends StatelessWidget {
                             .theme
                             .textTheme
                             .titleMedium),
-                    onTap: () {
-                      Navigator.of(context).pushNamed(MainNavigationRouteNames.profile, arguments: user!.id);
+                    onTap: () async {
+                      await Navigator.of(context).pushNamed(MainNavigationRouteNames.profile, arguments: user!.id);
+                      await reload();
                     },
                   ),
                   ListTile(

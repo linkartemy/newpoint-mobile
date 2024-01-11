@@ -38,6 +38,14 @@ class MainViewState extends State<MainView> {
     });
   }
 
+  Future<void> reload() async {
+    setState(() {
+      _isLoadingPosts = true;
+    });
+    await getUser();
+    await getPosts();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -80,10 +88,12 @@ class MainViewState extends State<MainView> {
         ),
         drawer: DrawerComponent(
           user: _user,
+          reload: reload,
         ),
         body: TabBarView(children: [
           _PostsView(
             isLoading: _isLoadingPosts,
+            reload: reload,
           ),
           _SubscribedPostsView(),
         ]),
@@ -142,8 +152,10 @@ class MainViewState extends State<MainView> {
 }
 
 class _PostsView extends StatefulWidget {
-  const _PostsView({Key? key, required this.isLoading}) : super(key: key);
+  const _PostsView({Key? key, required this.isLoading, required this.reload})
+      : super(key: key);
   final bool isLoading;
+  final Future<void> Function() reload;
 
   @override
   _PostsState createState() => _PostsState();
@@ -214,12 +226,10 @@ class _PostsState extends State<_PostsView> {
                     }
 
                     Future<void> onPostTap(BuildContext context) async {
-                      final post = await Navigator.of(context).pushNamed(
+                      await Navigator.of(context).pushNamed(
                           MainNavigationRouteNames.post,
                           arguments: posts[index].id);
-                      setState(() {
-                        posts[index] = post;
-                      });
+                      await widget.reload();
                     }
 
                     return VisibilityDetector(

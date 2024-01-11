@@ -11,7 +11,15 @@ class UserService {
   final _sessionDataProvider = SessionDataProvider();
 
   Future<bool> isAuth() async {
-    return await _sessionDataProvider.hasToken();
+    if (!await _sessionDataProvider.hasToken()) {
+      return false;
+    }
+    try {
+      await getUser();
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 
   Future<void> register(String login, String password, String name,
