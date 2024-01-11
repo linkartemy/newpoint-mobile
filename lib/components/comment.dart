@@ -19,7 +19,8 @@ class CommentComponent extends StatelessWidget {
       required this.content,
       required this.likes,
       required this.liked,
-      required this.onLikeTap})
+      required this.onLikeTap,
+      required this.reload})
       : super(key: key);
   final int index;
   final int id;
@@ -32,6 +33,7 @@ class CommentComponent extends StatelessWidget {
   final int likes;
   final bool liked;
   final onLikeTap;
+  final Future<void> Function() reload;
 
   Future<void> onTap(BuildContext context) async {
     Navigator.of(context)
@@ -39,8 +41,9 @@ class CommentComponent extends StatelessWidget {
   }
 
   Future<void> onHeaderTap(BuildContext context) async {
-    Navigator.of(context)
+    await Navigator.of(context)
         .pushNamed(MainNavigationRouteNames.profile, arguments: userId);
+    await reload();
   }
 
   @override

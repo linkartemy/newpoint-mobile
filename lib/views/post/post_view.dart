@@ -74,9 +74,7 @@ class PostViewState extends State<PostView> {
   Future<void> getPost() async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.getPost();
-    setState(() {
-      _isLoadingPost = false;
-    });
+    setState(() {});
   }
 
   Future<void> getUser() async {
@@ -88,18 +86,24 @@ class PostViewState extends State<PostView> {
   Future<void> getComments() async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.getComments();
-    setState(() {});
+    setState(() {
+      _isLoadingPost = false;
+    });
+  }
+
+  Future<void> reload() async {
+    setState(() {
+      _isLoadingPost = true;
+    });
+    await getUser();
+    await getPost();
+    await getComments();
   }
 
   @override
   void initState() {
     super.initState();
-    getUser();
-    setState(() {
-      _isLoadingPost = true;
-    });
-    getPost();
-    getComments();
+    reload();
   }
 
   @override
@@ -180,10 +184,10 @@ class PostViewState extends State<PostView> {
                               ),
                             ],
                         body: _Comments(
-                          comments: model.comments,
-                          onSendTap: onCommentSendTap,
-                          onLikeTap: onCommentLikeTap,
-                        ))));
+                            comments: model.comments,
+                            onSendTap: onCommentSendTap,
+                            onLikeTap: onCommentLikeTap,
+                            reload: reload))));
   }
 }
 
@@ -393,15 +397,17 @@ class _Footer extends StatelessWidget {
 }
 
 class _Comments extends StatelessWidget {
-  const _Comments({
-    Key? key,
-    required this.comments,
-    required this.onLikeTap,
-    required this.onSendTap,
-  }) : super(key: key);
+  const _Comments(
+      {Key? key,
+      required this.comments,
+      required this.onLikeTap,
+      required this.onSendTap,
+      required this.reload})
+      : super(key: key);
   final List<Comment> comments;
   final onSendTap;
   final onLikeTap;
+  final Future<void> Function() reload;
 
   @override
   Widget build(BuildContext context) {
@@ -442,17 +448,19 @@ class _Comments extends StatelessWidget {
                 var comment = comments[index];
 
                 return CommentComponent(
-                    index: index,
-                    id: comment.id,
-                    userId: comment.userId,
-                    login: comment.login,
-                    name: comment.name,
-                    surname: comment.surname,
-                    date: comment.creationTimestamp,
-                    content: comment.content,
-                    likes: comment.likes,
-                    liked: comment.liked,
-                    onLikeTap: onLikeTap);
+                  index: index,
+                  id: comment.id,
+                  userId: comment.userId,
+                  login: comment.login,
+                  name: comment.name,
+                  surname: comment.surname,
+                  date: comment.creationTimestamp,
+                  content: comment.content,
+                  likes: comment.likes,
+                  liked: comment.liked,
+                  onLikeTap: onLikeTap,
+                  reload: reload,
+                );
               }))
     ]);
   }
