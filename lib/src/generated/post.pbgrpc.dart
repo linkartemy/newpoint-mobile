@@ -54,6 +54,10 @@ class GrpcPostClient extends $grpc.Client {
       '/post.GrpcPost/AddPostView',
       ($4.AddPostViewRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$deletePost = $grpc.ClientMethod<$4.DeletePostRequest, $1.Response>(
+      '/post.GrpcPost/DeletePost',
+      ($4.DeletePostRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
 
   GrpcPostClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -91,6 +95,10 @@ class GrpcPostClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$1.Response> addPostView($4.AddPostViewRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$addPostView, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> deletePost($4.DeletePostRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$deletePost, request, options: options);
   }
 }
 
@@ -155,6 +163,13 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $4.AddPostViewRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$4.DeletePostRequest, $1.Response>(
+        'DeletePost',
+        deletePost_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $4.DeletePostRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.Response> addPost_Pre($grpc.ServiceCall call, $async.Future<$4.AddPostRequest> request) async {
@@ -189,6 +204,10 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
     return addPostView(call, await request);
   }
 
+  $async.Future<$1.Response> deletePost_Pre($grpc.ServiceCall call, $async.Future<$4.DeletePostRequest> request) async {
+    return deletePost(call, await request);
+  }
+
   $async.Future<$1.Response> addPost($grpc.ServiceCall call, $4.AddPostRequest request);
   $async.Future<$1.Response> getPosts($grpc.ServiceCall call, $4.GetPostsRequest request);
   $async.Future<$1.Response> getPostsByUserId($grpc.ServiceCall call, $4.GetPostsByUserIdRequest request);
@@ -197,4 +216,5 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
   $async.Future<$1.Response> unLikePost($grpc.ServiceCall call, $4.UnLikePostRequest request);
   $async.Future<$1.Response> sharePost($grpc.ServiceCall call, $4.SharePostRequest request);
   $async.Future<$1.Response> addPostView($grpc.ServiceCall call, $4.AddPostViewRequest request);
+  $async.Future<$1.Response> deletePost($grpc.ServiceCall call, $4.DeletePostRequest request);
 }

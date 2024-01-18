@@ -13,6 +13,7 @@ import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
 import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:newpoint/resources/resources.dart';
 
 class PostView extends StatefulWidget {
   const PostView({Key? key}) : super(key: key);
@@ -36,32 +37,32 @@ class PostViewState extends State<PostView> {
     }
   }
 
-  Future<void> onShareTap(BuildContext context) async {
+  Future<void> onShareTap() async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.share();
     setState(() {});
   }
 
-  Future<void> onLikeTap(BuildContext context) async {
+  Future<void> onLikeTap() async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.like();
     setState(() {});
   }
 
-  Future<void> onCommentSendTap(BuildContext context) async {
+  Future<void> onCommentSendTap() async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.sendComment();
     await model.getComments();
     setState(() {});
   }
 
-  Future<void> onCommentLikeTap(BuildContext context, int index) async {
+  Future<void> onCommentLikeTap(int index) async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.likeComment(index);
     setState(() {});
   }
 
-  Future<void> onHeaderTap(BuildContext context) async {
+  Future<void> onHeaderTap() async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await Navigator.of(context).pushNamed(MainNavigationRouteNames.profile,
         arguments: model.post!.authorId);
@@ -69,6 +70,12 @@ class PostViewState extends State<PostView> {
       _isLoadingPost = true;
     });
     await onRefresh();
+  }
+
+  Future<void> deletePost() async {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+    await model.deletePost();
+    Navigator.of(context).pop();
   }
 
   Future<void> getPost() async {
@@ -120,7 +127,12 @@ class PostViewState extends State<PostView> {
             },
             child: const Icon(Icons.arrow_back_rounded, size: 25),
           ),
-          title: const Text(""),
+          title: Container(
+              alignment: Alignment.centerRight,
+              child: Image.asset(
+                AppImages.logoTitleOutline,
+                width: 100,
+              )),
         ),
         body: RefreshIndicator(
             onRefresh: onRefresh,
@@ -156,7 +168,7 @@ class PostViewState extends State<PostView> {
                                     children: [
                                       InkWell(
                                           onTap: () async {
-                                            await onHeaderTap(context);
+                                            await onHeaderTap();
                                           },
                                           child: _Header(
                                             login: post.login,
@@ -164,6 +176,7 @@ class PostViewState extends State<PostView> {
                                             surname: post.surname,
                                             date: post.creationTimestamp,
                                             profileImageId: post.profileImageId,
+                                            deletePost: deletePost,
                                           )),
                                       const SizedBox(height: 16),
                                       _Body(
@@ -198,18 +211,93 @@ class _Header extends StatelessWidget {
       required this.name,
       required this.surname,
       required this.date,
-      required this.profileImageId})
+      required this.profileImageId,
+      required this.deletePost})
       : super(key: key);
   final String login;
   final String name;
   final String surname;
   final DateTime date;
   final int profileImageId;
+  final Future<void> Function() deletePost;
 
-  Future<void> onDetailsTap() async {}
+  Future<void> onDetailsTap(
+      int userId, int authorId, BuildContext context) async {
+    AlertDialog alert = AlertDialog(
+      actionsAlignment: MainAxisAlignment.start,
+      actionsOverflowAlignment: OverflowBarAlignment.center,
+      title: Text(
+        AppLocalizations.of(context)!.actions,
+        textAlign: TextAlign.center,
+        style: AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+      ),
+      actions: [
+        userId == authorId
+            ? TextButton(
+                child: Text(AppLocalizations.of(context)!.deletePost,
+                    textAlign: TextAlign.center),
+                onPressed: () async {
+                  AlertDialog alert = AlertDialog(
+                    actionsAlignment: MainAxisAlignment.start,
+                    actionsOverflowAlignment: OverflowBarAlignment.center,
+                    title: Text(
+                      AppLocalizations.of(context)!.areYouSure,
+                      textAlign: TextAlign.center,
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.yes,
+                            textAlign: TextAlign.center),
+                        onPressed: () async {
+                          await deletePost();
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text(
+                          AppLocalizations.of(context)!.cancel,
+                          textAlign: TextAlign.center,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return alert;
+                    },
+                  );
+                },
+              )
+            : SizedBox(),
+        TextButton(
+          child: Text(
+            AppLocalizations.of(context)!.cancel,
+            textAlign: TextAlign.center,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final model = Provider.of<PostViewModel>(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -253,7 +341,9 @@ class _Header extends StatelessWidget {
           ],
         ),
         InkWell(
-          onTap: onDetailsTap,
+          onTap: () async {
+            await onDetailsTap(model.user!.id, model.post!.authorId, context);
+          },
           child: const SizedBox(
             height: 30,
             width: 30,
@@ -352,7 +442,7 @@ class _Footer extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 5),
+                const SizedBox(width: 10),
                 InkWell(
                   onTap: () async {
                     await onLikeTap(context);
@@ -374,7 +464,7 @@ class _Footer extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 5),
+                const SizedBox(width: 10),
                 Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   Text(views.toString(),
                       style: AdaptiveTheme.of(context)

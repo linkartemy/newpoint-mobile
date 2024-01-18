@@ -454,21 +454,24 @@ class _FooterPosts extends StatefulWidget {
 }
 
 class _FooterPostsState extends State<_FooterPosts> {
-  Future<void> onShareTap(BuildContext context, int index) async {
-    final model = Provider.of<ProfileViewModel>(context, listen: false);
-    model.share(index);
-    setState(() {});
-  }
-
-  Future<void> onLikeTap(BuildContext context, int index) async {
-    final model = Provider.of<ProfileViewModel>(context, listen: false);
-    await model.like(index);
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<ProfileViewModel>(context);
+
+    Future<void> onShareTap(BuildContext context, int index) async {
+      model.share(index);
+      setState(() {});
+    }
+
+    Future<void> onLikeTap(BuildContext context, int index) async {
+      await model.like(index);
+      setState(() {});
+    }
+
+    Future<void> deletePost(int postId) async {
+      await model.deletePost(postId);
+      await widget.reload();
+    }
 
     return ListView.builder(
         itemCount: model.posts.length,
@@ -504,6 +507,10 @@ class _FooterPostsState extends State<_FooterPosts> {
                     arguments: post.id);
                 widget.reload();
               },
+              canDelete: post.authorId == model.user!.id,
+              deletePost: () async {
+                await deletePost(post.id);
+              },
             ),
           );
         });
@@ -520,21 +527,24 @@ class _FooterArticles extends StatefulWidget {
 }
 
 class _FooterArticlesState extends State<_FooterArticles> {
-  Future<void> onShareTap(BuildContext context, int index) async {
-    final model = Provider.of<ProfileViewModel>(context, listen: false);
-    model.share(index);
-    setState(() {});
-  }
-
-  Future<void> onLikeTap(BuildContext context, int index) async {
-    final model = Provider.of<ProfileViewModel>(context, listen: false);
-    await model.like(index);
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<ProfileViewModel>(context);
+
+    Future<void> onShareTap(int index) async {
+      model.share(index);
+      setState(() {});
+    }
+
+    Future<void> onLikeTap(int index) async {
+      await model.like(index);
+      setState(() {});
+    }
+
+    Future<void> deletePost(int postId) async {
+      await model.deletePost(postId);
+      await widget.reload();
+    }
 
     return ListView.builder(
         itemCount: model.posts.length,
@@ -574,16 +584,20 @@ class _FooterArticlesState extends State<_FooterArticles> {
                   comments: post.comments,
                   views: post.views,
                   onLikeTap: (BuildContext context) async {
-                    await onLikeTap(context, index);
+                    await onLikeTap(index);
                   },
                   onShareTap: (BuildContext context) async {
-                    await onShareTap(context, index);
+                    await onShareTap(index);
                   },
                   onTap: (BuildContext context) async {
                     await Navigator.of(context).pushNamed(
                         MainNavigationRouteNames.post,
                         arguments: post.id);
                     widget.reload();
+                  },
+                  canDelete: post.authorId == model.user!.id,
+                  deletePost: () async {
+                    await deletePost(post.id);
                   },
                 ),
               ));

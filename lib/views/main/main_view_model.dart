@@ -24,7 +24,7 @@ class MainViewModel extends ChangeNotifier {
   Future<List<PostViewEntry>> getViewedPosts() async {
     try {
       final viewedPostsEntries =
-          await postViewEntryTable.getAllByUserId(userId: user.id);
+          await postViewEntryTable.getAllByUserId(userId: user!.id);
       isLoadingDatabase = false;
       for (var i = 0; i < viewedPostsEntries.length; ++i) {
         viewedPosts.add(viewedPostsEntries[i].postId);
@@ -57,7 +57,7 @@ class MainViewModel extends ChangeNotifier {
     }
   }
 
-  get posts => _posts;
+  List<Post> get posts => _posts;
 
   Future<void> getUser() async {
     try {
@@ -77,7 +77,7 @@ class MainViewModel extends ChangeNotifier {
     }
   }
 
-  get user => _user;
+  User? get user => _user;
 
   Future<void> like(int postId) async {
     try {
@@ -109,7 +109,7 @@ class MainViewModel extends ChangeNotifier {
 
   Future<void> addView(int postId) async {
     try {
-      await postViewEntryTable.create(userId: user.id, postId: postId);
+      await postViewEntryTable.create(userId: user!.id, postId: postId);
       await _postService.addPostView(postId);
       notifyListeners();
     } on ApiClientException catch (e) {
@@ -122,5 +122,14 @@ class MainViewModel extends ChangeNotifier {
       print(e);
       postsLoadingError = "Something went wrong, please try again";
     }
+  }
+
+  Future<void> deletePost(int postId) async {
+    try {
+      await _postService.deletePost(postId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {}
+    } catch (e) {}
   }
 }

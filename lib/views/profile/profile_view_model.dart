@@ -62,6 +62,19 @@ class ProfileViewModel extends ChangeNotifier {
     return <PostViewEntry>[];
   }
 
+  Future<void> deletePost(int postId) async {
+    try {
+      await _postService.deletePost(postId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
   Future<void> getUser() async {
     try {
       user = await _userService.getUser();

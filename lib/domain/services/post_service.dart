@@ -124,4 +124,18 @@ class PostService {
         .views
         .toString());
   }
+
+  Future<bool> deletePost(int postId) async {
+    final request = DeletePostRequest();
+    request.postId = Int64.parseInt(postId.toString());
+    var response = await _postServiceClient.deletePost(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    final deletePostResponse = DeletePostResponse();
+    return response.data
+        .unpackInto<DeletePostResponse>(deletePostResponse)
+        .deleted;
+  }
 }

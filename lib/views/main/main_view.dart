@@ -112,8 +112,10 @@ class MainViewState extends State<MainView> {
                   child: Text(AppLocalizations.of(context)!.createPost,
                       textAlign: TextAlign.center),
                   onPressed: () async {
-                    Navigator.of(context)
+                    await Navigator.of(context)
                         .pushNamed(MainNavigationRouteNames.postCreator);
+                    Navigator.of(context).pop();
+                    await getPosts();
                   },
                 ),
                 TextButton(
@@ -232,6 +234,11 @@ class _PostsState extends State<_PostsView> {
                       await widget.reload();
                     }
 
+                    Future<void> deletePost() async {
+                      await model.deletePost(posts[index].id);
+                      await widget.reload();
+                    }
+
                     return VisibilityDetector(
                         key: Key('postkey$index'),
                         onVisibilityChanged: (visibilityInfo) async {
@@ -250,22 +257,25 @@ class _PostsState extends State<_PostsView> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 16),
                           child: PostComponent(
-                              id: posts[index].id,
-                              login: posts[index].login,
-                              name: posts[index].name,
-                              surname: posts[index].surname,
-                              profileImageId: posts[index].profileImageId,
-                              date: posts[index].creationTimestamp,
-                              content: posts[index].content,
-                              images: [],
-                              likes: posts[index].likes,
-                              liked: posts[index].liked,
-                              shares: posts[index].shares,
-                              comments: posts[index].comments,
-                              views: posts[index].views,
-                              onLikeTap: onLikeTap,
-                              onShareTap: onShareTap,
-                              onTap: onPostTap),
+                            id: posts[index].id,
+                            login: posts[index].login,
+                            name: posts[index].name,
+                            surname: posts[index].surname,
+                            profileImageId: posts[index].profileImageId,
+                            date: posts[index].creationTimestamp,
+                            content: posts[index].content,
+                            images: [],
+                            likes: posts[index].likes,
+                            liked: posts[index].liked,
+                            shares: posts[index].shares,
+                            comments: posts[index].comments,
+                            views: posts[index].views,
+                            onLikeTap: onLikeTap,
+                            onShareTap: onShareTap,
+                            onTap: onPostTap,
+                            canDelete: posts[index].authorId == model.user!.id,
+                            deletePost: deletePost,
+                          ),
                         ));
                   })));
     }

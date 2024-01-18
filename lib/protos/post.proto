@@ -16,6 +16,7 @@ service GrpcPost {
   rpc UnLikePost (UnLikePostRequest) returns (response.Response);
   rpc SharePost (SharePostRequest) returns (response.Response);
   rpc AddPostView (AddPostViewRequest) returns (response.Response);
+  rpc DeletePost (DeletePostRequest) returns (response.Response);
 }
 
 message PostModel {
@@ -95,4 +96,12 @@ message AddPostViewRequest {
 
 message AddPostViewResponse {
   int64 views = 1;
+}
+
+message DeletePostRequest {
+  int64 post_id = 1;
+}
+
+message DeletePostResponse {
+  bool deleted = 1;
 }

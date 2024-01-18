@@ -78,5 +78,8 @@
   "actions": "Действия",
   "createPost": "Написать пост",
   "createArticle": "Написать статью",
-  "wordsHaveAGreatPower": "Слова имеют большую силу"
+  "wordsHaveAGreatPower": "Слова имеют большую силу",
+  "deletePost": "Удалить пост",
+  "areYouSure": "Вы уверены?",
+  "yes": "Да"
 }

@@ -78,5 +78,8 @@
   "actions": "Actions",
   "createPost": "Create a post",
   "createArticle": "Create an article",
-  "wordsHaveAGreatPower": "Words have a great power"
+  "wordsHaveAGreatPower": "Words have a great power",
+  "deletePost": "Delete post",
+  "areYouSure": "Are you sure?",
+  "yes": "Yes"
 }

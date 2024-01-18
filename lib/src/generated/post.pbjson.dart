@@ -238,3 +238,27 @@ const AddPostViewResponse$json = {
 final $typed_data.Uint8List addPostViewResponseDescriptor = $convert.base64Decode(
     'ChNBZGRQb3N0Vmlld1Jlc3BvbnNlEhQKBXZpZXdzGAEgASgDUgV2aWV3cw==');
 
+@$core.Deprecated('Use deletePostRequestDescriptor instead')
+const DeletePostRequest$json = {
+  '1': 'DeletePostRequest',
+  '2': [
+    {'1': 'post_id', '3': 1, '4': 1, '5': 3, '10': 'postId'},
+  ],
+};
+
+/// Descriptor for `DeletePostRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deletePostRequestDescriptor = $convert.base64Decode(
+    'ChFEZWxldGVQb3N0UmVxdWVzdBIXCgdwb3N0X2lkGAEgASgDUgZwb3N0SWQ=');
+
+@$core.Deprecated('Use deletePostResponseDescriptor instead')
+const DeletePostResponse$json = {
+  '1': 'DeletePostResponse',
+  '2': [
+    {'1': 'deleted', '3': 1, '4': 1, '5': 8, '10': 'deleted'},
+  ],
+};
+
+/// Descriptor for `DeletePostResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deletePostResponseDescriptor = $convert.base64Decode(
+    'ChJEZWxldGVQb3N0UmVzcG9uc2USGAoHZGVsZXRlZBgBIAEoCFIHZGVsZXRlZA==');
+

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/views/theme/theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostComponent extends StatelessWidget {
   const PostComponent(
@@ -23,7 +24,9 @@ class PostComponent extends StatelessWidget {
       required this.views,
       required this.onShareTap,
       required this.onLikeTap,
-      required this.onTap})
+      required this.onTap,
+      required this.canDelete,
+      required this.deletePost})
       : super(key: key);
   final int id;
   final String login;
@@ -38,9 +41,11 @@ class PostComponent extends StatelessWidget {
   final int shares;
   final int comments;
   final int views;
-  final onShareTap;
-  final onLikeTap;
-  final onTap;
+  final Future<void> Function(BuildContext context) onShareTap;
+  final Future<void> Function(BuildContext context) onLikeTap;
+  final Future<void> Function(BuildContext context) onTap;
+  final bool canDelete;
+  final Future<void> Function() deletePost;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +62,8 @@ class PostComponent extends StatelessWidget {
               surname: surname,
               profileImageId: profileImageId,
               date: date,
+              deletePost: deletePost,
+              canDelete: canDelete,
             ),
             const SizedBox(height: 10),
             _Body(
@@ -85,15 +92,90 @@ class _Header extends StatelessWidget {
       required this.name,
       required this.surname,
       required this.profileImageId,
-      required this.date})
+      required this.date,
+      required this.deletePost,
+      required this.canDelete})
       : super(key: key);
   final String login;
   final String name;
   final String surname;
   final int profileImageId;
   final DateTime date;
+  final Future<void> Function() deletePost;
+  final bool canDelete;
 
-  Future<void> onDetailsTap() async {}
+  Future<void> onDetailsTap(BuildContext context) async {
+    AlertDialog alert = AlertDialog(
+      actionsAlignment: MainAxisAlignment.start,
+      actionsOverflowAlignment: OverflowBarAlignment.center,
+      title: Text(
+        AppLocalizations.of(context)!.actions,
+        textAlign: TextAlign.center,
+        style: AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+      ),
+      actions: [
+        canDelete
+            ? TextButton(
+                child: Text(AppLocalizations.of(context)!.deletePost,
+                    textAlign: TextAlign.center),
+                onPressed: () async {
+                  AlertDialog alert = AlertDialog(
+                    actionsAlignment: MainAxisAlignment.start,
+                    actionsOverflowAlignment: OverflowBarAlignment.center,
+                    title: Text(
+                      AppLocalizations.of(context)!.areYouSure,
+                      textAlign: TextAlign.center,
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.yes,
+                            textAlign: TextAlign.center),
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                          await deletePost();
+                        },
+                      ),
+                      TextButton(
+                        child: Text(
+                          AppLocalizations.of(context)!.cancel,
+                          textAlign: TextAlign.center,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return alert;
+                    },
+                  );
+                },
+              )
+            : SizedBox(),
+        TextButton(
+          child: Text(
+            AppLocalizations.of(context)!.cancel,
+            textAlign: TextAlign.center,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +222,9 @@ class _Header extends StatelessWidget {
           ],
         ),
         InkWell(
-          onTap: onDetailsTap,
+          onTap: () async {
+            await onDetailsTap(context);
+          },
           child: const SizedBox(
             height: 30,
             width: 30,
