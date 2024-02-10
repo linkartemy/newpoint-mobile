@@ -115,7 +115,9 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> sendComment() async {
     try {
+      print(comment);
       await _commentService.addComment(postId, comment);
+      print(comment);
       comment = "";
       commentFieldText.clear();
       post!.comments++;

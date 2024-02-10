@@ -495,8 +495,8 @@ class _Comments extends StatelessWidget {
       required this.reload})
       : super(key: key);
   final List<Comment> comments;
-  final onSendTap;
-  final onLikeTap;
+  final Future<void> Function() onSendTap;
+  final Future<void> Function(int) onLikeTap;
   final Future<void> Function() reload;
 
   @override
@@ -521,9 +521,7 @@ class _Comments extends StatelessWidget {
           hoverColor:
               AdaptiveTheme.of(context).theme.inputDecorationTheme.hoverColor,
           suffixIcon: InkWell(
-              onTap: () async {
-                await onSendTap(context);
-              },
+              onTap: onSendTap,
               child: const Icon(Icons.send, color: AppColors.primary)),
         ),
         style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,

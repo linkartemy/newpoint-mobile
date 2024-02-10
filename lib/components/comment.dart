@@ -153,7 +153,7 @@ class _Body extends StatelessWidget {
   final String content;
   final int likes;
   final bool liked;
-  final onLikeTap;
+  final Future<void> Function(int) onLikeTap;
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +166,7 @@ class _Body extends StatelessWidget {
                 style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium)),
         InkWell(
           onTap: () async {
-            await onLikeTap(context, index);
+            await onLikeTap(index);
           },
           child: Row(
             children: [
