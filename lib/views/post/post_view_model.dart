@@ -115,12 +115,28 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> sendComment() async {
     try {
-      print(comment);
+      if (comment.isEmpty) {
+        return;
+      }
       await _commentService.addComment(postId, comment);
-      print(comment);
       comment = "";
       commentFieldText.clear();
       post!.comments++;
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> deleteComment(int commentId) async {
+    try {
+      await _commentService.deleteComment(commentId);
+      comments.removeWhere((element) => element.id == commentId);
+      --post!.comments;
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {

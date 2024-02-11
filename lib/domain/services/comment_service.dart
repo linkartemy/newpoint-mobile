@@ -48,6 +48,20 @@ class CommentService {
         .added;
   }
 
+  Future<bool> deleteComment(int id) async {
+    final request = DeleteCommentRequest();
+    request.commentId = Int64.parseInt(id.toString());
+    final response = await _commentServiceClient.deleteComment(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var deleteCommentResponse = DeleteCommentResponse();
+    return response.data
+        .unpackInto<DeleteCommentResponse>(deleteCommentResponse)
+        .deleted;
+  }
+
   Future<bool> likeComment(int id) async {
     final request = LikeCommentRequest();
     request.commentId = Int64.parseInt(id.toString());

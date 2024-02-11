@@ -90,6 +90,30 @@ const AddCommentResponse$json = {
 final $typed_data.Uint8List addCommentResponseDescriptor = $convert.base64Decode(
     'ChJBZGRDb21tZW50UmVzcG9uc2USFAoFYWRkZWQYASABKAhSBWFkZGVk');
 
+@$core.Deprecated('Use deleteCommentRequestDescriptor instead')
+const DeleteCommentRequest$json = {
+  '1': 'DeleteCommentRequest',
+  '2': [
+    {'1': 'comment_id', '3': 1, '4': 1, '5': 3, '10': 'commentId'},
+  ],
+};
+
+/// Descriptor for `DeleteCommentRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteCommentRequestDescriptor = $convert.base64Decode(
+    'ChREZWxldGVDb21tZW50UmVxdWVzdBIdCgpjb21tZW50X2lkGAEgASgDUgljb21tZW50SWQ=');
+
+@$core.Deprecated('Use deleteCommentResponseDescriptor instead')
+const DeleteCommentResponse$json = {
+  '1': 'DeleteCommentResponse',
+  '2': [
+    {'1': 'deleted', '3': 1, '4': 1, '5': 8, '10': 'deleted'},
+  ],
+};
+
+/// Descriptor for `DeleteCommentResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteCommentResponseDescriptor = $convert.base64Decode(
+    'ChVEZWxldGVDb21tZW50UmVzcG9uc2USGAoHZGVsZXRlZBgBIAEoCFIHZGVsZXRlZA==');
+
 @$core.Deprecated('Use likeCommentRequestDescriptor instead')
 const LikeCommentRequest$json = {
   '1': 'LikeCommentRequest',

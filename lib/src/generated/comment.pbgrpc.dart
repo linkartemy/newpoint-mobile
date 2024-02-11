@@ -30,6 +30,10 @@ class GrpcCommentClient extends $grpc.Client {
       '/comment.GrpcComment/AddComment',
       ($2.AddCommentRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$deleteComment = $grpc.ClientMethod<$2.DeleteCommentRequest, $1.Response>(
+      '/comment.GrpcComment/DeleteComment',
+      ($2.DeleteCommentRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
   static final _$likeComment = $grpc.ClientMethod<$2.LikeCommentRequest, $1.Response>(
       '/comment.GrpcComment/LikeComment',
       ($2.LikeCommentRequest value) => value.writeToBuffer(),
@@ -51,6 +55,10 @@ class GrpcCommentClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$1.Response> addComment($2.AddCommentRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$addComment, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> deleteComment($2.DeleteCommentRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$deleteComment, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.Response> likeComment($2.LikeCommentRequest request, {$grpc.CallOptions? options}) {
@@ -81,6 +89,13 @@ abstract class GrpcCommentServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $2.AddCommentRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.DeleteCommentRequest, $1.Response>(
+        'DeleteComment',
+        deleteComment_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.DeleteCommentRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$2.LikeCommentRequest, $1.Response>(
         'LikeComment',
         likeComment_Pre,
@@ -105,6 +120,10 @@ abstract class GrpcCommentServiceBase extends $grpc.Service {
     return addComment(call, await request);
   }
 
+  $async.Future<$1.Response> deleteComment_Pre($grpc.ServiceCall call, $async.Future<$2.DeleteCommentRequest> request) async {
+    return deleteComment(call, await request);
+  }
+
   $async.Future<$1.Response> likeComment_Pre($grpc.ServiceCall call, $async.Future<$2.LikeCommentRequest> request) async {
     return likeComment(call, await request);
   }
@@ -115,6 +134,7 @@ abstract class GrpcCommentServiceBase extends $grpc.Service {
 
   $async.Future<$1.Response> getCommentsByPostId($grpc.ServiceCall call, $2.GetCommentsByPostIdRequest request);
   $async.Future<$1.Response> addComment($grpc.ServiceCall call, $2.AddCommentRequest request);
+  $async.Future<$1.Response> deleteComment($grpc.ServiceCall call, $2.DeleteCommentRequest request);
   $async.Future<$1.Response> likeComment($grpc.ServiceCall call, $2.LikeCommentRequest request);
   $async.Future<$1.Response> unLikeComment($grpc.ServiceCall call, $2.UnLikeCommentRequest request);
 }

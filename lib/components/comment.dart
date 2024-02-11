@@ -20,7 +20,9 @@ class CommentComponent extends StatelessWidget {
       required this.likes,
       required this.liked,
       required this.onLikeTap,
-      required this.reload})
+      required this.reload,
+      required this.deleteComment,
+      required this.canDelete})
       : super(key: key);
   final int index;
   final int id;
@@ -34,6 +36,8 @@ class CommentComponent extends StatelessWidget {
   final bool liked;
   final onLikeTap;
   final Future<void> Function() reload;
+  final Future<void> Function() deleteComment;
+  final bool canDelete;
 
   Future<void> onTap(BuildContext context) async {
     Navigator.of(context)
@@ -60,6 +64,8 @@ class CommentComponent extends StatelessWidget {
               name: name,
               surname: surname,
               date: date,
+              deleteComment: deleteComment,
+              canDelete: canDelete,
             )),
         _Body(
           index: index,
@@ -85,14 +91,89 @@ class _Header extends StatelessWidget {
       required this.login,
       required this.name,
       required this.surname,
-      required this.date})
+      required this.date,
+      required this.deleteComment,
+      required this.canDelete})
       : super(key: key);
   final String login;
   final String name;
   final String surname;
   final DateTime date;
+  final Future<void> Function() deleteComment;
+  final bool canDelete;
 
-  Future<void> onDetailsTap() async {}
+  Future<void> onDetailsTap(BuildContext context) async {
+    AlertDialog alert = AlertDialog(
+      actionsAlignment: MainAxisAlignment.start,
+      actionsOverflowAlignment: OverflowBarAlignment.center,
+      title: Text(
+        AppLocalizations.of(context)!.actions,
+        textAlign: TextAlign.center,
+        style: AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+      ),
+      actions: [
+        canDelete
+            ? TextButton(
+                child: Text(AppLocalizations.of(context)!.deleteComment,
+                    textAlign: TextAlign.center),
+                onPressed: () async {
+                  AlertDialog alert = AlertDialog(
+                    actionsAlignment: MainAxisAlignment.start,
+                    actionsOverflowAlignment: OverflowBarAlignment.center,
+                    title: Text(
+                      AppLocalizations.of(context)!.areYouSure,
+                      textAlign: TextAlign.center,
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.yes,
+                            textAlign: TextAlign.center),
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                          await deleteComment();
+                        },
+                      ),
+                      TextButton(
+                        child: Text(
+                          AppLocalizations.of(context)!.cancel,
+                          textAlign: TextAlign.center,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return alert;
+                    },
+                  );
+                },
+              )
+            : SizedBox(),
+        TextButton(
+          child: Text(
+            AppLocalizations.of(context)!.cancel,
+            textAlign: TextAlign.center,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +206,9 @@ class _Header extends StatelessWidget {
           ],
         ),
         InkWell(
-          onTap: onDetailsTap,
+          onTap: () async {
+            await onDetailsTap(context);
+          },
           child: const SizedBox(
             height: 30,
             width: 30,

@@ -97,7 +97,9 @@ class ProfileViewState extends State<ProfileView> {
                 notificationPredicate: (ScrollNotification notification) {
                   if (model.error.isNotEmpty ||
                       _isLoadingProfile ||
-                      profile == null) return notification.depth == 0;
+                      profile == null) {
+                    return notification.depth == 0;
+                  }
                   return notification.depth == 1;
                 },
                 child: model.error.isNotEmpty
@@ -470,7 +472,7 @@ class _FooterPostsState extends State<_FooterPosts> {
 
     Future<void> deletePost(int postId) async {
       await model.deletePost(postId);
-      await widget.reload();
+      setState(() {});
     }
 
     return ListView.builder(

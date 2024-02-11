@@ -81,5 +81,6 @@
   "wordsHaveAGreatPower": "Слова имеют большую силу",
   "deletePost": "Удалить пост",
   "areYouSure": "Вы уверены?",
-  "yes": "Да"
+  "yes": "Да",
+  "deleteComment": "Удалить комментарий"
 }

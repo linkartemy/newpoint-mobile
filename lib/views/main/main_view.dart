@@ -236,7 +236,7 @@ class _PostsState extends State<_PostsView> {
 
                     Future<void> deletePost() async {
                       await model.deletePost(posts[index].id);
-                      await widget.reload();
+                      setState(() {});
                     }
 
                     return VisibilityDetector(
