@@ -192,13 +192,13 @@ class PostViewState extends State<PostView> {
                                         liked: post.liked,
                                         onLikeTap: onLikeTap,
                                         onShareTap: onShareTap,
+                                        onSendTap: onCommentSendTap,
                                       ),
                                     ]),
                               ),
                             ],
                         body: _Comments(
                             comments: model.comments,
-                            onSendTap: onCommentSendTap,
                             onLikeTap: onCommentLikeTap,
                             reload: reload))));
   }
@@ -383,127 +383,109 @@ class _Body extends StatelessWidget {
 }
 
 class _Footer extends StatelessWidget {
-  const _Footer({
-    Key? key,
-    required this.id,
-    required this.likes,
-    required this.shares,
-    required this.comments,
-    required this.views,
-    required this.liked,
-    required this.onLikeTap,
-    required this.onShareTap,
-  }) : super(key: key);
+  const _Footer(
+      {Key? key,
+      required this.id,
+      required this.likes,
+      required this.shares,
+      required this.comments,
+      required this.views,
+      required this.liked,
+      required this.onLikeTap,
+      required this.onShareTap,
+      required this.onSendTap})
+      : super(key: key);
   final int id;
   final int likes;
   final int shares;
   final int comments;
   final int views;
   final bool liked;
-  final onLikeTap;
+  final Future<void> Function() onLikeTap;
   final onShareTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Row(
-                children: [
-                  Text(AppLocalizations.of(context)!.nComments(comments),
-                      style: AdaptiveTheme.of(context)
-                          .theme
-                          .textTheme
-                          .titleMedium),
-                ],
-              ),
-            ]),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                InkWell(
-                  onTap: () async {
-                    await onShareTap(context);
-                  },
-                  child: Row(
-                    children: [
-                      Text(shares.toString(),
-                          style: AdaptiveTheme.of(context)
-                              .theme
-                              .textTheme
-                              .titleMedium),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const Icon(CupertinoIcons.share),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 10),
-                InkWell(
-                  onTap: () async {
-                    await onLikeTap(context);
-                  },
-                  child: Row(
-                    children: [
-                      Text(likes.toString(),
-                          style: AdaptiveTheme.of(context)
-                              .theme
-                              .textTheme
-                              .titleMedium),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      liked
-                          ? const Icon(CupertinoIcons.heart_solid,
-                              color: AppColors.primary)
-                          : const Icon(CupertinoIcons.heart),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Text(views.toString(),
-                      style: AdaptiveTheme.of(context)
-                          .theme
-                          .textTheme
-                          .titleMedium),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const Icon(
-                    Icons.query_stats,
-                    size: 22,
-                  ),
-                ])
-              ],
-            )
-          ],
-        ));
-  }
-}
-
-class _Comments extends StatelessWidget {
-  const _Comments(
-      {Key? key,
-      required this.comments,
-      required this.onLikeTap,
-      required this.onSendTap,
-      required this.reload})
-      : super(key: key);
-  final List<Comment> comments;
-  final onSendTap;
-  final onLikeTap;
-  final Future<void> Function() reload;
+  final Future<void> Function() onSendTap;
 
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<PostViewModel>(context, listen: false);
 
     return Column(children: [
+      Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Row(
+                  children: [
+                    Text(AppLocalizations.of(context)!.nComments(comments),
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleMedium),
+                  ],
+                ),
+              ]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: () async {
+                      await onShareTap(context);
+                    },
+                    child: Row(
+                      children: [
+                        Text(shares.toString(),
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .titleMedium),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const Icon(CupertinoIcons.share),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  InkWell(
+                    onTap: onLikeTap,
+                    child: Row(
+                      children: [
+                        Text(likes.toString(),
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .titleMedium),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        liked
+                            ? const Icon(CupertinoIcons.heart_solid,
+                                color: AppColors.primary)
+                            : const Icon(CupertinoIcons.heart),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    Text(views.toString(),
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleMedium),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Icon(
+                      Icons.query_stats,
+                      size: 22,
+                    ),
+                  ]),
+                ],
+              ),
+            ],
+          )),
       TextFormField(
         onChanged: model.onCommentTextChanged,
         controller: model.commentFieldText,
@@ -521,37 +503,68 @@ class _Comments extends StatelessWidget {
           hoverColor:
               AdaptiveTheme.of(context).theme.inputDecorationTheme.hoverColor,
           suffixIcon: InkWell(
-              onTap: () async {
-                await onSendTap(context);
-              },
+              onTap: onSendTap,
               child: const Icon(Icons.send, color: AppColors.primary)),
         ),
         style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
       ),
-      Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: ListView.builder(
-              itemCount: comments.length,
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                var comment = comments[index];
-
-                return CommentComponent(
-                  index: index,
-                  id: comment.id,
-                  userId: comment.userId,
-                  login: comment.login,
-                  name: comment.name,
-                  surname: comment.surname,
-                  date: comment.creationTimestamp,
-                  content: comment.content,
-                  likes: comment.likes,
-                  liked: comment.liked,
-                  onLikeTap: onLikeTap,
-                  reload: reload,
-                );
-              }))
     ]);
+  }
+}
+
+class _Comments extends StatefulWidget {
+  const _Comments(
+      {Key? key,
+      required this.comments,
+      required this.onLikeTap,
+      required this.reload})
+      : super(key: key);
+
+  final List<Comment> comments;
+  final Future<void> Function(int) onLikeTap;
+  final Future<void> Function() reload;
+
+  @override
+  _CommentsState createState() => _CommentsState();
+}
+
+class _CommentsState extends State<_Comments> {
+  @override
+  Widget build(BuildContext context) {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+
+    Future<void> deleteComment(int index) async {
+      await model.deleteComment(widget.comments[index].id);
+      setState(() {});
+    }
+
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: ListView.builder(
+            itemCount: widget.comments.length,
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              var comment = widget.comments[index];
+
+              return CommentComponent(
+                index: index,
+                id: comment.id,
+                userId: comment.userId,
+                login: comment.login,
+                name: comment.name,
+                surname: comment.surname,
+                date: comment.creationTimestamp,
+                content: comment.content,
+                likes: comment.likes,
+                liked: comment.liked,
+                onLikeTap: widget.onLikeTap,
+                reload: widget.reload,
+                deleteComment: () async {
+                  await deleteComment(index);
+                },
+                canDelete: model.user!.id == widget.comments[index].userId,
+              );
+            }));
   }
 }

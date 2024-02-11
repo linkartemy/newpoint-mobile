@@ -65,6 +65,7 @@ class ProfileViewModel extends ChangeNotifier {
   Future<void> deletePost(int postId) async {
     try {
       await _postService.deletePost(postId);
+      posts.removeWhere((element) => element.id == postId);
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {

@@ -81,5 +81,6 @@
   "wordsHaveAGreatPower": "Words have a great power",
   "deletePost": "Delete post",
   "areYouSure": "Are you sure?",
-  "yes": "Yes"
+  "yes": "Yes",
+  "deleteComment": "Delete comment"
 }

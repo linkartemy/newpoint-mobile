@@ -10,6 +10,7 @@ package comment;
 service GrpcComment {
   rpc GetCommentsByPostId (GetCommentsByPostIdRequest) returns (response.Response);
   rpc AddComment (AddCommentRequest) returns (response.Response);
+  rpc DeleteComment (DeleteCommentRequest) returns (response.Response);
   rpc LikeComment (LikeCommentRequest) returns (response.Response);
   rpc UnLikeComment (UnLikeCommentRequest) returns (response.Response);
 }
@@ -42,6 +43,14 @@ message AddCommentRequest {
 
 message AddCommentResponse {
   bool added = 1;
+}
+
+message DeleteCommentRequest {
+  int64 comment_id = 1;
+}
+
+message DeleteCommentResponse {
+  bool deleted = 1;
 }
 
 message LikeCommentRequest {
