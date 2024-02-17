@@ -11,9 +11,12 @@ class LoginViewModel extends ChangeNotifier {
   final passwordTextController = TextEditingController();
 
   String? _errorMessage;
+
   String? get errorMessage => _errorMessage;
   bool _isAuthProgress = false;
+
   bool get canStartAuth => !_isAuthProgress;
+
   bool get isAuthProgress => _isAuthProgress;
 
   Future<String?> _login(String login, String password) async {

@@ -233,6 +233,7 @@ class _AuthButtonWidget extends StatelessWidget {
   final String title;
   final onPressed;
   final bool activated;
+
   @override
   Widget build(BuildContext context) {
     return activated

@@ -131,20 +131,8 @@ class ProfileViewState extends State<ProfileView> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.stretch,
                                             children: [
-                                              _Header(
-                                                login: profile.login,
-                                                name: profile.name,
-                                                surname: profile.surname,
-                                                headerImage: [],
-                                              ),
-                                              _Body(
-                                                description:
-                                                    profile.description,
-                                                location: profile.location,
-                                                birthDate: profile.birthDate,
-                                                registrationDate: profile
-                                                    .registrationTimestamp,
-                                              ),
+                                              _Header(),
+                                              _Body(),
                                               SizedBox(
                                                 height: 24,
                                               ),
@@ -215,18 +203,9 @@ class ProfileViewState extends State<ProfileView> {
 }
 
 class _Header extends StatefulWidget {
-  const _Header(
-      {Key? key,
-      required this.login,
-      required this.name,
-      required this.surname,
-      required this.headerImage})
-      : super(key: key);
-
-  final String login;
-  final String name;
-  final String surname;
-  final List<int> headerImage;
+  const _Header({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _HeaderState createState() => _HeaderState();
@@ -304,14 +283,14 @@ class _HeaderState extends State<_Header> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${widget.name} ${widget.surname}",
+                            "${model.user!.name} ${model.user!.surname}",
                             style: AdaptiveTheme.of(context)
                                 .theme
                                 .textTheme
                                 .bodyLarge,
                           ),
                           Text(
-                            "@${widget.login}",
+                            "@${model.user!.login}",
                             style: AdaptiveTheme.of(context)
                                 .theme
                                 .textTheme
@@ -360,16 +339,7 @@ class _HeaderState extends State<_Header> {
 class _Body extends StatelessWidget {
   const _Body({
     Key? key,
-    required this.description,
-    required this.location,
-    required this.birthDate,
-    required this.registrationDate,
   }) : super(key: key);
-
-  final String? description;
-  final String? location;
-  final DateTime? birthDate;
-  final DateTime? registrationDate;
 
   @override
   Widget build(BuildContext context) {
@@ -384,18 +354,18 @@ class _Body extends StatelessWidget {
           const SizedBox(
             height: 21,
           ),
-          description != null
+          model.user!.description != null
               ? Text(
-                  description!,
+                  model.user!.description!,
                   style: AdaptiveTheme.of(context).theme.textTheme.bodyLarge,
                 )
               : Container(),
-          description != null
+          model.user!.description != null
               ? const SizedBox(
                   height: 21,
                 )
               : Container(),
-          location != null
+          model.user!.location != null
               ? Row(
                   children: [
                     const Icon(
@@ -404,14 +374,14 @@ class _Body extends StatelessWidget {
                     ),
                     const SizedBox(width: 5),
                     Text(
-                      location!,
+                      model.user!.location!,
                       style:
                           AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
                     )
                   ],
                 )
               : Container(),
-          location != null
+          model.user!.location != null
               ? const SizedBox(
                   height: 5,
                 )
@@ -424,7 +394,7 @@ class _Body extends StatelessWidget {
               ),
               const SizedBox(width: 5),
               Text(
-                AppLocalizations.of(context)!.birthDate(birthDate!),
+                AppLocalizations.of(context)!.birthDate(model.user!.birthDate!),
                 style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
               )
             ],
@@ -433,7 +403,8 @@ class _Body extends StatelessWidget {
             height: 5,
           ),
           Text(
-            AppLocalizations.of(context)!.registrationDate(registrationDate!),
+            AppLocalizations.of(context)!
+                .registrationDate(model.user!.registrationTimestamp!),
             style: AdaptiveTheme.of(context)
                 .theme
                 .textTheme

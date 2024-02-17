@@ -37,25 +37,6 @@ class PostViewState extends State<PostView> {
     }
   }
 
-  Future<void> onShareTap() async {
-    final model = Provider.of<PostViewModel>(context, listen: false);
-    await model.share();
-    setState(() {});
-  }
-
-  Future<void> onLikeTap() async {
-    final model = Provider.of<PostViewModel>(context, listen: false);
-    await model.like();
-    setState(() {});
-  }
-
-  Future<void> onCommentSendTap() async {
-    final model = Provider.of<PostViewModel>(context, listen: false);
-    await model.sendComment();
-    await model.getComments();
-    setState(() {});
-  }
-
   Future<void> onCommentLikeTap(int index) async {
     final model = Provider.of<PostViewModel>(context, listen: false);
     await model.likeComment(index);
@@ -70,12 +51,6 @@ class PostViewState extends State<PostView> {
       _isLoadingPost = true;
     });
     await onRefresh();
-  }
-
-  Future<void> deletePost() async {
-    final model = Provider.of<PostViewModel>(context, listen: false);
-    await model.deletePost();
-    Navigator.of(context).pop();
   }
 
   Future<void> getPost() async {
@@ -170,30 +145,11 @@ class PostViewState extends State<PostView> {
                                           onTap: () async {
                                             await onHeaderTap();
                                           },
-                                          child: _Header(
-                                            login: post.login,
-                                            name: post.name,
-                                            surname: post.surname,
-                                            date: post.creationTimestamp,
-                                            profileImageId: post.profileImageId,
-                                            deletePost: deletePost,
-                                          )),
+                                          child: const _Header()),
                                       const SizedBox(height: 16),
-                                      _Body(
-                                        content: post.content,
-                                      ),
+                                      const _Body(),
                                       const SizedBox(height: 10),
-                                      _Footer(
-                                        id: post.id,
-                                        likes: post.likes,
-                                        shares: post.shares,
-                                        comments: post.comments,
-                                        views: post.views,
-                                        liked: post.liked,
-                                        onLikeTap: onLikeTap,
-                                        onShareTap: onShareTap,
-                                        onSendTap: onCommentSendTap,
-                                      ),
+                                      const _Footer(),
                                     ]),
                               ),
                             ],
@@ -205,21 +161,9 @@ class PostViewState extends State<PostView> {
 }
 
 class _Header extends StatelessWidget {
-  const _Header(
-      {Key? key,
-      required this.login,
-      required this.name,
-      required this.surname,
-      required this.date,
-      required this.profileImageId,
-      required this.deletePost})
-      : super(key: key);
-  final String login;
-  final String name;
-  final String surname;
-  final DateTime date;
-  final int profileImageId;
-  final Future<void> Function() deletePost;
+  const _Header({
+    Key? key,
+  }) : super(key: key);
 
   Future<void> onDetailsTap(
       int userId, int authorId, BuildContext context) async {
@@ -251,7 +195,9 @@ class _Header extends StatelessWidget {
                         child: Text(AppLocalizations.of(context)!.yes,
                             textAlign: TextAlign.center),
                         onPressed: () async {
-                          await deletePost();
+                          final model = Provider.of<PostViewModel>(context,
+                              listen: false);
+                          await model.deletePost();
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();
                         },
@@ -306,7 +252,7 @@ class _Header extends StatelessWidget {
             Container(
                 margin: const EdgeInsets.all(10),
                 child: ProfileImage(
-                  profileImageId: profileImageId,
+                  profileImageId: model.user!.profileImageId,
                 )),
             const SizedBox(
               width: 10,
@@ -317,12 +263,12 @@ class _Header extends StatelessWidget {
               children: [
                 RichText(
                   text: TextSpan(
-                      text: "$name $surname ",
+                      text: "${model.user!.name} ${model.user!.surname} ",
                       style:
                           AdaptiveTheme.of(context).theme.textTheme.titleMedium,
                       children: [
                         TextSpan(
-                            text: "@$login",
+                            text: "@${model.user!.login}",
                             style: AdaptiveTheme.of(context)
                                 .theme
                                 .textTheme
@@ -334,7 +280,10 @@ class _Header extends StatelessWidget {
                 const SizedBox(
                   height: 2,
                 ),
-                Text(AppLocalizations.of(context)!.postDateTime(date, date),
+                Text(
+                    AppLocalizations.of(context)!.postDateTime(
+                        model.post!.creationTimestamp,
+                        model.post!.creationTimestamp),
                     style: AdaptiveTheme.of(context).theme.textTheme.titleSmall)
               ],
             )
@@ -359,11 +308,12 @@ class _Header extends StatelessWidget {
 }
 
 class _Body extends StatelessWidget {
-  const _Body({Key? key, required this.content}) : super(key: key);
-  final String content;
+  const _Body({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+
     return Padding(
         padding: EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -372,7 +322,7 @@ class _Body extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Column(
                   children: [
-                    Text(content,
+                    Text(model.post!.content,
                         style:
                             AdaptiveTheme.of(context).theme.textTheme.bodyLarge)
                   ],
@@ -382,32 +332,35 @@ class _Body extends StatelessWidget {
   }
 }
 
-class _Footer extends StatelessWidget {
-  const _Footer(
-      {Key? key,
-      required this.id,
-      required this.likes,
-      required this.shares,
-      required this.comments,
-      required this.views,
-      required this.liked,
-      required this.onLikeTap,
-      required this.onShareTap,
-      required this.onSendTap})
-      : super(key: key);
-  final int id;
-  final int likes;
-  final int shares;
-  final int comments;
-  final int views;
-  final bool liked;
-  final Future<void> Function() onLikeTap;
-  final onShareTap;
-  final Future<void> Function() onSendTap;
+class _Footer extends StatefulWidget {
+  const _Footer({Key? key}) : super(key: key);
+
+  @override
+  _FooterState createState() => _FooterState();
+}
+
+class _FooterState extends State<_Footer> {
+  Future<void> onDetailsTap() async {}
 
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<PostViewModel>(context, listen: false);
+
+    Future<void> onShareTap() async {
+      await model.share();
+      setState(() {});
+    }
+
+    Future<void> onLikeTap() async {
+      await model.like();
+      setState(() {});
+    }
+
+    Future<void> onCommentSendTap() async {
+      await model.sendComment();
+      await model.getComments();
+      setState(() {});
+    }
 
     return Column(children: [
       Padding(
@@ -418,7 +371,9 @@ class _Footer extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Row(
                   children: [
-                    Text(AppLocalizations.of(context)!.nComments(comments),
+                    Text(
+                        AppLocalizations.of(context)!
+                            .nComments(model.post!.comments),
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme
@@ -430,12 +385,10 @@ class _Footer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                    onTap: () async {
-                      await onShareTap(context);
-                    },
+                    onTap: onShareTap,
                     child: Row(
                       children: [
-                        Text(shares.toString(),
+                        Text(model.post!.shares.toString(),
                             style: AdaptiveTheme.of(context)
                                 .theme
                                 .textTheme
@@ -452,7 +405,7 @@ class _Footer extends StatelessWidget {
                     onTap: onLikeTap,
                     child: Row(
                       children: [
-                        Text(likes.toString(),
+                        Text(model.post!.likes.toString(),
                             style: AdaptiveTheme.of(context)
                                 .theme
                                 .textTheme
@@ -460,7 +413,7 @@ class _Footer extends StatelessWidget {
                         const SizedBox(
                           width: 5,
                         ),
-                        liked
+                        model.post!.liked
                             ? const Icon(CupertinoIcons.heart_solid,
                                 color: AppColors.primary)
                             : const Icon(CupertinoIcons.heart),
@@ -469,7 +422,7 @@ class _Footer extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    Text(views.toString(),
+                    Text(model.post!.views.toString(),
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme
@@ -503,7 +456,7 @@ class _Footer extends StatelessWidget {
           hoverColor:
               AdaptiveTheme.of(context).theme.inputDecorationTheme.hoverColor,
           suffixIcon: InkWell(
-              onTap: onSendTap,
+              onTap: onCommentSendTap,
               child: const Icon(Icons.send, color: AppColors.primary)),
         ),
         style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,

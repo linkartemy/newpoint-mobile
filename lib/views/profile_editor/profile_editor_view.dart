@@ -19,7 +19,6 @@ class ProfileEditorViewState extends State<ProfileEditorView> {
   bool _isLoadingProfile = false;
 
   Future<void> onRefresh() async {
-    final model = Provider.of<ProfileEditorViewModel>(context, listen: false);
     await getUser();
     await getProfile();
   }

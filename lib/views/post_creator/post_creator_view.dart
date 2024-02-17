@@ -81,7 +81,8 @@ class PostCreatorViewState extends State<PostCreatorView> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                           TextFieldComponent(
-                            label: AppLocalizations.of(context)!.wordsHaveAGreatPower,
+                            label: AppLocalizations.of(context)!
+                                .wordsHaveAGreatPower,
                             controller: model.textFieldController,
                             maxHeight: 300,
                           ),
