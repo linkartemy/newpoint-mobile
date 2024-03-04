@@ -120,7 +120,7 @@ class _MyAppState extends State<MyApp> {
         initial: AdaptiveThemeMode.light,
         builder: (theme, darkTheme) => MaterialApp(
           theme: theme,
-          darkTheme: darkTheme,
+          darkTheme: darkTheme, 
           title: 'NewPoint',
           localizationsDelegates: const [
             AppLocalizations.delegate,

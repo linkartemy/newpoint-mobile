@@ -218,6 +218,11 @@ class _HeaderState extends State<_Header> {
   Widget build(BuildContext context) {
     final model = Provider.of<ProfileViewModel>(context);
 
+    Future<void> follow() async {
+      await model.follow();
+      setState(() {});
+    }
+
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 24),
         child: Row(
@@ -329,7 +334,11 @@ class _HeaderState extends State<_Header> {
                         Icons.account_circle_outlined,
                         size: 28,
                       ))
-                  : IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+                  : IconButton(
+                      onPressed: follow,
+                      icon: model.following
+                          ? Icon(CupertinoIcons.minus)
+                          : Icon(CupertinoIcons.plus)),
             )
           ],
         ));

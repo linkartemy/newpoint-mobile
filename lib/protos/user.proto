@@ -16,6 +16,7 @@ service GrpcUser {
   rpc ValidateUser (ValidateUserRequest) returns (response.Response);
   rpc UpdateProfile (UpdateProfileRequest) returns (response.Response);
   rpc UpdateProfileImage (UpdateProfileImageRequest) returns (response.Response);
+  rpc Follow (FollowRequest) returns (response.Response);
 }
 
 message UserModel {
@@ -33,6 +34,8 @@ message UserModel {
   NullableTimestamp registration_timestamp = 12;
   NullableTimestamp last_login_timestamp = 13;
   NullableString ip = 14;
+  int32 followers = 15;
+  int32 following = 16;
 }
 
 message LoginRequest {
@@ -104,4 +107,12 @@ message UpdateProfileImageRequest {
 
 message UpdateProfileImageResponse {
   int64 id = 1;
+}
+
+message FollowRequest {
+  int64 user_id = 1;
+}
+
+message FollowResponse {
+  bool following = 1;
 }

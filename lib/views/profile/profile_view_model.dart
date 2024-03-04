@@ -23,6 +23,7 @@ class ProfileViewModel extends ChangeNotifier {
   var viewedPosts = <int>[];
   var isLoadingDatabase = true;
   String error = "";
+  bool following = false;
 
   ImagePicker picker = ImagePicker();
   XFile? image;
@@ -158,6 +159,21 @@ class ProfileViewModel extends ChangeNotifier {
     try {
       await postViewEntryTable.create(userId: user!.id, postId: postId);
       await _postService.addPostView(postId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+      print(e);
+    } catch (e) {
+      print(e);
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> follow() async {
+    try {
+      following = await _userService.follow(profileId);
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {

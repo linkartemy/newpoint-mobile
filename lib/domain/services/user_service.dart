@@ -132,4 +132,16 @@ class UserService {
         .id
         .toInt();
   }
+
+  Future<bool> follow(int userId) async {
+    var request = FollowRequest();
+    request.userId = Int64.parseInt(userId.toString());
+    var response = await _userServiceClient.follow(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var followResponse = FollowResponse();
+    return response.data.unpackInto<FollowResponse>(followResponse).following;
+  }
 }

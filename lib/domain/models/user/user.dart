@@ -20,24 +20,28 @@ class User {
   final DateTime? birthDate;
   final DateTime? registrationTimestamp;
   final DateTime? lastLoginTimestamp;
+  final int followers;
+  final int following;
 
-  User({
-    required this.id,
-    required this.login,
-    required this.name,
-    required this.surname,
-    required this.description,
-    required this.location,
-    required this.email,
-    required this.phone,
-    required this.profileImageId,
-    required this.headerImageId,
-    required this.birthDate,
-    required this.registrationTimestamp,
-    required this.lastLoginTimestamp,
-  });
+  User(
+      {required this.id,
+      required this.login,
+      required this.name,
+      required this.surname,
+      required this.description,
+      required this.location,
+      required this.email,
+      required this.phone,
+      required this.profileImageId,
+      required this.headerImageId,
+      required this.birthDate,
+      required this.registrationTimestamp,
+      required this.lastLoginTimestamp,
+      required this.followers,
+      required this.following});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
   factory User.fromModel(UserModel userModel) => _$UserFromModel(userModel);
 
   Map<String, dynamic> toJson() => _$UserToJson(this);

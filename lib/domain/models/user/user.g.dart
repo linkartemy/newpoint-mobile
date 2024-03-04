@@ -15,6 +15,8 @@ User _$UserFromJson(Map<String, dynamic> json) {
     birthDate: json['birth_date'] as DateTime?,
     registrationTimestamp: json['registration_timestamp'] as DateTime?,
     lastLoginTimestamp: json['last_login_timestamp'] as DateTime?,
+    followers: json['followers'] as int,
+    following: json['following'] as int,
   );
 }
 
@@ -35,6 +37,8 @@ User _$UserFromModel(UserModel userModel) {
         userModel.registrationTimestamp.parseNullable()?.toDateTime(),
     lastLoginTimestamp:
         userModel.lastLoginTimestamp.parseNullable()?.toDateTime(),
+    followers: userModel.followers,
+    following: userModel.following
   );
 }
 
@@ -47,6 +51,8 @@ Map<String, dynamic> _$UserToJson(User user) => <String, dynamic>{
       'phone': user.phone,
       'profile_image_id': user.profileImageId,
       'header_image_id': user.headerImageId,
+      'followers': user.followers,
+      'following': user.following
     };
 
 extension NullableStringParser on NullableString {

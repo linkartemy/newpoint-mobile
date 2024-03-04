@@ -10,14 +10,14 @@ class AppTheme {
         titleTextStyle: TextStyle(
             color: Colors.black, fontFamily: _Fonts.regular, fontSize: 20)),
     inputDecorationTheme: const InputDecorationTheme(
-      border: OutlineInputBorder(),
-      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      isCollapsed: false,
-      fillColor: Color.fromRGBO(243, 243, 243, 1),
-      focusColor: Colors.red,
-      hoverColor: Colors.red,
-      labelStyle: TextStyle(color: AppColors.textColor, fontFamily: _Fonts.regular)
-    ),
+        border: OutlineInputBorder(),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        isCollapsed: false,
+        fillColor: Color.fromRGBO(243, 243, 243, 1),
+        focusColor: Colors.red,
+        hoverColor: Colors.red,
+        labelStyle:
+            TextStyle(color: AppColors.textColor, fontFamily: _Fonts.regular)),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.mainDarkBlue,
       selectedItemColor: Colors.white,
@@ -154,6 +154,8 @@ class AppColors {
       foregroundColor: buttonTextColor, backgroundColor: buttonBackgroundColor);
   static const likeButtonColor = Colors.pink;
   static const textColor = Colors.black;
+  static const secondaryTextColor = Color.fromRGBO(142, 142, 147, 1);
+  static const secondaryTextColorOnBlueBg = Color.fromRGBO(239, 239, 239, 1.0);
 }
 
 class _Fonts {

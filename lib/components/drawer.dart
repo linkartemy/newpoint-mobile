@@ -1,13 +1,17 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:newpoint/views/theme/theme.dart';
 
 class DrawerComponent extends StatelessWidget {
-  DrawerComponent({Key? key, required this.user, required this.reload}) : super(key: key);
+  DrawerComponent({Key? key, required this.user, required this.reload})
+      : super(key: key);
 
   final User? user;
   final _userService = UserService();
@@ -24,10 +28,36 @@ class DrawerComponent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   DrawerHeader(
-                      decoration: const BoxDecoration(color: Colors.blue),
+                      decoration: const BoxDecoration(),
+                      padding: const EdgeInsets.only(left: 30, top: 17),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
+                            Row(
+                              children: [
+                                ProfileImage(
+                                    profileImageId: user != null
+                                        ? user!.profileImageId
+                                        : 0),
+                                const SizedBox(width: 17),
+                                Column(
+                                  children: [
+                                    Text("${user!.followers} followers",
+                                        style: AdaptiveTheme.of(context)
+                                            .theme
+                                            .textTheme
+                                            .titleSmall),
+                                    const SizedBox(height: 5),
+                                    Text("${user!.following} following",
+                                        style: AdaptiveTheme.of(context)
+                                            .theme
+                                            .textTheme
+                                            .titleSmall)
+                                  ],
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 10),
                             Text(
                                 user != null
                                     ? "${user?.name} ${user?.surname}"
@@ -35,37 +65,60 @@ class DrawerComponent extends StatelessWidget {
                                 style: AdaptiveTheme.of(context)
                                     .theme
                                     .textTheme
-                                    .titleMedium)
+                                    .titleMedium),
+                            const SizedBox(height: 2),
+                            Text(user != null ? "@${user?.login}" : "Unknown",
+                                style: AdaptiveTheme.of(context)
+                                    .theme
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: AppColors.secondaryTextColor))
                           ])),
-                  ListTile(
-                    title: Text(AppLocalizations.of(context)!.main,
-                        style: AdaptiveTheme.of(context)
-                            .theme
-                            .textTheme
-                            .titleMedium),
-                    onTap: () {
-                      Navigator.of(context).popAndPushNamed(MainNavigationRouteNames.main);
-                    },
-                  ),
-                  ListTile(
-                    title: Text(AppLocalizations.of(context)!.profile,
-                        style: AdaptiveTheme.of(context)
-                            .theme
-                            .textTheme
-                            .titleMedium),
-                    onTap: () async {
-                      await Navigator.of(context).pushNamed(MainNavigationRouteNames.profile, arguments: user!.id);
-                      await reload();
-                    },
-                  ),
-                  ListTile(
-                    title: Text(AppLocalizations.of(context)!.bookMarks,
-                        style: AdaptiveTheme.of(context)
-                            .theme
-                            .textTheme
-                            .titleMedium),
-                    onTap: () {},
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(left: 14),
+                      child: Column(children: [
+                        ListTile(
+                          leading: const Icon(CupertinoIcons.app_badge,
+                              color: Colors.black),
+                          title: Text(AppLocalizations.of(context)!.main,
+                              style: AdaptiveTheme.of(context)
+                                  .theme
+                                  .textTheme
+                                  .titleLarge),
+                          onTap: () {
+                            Navigator.of(context).pushReplacementNamed(
+                                MainNavigationRouteNames.main);
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(
+                            CupertinoIcons.profile_circled,
+                            color: Colors.black,
+                          ),
+                          title: Text(AppLocalizations.of(context)!.profile,
+                              style: AdaptiveTheme.of(context)
+                                  .theme
+                                  .textTheme
+                                  .titleLarge),
+                          onTap: () async {
+                            await Navigator.of(context).pushNamed(
+                                MainNavigationRouteNames.profile,
+                                arguments: user!.id);
+                            await reload();
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(CupertinoIcons.bookmark,
+                              color: Colors.black),
+                          title: Text(AppLocalizations.of(context)!.bookMarks,
+                              style: AdaptiveTheme.of(context)
+                                  .theme
+                                  .textTheme
+                                  .titleLarge),
+                          onTap: () {},
+                        )
+                      ])),
                 ]),
           ),
           Align(
@@ -74,18 +127,19 @@ class DrawerComponent extends StatelessWidget {
                 children: <Widget>[
                   const Divider(),
                   ListTile(
-                      leading: Icon(Icons.settings),
+                      leading: const Icon(Icons.settings),
                       title: Text(
                         AppLocalizations.of(context)!.settings,
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme
-                            .titleMedium,
+                            .titleLarge,
                       )),
                   ListTile(
                       onTap: () {
                         AlertDialog alert = AlertDialog(
-                          title: Text(AppLocalizations.of(context)!.logOutConfirmation),
+                          title: Text(
+                              AppLocalizations.of(context)!.logOutConfirmation),
                           actions: [
                             TextButton(
                               child: Text(AppLocalizations.of(context)!.cancel),
@@ -115,7 +169,7 @@ class DrawerComponent extends StatelessWidget {
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme
-                            .titleMedium,
+                            .titleLarge,
                       ))
                 ],
               )),
