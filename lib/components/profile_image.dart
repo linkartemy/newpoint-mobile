@@ -5,10 +5,11 @@ import 'package:newpoint/domain/services/image_service.dart';
 import 'package:newpoint/resources/resources.dart';
 
 class ProfileImage extends StatefulWidget {
-  const ProfileImage({Key? key, required this.profileImageId})
+  const ProfileImage({Key? key, required this.profileImageId, this.radius})
       : super(key: key);
 
   final int profileImageId;
+  final int? radius;
 
   @override
   _ProfileImageState createState() => _ProfileImageState();
@@ -32,7 +33,7 @@ class _ProfileImageState extends State<ProfileImage> {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: 36,
+      radius: widget.radius?.toDouble() ?? 36,
       backgroundImage: profileImage.isEmpty
           ? Image.asset(AppImages.logoTitle).image
           : Image.memory(Uint8List.fromList(profileImage)).image,

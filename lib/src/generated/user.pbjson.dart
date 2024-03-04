@@ -271,3 +271,27 @@ const FollowResponse$json = {
 final $typed_data.Uint8List followResponseDescriptor = $convert.base64Decode(
     'Cg5Gb2xsb3dSZXNwb25zZRIcCglmb2xsb3dpbmcYASABKAhSCWZvbGxvd2luZw==');
 
+@$core.Deprecated('Use isFollowingRequestDescriptor instead')
+const IsFollowingRequest$json = {
+  '1': 'IsFollowingRequest',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 3, '10': 'userId'},
+  ],
+};
+
+/// Descriptor for `IsFollowingRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List isFollowingRequestDescriptor = $convert.base64Decode(
+    'ChJJc0ZvbGxvd2luZ1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoA1IGdXNlcklk');
+
+@$core.Deprecated('Use isFollowingResponseDescriptor instead')
+const IsFollowingResponse$json = {
+  '1': 'IsFollowingResponse',
+  '2': [
+    {'1': 'following', '3': 1, '4': 1, '5': 8, '10': 'following'},
+  ],
+};
+
+/// Descriptor for `IsFollowingResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List isFollowingResponseDescriptor = $convert.base64Decode(
+    'ChNJc0ZvbGxvd2luZ1Jlc3BvbnNlEhwKCWZvbGxvd2luZxgBIAEoCFIJZm9sbG93aW5n');
+

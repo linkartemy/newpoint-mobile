@@ -28,6 +28,8 @@ class ProfileViewModel extends ChangeNotifier {
   ImagePicker picker = ImagePicker();
   XFile? image;
 
+  bool proceedingFollowing = false;
+
   Future<void> onImageTap() async {
     try {
       image = await picker.pickImage(source: ImageSource.gallery);
@@ -94,6 +96,19 @@ class ProfileViewModel extends ChangeNotifier {
     try {
       profile = await _userService.getProfileById(profileId);
       notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+      error = e.error;
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> getIsFollowing() async {
+    try {
+      following = await _userService.isFollowing(profileId);
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
         error = "Something is wrong with the connection to the server";
@@ -173,8 +188,16 @@ class ProfileViewModel extends ChangeNotifier {
 
   Future<void> follow() async {
     try {
-      following = await _userService.follow(profileId);
+      if (proceedingFollowing) {
+        return;
+      }
+      proceedingFollowing = true;
+      following = !following;
       notifyListeners();
+      final followingResult = await _userService.follow(profileId);
+      if (followingResult != following) {
+        following = followingResult;
+      }
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
         error = "Something is wrong with the connection to the server";
@@ -184,5 +207,6 @@ class ProfileViewModel extends ChangeNotifier {
       print(e);
       error = "Something went wrong, please try again";
     }
+    proceedingFollowing = false;
   }
 }

@@ -144,4 +144,18 @@ class UserService {
     var followResponse = FollowResponse();
     return response.data.unpackInto<FollowResponse>(followResponse).following;
   }
+
+  Future<bool> isFollowing(int userId) async {
+    var request = IsFollowingRequest();
+    request.userId = Int64.parseInt(userId.toString());
+    var response = await _userServiceClient.isFollowing(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var isFollowingResponse = IsFollowingResponse();
+    return response.data
+        .unpackInto<IsFollowingResponse>(isFollowingResponse)
+        .following;
+  }
 }

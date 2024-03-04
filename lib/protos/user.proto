@@ -17,6 +17,7 @@ service GrpcUser {
   rpc UpdateProfile (UpdateProfileRequest) returns (response.Response);
   rpc UpdateProfileImage (UpdateProfileImageRequest) returns (response.Response);
   rpc Follow (FollowRequest) returns (response.Response);
+  rpc IsFollowing (IsFollowingRequest) returns (response.Response);
 }
 
 message UserModel {
@@ -114,5 +115,13 @@ message FollowRequest {
 }
 
 message FollowResponse {
+  bool following = 1;
+}
+
+message IsFollowingRequest {
+  int64 user_id = 1;
+}
+
+message IsFollowingResponse {
   bool following = 1;
 }

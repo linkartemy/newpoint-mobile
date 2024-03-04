@@ -47,6 +47,12 @@ class ProfileViewState extends State<ProfileView> {
     setState(() {});
   }
 
+  Future<void> getIsFollowing() async {
+    final model = Provider.of<ProfileViewModel>(context, listen: false);
+    await model.getIsFollowing();
+    setState(() {});
+  }
+
   Future<void> getPosts() async {
     final model = Provider.of<ProfileViewModel>(context, listen: false);
     await model.getPosts();
@@ -72,6 +78,7 @@ class ProfileViewState extends State<ProfileView> {
     });
     getUser();
     getProfile();
+    getIsFollowing();
     getPosts();
   }
 

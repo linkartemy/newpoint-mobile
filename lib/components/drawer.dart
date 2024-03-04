@@ -9,13 +9,29 @@ import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/views/theme/theme.dart';
 
-class DrawerComponent extends StatelessWidget {
+class DrawerComponent extends StatefulWidget {
   DrawerComponent({Key? key, required this.user, required this.reload})
       : super(key: key);
 
-  final User? user;
+  User? user;
   final _userService = UserService();
   final Future<void> Function() reload;
+
+  @override
+  _DrawerComponentState createState() => _DrawerComponentState();
+}
+
+class _DrawerComponentState extends State<DrawerComponent> {
+  @override
+  void initState() {
+    super.initState();
+
+    widget._userService.getUser().then((value) {
+      setState(() {
+        widget.user = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,38 +52,43 @@ class DrawerComponent extends StatelessWidget {
                             Row(
                               children: [
                                 ProfileImage(
-                                    profileImageId: user != null
-                                        ? user!.profileImageId
-                                        : 0),
+                                  profileImageId: widget.user != null
+                                      ? widget.user!.profileImageId
+                                      : 0,
+                                  radius: 48,
+                                ),
                                 const SizedBox(width: 17),
                                 Column(
                                   children: [
-                                    Text("${user!.followers} followers",
+                                    Text("${widget.user!.followers} followers",
                                         style: AdaptiveTheme.of(context)
                                             .theme
                                             .textTheme
-                                            .titleSmall),
+                                            .titleMedium),
                                     const SizedBox(height: 5),
-                                    Text("${user!.following} following",
+                                    Text("${widget.user!.following} following",
                                         style: AdaptiveTheme.of(context)
                                             .theme
                                             .textTheme
-                                            .titleSmall)
+                                            .titleMedium)
                                   ],
                                 )
                               ],
                             ),
                             const SizedBox(height: 10),
                             Text(
-                                user != null
-                                    ? "${user?.name} ${user?.surname}"
+                                widget.user != null
+                                    ? "${widget.user?.name} ${widget.user?.surname}"
                                     : "Unknown",
                                 style: AdaptiveTheme.of(context)
                                     .theme
                                     .textTheme
                                     .titleMedium),
                             const SizedBox(height: 2),
-                            Text(user != null ? "@${user?.login}" : "Unknown",
+                            Text(
+                                widget.user != null
+                                    ? "@${widget.user?.login}"
+                                    : "Unknown",
                                 style: AdaptiveTheme.of(context)
                                     .theme
                                     .textTheme
@@ -104,8 +125,8 @@ class DrawerComponent extends StatelessWidget {
                           onTap: () async {
                             await Navigator.of(context).pushNamed(
                                 MainNavigationRouteNames.profile,
-                                arguments: user!.id);
-                            await reload();
+                                arguments: widget.user!.id);
+                            await widget.reload();
                           },
                         ),
                         ListTile(
@@ -150,7 +171,7 @@ class DrawerComponent extends StatelessWidget {
                             TextButton(
                               child: Text(AppLocalizations.of(context)!.logOut),
                               onPressed: () async {
-                                await _userService.logout();
+                                await widget._userService.logout();
                                 MainNavigation.resetNavigation(context);
                               },
                             ),

@@ -54,6 +54,10 @@ class GrpcUserClient extends $grpc.Client {
       '/user.GrpcUser/Follow',
       ($5.FollowRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$isFollowing = $grpc.ClientMethod<$5.IsFollowingRequest, $1.Response>(
+      '/user.GrpcUser/IsFollowing',
+      ($5.IsFollowingRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
 
   GrpcUserClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -91,6 +95,10 @@ class GrpcUserClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$1.Response> follow($5.FollowRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$follow, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> isFollowing($5.IsFollowingRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$isFollowing, request, options: options);
   }
 }
 
@@ -155,6 +163,13 @@ abstract class GrpcUserServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $5.FollowRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$5.IsFollowingRequest, $1.Response>(
+        'IsFollowing',
+        isFollowing_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $5.IsFollowingRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.Response> login_Pre($grpc.ServiceCall call, $async.Future<$5.LoginRequest> request) async {
@@ -189,6 +204,10 @@ abstract class GrpcUserServiceBase extends $grpc.Service {
     return follow(call, await request);
   }
 
+  $async.Future<$1.Response> isFollowing_Pre($grpc.ServiceCall call, $async.Future<$5.IsFollowingRequest> request) async {
+    return isFollowing(call, await request);
+  }
+
   $async.Future<$1.Response> login($grpc.ServiceCall call, $5.LoginRequest request);
   $async.Future<$1.Response> register($grpc.ServiceCall call, $5.RegisterRequest request);
   $async.Future<$1.Response> getUserByToken($grpc.ServiceCall call, $5.GetUserByTokenRequest request);
@@ -197,4 +216,5 @@ abstract class GrpcUserServiceBase extends $grpc.Service {
   $async.Future<$1.Response> updateProfile($grpc.ServiceCall call, $5.UpdateProfileRequest request);
   $async.Future<$1.Response> updateProfileImage($grpc.ServiceCall call, $5.UpdateProfileImageRequest request);
   $async.Future<$1.Response> follow($grpc.ServiceCall call, $5.FollowRequest request);
+  $async.Future<$1.Response> isFollowing($grpc.ServiceCall call, $5.IsFollowingRequest request);
 }
