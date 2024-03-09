@@ -33,6 +33,8 @@ class UserModel extends $pb.GeneratedMessage {
     $9.NullableTimestamp? registrationTimestamp,
     $9.NullableTimestamp? lastLoginTimestamp,
     $9.NullableString? ip,
+    $core.int? followers,
+    $core.int? following,
   }) {
     final $result = create();
     if (id != null) {
@@ -77,6 +79,12 @@ class UserModel extends $pb.GeneratedMessage {
     if (ip != null) {
       $result.ip = ip;
     }
+    if (followers != null) {
+      $result.followers = followers;
+    }
+    if (following != null) {
+      $result.following = following;
+    }
     return $result;
   }
   UserModel._() : super();
@@ -98,6 +106,8 @@ class UserModel extends $pb.GeneratedMessage {
     ..aOM<$9.NullableTimestamp>(12, _omitFieldNames ? '' : 'registrationTimestamp', subBuilder: $9.NullableTimestamp.create)
     ..aOM<$9.NullableTimestamp>(13, _omitFieldNames ? '' : 'lastLoginTimestamp', subBuilder: $9.NullableTimestamp.create)
     ..aOM<$9.NullableString>(14, _omitFieldNames ? '' : 'ip', subBuilder: $9.NullableString.create)
+    ..a<$core.int>(15, _omitFieldNames ? '' : 'followers', $pb.PbFieldType.O3)
+    ..a<$core.int>(16, _omitFieldNames ? '' : 'following', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
@@ -263,6 +273,24 @@ class UserModel extends $pb.GeneratedMessage {
   void clearIp() => clearField(14);
   @$pb.TagNumber(14)
   $9.NullableString ensureIp() => $_ensure(13);
+
+  @$pb.TagNumber(15)
+  $core.int get followers => $_getIZ(14);
+  @$pb.TagNumber(15)
+  set followers($core.int v) { $_setSignedInt32(14, v); }
+  @$pb.TagNumber(15)
+  $core.bool hasFollowers() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearFollowers() => clearField(15);
+
+  @$pb.TagNumber(16)
+  $core.int get following => $_getIZ(15);
+  @$pb.TagNumber(16)
+  set following($core.int v) { $_setSignedInt32(15, v); }
+  @$pb.TagNumber(16)
+  $core.bool hasFollowing() => $_has(15);
+  @$pb.TagNumber(16)
+  void clearFollowing() => clearField(16);
 }
 
 class LoginRequest extends $pb.GeneratedMessage {
@@ -1197,6 +1225,206 @@ class UpdateProfileImageResponse extends $pb.GeneratedMessage {
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
   void clearId() => clearField(1);
+}
+
+class FollowRequest extends $pb.GeneratedMessage {
+  factory FollowRequest({
+    $fixnum.Int64? userId,
+  }) {
+    final $result = create();
+    if (userId != null) {
+      $result.userId = userId;
+    }
+    return $result;
+  }
+  FollowRequest._() : super();
+  factory FollowRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FollowRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'FollowRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+    ..aInt64(1, _omitFieldNames ? '' : 'userId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FollowRequest clone() => FollowRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FollowRequest copyWith(void Function(FollowRequest) updates) => super.copyWith((message) => updates(message as FollowRequest)) as FollowRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static FollowRequest create() => FollowRequest._();
+  FollowRequest createEmptyInstance() => create();
+  static $pb.PbList<FollowRequest> createRepeated() => $pb.PbList<FollowRequest>();
+  @$core.pragma('dart2js:noInline')
+  static FollowRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FollowRequest>(create);
+  static FollowRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get userId => $_getI64(0);
+  @$pb.TagNumber(1)
+  set userId($fixnum.Int64 v) { $_setInt64(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUserId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserId() => clearField(1);
+}
+
+class FollowResponse extends $pb.GeneratedMessage {
+  factory FollowResponse({
+    $core.bool? following,
+  }) {
+    final $result = create();
+    if (following != null) {
+      $result.following = following;
+    }
+    return $result;
+  }
+  FollowResponse._() : super();
+  factory FollowResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FollowResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'FollowResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'following')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FollowResponse clone() => FollowResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FollowResponse copyWith(void Function(FollowResponse) updates) => super.copyWith((message) => updates(message as FollowResponse)) as FollowResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static FollowResponse create() => FollowResponse._();
+  FollowResponse createEmptyInstance() => create();
+  static $pb.PbList<FollowResponse> createRepeated() => $pb.PbList<FollowResponse>();
+  @$core.pragma('dart2js:noInline')
+  static FollowResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FollowResponse>(create);
+  static FollowResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get following => $_getBF(0);
+  @$pb.TagNumber(1)
+  set following($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasFollowing() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFollowing() => clearField(1);
+}
+
+class IsFollowingRequest extends $pb.GeneratedMessage {
+  factory IsFollowingRequest({
+    $fixnum.Int64? userId,
+  }) {
+    final $result = create();
+    if (userId != null) {
+      $result.userId = userId;
+    }
+    return $result;
+  }
+  IsFollowingRequest._() : super();
+  factory IsFollowingRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory IsFollowingRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'IsFollowingRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+    ..aInt64(1, _omitFieldNames ? '' : 'userId')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  IsFollowingRequest clone() => IsFollowingRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  IsFollowingRequest copyWith(void Function(IsFollowingRequest) updates) => super.copyWith((message) => updates(message as IsFollowingRequest)) as IsFollowingRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static IsFollowingRequest create() => IsFollowingRequest._();
+  IsFollowingRequest createEmptyInstance() => create();
+  static $pb.PbList<IsFollowingRequest> createRepeated() => $pb.PbList<IsFollowingRequest>();
+  @$core.pragma('dart2js:noInline')
+  static IsFollowingRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<IsFollowingRequest>(create);
+  static IsFollowingRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get userId => $_getI64(0);
+  @$pb.TagNumber(1)
+  set userId($fixnum.Int64 v) { $_setInt64(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUserId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserId() => clearField(1);
+}
+
+class IsFollowingResponse extends $pb.GeneratedMessage {
+  factory IsFollowingResponse({
+    $core.bool? following,
+  }) {
+    final $result = create();
+    if (following != null) {
+      $result.following = following;
+    }
+    return $result;
+  }
+  IsFollowingResponse._() : super();
+  factory IsFollowingResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory IsFollowingResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'IsFollowingResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'following')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  IsFollowingResponse clone() => IsFollowingResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  IsFollowingResponse copyWith(void Function(IsFollowingResponse) updates) => super.copyWith((message) => updates(message as IsFollowingResponse)) as IsFollowingResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static IsFollowingResponse create() => IsFollowingResponse._();
+  IsFollowingResponse createEmptyInstance() => create();
+  static $pb.PbList<IsFollowingResponse> createRepeated() => $pb.PbList<IsFollowingResponse>();
+  @$core.pragma('dart2js:noInline')
+  static IsFollowingResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<IsFollowingResponse>(create);
+  static IsFollowingResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get following => $_getBF(0);
+  @$pb.TagNumber(1)
+  set following($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasFollowing() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFollowing() => clearField(1);
 }
 
 

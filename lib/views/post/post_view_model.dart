@@ -23,6 +23,9 @@ class PostViewModel extends ChangeNotifier {
   final commentFieldText = TextEditingController();
   String comment = "";
 
+  bool proceedingLikePost = false;
+  bool proceedingLikeComment = false;
+
   void onCommentTextChanged(String value) {
     comment = value;
   }
@@ -95,14 +98,18 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> like() async {
     try {
-      if (post!.liked) {
-        _postService.unLikePost(postId);
+      if (proceedingLikePost) {
+        return;
+      }
+      proceedingLikePost = true;
+      post!.liked = !post!.liked;
+      if (!post!.liked) {
+        await _postService.unLikePost(postId);
         post!.likes--;
       } else {
-        _postService.likePost(postId);
+        await _postService.likePost(postId);
         post!.likes++;
       }
-      post!.liked = !post!.liked;
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -111,6 +118,7 @@ class PostViewModel extends ChangeNotifier {
     } catch (e) {
       error = "Something went wrong, please try again";
     }
+    proceedingLikePost = false;
   }
 
   Future<void> sendComment() async {
@@ -149,15 +157,19 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> likeComment(int index) async {
     try {
+      if (proceedingLikeComment) {
+        return;
+      }
+      proceedingLikeComment = true;
       final comment = comments[index];
-      if (comment.liked) {
-        _commentService.unLikeComment(comment.id);
+      comment.liked = !comment.liked;
+      if (!comment.liked) {
+        await _commentService.unLikeComment(comment.id);
         comment.likes--;
       } else {
-        _commentService.likeComment(comment.id);
+        await _commentService.likeComment(comment.id);
         comment.likes++;
       }
-      comment.liked = !comment.liked;
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -166,5 +178,6 @@ class PostViewModel extends ChangeNotifier {
     } catch (e) {
       error = "Something went wrong, please try again";
     }
+    proceedingLikeComment = false;
   }
 }

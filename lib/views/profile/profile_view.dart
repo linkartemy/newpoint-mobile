@@ -47,6 +47,12 @@ class ProfileViewState extends State<ProfileView> {
     setState(() {});
   }
 
+  Future<void> getIsFollowing() async {
+    final model = Provider.of<ProfileViewModel>(context, listen: false);
+    await model.getIsFollowing();
+    setState(() {});
+  }
+
   Future<void> getPosts() async {
     final model = Provider.of<ProfileViewModel>(context, listen: false);
     await model.getPosts();
@@ -72,6 +78,7 @@ class ProfileViewState extends State<ProfileView> {
     });
     getUser();
     getProfile();
+    getIsFollowing();
     getPosts();
   }
 
@@ -218,6 +225,11 @@ class _HeaderState extends State<_Header> {
   Widget build(BuildContext context) {
     final model = Provider.of<ProfileViewModel>(context);
 
+    Future<void> follow() async {
+      await model.follow();
+      setState(() {});
+    }
+
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 24),
         child: Row(
@@ -329,7 +341,11 @@ class _HeaderState extends State<_Header> {
                         Icons.account_circle_outlined,
                         size: 28,
                       ))
-                  : IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+                  : IconButton(
+                      onPressed: follow,
+                      icon: model.following
+                          ? Icon(CupertinoIcons.minus)
+                          : Icon(CupertinoIcons.plus)),
             )
           ],
         ));

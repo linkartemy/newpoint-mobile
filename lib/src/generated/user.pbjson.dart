@@ -31,6 +31,8 @@ const UserModel$json = {
     {'1': 'registration_timestamp', '3': 12, '4': 1, '5': 11, '6': '.NullableTimestamp', '10': 'registrationTimestamp'},
     {'1': 'last_login_timestamp', '3': 13, '4': 1, '5': 11, '6': '.NullableTimestamp', '10': 'lastLoginTimestamp'},
     {'1': 'ip', '3': 14, '4': 1, '5': 11, '6': '.NullableString', '10': 'ip'},
+    {'1': 'followers', '3': 15, '4': 1, '5': 5, '10': 'followers'},
+    {'1': 'following', '3': 16, '4': 1, '5': 5, '10': 'following'},
   ],
 };
 
@@ -46,7 +48,8 @@ final $typed_data.Uint8List userModelDescriptor = $convert.base64Decode(
     'FtcFIJYmlydGhEYXRlEkkKFnJlZ2lzdHJhdGlvbl90aW1lc3RhbXAYDCABKAsyEi5OdWxsYWJs'
     'ZVRpbWVzdGFtcFIVcmVnaXN0cmF0aW9uVGltZXN0YW1wEkQKFGxhc3RfbG9naW5fdGltZXN0YW'
     '1wGA0gASgLMhIuTnVsbGFibGVUaW1lc3RhbXBSEmxhc3RMb2dpblRpbWVzdGFtcBIfCgJpcBgO'
-    'IAEoCzIPLk51bGxhYmxlU3RyaW5nUgJpcA==');
+    'IAEoCzIPLk51bGxhYmxlU3RyaW5nUgJpcBIcCglmb2xsb3dlcnMYDyABKAVSCWZvbGxvd2Vycx'
+    'IcCglmb2xsb3dpbmcYECABKAVSCWZvbGxvd2luZw==');
 
 @$core.Deprecated('Use loginRequestDescriptor instead')
 const LoginRequest$json = {
@@ -243,4 +246,52 @@ const UpdateProfileImageResponse$json = {
 /// Descriptor for `UpdateProfileImageResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List updateProfileImageResponseDescriptor = $convert.base64Decode(
     'ChpVcGRhdGVQcm9maWxlSW1hZ2VSZXNwb25zZRIOCgJpZBgBIAEoA1ICaWQ=');
+
+@$core.Deprecated('Use followRequestDescriptor instead')
+const FollowRequest$json = {
+  '1': 'FollowRequest',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 3, '10': 'userId'},
+  ],
+};
+
+/// Descriptor for `FollowRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List followRequestDescriptor = $convert.base64Decode(
+    'Cg1Gb2xsb3dSZXF1ZXN0EhcKB3VzZXJfaWQYASABKANSBnVzZXJJZA==');
+
+@$core.Deprecated('Use followResponseDescriptor instead')
+const FollowResponse$json = {
+  '1': 'FollowResponse',
+  '2': [
+    {'1': 'following', '3': 1, '4': 1, '5': 8, '10': 'following'},
+  ],
+};
+
+/// Descriptor for `FollowResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List followResponseDescriptor = $convert.base64Decode(
+    'Cg5Gb2xsb3dSZXNwb25zZRIcCglmb2xsb3dpbmcYASABKAhSCWZvbGxvd2luZw==');
+
+@$core.Deprecated('Use isFollowingRequestDescriptor instead')
+const IsFollowingRequest$json = {
+  '1': 'IsFollowingRequest',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 3, '10': 'userId'},
+  ],
+};
+
+/// Descriptor for `IsFollowingRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List isFollowingRequestDescriptor = $convert.base64Decode(
+    'ChJJc0ZvbGxvd2luZ1JlcXVlc3QSFwoHdXNlcl9pZBgBIAEoA1IGdXNlcklk');
+
+@$core.Deprecated('Use isFollowingResponseDescriptor instead')
+const IsFollowingResponse$json = {
+  '1': 'IsFollowingResponse',
+  '2': [
+    {'1': 'following', '3': 1, '4': 1, '5': 8, '10': 'following'},
+  ],
+};
+
+/// Descriptor for `IsFollowingResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List isFollowingResponseDescriptor = $convert.base64Decode(
+    'ChNJc0ZvbGxvd2luZ1Jlc3BvbnNlEhwKCWZvbGxvd2luZxgBIAEoCFIJZm9sbG93aW5n');
 

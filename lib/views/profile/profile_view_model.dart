@@ -23,9 +23,12 @@ class ProfileViewModel extends ChangeNotifier {
   var viewedPosts = <int>[];
   var isLoadingDatabase = true;
   String error = "";
+  bool following = false;
 
   ImagePicker picker = ImagePicker();
   XFile? image;
+
+  bool proceedingFollowing = false;
 
   Future<void> onImageTap() async {
     try {
@@ -103,6 +106,19 @@ class ProfileViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> getIsFollowing() async {
+    try {
+      following = await _userService.isFollowing(profileId);
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+      error = e.error;
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
   Future<void> getPosts() async {
     try {
       error = "";
@@ -168,5 +184,29 @@ class ProfileViewModel extends ChangeNotifier {
       print(e);
       error = "Something went wrong, please try again";
     }
+  }
+
+  Future<void> follow() async {
+    try {
+      if (proceedingFollowing) {
+        return;
+      }
+      proceedingFollowing = true;
+      following = !following;
+      notifyListeners();
+      final followingResult = await _userService.follow(profileId);
+      if (followingResult != following) {
+        following = followingResult;
+      }
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+      print(e);
+    } catch (e) {
+      print(e);
+      error = "Something went wrong, please try again";
+    }
+    proceedingFollowing = false;
   }
 }
