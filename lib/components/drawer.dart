@@ -43,59 +43,64 @@ class _DrawerComponentState extends State<DrawerComponent> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  DrawerHeader(
-                      decoration: const BoxDecoration(),
-                      padding: const EdgeInsets.only(left: 30, top: 17),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Row(
+                  SizedBox(
+                      height: 250,
+                      child: DrawerHeader(
+                          decoration: const BoxDecoration(),
+                          padding: const EdgeInsets.only(left: 30, top: 17),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                ProfileImage(
-                                  profileImageId: widget.user != null
-                                      ? widget.user!.profileImageId
-                                      : 0,
-                                  radius: 48,
-                                ),
-                                const SizedBox(width: 17),
-                                Column(
+                                Row(
                                   children: [
-                                    Text("${widget.user!.followers} followers",
-                                        style: AdaptiveTheme.of(context)
-                                            .theme
-                                            .textTheme
-                                            .titleMedium),
-                                    const SizedBox(height: 5),
-                                    Text("${widget.user!.following} following",
-                                        style: AdaptiveTheme.of(context)
-                                            .theme
-                                            .textTheme
-                                            .titleMedium)
+                                    ProfileImage(
+                                      profileImageId: widget.user != null
+                                          ? widget.user!.profileImageId
+                                          : 0,
+                                      radius: 48,
+                                    ),
+                                    const SizedBox(width: 17),
+                                    Column(
+                                      children: [
+                                        Text(
+                                            "${widget.user!.followers} followers",
+                                            style: AdaptiveTheme.of(context)
+                                                .theme
+                                                .textTheme
+                                                .titleMedium),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                            "${widget.user!.following} following",
+                                            style: AdaptiveTheme.of(context)
+                                                .theme
+                                                .textTheme
+                                                .titleMedium)
+                                      ],
+                                    )
                                   ],
-                                )
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                                widget.user != null
-                                    ? "${widget.user?.name} ${widget.user?.surname}"
-                                    : "Unknown",
-                                style: AdaptiveTheme.of(context)
-                                    .theme
-                                    .textTheme
-                                    .titleMedium),
-                            const SizedBox(height: 2),
-                            Text(
-                                widget.user != null
-                                    ? "@${widget.user?.login}"
-                                    : "Unknown",
-                                style: AdaptiveTheme.of(context)
-                                    .theme
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(
-                                        color: AppColors.secondaryTextColor))
-                          ])),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                    widget.user != null
+                                        ? "${widget.user?.name} ${widget.user?.surname}"
+                                        : "Unknown",
+                                    style: AdaptiveTheme.of(context)
+                                        .theme
+                                        .textTheme
+                                        .titleMedium),
+                                const SizedBox(height: 2),
+                                Text(
+                                    widget.user != null
+                                        ? "@${widget.user?.login}"
+                                        : "Unknown",
+                                    style: AdaptiveTheme.of(context)
+                                        .theme
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color:
+                                                AppColors.secondaryTextColor))
+                              ]))),
                   Padding(
                       padding: const EdgeInsets.only(left: 14),
                       child: Column(children: [
@@ -148,7 +153,10 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 children: <Widget>[
                   const Divider(),
                   ListTile(
-                      leading: const Icon(Icons.settings),
+                      leading: const Icon(
+                        Icons.settings,
+                        color: AppColors.textColor,
+                      ),
                       title: Text(
                         AppLocalizations.of(context)!.settings,
                         style: AdaptiveTheme.of(context)
@@ -184,7 +192,8 @@ class _DrawerComponentState extends State<DrawerComponent> {
                           },
                         );
                       },
-                      leading: const Icon(Icons.logout),
+                      leading:
+                          const Icon(Icons.logout, color: AppColors.textColor),
                       title: Text(
                         AppLocalizations.of(context)!.logOut,
                         style: AdaptiveTheme.of(context)
