@@ -12,50 +12,29 @@ import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/profile/profile_view_model.dart';
+import 'package:newpoint/views/settings/settings_view_model.dart';
 import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class ProfileView extends StatefulWidget {
-  const ProfileView({Key? key}) : super(key: key);
+class SettingsView extends StatefulWidget {
+  const SettingsView({Key? key}) : super(key: key);
 
   @override
-  ProfileViewState createState() => ProfileViewState();
+  SettingsViewState createState() => SettingsViewState();
 }
 
-class ProfileViewState extends State<ProfileView> {
+class SettingsViewState extends State<SettingsView> {
   bool _isLoadingProfile = false;
 
   Future<void> onRefresh() async {
-    final model = Provider.of<ProfileViewModel>(context, listen: false);
+    final model = Provider.of<SettingsViewModel>(context, listen: false);
     await getUser();
-    await getProfile();
-    if (model.error.isEmpty) {
-      await getPosts();
-    }
-  }
-
-  Future<void> getProfile() async {
-    final model = Provider.of<ProfileViewModel>(context, listen: false);
-    await model.getProfile();
-    setState(() {});
   }
 
   Future<void> getUser() async {
-    final model = Provider.of<ProfileViewModel>(context, listen: false);
+    final model = Provider.of<SettingsViewModel>(context, listen: false);
     await model.getUser();
-    setState(() {});
-  }
-
-  Future<void> getIsFollowing() async {
-    final model = Provider.of<ProfileViewModel>(context, listen: false);
-    await model.getIsFollowing();
-    setState(() {});
-  }
-
-  Future<void> getPosts() async {
-    final model = Provider.of<ProfileViewModel>(context, listen: false);
-    await model.getPosts();
     setState(() {
       _isLoadingProfile = false;
     });
@@ -66,8 +45,6 @@ class ProfileViewState extends State<ProfileView> {
       _isLoadingProfile = true;
     });
     getUser();
-    getProfile();
-    getPosts();
   }
 
   @override
@@ -77,14 +54,11 @@ class ProfileViewState extends State<ProfileView> {
       _isLoadingProfile = true;
     });
     getUser();
-    getProfile();
-    getIsFollowing();
-    getPosts();
   }
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<ProfileViewModel>(context);
+    final model = Provider.of<SettingsViewModel>(context);
     var profile = model.profile;
 
     return DefaultTabController(
@@ -294,27 +268,22 @@ class _HeaderState extends State<_Header> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            width: 210,
-                            child: Text(
-                              "${model.user!.name} ${model.user!.surname}",
-                              style: AdaptiveTheme.of(context)
-                                  .theme
-                                  .textTheme
-                                  .bodyLarge,
-                            ),
+                          Text(
+                            "${model.user!.name} ${model.user!.surname}",
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .bodyLarge,
                           ),
-                          SizedBox(
-                              width: 210,
-                              child: Text(
-                                "@${model.user!.login}",
-                                style: AdaptiveTheme.of(context)
-                                    .theme
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                        color: CupertinoColors.secondaryLabel),
-                              ))
+                          Text(
+                            "@${model.user!.login}",
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                    color: CupertinoColors.secondaryLabel),
+                          )
                         ]),
                   ),
                 ]),

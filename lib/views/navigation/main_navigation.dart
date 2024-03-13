@@ -11,7 +11,7 @@ abstract class MainNavigationRouteNames {
   static const profileEditor = '/profile/editor';
   static const register = '/register';
   static const login = '/login';
-  static const movieTrailerWidget = '/main/movie_details/trailer';
+  static const settings = '/settings';
 }
 
 class MainNavigation {
@@ -23,7 +23,9 @@ class MainNavigation {
     MainNavigationRouteNames.register: (_) => _screenFactory.makeRegister(),
     MainNavigationRouteNames.login: (_) => _screenFactory.makeLogin(),
     MainNavigationRouteNames.main: (_) => _screenFactory.makeMain(),
-    MainNavigationRouteNames.postCreator: (_) => _screenFactory.makePostCreator(),
+    MainNavigationRouteNames.postCreator: (_) =>
+        _screenFactory.makePostCreator(),
+    MainNavigationRouteNames.settings: (_) => _screenFactory.makeSettings(),
   };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {

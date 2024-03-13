@@ -196,22 +196,26 @@ class _Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RichText(
-                  text: TextSpan(
-                      text: "$name $surname ",
-                      style:
-                          AdaptiveTheme.of(context).theme.textTheme.titleMedium,
-                      children: [
-                        TextSpan(
-                            text: "@$login",
-                            style: AdaptiveTheme.of(context)
-                                .theme
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(
-                                    color: CupertinoColors.secondaryLabel))
-                      ]),
-                ),
+                SizedBox(
+                    width: 230,
+                    child: RichText(
+                      text: TextSpan(
+                          text: "$name $surname ",
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .titleMedium,
+                          children: [
+                            TextSpan(
+                                text: "@$login",
+                                style: AdaptiveTheme.of(context)
+                                    .theme
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: CupertinoColors.secondaryLabel))
+                          ]),
+                    )),
                 const SizedBox(
                   height: 2,
                 ),

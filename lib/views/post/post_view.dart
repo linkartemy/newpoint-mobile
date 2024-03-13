@@ -261,7 +261,7 @@ class _Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RichText(
+                SizedBox(width: 250, child: RichText(
                   text: TextSpan(
                       text: "${model.user!.name} ${model.user!.surname} ",
                       style:
@@ -276,7 +276,7 @@ class _Header extends StatelessWidget {
                                 .copyWith(
                                     color: CupertinoColors.secondaryLabel))
                       ]),
-                ),
+                )),
                 const SizedBox(
                   height: 2,
                 ),
