@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:newpoint/components/button.dart';
+import 'package:newpoint/components/error.dart';
 import 'package:newpoint/components/input.dart';
 import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/auth/login_view_model.dart';
@@ -78,7 +79,7 @@ class _FormWidget extends StatelessWidget {
             label: "Password",
             obscureText: true),
         const SizedBox(height: 25),
-        const _ErrorMessageWidget(),
+        ErrorComponent(error: context.select((LoginViewModel m) => m.errorMessage)),
         Container(
           alignment: Alignment.bottomRight,
           child: const _AuthButtonWidget(),

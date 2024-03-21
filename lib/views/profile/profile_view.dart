@@ -294,22 +294,27 @@ class _HeaderState extends State<_Header> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "${model.user!.name} ${model.user!.surname}",
-                            style: AdaptiveTheme.of(context)
-                                .theme
-                                .textTheme
-                                .bodyLarge,
+                          SizedBox(
+                            width: 210,
+                            child: Text(
+                              "${model.user!.name} ${model.user!.surname}",
+                              style: AdaptiveTheme.of(context)
+                                  .theme
+                                  .textTheme
+                                  .bodyLarge,
+                            ),
                           ),
-                          Text(
-                            "@${model.user!.login}",
-                            style: AdaptiveTheme.of(context)
-                                .theme
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(
-                                    color: CupertinoColors.secondaryLabel),
-                          )
+                          SizedBox(
+                              width: 210,
+                              child: Text(
+                                "@${model.user!.login}",
+                                style: AdaptiveTheme.of(context)
+                                    .theme
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                        color: CupertinoColors.secondaryLabel),
+                              ))
                         ]),
                   ),
                 ]),

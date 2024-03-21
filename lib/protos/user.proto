@@ -18,6 +18,8 @@ service GrpcUser {
   rpc UpdateProfileImage (UpdateProfileImageRequest) returns (response.Response);
   rpc Follow (FollowRequest) returns (response.Response);
   rpc IsFollowing (IsFollowingRequest) returns (response.Response);
+  rpc ChangeEmail (ChangeEmailRequest) returns (response.Response);
+  rpc ChangePassword (ChangePasswordRequest) returns (response.Response);
 }
 
 message UserModel {
@@ -108,6 +110,23 @@ message UpdateProfileImageRequest {
 
 message UpdateProfileImageResponse {
   int64 id = 1;
+}
+
+message ChangeEmailRequest {
+  string email = 1;
+}
+
+message ChangeEmailResponse {
+  bool changed = 1;
+}
+
+message ChangePasswordRequest {
+  string current_password = 1;
+  string new_password = 2;
+}
+
+message ChangePasswordResponse {
+  bool changed = 1;
 }
 
 message FollowRequest {

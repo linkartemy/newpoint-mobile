@@ -153,6 +153,10 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 children: <Widget>[
                   const Divider(),
                   ListTile(
+                      onTap: () async {
+                        await Navigator.of(context)
+                            .pushNamed(MainNavigationRouteNames.settings);
+                      },
                       leading: const Icon(
                         Icons.settings,
                         color: AppColors.textColor,

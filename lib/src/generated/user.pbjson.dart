@@ -247,6 +247,56 @@ const UpdateProfileImageResponse$json = {
 final $typed_data.Uint8List updateProfileImageResponseDescriptor = $convert.base64Decode(
     'ChpVcGRhdGVQcm9maWxlSW1hZ2VSZXNwb25zZRIOCgJpZBgBIAEoA1ICaWQ=');
 
+@$core.Deprecated('Use changeEmailRequestDescriptor instead')
+const ChangeEmailRequest$json = {
+  '1': 'ChangeEmailRequest',
+  '2': [
+    {'1': 'email', '3': 1, '4': 1, '5': 9, '10': 'email'},
+  ],
+};
+
+/// Descriptor for `ChangeEmailRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeEmailRequestDescriptor = $convert.base64Decode(
+    'ChJDaGFuZ2VFbWFpbFJlcXVlc3QSFAoFZW1haWwYASABKAlSBWVtYWls');
+
+@$core.Deprecated('Use changeEmailResponseDescriptor instead')
+const ChangeEmailResponse$json = {
+  '1': 'ChangeEmailResponse',
+  '2': [
+    {'1': 'changed', '3': 1, '4': 1, '5': 8, '10': 'changed'},
+  ],
+};
+
+/// Descriptor for `ChangeEmailResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changeEmailResponseDescriptor = $convert.base64Decode(
+    'ChNDaGFuZ2VFbWFpbFJlc3BvbnNlEhgKB2NoYW5nZWQYASABKAhSB2NoYW5nZWQ=');
+
+@$core.Deprecated('Use changePasswordRequestDescriptor instead')
+const ChangePasswordRequest$json = {
+  '1': 'ChangePasswordRequest',
+  '2': [
+    {'1': 'current_password', '3': 1, '4': 1, '5': 9, '10': 'currentPassword'},
+    {'1': 'new_password', '3': 2, '4': 1, '5': 9, '10': 'newPassword'},
+  ],
+};
+
+/// Descriptor for `ChangePasswordRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changePasswordRequestDescriptor = $convert.base64Decode(
+    'ChVDaGFuZ2VQYXNzd29yZFJlcXVlc3QSKQoQY3VycmVudF9wYXNzd29yZBgBIAEoCVIPY3Vycm'
+    'VudFBhc3N3b3JkEiEKDG5ld19wYXNzd29yZBgCIAEoCVILbmV3UGFzc3dvcmQ=');
+
+@$core.Deprecated('Use changePasswordResponseDescriptor instead')
+const ChangePasswordResponse$json = {
+  '1': 'ChangePasswordResponse',
+  '2': [
+    {'1': 'changed', '3': 1, '4': 1, '5': 8, '10': 'changed'},
+  ],
+};
+
+/// Descriptor for `ChangePasswordResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List changePasswordResponseDescriptor = $convert.base64Decode(
+    'ChZDaGFuZ2VQYXNzd29yZFJlc3BvbnNlEhgKB2NoYW5nZWQYASABKAhSB2NoYW5nZWQ=');
+
 @$core.Deprecated('Use followRequestDescriptor instead')
 const FollowRequest$json = {
   '1': 'FollowRequest',

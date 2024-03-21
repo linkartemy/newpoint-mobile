@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:newpoint/views/theme/theme.dart';
 
 class TextButtonComponent extends StatelessWidget {
   const TextButtonComponent(
@@ -16,7 +17,12 @@ class TextButtonComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      child: Text(child),
+      child: Text(child,
+          style: AdaptiveTheme.of(context)
+              .theme
+              .textTheme
+              .bodySmall!
+              .copyWith(color: AppColors.buttonTextColor)),
       style: style ?? AdaptiveTheme.of(context).theme.textButtonTheme.style,
     );
   }

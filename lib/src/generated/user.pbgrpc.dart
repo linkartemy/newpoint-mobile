@@ -58,6 +58,14 @@ class GrpcUserClient extends $grpc.Client {
       '/user.GrpcUser/IsFollowing',
       ($5.IsFollowingRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$changeEmail = $grpc.ClientMethod<$5.ChangeEmailRequest, $1.Response>(
+      '/user.GrpcUser/ChangeEmail',
+      ($5.ChangeEmailRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$changePassword = $grpc.ClientMethod<$5.ChangePasswordRequest, $1.Response>(
+      '/user.GrpcUser/ChangePassword',
+      ($5.ChangePasswordRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
 
   GrpcUserClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -99,6 +107,14 @@ class GrpcUserClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$1.Response> isFollowing($5.IsFollowingRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$isFollowing, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> changeEmail($5.ChangeEmailRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$changeEmail, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> changePassword($5.ChangePasswordRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$changePassword, request, options: options);
   }
 }
 
@@ -170,6 +186,20 @@ abstract class GrpcUserServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $5.IsFollowingRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$5.ChangeEmailRequest, $1.Response>(
+        'ChangeEmail',
+        changeEmail_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $5.ChangeEmailRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$5.ChangePasswordRequest, $1.Response>(
+        'ChangePassword',
+        changePassword_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $5.ChangePasswordRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.Response> login_Pre($grpc.ServiceCall call, $async.Future<$5.LoginRequest> request) async {
@@ -208,6 +238,14 @@ abstract class GrpcUserServiceBase extends $grpc.Service {
     return isFollowing(call, await request);
   }
 
+  $async.Future<$1.Response> changeEmail_Pre($grpc.ServiceCall call, $async.Future<$5.ChangeEmailRequest> request) async {
+    return changeEmail(call, await request);
+  }
+
+  $async.Future<$1.Response> changePassword_Pre($grpc.ServiceCall call, $async.Future<$5.ChangePasswordRequest> request) async {
+    return changePassword(call, await request);
+  }
+
   $async.Future<$1.Response> login($grpc.ServiceCall call, $5.LoginRequest request);
   $async.Future<$1.Response> register($grpc.ServiceCall call, $5.RegisterRequest request);
   $async.Future<$1.Response> getUserByToken($grpc.ServiceCall call, $5.GetUserByTokenRequest request);
@@ -217,4 +255,6 @@ abstract class GrpcUserServiceBase extends $grpc.Service {
   $async.Future<$1.Response> updateProfileImage($grpc.ServiceCall call, $5.UpdateProfileImageRequest request);
   $async.Future<$1.Response> follow($grpc.ServiceCall call, $5.FollowRequest request);
   $async.Future<$1.Response> isFollowing($grpc.ServiceCall call, $5.IsFollowingRequest request);
+  $async.Future<$1.Response> changeEmail($grpc.ServiceCall call, $5.ChangeEmailRequest request);
+  $async.Future<$1.Response> changePassword($grpc.ServiceCall call, $5.ChangePasswordRequest request);
 }

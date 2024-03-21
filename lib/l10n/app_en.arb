@@ -6,10 +6,28 @@
     "placeholders": {
       "count": {
         "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "nCompact": "{count, plural, other{{count}}}",
+  "@nCompact": {
+    "placeholders": {
+      "count": {
+        "type": "num",
         "format": "compact"
       }
     }
   },
+  "nDecimalPattern": "{count, plural, other{{count}}}",
+        "@nDecimalPattern": {
+          "placeholders": {
+            "count": {
+              "type": "num",
+              "format": "decimalPattern"
+            }
+          }
+        },
   "postDateTime": "{date} {time}",
   "@postDateTime": {
     "placeholders": {
@@ -82,5 +100,36 @@
   "deletePost": "Delete post",
   "areYouSure": "Are you sure?",
   "yes": "Yes",
-  "deleteComment": "Delete comment"
+  "deleteComment": "Delete comment",
+
+  "setting": "Setting",
+
+  "accountSettings": "Account",
+  "accountSettingsDescription": "See information about your account, download an archive of your data, or learn about your account deactivation options",
+  "accountInformation": "Account information",
+  "accountInformationDescription": "See information about your account, download an archive of your data, or learn about your account deactivation options",
+  "changePassword": "Change password",
+  "changePasswordDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+  "deleteAccount": "Delete account",
+  "deleteAccountDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+
+  "securitySettings": "Security and account access",
+  "securitySettingsDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+
+  "privacySettings": "Privacy and safety",
+  "privacySettingsDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+
+  "accessibilitySettings": "Accessibility, display and languages",
+  "accessibilitySettingsDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+
+  "currentPassword": "Current password",
+  "newPassword": "New password",
+  "confirmNewPassword": "Confirm new password",
+
+  "changeEmail": "Change email",
+  "changePhone": "Change phone",
+  "code": "Code",
+  "sentCode": "We have sent a code to your email",
+  "back": "Back",
+  "apply": "Apply"
 }

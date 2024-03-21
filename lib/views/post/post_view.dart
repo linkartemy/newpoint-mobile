@@ -261,22 +261,26 @@ class _Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RichText(
-                  text: TextSpan(
-                      text: "${model.user!.name} ${model.user!.surname} ",
-                      style:
-                          AdaptiveTheme.of(context).theme.textTheme.titleMedium,
-                      children: [
-                        TextSpan(
-                            text: "@${model.user!.login}",
-                            style: AdaptiveTheme.of(context)
-                                .theme
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(
-                                    color: CupertinoColors.secondaryLabel))
-                      ]),
-                ),
+                SizedBox(
+                    width: 250,
+                    child: RichText(
+                      text: TextSpan(
+                          text: "${model.user!.name} ${model.user!.surname} ",
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .titleMedium,
+                          children: [
+                            TextSpan(
+                                text: "@${model.user!.login}",
+                                style: AdaptiveTheme.of(context)
+                                    .theme
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: CupertinoColors.secondaryLabel))
+                          ]),
+                    )),
                 const SizedBox(
                   height: 2,
                 ),
@@ -364,81 +368,57 @@ class _FooterState extends State<_Footer> {
 
     return Column(children: [
       Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Row(
-                  children: [
-                    Text(
-                        AppLocalizations.of(context)!
-                            .nComments(model.post!.comments),
-                        style: AdaptiveTheme.of(context)
-                            .theme
-                            .textTheme
-                            .titleMedium),
-                  ],
-                ),
-              ]),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+        padding: EdgeInsets.symmetric(horizontal: 24),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              onTap: onShareTap,
+              child: Row(
                 children: [
-                  InkWell(
-                    onTap: onShareTap,
-                    child: Row(
-                      children: [
-                        Text(model.post!.shares.toString(),
-                            style: AdaptiveTheme.of(context)
-                                .theme
-                                .textTheme
-                                .titleMedium),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        const Icon(CupertinoIcons.share),
-                      ],
-                    ),
+                  Text(AppLocalizations.of(context)!.nDecimalPattern(model.post!.shares),
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.bodyMedium),
+                  const SizedBox(
+                    width: 5,
                   ),
-                  const SizedBox(width: 10),
-                  InkWell(
-                    onTap: onLikeTap,
-                    child: Row(
-                      children: [
-                        Text(model.post!.likes.toString(),
-                            style: AdaptiveTheme.of(context)
-                                .theme
-                                .textTheme
-                                .titleMedium),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        model.post!.liked
-                            ? const Icon(CupertinoIcons.heart_solid,
-                                color: AppColors.primary)
-                            : const Icon(CupertinoIcons.heart),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    Text(model.post!.views.toString(),
-                        style: AdaptiveTheme.of(context)
-                            .theme
-                            .textTheme
-                            .titleMedium),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const Icon(
-                      Icons.query_stats,
-                      size: 22,
-                    ),
-                  ]),
+                  const Icon(CupertinoIcons.share, size: 22),
                 ],
               ),
-            ],
-          )),
+            ),
+            const SizedBox(width: 10),
+            InkWell(
+              onTap: onLikeTap,
+              child: Row(
+                children: [
+                  Text(AppLocalizations.of(context)!.nDecimalPattern(model.post!.likes),
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.bodyMedium),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  model.post!.liked
+                      ? const Icon(CupertinoIcons.heart_solid,
+                          color: AppColors.primary, size: 22)
+                      : const Icon(CupertinoIcons.heart, size: 22),
+                ],
+              ),
+            ),
+            const SizedBox(width: 10),
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Text(AppLocalizations.of(context)!.nDecimalPattern(model.post!.views),
+                  style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium),
+              const SizedBox(
+                width: 5,
+              ),
+              const Icon(
+                Icons.query_stats,
+                size: 22,
+              ),
+            ]),
+          ],
+        ),
+      ),
       TextFormField(
         onChanged: model.onCommentTextChanged,
         controller: model.commentFieldText,
@@ -460,6 +440,15 @@ class _FooterState extends State<_Footer> {
               child: const Icon(Icons.send, color: AppColors.primary)),
         ),
         style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 18, top: 8),
+        child: Row(
+          children: [
+            Text(AppLocalizations.of(context)!.nComments(model.post!.comments),
+                style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium),
+          ],
+        ),
       ),
     ]);
   }

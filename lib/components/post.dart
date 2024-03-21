@@ -47,63 +47,6 @@ class PostComponent extends StatelessWidget {
   final bool canDelete;
   final Future<void> Function() deletePost;
 
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-        onTap: () async {
-          await onTap(context);
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _Header(
-              login: login,
-              name: name,
-              surname: surname,
-              profileImageId: profileImageId,
-              date: date,
-              deletePost: deletePost,
-              canDelete: canDelete,
-            ),
-            const SizedBox(height: 10),
-            _Body(
-              content: content,
-            ),
-            const SizedBox(height: 16),
-            _Footer(
-              id: id,
-              likes: likes,
-              shares: shares,
-              comments: comments,
-              views: views,
-              liked: liked,
-              onLikeTap: onLikeTap,
-              onShareTap: onShareTap,
-            )
-          ],
-        ));
-  }
-}
-
-class _Header extends StatelessWidget {
-  const _Header(
-      {Key? key,
-      required this.login,
-      required this.name,
-      required this.surname,
-      required this.profileImageId,
-      required this.date,
-      required this.deletePost,
-      required this.canDelete})
-      : super(key: key);
-  final String login;
-  final String name;
-  final String surname;
-  final int profileImageId;
-  final DateTime date;
-  final Future<void> Function() deletePost;
-  final bool canDelete;
-
   Future<void> onDetailsTap(BuildContext context) async {
     AlertDialog alert = AlertDialog(
       actionsAlignment: MainAxisAlignment.start,
@@ -179,6 +122,69 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () async {
+          await onTap(context);
+        },
+        onLongPress: () async {
+          await onDetailsTap(context);
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _Header(
+              login: login,
+              name: name,
+              surname: surname,
+              profileImageId: profileImageId,
+              date: date,
+              onDetailsTap: onDetailsTap,
+              deletePost: deletePost,
+              canDelete: canDelete,
+            ),
+            const SizedBox(height: 10),
+            _Body(
+              content: content,
+            ),
+            const SizedBox(height: 16),
+            _Footer(
+              id: id,
+              likes: likes,
+              shares: shares,
+              comments: comments,
+              views: views,
+              liked: liked,
+              onLikeTap: onLikeTap,
+              onShareTap: onShareTap,
+            )
+          ],
+        ));
+  }
+}
+
+class _Header extends StatelessWidget {
+  const _Header(
+      {Key? key,
+      required this.login,
+      required this.name,
+      required this.surname,
+      required this.profileImageId,
+      required this.date,
+      required this.onDetailsTap,
+      required this.deletePost,
+      required this.canDelete})
+      : super(key: key);
+  final String login;
+  final String name;
+  final String surname;
+  final int profileImageId;
+  final DateTime date;
+  final Future<void> Function(BuildContext) onDetailsTap;
+  final Future<void> Function() deletePost;
+  final bool canDelete;
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -196,22 +202,26 @@ class _Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RichText(
-                  text: TextSpan(
-                      text: "$name $surname ",
-                      style:
-                          AdaptiveTheme.of(context).theme.textTheme.titleMedium,
-                      children: [
-                        TextSpan(
-                            text: "@$login",
-                            style: AdaptiveTheme.of(context)
-                                .theme
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(
-                                    color: CupertinoColors.secondaryLabel))
-                      ]),
-                ),
+                SizedBox(
+                    width: 230,
+                    child: RichText(
+                      text: TextSpan(
+                          text: "$name $surname ",
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .titleMedium,
+                          children: [
+                            TextSpan(
+                                text: "@$login",
+                                style: AdaptiveTheme.of(context)
+                                    .theme
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: CupertinoColors.secondaryLabel))
+                          ]),
+                    )),
                 const SizedBox(
                   height: 2,
                 ),
@@ -287,7 +297,7 @@ class _Footer extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Text(comments.toString(),
+          Text(AppLocalizations.of(context)!.nCompact(comments),
               style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
           const SizedBox(
             width: 5,
@@ -303,7 +313,7 @@ class _Footer extends StatelessWidget {
           },
           child: Row(
             children: [
-              Text(shares.toString(),
+              Text(AppLocalizations.of(context)!.nCompact(shares),
                   style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
               const SizedBox(
                 width: 5,
@@ -318,7 +328,7 @@ class _Footer extends StatelessWidget {
           },
           child: Row(
             children: [
-              Text(likes.toString(),
+              Text(AppLocalizations.of(context)!.nCompact(likes),
                   style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
               const SizedBox(
                 width: 5,
@@ -331,7 +341,7 @@ class _Footer extends StatelessWidget {
           ),
         ),
         Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Text(views.toString(),
+          Text(AppLocalizations.of(context)!.nCompact(views),
               style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
           const SizedBox(
             width: 5,
