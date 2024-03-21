@@ -6,10 +6,28 @@
     "placeholders": {
       "count": {
         "type": "num",
-        "format": "compact"
+        "format": "decimalPattern"
       }
     }
   },
+  "nCompact": "{count, plural, other{{count}}}",
+    "@nCompact": {
+      "placeholders": {
+        "count": {
+          "type": "num",
+          "format": "compact"
+        }
+      }
+    },
+    "nDecimalPattern": "{count, plural, other{{count}}}",
+      "@nDecimalPattern": {
+        "placeholders": {
+          "count": {
+            "type": "num",
+            "format": "decimalPattern"
+          }
+        }
+      },
   "postDateTime": "{date} {time}",
   "@postDateTime": {
     "placeholders": {
@@ -82,5 +100,36 @@
   "deletePost": "Удалить пост",
   "areYouSure": "Вы уверены?",
   "yes": "Да",
-  "deleteComment": "Удалить комментарий"
+  "deleteComment": "Удалить комментарий",
+
+  "setting": "Настройка",
+
+  "accountSettings": "Аккаунт",
+  "accountSettingsDescription": "See information about your account, download an archive of your data, or learn about your account deactivation options",
+  "accountInformation": "Данные аккаунта",
+  "accountInformationDescription": "See information about your account, download an archive of your data, or learn about your account deactivation options",
+  "changePassword": "Сменить пароль",
+  "changePasswordDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+  "deleteAccount": "Удалить аккаунт",
+  "deleteAccountDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+
+  "securitySettings": "Безопасность и доступ",
+  "securitySettingsDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+
+  "privacySettings": "Приватность и сохранность данных",
+  "privacySettingsDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+
+  "accessibilitySettings": "Доступность, экран и языки",
+  "accessibilitySettingsDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+
+  "currentPassword": "Текущий пароль",
+  "newPassword": "Новый пароль",
+  "confirmNewPassword": "Подтвердите новый пароль",
+
+  "changeEmail": "Сменить почту",
+  "changePhone": "Сменить телефон",
+  "code": "Код",
+  "sentCode": "Мы отправили код на вашу почту",
+  "back": "Назад",
+  "apply": "Применить"
 }

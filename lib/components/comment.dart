@@ -184,24 +184,28 @@ class _Header extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RichText(
-              text: TextSpan(
-                  text: "$name $surname ",
-                  style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
-                  children: [
-                    TextSpan(
-                        text: "@$login",
-                        style: AdaptiveTheme.of(context)
-                            .theme
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(color: CupertinoColors.secondaryLabel))
-                  ]),
-            ),
+            SizedBox(
+                width: 250,
+                child: RichText(
+                  text: TextSpan(
+                      text: "$name $surname ",
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.titleSmall,
+                      children: [
+                        TextSpan(
+                            text: "@$login",
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                    color: CupertinoColors.secondaryLabel))
+                      ]),
+                )),
             const SizedBox(
               width: 2,
             ),
-            Text(AppLocalizations.of(context)!.commentDateTime(date, date),
+            Text(dateToAgoString(context, date),
                 style: AdaptiveTheme.of(context).theme.textTheme.bodySmall)
           ],
         ),
@@ -253,7 +257,7 @@ class _Body extends StatelessWidget {
           },
           child: Row(
             children: [
-              Text(likes.toString(),
+              Text(AppLocalizations.of(context)!.nCompact(likes),
                   style: AdaptiveTheme.of(context).theme.textTheme.titleSmall),
               const SizedBox(
                 width: 5,

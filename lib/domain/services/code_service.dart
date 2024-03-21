@@ -2,7 +2,7 @@ import 'package:fixnum/src/int64.dart';
 import 'package:grpc/grpc.dart';
 import 'package:newpoint/domain/api_clients/account_api_client.dart';
 import 'package:newpoint/domain/api_clients/auth_api_client.dart';
-import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
+import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/domain/grpc_clients/network_client.dart';
 import 'package:newpoint/domain/models/user/user.dart';

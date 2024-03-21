@@ -1,5 +1,5 @@
 import 'package:fixnum/src/int64.dart';
-import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
+import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/domain/grpc_clients/network_client.dart';
 import 'package:newpoint/domain/models/user/user.dart';
@@ -131,6 +131,36 @@ class UserService {
         .unpackInto<UpdateProfileImageResponse>(updateProfileImageResponse)
         .id
         .toInt();
+  }
+
+  Future<bool> changeEmail(String email) async {
+    var request = ChangeEmailRequest();
+    request.email = email;
+    var response = await _userServiceClient.changeEmail(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var changeEmailResponse = ChangeEmailResponse();
+    return response.data
+        .unpackInto<ChangeEmailResponse>(changeEmailResponse)
+        .changed;
+  }
+
+  Future<bool> changePassword(
+      String currentPassword, String newPassword) async {
+    var request = ChangePasswordRequest();
+    request.currentPassword = currentPassword;
+    request.newPassword = newPassword;
+    var response = await _userServiceClient.changePassword(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var changePasswordResponse = ChangePasswordResponse();
+    return response.data
+        .unpackInto<ChangePasswordResponse>(changePasswordResponse)
+        .changed;
   }
 
   Future<bool> follow(int userId) async {

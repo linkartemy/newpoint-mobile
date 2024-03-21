@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
+import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/domain/services/code_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
@@ -25,10 +25,14 @@ class RegisterViewModel extends ChangeNotifier {
   var birthDate = DateTime.now();
 
   String? _errorMessage;
+
   String? get errorMessage => _errorMessage;
   bool _isAuthProgress = false;
+
   bool get canStartAuth => !_isAuthProgress;
+
   bool get isAuthProgress => _isAuthProgress;
+
   bool _isValid(String login, String password, String name, String surname,
           String email) =>
       login.isNotEmpty &&
@@ -116,14 +120,8 @@ class RegisterViewModel extends ChangeNotifier {
         return;
       }
 
-      _errorMessage = await _register(
-          login,
-          password,
-          name,
-          surname,
-          email,
-          '',
-          birthDate);
+      _errorMessage =
+          await _register(login, password, name, surname, email, '', birthDate);
       if (_errorMessage == null) {
         MainNavigation.resetNavigation(context);
       } else {
@@ -132,8 +130,7 @@ class RegisterViewModel extends ChangeNotifier {
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
         _errorMessage = "Something is wrong with the connection to the server";
-      }
-      else {
+      } else {
         _errorMessage = e.error;
         _updateState(_errorMessage, false);
       }

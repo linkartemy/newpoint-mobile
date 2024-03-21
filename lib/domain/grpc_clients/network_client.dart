@@ -1,6 +1,6 @@
 import 'package:grpc/grpc.dart';
 import 'package:newpoint/configuration/configuration.dart';
-import 'package:newpoint/domain/api_clients/exceptions/api_client_exception.dart';
+import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/protos.dart' as protos;
 

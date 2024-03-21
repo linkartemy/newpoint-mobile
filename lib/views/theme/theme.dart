@@ -156,6 +156,7 @@ class AppColors {
   static const textColor = Colors.black;
   static const secondaryTextColor = Color.fromRGBO(142, 142, 147, 1);
   static const secondaryTextColorOnBlueBg = Color.fromRGBO(239, 239, 239, 1.0);
+  static const successColor = Colors.green;
 }
 
 class _Fonts {

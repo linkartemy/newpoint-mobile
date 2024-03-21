@@ -12,6 +12,17 @@ abstract class MainNavigationRouteNames {
   static const register = '/register';
   static const login = '/login';
   static const settings = '/settings';
+
+  static const accountSettingsMenu = '/settings/account';
+  static const accountSettings = '/settings/account/account';
+  static const passwordSettings = '/settings/account/password';
+  static const deleteAccountSettings = '/settings/account/delete';
+
+  static const securitySettingsMenu = '/settings/security';
+
+  static const privacySettingsMenu = '/settings/privacy';
+
+  static const accessibilitySettingsMenu = '/settings/accessibility';
 }
 
 class MainNavigation {
@@ -26,6 +37,12 @@ class MainNavigation {
     MainNavigationRouteNames.postCreator: (_) =>
         _screenFactory.makePostCreator(),
     MainNavigationRouteNames.settings: (_) => _screenFactory.makeSettings(),
+    MainNavigationRouteNames.accountSettingsMenu: (_) =>
+        _screenFactory.makeAccountMenuSettings(),
+    MainNavigationRouteNames.passwordSettings: (_) =>
+        _screenFactory.makePasswordSettings(),
+    MainNavigationRouteNames.accountSettings: (_) =>
+        _screenFactory.makeAccountSettings(),
   };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {

@@ -1,59 +1,67 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:newpoint/views/navigation/main_navigation.dart';
+import 'package:newpoint/views/theme/theme.dart';
 
-class InputComponent extends StatelessWidget {
-  const InputComponent(
-      {Key? key,
-      required this.label,
-      required this.controller,
-      this.textAlign = TextAlign.start,
-      this.obscureText = false,
-      this.textFieldStyle,
-      this.fillColor,
-      this.floatingLabelBehavior,
-      this.border = InputBorder.none,
-      this.isCollapsed = false,
-      this.alignLabelWithHint = false,
-      this.centerLabel = false})
-      : super(key: key);
-  final String label;
-  final TextEditingController controller;
-  final TextAlign textAlign;
-
-  final bool obscureText;
-  final TextStyle? textFieldStyle;
-  final Color? fillColor;
-  final FloatingLabelBehavior? floatingLabelBehavior;
-  final InputBorder border;
-  final bool isCollapsed;
-  final bool alignLabelWithHint;
-  final bool centerLabel;
+class SettingTab extends StatelessWidget {
+  const SettingTab({
+    Key? key,
+    required this.title,
+    required this.description,
+    required this.icon,
+    required this.navigationRoute,
+  }) : super(key: key);
+  final String title;
+  final String description;
+  final IconData icon;
+  final String navigationRoute;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      style: textFieldStyle ??
-          AdaptiveTheme.of(context).theme.textTheme.titleSmall,
-      textAlign: textAlign,
-      decoration: InputDecoration(
-          alignLabelWithHint: alignLabelWithHint,
-          border: border,
-          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          isCollapsed: isCollapsed,
-          filled: true,
-          fillColor: fillColor ??
-              AdaptiveTheme.of(context).theme.inputDecorationTheme.fillColor,
-          label: centerLabel
-              ? Center(
-                  child: Text(label),
+    return Container(
+        margin: const EdgeInsets.only(top: 16),
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: InkWell(
+            onTap: () {
+              Navigator.of(context).pushNamed(navigationRoute);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Icon(
+                            icon,
+                            size: 18,
+                          ),
+                          SizedBox(width: 8),
+                          Text(title,
+                              style: AdaptiveTheme.of(context)
+                                  .theme
+                                  .textTheme
+                                  .titleSmall)
+                        ]),
+                    SizedBox(height: 4),
+                    Container(
+                        width: MediaQuery.of(context).size.width * 0.64,
+                        child: Text(description,
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .bodySmall))
+                  ],
+                ),
+                Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  color: AppColors.secondaryTextColor,
                 )
-              : null,
-          labelText: centerLabel ? null : label,
-          labelStyle: AdaptiveTheme.of(context).theme.textTheme.bodySmall,
-          floatingLabelBehavior:
-              floatingLabelBehavior ?? FloatingLabelBehavior.auto),
-      obscureText: obscureText,
-    );
+              ],
+            )));
   }
 }
