@@ -20,23 +20,27 @@ import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class SettingsView extends StatefulWidget {
-  const SettingsView({Key? key}) : super(key: key);
+import 'account_settings_menu_view_model.dart';
+
+class AccountSettingsMenuView extends StatefulWidget {
+  const AccountSettingsMenuView({Key? key}) : super(key: key);
 
   @override
-  SettingsViewState createState() => SettingsViewState();
+  AccountSettingsMenuViewState createState() => AccountSettingsMenuViewState();
 }
 
-class SettingsViewState extends State<SettingsView> {
+class AccountSettingsMenuViewState extends State<AccountSettingsMenuView> {
   bool _isLoading = false;
 
   Future<void> onRefresh() async {
-    final model = Provider.of<SettingsViewModel>(context, listen: false);
+    final model =
+        Provider.of<AccountSettingsMenuViewModel>(context, listen: false);
     await getUser();
   }
 
   Future<void> getUser() async {
-    final model = Provider.of<SettingsViewModel>(context, listen: false);
+    final model =
+        Provider.of<AccountSettingsMenuViewModel>(context, listen: false);
     await model.getUser();
     setState(() {
       _isLoading = false;
@@ -65,7 +69,7 @@ class SettingsViewState extends State<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<SettingsViewModel>(context);
+    final model = Provider.of<AccountSettingsMenuViewModel>(context);
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -95,12 +99,9 @@ class SettingsViewState extends State<SettingsView> {
 }
 
 class _Header extends StatefulWidget {
-  const _Header({
-    Key? key,
-    required this.refresh,
-  }) : super(key: key);
+  const _Header({Key? key, required this.refresh}) : super(key: key);
 
-  final Function refresh;
+  final Future<void> Function() refresh;
 
   @override
   _HeaderState createState() => _HeaderState();
@@ -111,7 +112,7 @@ class _HeaderState extends State<_Header> {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<SettingsViewModel>(context);
+    final model = Provider.of<AccountSettingsMenuViewModel>(context);
 
     return Container(
         alignment: Alignment.center,
@@ -151,63 +152,58 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<SettingsViewModel>(context);
+    final model = Provider.of<AccountSettingsMenuViewModel>(context);
 
     final settings = <SettingTabData>[
       SettingTabData(
-        title: AppLocalizations.of(context)!.accountSettings,
-        description: AppLocalizations.of(context)!.accountSettingsDescription,
-        icon: Icons.account_circle_rounded,
-        navigationRoute: MainNavigationRouteNames.accountSettingsMenu,
-      ),
-      SettingTabData(
-        title: AppLocalizations.of(context)!.securitySettings,
-        description: AppLocalizations.of(context)!.securitySettingsDescription,
-        icon: Icons.safety_check,
-        navigationRoute: MainNavigationRouteNames.securitySettingsMenu,
-      ),
-      SettingTabData(
-        title: AppLocalizations.of(context)!.privacySettings,
-        description: AppLocalizations.of(context)!.privacySettingsDescription,
-        icon: Icons.privacy_tip_outlined,
-        navigationRoute: MainNavigationRouteNames.privacySettingsMenu,
-      ),
-      SettingTabData(
-        title: AppLocalizations.of(context)!.accessibilitySettings,
+        title: AppLocalizations.of(context)!.accountInformation,
         description:
-            AppLocalizations.of(context)!.accessibilitySettingsDescription,
-        icon: Icons.accessibility,
-        navigationRoute: MainNavigationRouteNames.accessibilitySettingsMenu,
+            AppLocalizations.of(context)!.accountInformationDescription,
+        icon: Icons.person,
+        navigationRoute: MainNavigationRouteNames.accountSettings,
+      ),
+      SettingTabData(
+        title: AppLocalizations.of(context)!.changePassword,
+        description: AppLocalizations.of(context)!.changePasswordDescription,
+        icon: Icons.lock,
+        navigationRoute: MainNavigationRouteNames.passwordSettings,
+      ),
+      SettingTabData(
+        title: AppLocalizations.of(context)!.deleteAccount,
+        description: AppLocalizations.of(context)!.deleteAccountDescription,
+        icon: Icons.delete,
+        navigationRoute: MainNavigationRouteNames.deleteAccountSettings,
       ),
     ];
 
     return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 24),
-        child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: settings.length,
-            itemBuilder: (context, index) {
-              if (model.settingsNameFieldText.value.text.isNotEmpty) {
-                if (settings[index]
-                    .title
-                    .toString()
-                    .toLowerCase()
-                    .contains(model.settingsNameFieldText.value.text)) {
-                  return SettingTab(
-                    title: settings[index].title,
-                    description: settings[index].description,
-                    icon: settings[index].icon,
-                    navigationRoute: settings[index].navigationRoute,
-                  );
-                }
-                return const SizedBox();
+      margin: const EdgeInsets.symmetric(horizontal: 24),
+      child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: settings.length,
+          itemBuilder: (BuildContext context, int index) {
+            if (model.settingsNameFieldText.value.text.isNotEmpty) {
+              if (settings[index]
+                  .title
+                  .toString()
+                  .toLowerCase()
+                  .contains(model.settingsNameFieldText.value.text)) {
+                return SettingTab(
+                  title: settings[index].title,
+                  description: settings[index].description,
+                  icon: settings[index].icon,
+                  navigationRoute: settings[index].navigationRoute,
+                );
               }
-              return SettingTab(
-                title: settings[index].title,
-                description: settings[index].description,
-                icon: settings[index].icon,
-                navigationRoute: settings[index].navigationRoute,
-              );
-            }));
+              return const SizedBox();
+            }
+            return SettingTab(
+              title: settings[index].title,
+              description: settings[index].description,
+              icon: settings[index].icon,
+              navigationRoute: settings[index].navigationRoute,
+            );
+          }),
+    );
   }
 }

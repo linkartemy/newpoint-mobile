@@ -9,8 +9,8 @@ import 'package:newpoint/domain/services/image_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
 
-class SettingsViewModel extends ChangeNotifier {
-  SettingsViewModel();
+class AccountSettingsMenuViewModel extends ChangeNotifier {
+  AccountSettingsMenuViewModel();
 
   final _userService = UserService();
   final _postService = PostService();
