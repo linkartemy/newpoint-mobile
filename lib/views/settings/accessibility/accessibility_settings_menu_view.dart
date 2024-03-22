@@ -14,32 +14,32 @@ import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/profile/profile_view_model.dart';
-import 'package:newpoint/views/settings/account/account_settings_menu_view_model.dart';
+import 'package:newpoint/views/settings/accessibility/accessibility_settings_menu_view_model.dart';
 import 'package:newpoint/views/settings/setting_tab_data.dart';
 import 'package:newpoint/views/settings/settings_view_model.dart';
 import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class AccountSettingsMenuView extends StatefulWidget {
-  const AccountSettingsMenuView({Key? key}) : super(key: key);
+class AccessibilitySettingsMenuView extends StatefulWidget {
+  const AccessibilitySettingsMenuView({Key? key}) : super(key: key);
 
   @override
-  AccountSettingsMenuViewState createState() => AccountSettingsMenuViewState();
+  AccessibilitySettingsMenuViewState createState() => AccessibilitySettingsMenuViewState();
 }
 
-class AccountSettingsMenuViewState extends State<AccountSettingsMenuView> {
+class AccessibilitySettingsMenuViewState extends State<AccessibilitySettingsMenuView> {
   bool _isLoading = false;
 
   Future<void> onRefresh() async {
     final model =
-        Provider.of<AccountSettingsMenuViewModel>(context, listen: false);
+        Provider.of<AccessibilitySettingsMenuViewModel>(context, listen: false);
     await getUser();
   }
 
   Future<void> getUser() async {
     final model =
-        Provider.of<AccountSettingsMenuViewModel>(context, listen: false);
+        Provider.of<AccessibilitySettingsMenuViewModel>(context, listen: false);
     await model.getUser();
     setState(() {
       _isLoading = false;
@@ -68,7 +68,7 @@ class AccountSettingsMenuViewState extends State<AccountSettingsMenuView> {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccountSettingsMenuViewModel>(context);
+    final model = Provider.of<AccessibilitySettingsMenuViewModel>(context);
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -111,7 +111,7 @@ class _HeaderState extends State<_Header> {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccountSettingsMenuViewModel>(context);
+    final model = Provider.of<AccessibilitySettingsMenuViewModel>(context);
 
     return Container(
         alignment: Alignment.center,
@@ -151,7 +151,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccountSettingsMenuViewModel>(context);
+    final model = Provider.of<AccessibilitySettingsMenuViewModel>(context);
 
     final settings = <SettingTabData>[
       SettingTabData(

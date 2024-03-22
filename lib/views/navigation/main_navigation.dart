@@ -38,11 +38,13 @@ class MainNavigation {
         _screenFactory.makePostCreator(),
     MainNavigationRouteNames.settings: (_) => _screenFactory.makeSettings(),
     MainNavigationRouteNames.accountSettingsMenu: (_) =>
-        _screenFactory.makeAccountMenuSettings(),
+        _screenFactory.makeAccountSettingsMenu(),
     MainNavigationRouteNames.passwordSettings: (_) =>
         _screenFactory.makePasswordSettings(),
     MainNavigationRouteNames.accountSettings: (_) =>
         _screenFactory.makeAccountSettings(),
+    MainNavigationRouteNames.accessibilitySettingsMenu: (_) =>
+        _screenFactory.makeAccessibilitySettingsMenu(),
   };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {

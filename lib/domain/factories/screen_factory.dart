@@ -16,6 +16,8 @@ import 'package:newpoint/views/profile/profile_view.dart';
 import 'package:newpoint/views/profile/profile_view_model.dart';
 import 'package:newpoint/views/profile_editor/profile_editor_view.dart';
 import 'package:newpoint/views/profile_editor/profile_editor_view_model.dart';
+import 'package:newpoint/views/settings/accessibility/accessibility_settings_menu_view.dart';
+import 'package:newpoint/views/settings/accessibility/accessibility_settings_menu_view_model.dart';
 import 'package:newpoint/views/settings/account/account_settings_menu_view.dart';
 import 'package:newpoint/views/settings/account/account_settings_menu_view_model.dart';
 import 'package:newpoint/views/settings/account/account_settings_view.dart';
@@ -100,7 +102,7 @@ class ScreenFactory {
     );
   }
 
-  Widget makeAccountMenuSettings() {
+  Widget makeAccountSettingsMenu() {
     return ChangeNotifierProvider(
       create: (_) => AccountSettingsMenuViewModel(),
       child: const AccountSettingsMenuView(),
@@ -118,6 +120,13 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => AccountSettingsViewModel(),
       child: const AccountSettingsView(),
+    );
+  }
+
+  Widget makeAccessibilitySettingsMenu() {
+    return ChangeNotifierProvider(
+      create: (_) => AccessibilitySettingsMenuViewModel(),
+      child: const AccessibilitySettingsMenuView(),
     );
   }
 }
