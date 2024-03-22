@@ -20,6 +20,7 @@ service GrpcUser {
   rpc IsFollowing (IsFollowingRequest) returns (response.Response);
   rpc ChangeEmail (ChangeEmailRequest) returns (response.Response);
   rpc ChangePassword (ChangePasswordRequest) returns (response.Response);
+  rpc VerifyPassword (VerifyPasswordRequest) returns (response.Response);
 }
 
 message UserModel {
@@ -127,6 +128,14 @@ message ChangePasswordRequest {
 
 message ChangePasswordResponse {
   bool changed = 1;
+}
+
+message VerifyPasswordRequest {
+  string password = 1;
+}
+
+message VerifyPasswordResponse {
+  bool verified = 1;
 }
 
 message FollowRequest {

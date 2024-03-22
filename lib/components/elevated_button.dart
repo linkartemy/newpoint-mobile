@@ -2,8 +2,8 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:newpoint/views/theme/theme.dart';
 
-class TextButtonComponent extends StatelessWidget {
-  const TextButtonComponent(
+class ElevatedButtonComponent extends StatelessWidget {
+  const ElevatedButtonComponent(
       {Key? key,
       required this.child,
       required this.onPressed,
@@ -18,15 +18,19 @@ class TextButtonComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ButtonStyle buttonStyle = style ??
-        AdaptiveTheme.of(context).theme.textButtonTheme.style!.copyWith(
+        AdaptiveTheme.of(context).theme.elevatedButtonTheme.style!.copyWith(
             backgroundColor: MaterialStateProperty.all(Colors.transparent));
     TextStyle textStyle = AdaptiveTheme.of(context)
         .theme
         .textTheme
         .bodySmall!
-        .copyWith(color: AppColors.primary);
+        .copyWith(color: AppColors.buttonTextColor);
+    if (style == null) {
+      textStyle = textStyle.copyWith(color: AppColors.primary);
+    }
     if (!available) {
-      textStyle = textStyle.copyWith(color: Colors.grey);
+      buttonStyle = buttonStyle.copyWith(
+          backgroundColor: MaterialStateProperty.all(Colors.grey));
     }
     return TextButton(
       onPressed: onPressed,

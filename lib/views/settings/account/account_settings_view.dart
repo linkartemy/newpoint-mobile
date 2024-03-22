@@ -10,6 +10,7 @@ import 'package:newpoint/components/input.dart';
 import 'package:newpoint/components/post.dart';
 import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/components/setting_tab.dart';
+import 'package:newpoint/components/elevated_button.dart';
 import 'package:newpoint/components/text_button.dart';
 import 'package:newpoint/domain/factories/screen_factory.dart';
 import 'package:newpoint/domain/models/post/post.dart';
@@ -167,7 +168,7 @@ class _ChangeEmailState extends State<_ChangeEmail> {
                       : Container(),
                   ErrorComponent(error: model.errorEmail),
                   const SizedBox(height: 20),
-                  TextButtonComponent(
+                  ElevatedButtonComponent(
                     child: AppLocalizations.of(context)!.apply,
                     onPressed: () async {
                       await model.changeEmail();
@@ -193,17 +194,33 @@ class _ChangeEmailState extends State<_ChangeEmail> {
                           .textTheme
                           .titleSmall!
                           .copyWith(color: AppColors.textColor)),
+                  TextButtonComponent(
+                    child: AppLocalizations.of(context)!.resendCode +
+                        (model.resendCodeCountDown > 0
+                            ? " (${model.resendCodeCountDown} seconds)"
+                            : ""),
+                    onPressed: () async {
+                      if (!model.resendCodeButtonAvailable) return;
+                      model.resendCodeButtonAvailable = false;
+                      setState(() {});
+                      await model.resendCode();
+                      setState(() {});
+                    },
+                    available: model.resendCodeButtonAvailable,
+                  ),
                   ErrorComponent(error: model.errorEmail),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextButtonComponent(
+                      ElevatedButtonComponent(
                         child: AppLocalizations.of(context)!.back,
                         onPressed: () async {
                           model.stepEmail = 1;
                           model.emailFieldText.text = model.currentEmail ?? "";
                           model.emailCodeFieldText.text = "";
+                          model.resendCodeCountDown = 0;
+                          model.resendCodeButtonAvailable = true;
                           setState(() {});
                         },
                         style: AdaptiveTheme.of(context)
@@ -212,10 +229,14 @@ class _ChangeEmailState extends State<_ChangeEmail> {
                             .style!
                             .copyWith(alignment: Alignment.center),
                       ),
-                      TextButtonComponent(
+                      ElevatedButtonComponent(
                         child: AppLocalizations.of(context)!.apply,
                         onPressed: () async {
+                          if (!model.verifyEmailButtonAvailable) return;
+                          model.verifyEmailButtonAvailable = false;
+                          setState(() {});
                           await model.verifyEmail();
+                          model.verifyEmailButtonAvailable = true;
                           setState(() {});
                         },
                         style: AdaptiveTheme.of(context)
@@ -223,6 +244,7 @@ class _ChangeEmailState extends State<_ChangeEmail> {
                             .elevatedButtonTheme
                             .style!
                             .copyWith(alignment: Alignment.center),
+                        available: model.verifyEmailButtonAvailable,
                       ),
                     ],
                   ),
@@ -276,7 +298,7 @@ class _ChangePhoneState extends State<_ChangePhone> {
                 : Container(),
             ErrorComponent(error: model.errorPhone),
             const SizedBox(height: 20),
-            TextButtonComponent(
+            ElevatedButtonComponent(
               child: AppLocalizations.of(context)!.apply,
               onPressed: () async {
                 await model.changePhone();

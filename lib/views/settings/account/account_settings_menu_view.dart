@@ -121,7 +121,7 @@ class _HeaderState extends State<_Header> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             InputComponent(
-              label: "Setting name",
+              label: AppLocalizations.of(context)!.setting,
               controller: model.settingsNameFieldText,
               textAlign: TextAlign.center,
               textFieldStyle: AdaptiveTheme.of(context)

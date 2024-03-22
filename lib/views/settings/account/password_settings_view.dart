@@ -11,6 +11,7 @@ import 'package:newpoint/components/input.dart';
 import 'package:newpoint/components/post.dart';
 import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/components/setting_tab.dart';
+import 'package:newpoint/components/elevated_button.dart';
 import 'package:newpoint/components/text_button.dart';
 import 'package:newpoint/domain/factories/screen_factory.dart';
 import 'package:newpoint/domain/models/post/post.dart';
@@ -145,10 +146,14 @@ class _BodyState extends State<_Body> {
                     obscureText: true,
                   ),
                   const SizedBox(height: 20),
-                  TextButtonComponent(
+                  ElevatedButtonComponent(
                     child: AppLocalizations.of(context)!.changePassword,
                     onPressed: () async {
+                      if (!model.changePasswordButtonAvailable) return;
+                      model.changePasswordButtonAvailable = false;
+                      setState(() {});
                       await model.changePassword();
+                      model.changePasswordButtonAvailable = true;
                       setState(() {});
                     },
                     style: AdaptiveTheme.of(context)
@@ -156,6 +161,7 @@ class _BodyState extends State<_Body> {
                         .elevatedButtonTheme
                         .style!
                         .copyWith(alignment: Alignment.centerLeft),
+                    available: model.changePasswordButtonAvailable,
                   ),
                   Container(
                       alignment: Alignment.center,
@@ -179,11 +185,25 @@ class _BodyState extends State<_Body> {
                           .textTheme
                           .titleSmall!
                           .copyWith(color: AppColors.textColor)),
+                  TextButtonComponent(
+                    child: AppLocalizations.of(context)!.resendCode +
+                        (model.resendCodeCountDown > 0
+                            ? " (${model.resendCodeCountDown} seconds)"
+                            : ""),
+                    onPressed: () async {
+                      if (!model.resendCodeButtonAvailable) return;
+                      model.resendCodeButtonAvailable = false;
+                      setState(() {});
+                      await model.resendCode();
+                      setState(() {});
+                    },
+                    available: model.resendCodeButtonAvailable,
+                  ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextButtonComponent(
+                      ElevatedButtonComponent(
                         child: AppLocalizations.of(context)!.back,
                         onPressed: () async {
                           model.step = 1;
@@ -199,10 +219,14 @@ class _BodyState extends State<_Body> {
                             .style!
                             .copyWith(alignment: Alignment.center),
                       ),
-                      TextButtonComponent(
+                      ElevatedButtonComponent(
                         child: AppLocalizations.of(context)!.apply,
                         onPressed: () async {
-                          await model.verifyEmail();
+                          if (!model.verifyCodeButtonAvailable) return;
+                          model.verifyCodeButtonAvailable = false;
+                          setState(() {});
+                          await model.verifyCode();
+                          model.verifyCodeButtonAvailable = true;
                           setState(() {});
                         },
                         style: AdaptiveTheme.of(context)
@@ -210,6 +234,7 @@ class _BodyState extends State<_Body> {
                             .elevatedButtonTheme
                             .style!
                             .copyWith(alignment: Alignment.center),
+                        available: model.verifyCodeButtonAvailable,
                       ),
                     ],
                   ),
