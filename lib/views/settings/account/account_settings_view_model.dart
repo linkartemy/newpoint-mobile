@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
@@ -25,6 +27,11 @@ class AccountSettingsViewModel extends ChangeNotifier {
   String error = "";
   String errorPhone = "";
   String errorEmail = "";
+
+  bool verifyEmailButtonAvailable = true;
+  bool resendCodeButtonAvailable = true;
+  int resendCodeCountDown = 0;
+  Timer timer = Timer(const Duration(seconds: 1), () {});
 
   String? currentPhone;
   String? currentEmail;
@@ -83,6 +90,44 @@ class AccountSettingsViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> resendCode() async {
+    try {
+      final email = emailFieldText.text;
+      if (email.isEmpty) {
+        errorEmail = "Email cannot be empty";
+        notifyListeners();
+        Future.delayed(const Duration(seconds: 5), () {
+          errorEmail = "";
+          notifyListeners();
+        });
+        return;
+      }
+      resendCodeCountDown = 60;
+      _codeService.addEmailCode(email);
+      timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (Timer timer) {
+          if (resendCodeCountDown == 0) {
+            timer.cancel();
+            resendCodeButtonAvailable = true;
+            notifyListeners();
+          } else {
+            --resendCodeCountDown;
+            notifyListeners();
+          }
+        },
+      );
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+      error = e.error;
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
   Future<void> changeEmail() async {
     try {
       errorEmail = "";
@@ -99,6 +144,8 @@ class AccountSettingsViewModel extends ChangeNotifier {
       if (email == currentEmail) {
         return;
       }
+      resendCodeCountDown = 0;
+      resendCodeButtonAvailable = true;
       _codeService.addEmailCode(email);
       stepEmail = 2;
       notifyListeners();

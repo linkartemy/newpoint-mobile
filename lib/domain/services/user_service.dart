@@ -163,6 +163,20 @@ class UserService {
         .changed;
   }
 
+  Future<bool> verifyPassword(String password) async {
+    var request = VerifyPasswordRequest();
+    request.password = password;
+    var response = await _userServiceClient.verifyPassword(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var verifyPasswordResponse = VerifyPasswordResponse();
+    return response.data
+        .unpackInto<VerifyPasswordResponse>(verifyPasswordResponse)
+        .verified;
+  }
+
   Future<bool> follow(int userId) async {
     var request = FollowRequest();
     request.userId = Int64.parseInt(userId.toString());

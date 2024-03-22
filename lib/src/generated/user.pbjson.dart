@@ -297,6 +297,30 @@ const ChangePasswordResponse$json = {
 final $typed_data.Uint8List changePasswordResponseDescriptor = $convert.base64Decode(
     'ChZDaGFuZ2VQYXNzd29yZFJlc3BvbnNlEhgKB2NoYW5nZWQYASABKAhSB2NoYW5nZWQ=');
 
+@$core.Deprecated('Use verifyPasswordRequestDescriptor instead')
+const VerifyPasswordRequest$json = {
+  '1': 'VerifyPasswordRequest',
+  '2': [
+    {'1': 'password', '3': 1, '4': 1, '5': 9, '10': 'password'},
+  ],
+};
+
+/// Descriptor for `VerifyPasswordRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List verifyPasswordRequestDescriptor = $convert.base64Decode(
+    'ChVWZXJpZnlQYXNzd29yZFJlcXVlc3QSGgoIcGFzc3dvcmQYASABKAlSCHBhc3N3b3Jk');
+
+@$core.Deprecated('Use verifyPasswordResponseDescriptor instead')
+const VerifyPasswordResponse$json = {
+  '1': 'VerifyPasswordResponse',
+  '2': [
+    {'1': 'verified', '3': 1, '4': 1, '5': 8, '10': 'verified'},
+  ],
+};
+
+/// Descriptor for `VerifyPasswordResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List verifyPasswordResponseDescriptor = $convert.base64Decode(
+    'ChZWZXJpZnlQYXNzd29yZFJlc3BvbnNlEhoKCHZlcmlmaWVkGAEgASgIUgh2ZXJpZmllZA==');
+
 @$core.Deprecated('Use followRequestDescriptor instead')
 const FollowRequest$json = {
   '1': 'FollowRequest',

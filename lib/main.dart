@@ -96,6 +96,7 @@ Future<void> addTimeAgoLocales() async {
   timeago.setLocaleMessages('vi_short', timeago.ViShortMessages());
   timeago.setLocaleMessages('zh_CN', timeago.ZhCnMessages());
   timeago.setLocaleMessages('zh', timeago.ZhMessages());
+  timeago.setDefaultLocale('en');
 }
 
 class MyApp extends StatefulWidget {
@@ -120,7 +121,7 @@ class _MyAppState extends State<MyApp> {
         initial: AdaptiveThemeMode.light,
         builder: (theme, darkTheme) => MaterialApp(
           theme: theme,
-          darkTheme: darkTheme, 
+          darkTheme: darkTheme,
           title: 'NewPoint',
           localizationsDelegates: const [
             AppLocalizations.delegate,

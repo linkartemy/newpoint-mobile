@@ -1441,6 +1441,106 @@ class ChangePasswordResponse extends $pb.GeneratedMessage {
   void clearChanged() => clearField(1);
 }
 
+class VerifyPasswordRequest extends $pb.GeneratedMessage {
+  factory VerifyPasswordRequest({
+    $core.String? password,
+  }) {
+    final $result = create();
+    if (password != null) {
+      $result.password = password;
+    }
+    return $result;
+  }
+  VerifyPasswordRequest._() : super();
+  factory VerifyPasswordRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory VerifyPasswordRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'VerifyPasswordRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'password')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  VerifyPasswordRequest clone() => VerifyPasswordRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  VerifyPasswordRequest copyWith(void Function(VerifyPasswordRequest) updates) => super.copyWith((message) => updates(message as VerifyPasswordRequest)) as VerifyPasswordRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static VerifyPasswordRequest create() => VerifyPasswordRequest._();
+  VerifyPasswordRequest createEmptyInstance() => create();
+  static $pb.PbList<VerifyPasswordRequest> createRepeated() => $pb.PbList<VerifyPasswordRequest>();
+  @$core.pragma('dart2js:noInline')
+  static VerifyPasswordRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<VerifyPasswordRequest>(create);
+  static VerifyPasswordRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get password => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set password($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPassword() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPassword() => clearField(1);
+}
+
+class VerifyPasswordResponse extends $pb.GeneratedMessage {
+  factory VerifyPasswordResponse({
+    $core.bool? verified,
+  }) {
+    final $result = create();
+    if (verified != null) {
+      $result.verified = verified;
+    }
+    return $result;
+  }
+  VerifyPasswordResponse._() : super();
+  factory VerifyPasswordResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory VerifyPasswordResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'VerifyPasswordResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'verified')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  VerifyPasswordResponse clone() => VerifyPasswordResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  VerifyPasswordResponse copyWith(void Function(VerifyPasswordResponse) updates) => super.copyWith((message) => updates(message as VerifyPasswordResponse)) as VerifyPasswordResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static VerifyPasswordResponse create() => VerifyPasswordResponse._();
+  VerifyPasswordResponse createEmptyInstance() => create();
+  static $pb.PbList<VerifyPasswordResponse> createRepeated() => $pb.PbList<VerifyPasswordResponse>();
+  @$core.pragma('dart2js:noInline')
+  static VerifyPasswordResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<VerifyPasswordResponse>(create);
+  static VerifyPasswordResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get verified => $_getBF(0);
+  @$pb.TagNumber(1)
+  set verified($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasVerified() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearVerified() => clearField(1);
+}
+
 class FollowRequest extends $pb.GeneratedMessage {
   factory FollowRequest({
     $fixnum.Int64? userId,

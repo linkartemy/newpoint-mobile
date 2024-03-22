@@ -1,7 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:newpoint/components/button.dart';
-import 'package:newpoint/components/text_button.dart';
+import 'package:newpoint/components/elevated_button.dart';
 import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 
@@ -76,7 +76,7 @@ class _AuthButtonsWidget extends StatelessWidget {
             style: AdaptiveTheme.of(context).theme.elevatedButtonTheme.style,
             child: const Text("Sign in"),
           ),
-          TextButtonComponent(
+          ElevatedButtonComponent(
             onPressed: () => {
               Navigator.of(context)
                   .pushNamed(MainNavigationRouteNames.register),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
@@ -22,6 +24,12 @@ class PasswordSettingsViewModel extends ChangeNotifier {
   String success = "";
   String error = "";
   int step = 1;
+
+  bool changePasswordButtonAvailable = true;
+  bool verifyCodeButtonAvailable = true;
+  bool resendCodeButtonAvailable = true;
+  int resendCodeCountDown = 0;
+  Timer timer = Timer(Duration(seconds: 1), () {});
 
   TextEditingController currentPasswordFieldText = TextEditingController();
   TextEditingController newPasswordFieldText = TextEditingController();
@@ -67,6 +75,11 @@ class PasswordSettingsViewModel extends ChangeNotifier {
         setError("New password cannot be the same as the current password");
         return;
       }
+      if (!await _userService.verifyPassword(currentPasswordFieldText.text)) {
+        currentPasswordFieldText.text = "";
+        setError("Current password is incorrect");
+        return;
+      }
       _codeService.addEmailCode(user!.email!);
       step = 2;
     } on ApiClientException catch (e) {
@@ -81,7 +94,45 @@ class PasswordSettingsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> verifyEmail() async {
+  Future<void> resendCode() async {
+    try {
+      final email = user!.email!;
+      if (email.isEmpty) {
+        error = "Email cannot be empty";
+        notifyListeners();
+        Future.delayed(const Duration(seconds: 5), () {
+          error = "";
+          notifyListeners();
+        });
+        return;
+      }
+      resendCodeCountDown = 60;
+      _codeService.addEmailCode(email);
+      timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (Timer timer) {
+          if (resendCodeCountDown == 0) {
+            timer.cancel();
+            resendCodeButtonAvailable = true;
+            notifyListeners();
+          } else {
+            --resendCodeCountDown;
+            notifyListeners();
+          }
+        },
+      );
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+      error = e.error;
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> verifyCode() async {
     try {
       final code = codeFieldText.text;
       if (code.isEmpty) {

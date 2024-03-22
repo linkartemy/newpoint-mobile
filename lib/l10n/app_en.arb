@@ -130,6 +130,7 @@
   "changePhone": "Change phone",
   "code": "Code",
   "sentCode": "We have sent a code to your email",
+  "resendCode": "Resend code",
   "back": "Back",
   "apply": "Apply"
 }
