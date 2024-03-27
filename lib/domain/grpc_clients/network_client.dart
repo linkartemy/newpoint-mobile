@@ -13,11 +13,11 @@ class NetworkClient {
     options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
   );
 
-  final storageClientChannel = ClientChannel(
-    Configuration.grpcStorageHost!,
-    port: Configuration.grpcStoragePort,
-    options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
-  );
+  // final storageClientChannel = ClientChannel(
+  //   Configuration.grpcStorageHost!,
+  //   port: Configuration.grpcStoragePort,
+  //   options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+  // );
 
   Future<CallOptions> getAuthorizedCallOptions() async {
     return CallOptions(metadata: {
