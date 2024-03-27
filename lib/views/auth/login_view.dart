@@ -50,7 +50,7 @@ class LoginView extends StatelessWidget {
                                     .theme
                                     .primaryColor)),
                         const TextSpan(
-                          text: ', Again!',
+                          text: ', again!',
                         ),
                       ],
                     ),

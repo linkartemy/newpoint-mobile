@@ -103,7 +103,7 @@ class AccountSettingsViewModel extends ChangeNotifier {
         return;
       }
       resendCodeCountDown = 60;
-      _codeService.addEmailCode(email);
+      _codeService.addEmailVerificationCode(email);
       timer = Timer.periodic(
         const Duration(seconds: 1),
         (Timer timer) {
@@ -146,7 +146,7 @@ class AccountSettingsViewModel extends ChangeNotifier {
       }
       resendCodeCountDown = 0;
       resendCodeButtonAvailable = true;
-      _codeService.addEmailCode(email);
+      _codeService.addEmailVerificationCode(email);
       stepEmail = 2;
       notifyListeners();
     } on ApiClientException catch (e) {
@@ -172,7 +172,7 @@ class AccountSettingsViewModel extends ChangeNotifier {
         });
         return;
       }
-      final verified = await _codeService.verifyEmailCode(email, code);
+      final verified = await _codeService.verifyEmailVerificationCode(email, code);
       if (!verified) {
         errorEmail = "Incorrect code";
         notifyListeners();

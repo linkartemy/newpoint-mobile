@@ -80,7 +80,7 @@ class PasswordSettingsViewModel extends ChangeNotifier {
         setError("Current password is incorrect");
         return;
       }
-      _codeService.addEmailCode(user!.email!);
+      _codeService.addEmailVerificationCode(user!.email!);
       step = 2;
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -107,7 +107,7 @@ class PasswordSettingsViewModel extends ChangeNotifier {
         return;
       }
       resendCodeCountDown = 60;
-      _codeService.addEmailCode(email);
+      _codeService.addEmailVerificationCode(email);
       timer = Timer.periodic(
         const Duration(seconds: 1),
         (Timer timer) {
@@ -139,7 +139,7 @@ class PasswordSettingsViewModel extends ChangeNotifier {
         setError("Code cannot be empty");
         return;
       }
-      final verified = await _codeService.verifyEmailCode(user!.email!, code);
+      final verified = await _codeService.verifyEmailVerificationCode(user!.email!, code);
       if (!verified) {
         setError("Incorrect code");
         return;

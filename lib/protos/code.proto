@@ -1,29 +1,70 @@
 syntax = "proto3";
 
 import "response.proto";
+import "nullable.proto";
 
 option csharp_namespace = "NewPoint";
 
 package code;
 
 service GrpcCode {
-  rpc AddEmailCode (AddEmailCodeRequest) returns (response.Response);
-  rpc VerifyEmailCode (VerifyEmailCodeRequest) returns (response.Response);
+  rpc AddEmailVerificationCode (AddEmailVerificationCodeRequest) returns (response.Response);
+  rpc VerifyEmailVerificationCode (VerifyEmailVerificationCodeRequest) returns (response.Response);
+  rpc AddPhoneVerificationCode (AddPhoneVerificationCodeRequest) returns (response.Response);
+  rpc VerifyPhoneVerificationCode (VerifyPhoneVerificationCodeRequest) returns (response.Response);
+  rpc AddPasswordChangeVerificationCode (AddPasswordChangeVerificationCodeRequest) returns (response.Response);
+  rpc VerifyPasswordChangeVerificationCode (VerifyPasswordChangeVerificationCodeRequest) returns (response.Response);
 }
 
-message AddEmailCodeRequest {
-  string email = 2;
+message AddEmailVerificationCodeRequest {
+  string email = 1;
 }
 
-message AddEmailCodeResponse {
+message AddEmailVerificationCodeResponse {
   bool sent = 1;
 }
 
-message VerifyEmailCodeRequest {
-  string email = 2;
+message VerifyEmailVerificationCodeRequest {
+  string email = 1;
+  string code = 2;
+}
+
+message VerifyEmailVerificationCodeResponse {
+  bool verified = 1;
+}
+
+message AddPhoneVerificationCodeRequest {
+  string phone = 1;
+}
+
+message AddPhoneVerificationCodeResponse {
+  bool sent = 1;
+}
+
+message VerifyPhoneVerificationCodeRequest {
+  string phone = 1;
+  string code = 2;
+}
+
+message VerifyPhoneVerificationCodeResponse {
+  bool verified = 1;
+}
+
+message AddPasswordChangeVerificationCodeRequest {
+  NullableString email = 1;
+  NullableString phone = 2;
+}
+
+message AddPasswordChangeVerificationCodeResponse {
+  bool sent = 1;
+}
+
+message VerifyPasswordChangeVerificationCodeRequest {
+  NullableString email = 1;
+  NullableString phone = 2;
   string code = 3;
 }
 
-message VerifyEmailCodeResponse {
+message VerifyPasswordChangeVerificationCodeResponse {
   bool verified = 1;
 }
