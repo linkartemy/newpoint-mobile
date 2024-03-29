@@ -1,3 +1,4 @@
+import 'package:newpoint/domain/data_providers/database/image_view_table.dart';
 import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -26,8 +27,15 @@ class DatabaseDataProvider {
     return database;
   }
 
-  Future<void> create(Database database, int version) async =>
-      await PostViewEntryTable().createTable(database);
+  Future<void> create(Database database, int version) async {
+    await PostViewEntryTable().createTable(database);
+    await ImageTable().createTable(database);
+  }
+
+  Future<void> clearTables() async {
+    await PostViewEntryTable().clear();
+    await ImageTable().clear();
+  }
 
   Future<void> deleteDatabase() async =>
       databaseFactory.deleteDatabase(await fullPath);
