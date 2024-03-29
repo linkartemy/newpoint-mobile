@@ -7,13 +7,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/comment.dart';
 import 'package:newpoint/components/dynamic_sliver_appbar.dart';
 import 'package:newpoint/components/profile_image.dart';
+import 'package:newpoint/components/refresh_indicator.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
+import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
 import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:newpoint/resources/resources.dart';
 
 class PostView extends StatefulWidget {
   const PostView({Key? key}) : super(key: key);
@@ -109,7 +110,7 @@ class PostViewState extends State<PostView> {
                 width: 100,
               )),
         ),
-        body: RefreshIndicator(
+        body: RefreshIndicatorComponent(
             onRefresh: onRefresh,
             notificationPredicate: (ScrollNotification notification) {
               if (model.error.isNotEmpty || _isLoadingPost || post == null) {
@@ -148,7 +149,6 @@ class PostViewState extends State<PostView> {
                                           child: const _Header()),
                                       const SizedBox(height: 16),
                                       const _Body(),
-                                      const SizedBox(height: 10),
                                       const _Footer(),
                                     ]),
                               ),
@@ -221,7 +221,7 @@ class _Header extends StatelessWidget {
                   );
                 },
               )
-            : SizedBox(),
+            : const SizedBox(),
         TextButton(
           child: Text(
             AppLocalizations.of(context)!.cancel,
@@ -252,7 +252,7 @@ class _Header extends StatelessWidget {
             Container(
                 margin: const EdgeInsets.all(10),
                 child: ProfileImage(
-                  profileImageId: model.user!.profileImageId,
+                  profileImageId: model.post!.profileImageId,
                 )),
             const SizedBox(
               width: 10,
@@ -265,14 +265,14 @@ class _Header extends StatelessWidget {
                     width: 250,
                     child: RichText(
                       text: TextSpan(
-                          text: "${model.user!.name} ${model.user!.surname} ",
+                          text: "${model.post!.name} ${model.post!.surname} ",
                           style: AdaptiveTheme.of(context)
                               .theme
                               .textTheme
                               .titleMedium,
                           children: [
                             TextSpan(
-                                text: "@${model.user!.login}",
+                                text: "@${model.post!.login}",
                                 style: AdaptiveTheme.of(context)
                                     .theme
                                     .textTheme
@@ -319,7 +319,7 @@ class _Body extends StatelessWidget {
     final model = Provider.of<PostViewModel>(context, listen: false);
 
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: [
             Container(
@@ -367,57 +367,81 @@ class _FooterState extends State<_Footer> {
     }
 
     return Column(children: [
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: onShareTap,
-              child: Row(
-                children: [
-                  Text(AppLocalizations.of(context)!.nDecimalPattern(model.post!.shares),
-                      style:
-                          AdaptiveTheme.of(context).theme.textTheme.bodyMedium),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const Icon(CupertinoIcons.share, size: 22),
-                ],
-              ),
-            ),
-            const SizedBox(width: 10),
-            InkWell(
-              onTap: onLikeTap,
-              child: Row(
-                children: [
-                  Text(AppLocalizations.of(context)!.nDecimalPattern(model.post!.likes),
-                      style:
-                          AdaptiveTheme.of(context).theme.textTheme.bodyMedium),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  model.post!.liked
-                      ? const Icon(CupertinoIcons.heart_solid,
-                          color: AppColors.primary, size: 22)
-                      : const Icon(CupertinoIcons.heart, size: 22),
-                ],
-              ),
-            ),
-            const SizedBox(width: 10),
-            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Text(AppLocalizations.of(context)!.nDecimalPattern(model.post!.views),
-                  style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium),
-              const SizedBox(
-                width: 5,
-              ),
-              const Icon(
-                Icons.query_stats,
-                size: 22,
-              ),
-            ]),
-          ],
-        ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+              child: InkWell(
+            onTap: onShareTap,
+            child: SizedBox(
+                height: 46,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                        AppLocalizations.of(context)!
+                            .nDecimalPattern(model.post!.shares),
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .bodyMedium),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Icon(CupertinoIcons.share, size: 22),
+                  ],
+                )),
+          )),
+          Expanded(
+              child: InkWell(
+            onTap: onLikeTap,
+            child: SizedBox(
+                height: 46,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                        AppLocalizations.of(context)!
+                            .nDecimalPattern(model.post!.likes),
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .bodyMedium),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    model.post!.liked
+                        ? const Icon(CupertinoIcons.heart_solid,
+                            color: AppColors.primary, size: 22)
+                        : const Icon(CupertinoIcons.heart, size: 22),
+                  ],
+                )),
+          )),
+          Expanded(
+              child: SizedBox(
+                  height: 46,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                            AppLocalizations.of(context)!
+                                .nDecimalPattern(model.post!.views),
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .bodyMedium),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const Icon(
+                          Icons.query_stats,
+                          size: 22,
+                        ),
+                      ]))),
+        ],
       ),
       TextFormField(
         onChanged: model.onCommentTextChanged,
@@ -442,7 +466,7 @@ class _FooterState extends State<_Footer> {
         style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
       ),
       Padding(
-        padding: EdgeInsets.only(left: 18, top: 8),
+        padding: const EdgeInsets.only(left: 18, top: 4),
         child: Row(
           children: [
             Text(AppLocalizations.of(context)!.nComments(model.post!.comments),
@@ -481,7 +505,7 @@ class _CommentsState extends State<_Comments> {
     }
 
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: ListView.builder(
             itemCount: widget.comments.length,
             scrollDirection: Axis.vertical,

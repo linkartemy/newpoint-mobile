@@ -47,7 +47,7 @@ class LoginViewModel extends ChangeNotifier {
     final login = loginTextController.text;
     final password = passwordTextController.text;
 
-    if (login.length == 0 || password.length == 0) {
+    if (login.isEmpty || password.isEmpty) {
       _updateState('Fill login and password', false);
       return;
     }

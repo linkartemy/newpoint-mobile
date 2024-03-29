@@ -24,6 +24,7 @@ class ProfileViewModel extends ChangeNotifier {
   var isLoadingDatabase = true;
   String error = "";
   bool following = false;
+  bool _processingLikePost = false;
 
   ImagePicker picker = ImagePicker();
   XFile? image;
@@ -151,16 +152,19 @@ class ProfileViewModel extends ChangeNotifier {
 
   Future<void> like(int index) async {
     try {
+      if (_processingLikePost) {
+        return;
+      }
+      _processingLikePost = true;
       final post = posts[index];
       if (post.liked) {
-        _postService.unLikePost(post.id);
+        await _postService.unLikePost(post.id);
         post.likes--;
       } else {
-        _postService.likePost(post.id);
+        await _postService.likePost(post.id);
         post.likes++;
       }
       post.liked = !post.liked;
-      notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
         error = "Something is wrong with the connection to the server";
@@ -168,6 +172,7 @@ class ProfileViewModel extends ChangeNotifier {
     } catch (e) {
       error = "Something went wrong, please try again";
     }
+    _processingLikePost = false;
   }
 
   Future<void> addView(int postId) async {

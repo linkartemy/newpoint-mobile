@@ -1,10 +1,10 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/views/theme/theme.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostComponent extends StatelessWidget {
   const PostComponent(
@@ -146,7 +146,6 @@ class PostComponent extends StatelessWidget {
             _Body(
               content: content,
             ),
-            const SizedBox(height: 16),
             _Footer(
               id: id,
               likes: likes,
@@ -282,6 +281,7 @@ class _Footer extends StatelessWidget {
     required this.onLikeTap,
     required this.onShareTap,
   }) : super(key: key);
+
   final int id;
   final int likes;
   final int shares;
@@ -293,64 +293,107 @@ class _Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final overall = likes + shares + views + comments;
+    final likesSpacePercentage = likes == 0 ? 1 : (likes / overall);
+    final sharesSpacePercentage = shares == 0 ? 1 : (shares / overall);
+    final commentsSpacePercentage = comments == 0 ? 1 : (comments / overall);
+    final viewsSpacePercentage = views == 0 ? 1 : (views / overall);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Text(AppLocalizations.of(context)!.nCompact(comments),
-              style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
-          const SizedBox(
-            width: 5,
-          ),
-          const Icon(
-            Icons.mode_comment,
-            size: 22,
-          ),
-        ]),
-        InkWell(
-          onTap: () async {
-            await onShareTap(context);
-          },
-          child: Row(
-            children: [
-              Text(AppLocalizations.of(context)!.nCompact(shares),
-                  style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
-              const SizedBox(
-                width: 5,
-              ),
-              const Icon(CupertinoIcons.share),
-            ],
-          ),
-        ),
-        InkWell(
-          onTap: () async {
-            await onLikeTap(context);
-          },
-          child: Row(
-            children: [
-              Text(AppLocalizations.of(context)!.nCompact(likes),
-                  style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
-              const SizedBox(
-                width: 5,
-              ),
-              liked
-                  ? const Icon(CupertinoIcons.heart_solid,
-                      color: AppColors.primary)
-                  : const Icon(CupertinoIcons.heart),
-            ],
-          ),
-        ),
-        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Text(AppLocalizations.of(context)!.nCompact(views),
-              style: AdaptiveTheme.of(context).theme.textTheme.titleMedium),
-          const SizedBox(
-            width: 5,
-          ),
-          const Icon(
-            Icons.query_stats,
-            size: 22,
-          ),
-        ]),
+        Flexible(
+            flex: commentsSpacePercentage.toInt(),
+            fit: FlexFit.loose,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(AppLocalizations.of(context)!.nCompact(comments),
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.titleSmall),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Icon(
+                    Icons.mode_comment,
+                    size: 16,
+                  ),
+                ])),
+        Flexible(
+            fit: FlexFit.tight,
+            child: InkWell(
+              onTap: () async {
+                await onShareTap(context);
+              },
+              child: SizedBox(
+                  height: 46,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(AppLocalizations.of(context)!.nCompact(shares),
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .titleSmall),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const Icon(
+                        CupertinoIcons.share,
+                        size: 16,
+                      ),
+                    ],
+                  )),
+            )),
+        Flexible(
+            fit: FlexFit.tight,
+            child: InkWell(
+              onTap: () async {
+                await onLikeTap(context);
+              },
+              child: SizedBox(
+                  height: 46,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(AppLocalizations.of(context)!.nCompact(likes),
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .titleSmall),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      liked
+                          ? const Icon(CupertinoIcons.heart_solid,
+                              size: 16, color: AppColors.primary)
+                          : const Icon(
+                              CupertinoIcons.heart,
+                              size: 16,
+                            ),
+                    ],
+                  )),
+            )),
+        Flexible(
+            flex: viewsSpacePercentage.toInt(),
+            fit: FlexFit.loose,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(AppLocalizations.of(context)!.nCompact(views),
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.titleSmall),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Icon(
+                    Icons.query_stats,
+                    size: 16,
+                  ),
+                ])),
       ],
     );
   }

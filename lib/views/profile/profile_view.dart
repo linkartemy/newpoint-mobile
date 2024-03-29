@@ -7,8 +7,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/dynamic_sliver_appbar.dart';
 import 'package:newpoint/components/post.dart';
 import 'package:newpoint/components/profile_image.dart';
+import 'package:newpoint/components/refresh_indicator.dart';
 import 'package:newpoint/domain/factories/screen_factory.dart';
-import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/profile/profile_view_model.dart';
@@ -99,7 +99,7 @@ class ProfileViewState extends State<ProfileView> {
                 child: const Icon(Icons.arrow_back_rounded, size: 25),
               ),
             ),
-            body: RefreshIndicator(
+            body: RefreshIndicatorComponent(
                 onRefresh: onRefresh,
                 notificationPredicate: (ScrollNotification notification) {
                   if (model.error.isNotEmpty ||
@@ -107,7 +107,7 @@ class ProfileViewState extends State<ProfileView> {
                       profile == null) {
                     return notification.depth == 0;
                   }
-                  return notification.depth == 1;
+                  return notification.depth == 2;
                 },
                 child: model.error.isNotEmpty
                     ? SingleChildScrollView(
@@ -227,7 +227,6 @@ class _HeaderState extends State<_Header> {
 
     Future<void> follow() async {
       await model.follow();
-      setState(() {});
     }
 
     return Container(
@@ -240,55 +239,56 @@ class _HeaderState extends State<_Header> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  InkWell(
-                      onTap: () async {
-                        if (model.profileId == model.user?.id) {
-                          AlertDialog alert = AlertDialog(
-                            actionsAlignment: MainAxisAlignment.start,
-                            actionsOverflowAlignment:
-                                OverflowBarAlignment.center,
-                            title: Text(
-                              AppLocalizations.of(context)!.profileImages,
-                              textAlign: TextAlign.center,
-                              style: AdaptiveTheme.of(context)
-                                  .theme
-                                  .textTheme
-                                  .titleLarge,
-                            ),
-                            actions: [
-                              TextButton(
-                                child: Text(
-                                    AppLocalizations.of(context)!
-                                        .changeProfileImage,
-                                    textAlign: TextAlign.center),
-                                onPressed: () async {
-                                  await model.onImageTap();
-                                  setState(() {});
-                                  Navigator.of(context).pop();
-                                },
+                  model.profileId == model.user?.id
+                      ? InkWell(
+                          onTap: () async {
+                            AlertDialog alert = AlertDialog(
+                              actionsAlignment: MainAxisAlignment.start,
+                              actionsOverflowAlignment:
+                                  OverflowBarAlignment.center,
+                              title: Text(
+                                AppLocalizations.of(context)!.profileImages,
+                                textAlign: TextAlign.center,
+                                style: AdaptiveTheme.of(context)
+                                    .theme
+                                    .textTheme
+                                    .titleLarge,
                               ),
-                              TextButton(
-                                child: Text(
-                                  AppLocalizations.of(context)!.cancel,
-                                  textAlign: TextAlign.center,
+                              actions: [
+                                TextButton(
+                                  child: Text(
+                                      AppLocalizations.of(context)!
+                                          .changeProfileImage,
+                                      textAlign: TextAlign.center),
+                                  onPressed: () async {
+                                    await model.onImageTap();
+                                    setState(() {});
+                                    Navigator.of(context).pop();
+                                  },
                                 ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return alert;
-                            },
-                          );
-                        }
-                      },
-                      child: ProfileImage(
-                        profileImageId: model.profile!.profileImageId,
-                      )),
+                                TextButton(
+                                  child: Text(
+                                    AppLocalizations.of(context)!.cancel,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return alert;
+                              },
+                            );
+                          },
+                          child: ProfileImage(
+                            profileImageId: model.profile!.profileImageId,
+                          ))
+                      : ProfileImage(
+                          profileImageId: model.profile!.profileImageId),
                   Container(
                     margin: const EdgeInsets.only(top: 0, left: 16),
                     child: Column(
@@ -297,7 +297,7 @@ class _HeaderState extends State<_Header> {
                           SizedBox(
                             width: 210,
                             child: Text(
-                              "${model.user!.name} ${model.user!.surname}",
+                              "${model.profile!.name} ${model.profile!.surname}",
                               style: AdaptiveTheme.of(context)
                                   .theme
                                   .textTheme
@@ -307,7 +307,7 @@ class _HeaderState extends State<_Header> {
                           SizedBox(
                               width: 210,
                               child: Text(
-                                "@${model.user!.login}",
+                                "@${model.profile!.login}",
                                 style: AdaptiveTheme.of(context)
                                     .theme
                                     .textTheme
@@ -375,18 +375,18 @@ class _Body extends StatelessWidget {
           const SizedBox(
             height: 21,
           ),
-          model.user!.description != null
+          model.profile!.description != null
               ? Text(
-                  model.user!.description!,
+                  model.profile!.description!,
                   style: AdaptiveTheme.of(context).theme.textTheme.bodyLarge,
                 )
               : Container(),
-          model.user!.description != null
+          model.profile!.description != null
               ? const SizedBox(
                   height: 21,
                 )
               : Container(),
-          model.user!.location != null
+          model.profile!.location != null
               ? Row(
                   children: [
                     const Icon(
@@ -395,14 +395,14 @@ class _Body extends StatelessWidget {
                     ),
                     const SizedBox(width: 5),
                     Text(
-                      model.user!.location!,
+                      model.profile!.location!,
                       style:
                           AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
                     )
                   ],
                 )
               : Container(),
-          model.user!.location != null
+          model.profile!.location != null
               ? const SizedBox(
                   height: 5,
                 )
@@ -415,7 +415,7 @@ class _Body extends StatelessWidget {
               ),
               const SizedBox(width: 5),
               Text(
-                AppLocalizations.of(context)!.birthDate(model.user!.birthDate!),
+                AppLocalizations.of(context)!.birthDate(model.profile!.birthDate!),
                 style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
               )
             ],
@@ -425,7 +425,7 @@ class _Body extends StatelessWidget {
           ),
           Text(
             AppLocalizations.of(context)!
-                .registrationDate(model.user!.registrationTimestamp!),
+                .registrationDate(model.profile!.registrationTimestamp!),
             style: AdaptiveTheme.of(context)
                 .theme
                 .textTheme
@@ -525,21 +525,6 @@ class _FooterArticlesState extends State<_FooterArticles> {
   Widget build(BuildContext context) {
     final model = Provider.of<ProfileViewModel>(context);
 
-    Future<void> onShareTap(int index) async {
-      model.share(index);
-      setState(() {});
-    }
-
-    Future<void> onLikeTap(int index) async {
-      await model.like(index);
-      setState(() {});
-    }
-
-    Future<void> deletePost(int postId) async {
-      await model.deletePost(postId);
-      await widget.reload();
-    }
-
     return ListView.builder(
         itemCount: model.posts.length,
         scrollDirection: Axis.vertical,
@@ -578,10 +563,10 @@ class _FooterArticlesState extends State<_FooterArticles> {
                   comments: post.comments,
                   views: post.views,
                   onLikeTap: (BuildContext context) async {
-                    await onLikeTap(index);
+                    await model.like(index);
                   },
                   onShareTap: (BuildContext context) async {
-                    await onShareTap(index);
+                    model.share(index);
                   },
                   onTap: (BuildContext context) async {
                     await Navigator.of(context).pushNamed(
@@ -591,7 +576,8 @@ class _FooterArticlesState extends State<_FooterArticles> {
                   },
                   canDelete: post.authorId == model.user!.id,
                   deletePost: () async {
-                    await deletePost(post.id);
+                    await model.deletePost(post.id);
+                    await widget.reload();
                   },
                 ),
               ));

@@ -2,6 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:newpoint/domain/data_providers/database/database_data_provider.dart';
 import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/theme/theme.dart';
@@ -13,7 +14,7 @@ Future<void> main() async {
   await dotenv.load(fileName: "lib/.env");
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
   await addTimeAgoLocales();
-  await PostViewEntryTable().clear();
+  await DatabaseDataProvider().clearTables();
   runApp(MyApp(savedThemeMode: savedThemeMode));
 }
 

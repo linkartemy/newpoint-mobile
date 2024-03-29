@@ -103,14 +103,14 @@ class RegisterViewModel extends ChangeNotifier {
       if (stage == 0) {
         await _userService.validateUser(
             login, password, name, surname, email, phone);
-        await _codeService.addEmailCode(email);
+        await _codeService.addEmailVerificationCode(email);
         stage++;
         _updateState(null, false);
         return;
       }
 
       if (stage == 1) {
-        var verified = await _codeService.verifyEmailCode(email, code);
+        var verified = await _codeService.verifyEmailVerificationCode(email, code);
         if (!verified) {
           _updateState("Incorrect code", false);
           return;

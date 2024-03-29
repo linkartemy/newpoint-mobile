@@ -44,7 +44,7 @@ class _DynamicSliverAppBarState extends State<DynamicSliverAppBar> {
             Navigator.of(context).pop();
           },
           child: const Icon(Icons.arrow_back)) : null,
-      pinned: true,
+      pinned: false,
       elevation: 0,
       expandedHeight: isHeightCalculated ? height : widget.maxHeight,
       flexibleSpace: FlexibleSpaceBar(
