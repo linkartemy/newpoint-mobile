@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/drawer.dart';
 import 'package:newpoint/components/post.dart';
+import 'package:newpoint/components/refresh_indicator.dart';
 import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/main/main_view_model.dart';
@@ -175,7 +176,7 @@ class _PostsState extends State<_PostsView> {
 
     final model = Provider.of<MainViewModel>(context);
     if (model.postsLoadingError.isNotEmpty) {
-      return RefreshIndicator(
+      return RefreshIndicatorComponent(
           onRefresh: onRefresh,
           notificationPredicate: (ScrollNotification notification) {
             return notification.depth == 0;
@@ -195,7 +196,7 @@ class _PostsState extends State<_PostsView> {
       var posts = model.posts;
       return (widget.isLoading
           ? const LoaderView()
-          : RefreshIndicator(
+          : RefreshIndicatorComponent(
               onRefresh: onRefresh,
               child: ListView.builder(
                   itemCount: posts.length,
@@ -211,20 +212,8 @@ class _PostsState extends State<_PostsView> {
                     }
 
                     Future<void> onLikeTap(BuildContext context) async {
-                      setState(() {
-                        posts[index].liked = !posts[index].liked;
-                      });
-                      if (!posts[index].liked) {
-                        setState(() {
-                          posts[index].likes--;
-                        });
-                        await model.unlike(posts[index].id);
-                      } else {
-                        setState(() {
-                          posts[index].likes++;
-                        });
-                        await model.like(posts[index].id);
-                      }
+                      await model.like(index);
+                      setState(() {});
                     }
 
                     Future<void> onPostTap(BuildContext context) async {

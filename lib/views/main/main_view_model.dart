@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
+import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
 import 'package:newpoint/domain/models/user/user.dart';
@@ -18,6 +18,7 @@ class MainViewModel extends ChangeNotifier {
   var isLoadingPosts = false;
   var isLoadingDatabase = true;
   String postsLoadingError = "";
+  bool _processingLikePost = false;
 
   MainViewModel() {}
 
@@ -79,28 +80,35 @@ class MainViewModel extends ChangeNotifier {
 
   User? get user => _user;
 
-  Future<void> like(int postId) async {
+  Future<void> like(int index) async {
     try {
-      _postService.likePost(postId);
-      notifyListeners();
+      if (_processingLikePost) {
+        return;
+      }
+      _processingLikePost = true;
+      final post = posts[index];
+      if (post.liked) {
+        await _postService.unLikePost(post.id);
+        post.likes--;
+      } else {
+        await _postService.likePost(post.id);
+        post.likes++;
+      }
+      post.liked = !post.liked;
     } on ApiClientException catch (e) {
-      if (e.type == ApiClientExceptionType.network) {}
-    } catch (e) {}
-  }
-
-  Future<void> unlike(int postId) async {
-    try {
-      _postService.unLikePost(postId);
-      notifyListeners();
-    } on ApiClientException catch (e) {
-      if (e.type == ApiClientExceptionType.network) {}
-    } catch (e) {}
+      if (e.type == ApiClientExceptionType.network) {
+        postsLoadingError =
+            "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      postsLoadingError = "Something went wrong, please try again";
+    }
+    _processingLikePost = false;
   }
 
   Future<bool> share(int postId) async {
     try {
       var shared = _postService.sharePost(postId);
-      notifyListeners();
       return shared;
     } on ApiClientException catch (e) {
     } catch (e) {}
@@ -111,7 +119,6 @@ class MainViewModel extends ChangeNotifier {
     try {
       await postViewEntryTable.create(userId: user!.id, postId: postId);
       await _postService.addPostView(postId);
-      notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
         postsLoadingError =

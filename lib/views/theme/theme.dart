@@ -130,6 +130,9 @@ class AppTheme {
             fontFamily: _Fonts.regular,
             color: Colors.black,
             fontWeight: FontWeight.normal)),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: AppColors.primary, foregroundColor: Colors.white),
+    indicatorColor: AppColors.primary,
   );
   static var darkTheme = ThemeData(
     appBarTheme: const AppBarTheme(
