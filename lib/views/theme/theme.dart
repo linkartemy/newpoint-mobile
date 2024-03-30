@@ -2,17 +2,27 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static var lightTheme = ThemeData(
+    dividerColor: Color.fromRGBO(142, 142, 147, 1),
+    dividerTheme: const DividerThemeData(
+      color: Color.fromRGBO(142, 142, 147, 1),
+      thickness: 0.5
+    ),
+    scaffoldBackgroundColor: Colors.white,
     appBarTheme: const AppBarTheme(
         elevation: 0,
-        shadowColor: Colors.transparent,
+        shadowColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        scrolledUnderElevation: 0,
         titleTextStyle: TextStyle(
             color: Colors.black, fontFamily: _Fonts.regular, fontSize: 20)),
     inputDecorationTheme: const InputDecorationTheme(
         border: OutlineInputBorder(),
         contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         isCollapsed: false,
+        activeIndicatorBorder: BorderSide(color: AppColors.primary),
+        counterStyle: TextStyle(color: AppColors.primary),
         fillColor: Color.fromRGBO(243, 243, 243, 1),
         focusColor: Colors.red,
         hoverColor: Colors.red,
@@ -157,7 +167,7 @@ class AppColors {
       foregroundColor: buttonTextColor, backgroundColor: buttonBackgroundColor);
   static const likeButtonColor = Colors.pink;
   static const textColor = Colors.black;
-  static const secondaryTextColor = Color.fromRGBO(142, 142, 147, 1);
+  static const secondaryTextColor = Color.fromRGBO(86, 99, 111, 1);
   static const secondaryTextColorOnBlueBg = Color.fromRGBO(239, 239, 239, 1.0);
   static const successColor = Colors.green;
 }

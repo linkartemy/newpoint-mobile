@@ -62,7 +62,12 @@ class MainViewState extends State<MainView> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor:
+            AdaptiveTheme.of(context).theme.scaffoldBackgroundColor,
         appBar: AppBar(
+          shadowColor: AdaptiveTheme.of(context).theme.appBarTheme.shadowColor,
+          backgroundColor:
+              AdaptiveTheme.of(context).theme.appBarTheme.backgroundColor,
           title: Container(
               alignment: Alignment.centerRight,
               child: Image.asset(
@@ -198,9 +203,16 @@ class _PostsState extends State<_PostsView> {
           ? const LoaderView()
           : RefreshIndicatorComponent(
               onRefresh: onRefresh,
-              child: ListView.builder(
+              child: ListView.separated(
                   itemCount: posts.length,
                   scrollDirection: Axis.vertical,
+                  separatorBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: Divider(
+                        color:
+                            AdaptiveTheme.of(context).theme.dividerTheme.color,
+                        thickness: 0.2,
+                      )),
                   itemBuilder: (context, index) {
                     final model =
                         Provider.of<MainViewModel>(context, listen: false);
@@ -235,7 +247,7 @@ class _PostsState extends State<_PostsView> {
                             if (!model.viewedPosts.contains(posts[index].id) &&
                                 !model.isLoadingDatabase) {
                               model.viewedPosts.add(posts[index].id);
-                              await model.addView(posts[index].id);
+                              model.addView(posts[index].id);
                               setState(() {
                                 posts[index].views++;
                               });
