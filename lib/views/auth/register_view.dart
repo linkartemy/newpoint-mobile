@@ -1,13 +1,12 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/button.dart';
 import 'package:newpoint/components/input.dart';
 import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/auth/register_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -34,85 +33,99 @@ class RegisterViewState extends State<RegisterView> {
     final model = context.read<RegisterViewModel>();
 
     return Scaffold(
-      appBar: AppBar(
-        shadowColor: AdaptiveTheme.of(context).theme.appBarTheme.shadowColor,
-        backgroundColor:
-            AdaptiveTheme.of(context).theme.appBarTheme.backgroundColor,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
-        centerTitle: true,
-        title: Image.asset(
-          AppImages.logoTitleOutline,
-          width: 100,
+        appBar: AppBar(
+          shadowColor: AdaptiveTheme.of(context).theme.appBarTheme.shadowColor,
+          backgroundColor:
+              AdaptiveTheme.of(context).theme.appBarTheme.backgroundColor,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+          centerTitle: true,
+          title: Image.asset(
+            AppImages.logoTitleOutline,
+            width: 100,
+          ),
         ),
-      ),
-      body: OverflowBox(
-        maxHeight: double.infinity,
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
-              child: RichText(
-                text: TextSpan(
-                  style: AdaptiveTheme.of(context).theme.textTheme.titleMedium,
-                  children: <TextSpan>[
-                    const TextSpan(
-                      text: 'Create a',
-                    ),
-                    TextSpan(
-                        text: ' new ',
-                        style: TextStyle(
-                            color:
-                                AdaptiveTheme.of(context).theme.primaryColor)),
-                    const TextSpan(
-                      text: 'account',
-                    ),
-                  ],
-                ),
-              )),
-          Container(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 70),
-              child: Column(
+        body: SafeArea(
+            child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context)
+                    .viewInsets
+                    .bottom / 2),
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  model.stage == 0
-                      ? _FormWidget()
-                      : (model.stage == 1
-                          ? _EmailConfirmationWidget()
-                          : _DataFormWidget()),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        alignment: Alignment.bottomRight,
-                        child: _AuthButtonWidget(
-                          title: "Previous",
-                          onPressed: () async {
-                            await goBack();
-                          },
-                          activated: model.stage > 0,
+                  Container(
+                      alignment: Alignment.center,
+                      padding:
+                          const EdgeInsets.only(left: 20, right: 20, top: 40),
+                      child: RichText(
+                        text: TextSpan(
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .titleMedium,
+                          children: <TextSpan>[
+                            const TextSpan(
+                              text: 'Create a',
+                            ),
+                            TextSpan(
+                                text: ' new ',
+                                style: TextStyle(
+                                    color: AdaptiveTheme.of(context)
+                                        .theme
+                                        .primaryColor)),
+                            const TextSpan(
+                              text: 'account',
+                            ),
+                          ],
                         ),
-                      ),
-                      Container(
-                        alignment: Alignment.bottomRight,
-                        child: _AuthButtonWidget(
-                          title: "Next",
-                          onPressed: () async {
-                            await proceed();
-                          },
-                          activated: true,
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ))
-        ]),
-      ),
-    );
+                      )),
+                  Container(
+                      padding:
+                          const EdgeInsets.only(left: 20, right: 20, top: 70),
+                      child: Column(
+                        children: [
+                          model.stage == 0
+                              ? _FormWidget()
+                              : (model.stage == 1
+                                  ? _EmailConfirmationWidget()
+                                  : _DataFormWidget()),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                alignment: Alignment.bottomRight,
+                                child: _AuthButtonWidget(
+                                  title: "Previous",
+                                  onPressed: () async {
+                                    await goBack();
+                                  },
+                                  activated: model.stage > 0,
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.bottomRight,
+                                child: _AuthButtonWidget(
+                                  title: "Next",
+                                  onPressed: () async {
+                                    await proceed();
+                                  },
+                                  activated: true,
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ))
+                ]),
+          ),
+        )));
   }
 }
 
