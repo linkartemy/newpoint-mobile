@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
-import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 
@@ -68,6 +67,12 @@ class LoginViewModel extends ChangeNotifier {
     }
     _errorMessage = errorMessage;
     _isAuthProgress = isAuthProgress;
+    Future.delayed(
+        const Duration(milliseconds: 5000),
+        () => {
+              _errorMessage = null,
+              notifyListeners(),
+            });
     notifyListeners();
   }
 }
