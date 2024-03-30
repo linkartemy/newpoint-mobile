@@ -6,7 +6,7 @@ class AppTheme {
         elevation: 0,
         shadowColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         titleTextStyle: TextStyle(
             color: Colors.black, fontFamily: _Fonts.regular, fontSize: 20)),
     inputDecorationTheme: const InputDecorationTheme(

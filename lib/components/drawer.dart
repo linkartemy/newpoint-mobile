@@ -105,19 +105,6 @@ class _DrawerComponentState extends State<DrawerComponent> {
                       padding: const EdgeInsets.only(left: 14),
                       child: Column(children: [
                         ListTile(
-                          leading: const Icon(CupertinoIcons.app_badge,
-                              color: Colors.black),
-                          title: Text(AppLocalizations.of(context)!.main,
-                              style: AdaptiveTheme.of(context)
-                                  .theme
-                                  .textTheme
-                                  .titleLarge),
-                          onTap: () {
-                            Navigator.of(context).pushReplacementNamed(
-                                MainNavigationRouteNames.main);
-                          },
-                        ),
-                        ListTile(
                           leading: const Icon(
                             CupertinoIcons.profile_circled,
                             color: Colors.black,
@@ -132,6 +119,19 @@ class _DrawerComponentState extends State<DrawerComponent> {
                                 MainNavigationRouteNames.profile,
                                 arguments: widget.user!.id);
                             await widget.reload();
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(CupertinoIcons.app_badge,
+                              color: Colors.black),
+                          title: Text(AppLocalizations.of(context)!.main,
+                              style: AdaptiveTheme.of(context)
+                                  .theme
+                                  .textTheme
+                                  .titleLarge),
+                          onTap: () {
+                            Navigator.of(context).pushReplacementNamed(
+                                MainNavigationRouteNames.main);
                           },
                         ),
                         ListTile(
