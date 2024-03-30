@@ -39,39 +39,50 @@ class _DrawerComponentState extends State<DrawerComponent> {
         decoration: const BoxDecoration(color: Colors.white),
         child: Column(children: <Widget>[
           Expanded(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                      height: 220,
-                      child: DrawerHeader(
-                          decoration: const BoxDecoration(),
-                          padding: const EdgeInsets.only(
-                              left: 30, top: 17, right: 30),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: Column(children: <Widget>[
+              ConstrainedBox(
+                  constraints:
+                      const BoxConstraints(minHeight: 220, maxHeight: 400),
+                  child: DrawerHeader(
+                      decoration: const BoxDecoration(),
+                      padding: EdgeInsets.only(
+                          left: 30,
+                          right: 30,
+                          top: 17,
+                          bottom: MediaQuery.of(context).padding.bottom),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
                               children: [
-                                Row(
-                                  children: [
-                                    ProfileImage(
-                                      profileImageId: widget.user != null
-                                          ? widget.user!.profileImageId
-                                          : 0,
-                                      radius: 34,
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
+                                ProfileImage(
+                                  profileImageId: widget.user != null
+                                      ? widget.user!.profileImageId
+                                      : 0,
+                                  radius: 34,
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Expanded(
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                  Text(
                                     widget.user != null
                                         ? "${widget.user?.name} ${widget.user?.surname}"
                                         : "Unknown",
                                     style: AdaptiveTheme.of(context)
                                         .theme
                                         .textTheme
-                                        .titleMedium),
-                                const SizedBox(height: 2),
-                                Text(
+                                        .titleMedium,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
                                     widget.user != null
                                         ? "@${widget.user?.login}"
                                         : "Unknown",
@@ -80,116 +91,179 @@ class _DrawerComponentState extends State<DrawerComponent> {
                                         .textTheme
                                         .titleSmall!
                                         .copyWith(
-                                            color: AppColors
-                                                .secondaryTextColor,
-                                            fontWeight: FontWeight.w400)),
-                                const SizedBox(height: 10),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    RichText(
-                                      text: TextSpan(
-                                        children: [
-                                          TextSpan(
-                                            text: "${widget.user!.followers} ",
-                                            style: AdaptiveTheme.of(context)
-                                                .theme
-                                                .textTheme
-                                                .titleSmall!
-                                                .copyWith(),
-                                          ),
-                                          TextSpan(
-                                            text: "followers",
-                                            style: AdaptiveTheme.of(context)
-                                                .theme
-                                                .textTheme
-                                                .titleSmall!
-                                                .copyWith(
-                                                  color: AppColors
-                                                      .secondaryTextColor,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                          ),
-                                        ],
+                                            color: AppColors.secondaryTextColor,
+                                            fontWeight: FontWeight.w400),
+                                    overflow: TextOverflow.ellipsis,
+                                  )
+                                ])),
+                            const SizedBox(height: 10),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.start,
+                            //   crossAxisAlignment: CrossAxisAlignment.start,
+                            //   children: [
+                            //     RichText(
+                            //       text: TextSpan(
+                            //         children: [
+                            //           TextSpan(
+                            //             text: "${widget.user!.followers} ",
+                            //             style: AdaptiveTheme.of(context)
+                            //                 .theme
+                            //                 .textTheme
+                            //                 .titleSmall!
+                            //                 .copyWith(),
+                            //           ),
+                            //           TextSpan(
+                            //             text: "followers",
+                            //             style: AdaptiveTheme.of(context)
+                            //                 .theme
+                            //                 .textTheme
+                            //                 .titleSmall!
+                            //                 .copyWith(
+                            //                   color: AppColors
+                            //                       .secondaryTextColor,
+                            //                   fontWeight: FontWeight.w400,
+                            //                 ),
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //     SizedBox(
+                            //       width: 10,
+                            //     ),
+                            //     RichText(
+                            //       text: TextSpan(
+                            //         children: [
+                            //           TextSpan(
+                            //             text: "${widget.user!.following} ",
+                            //             style: AdaptiveTheme.of(context)
+                            //                 .theme
+                            //                 .textTheme
+                            //                 .titleSmall,
+                            //           ),
+                            //           TextSpan(
+                            //             text: "following",
+                            //             style: AdaptiveTheme.of(context)
+                            //                 .theme
+                            //                 .textTheme
+                            //                 .titleSmall!
+                            //                 .copyWith(
+                            //                   color: AppColors
+                            //                       .secondaryTextColor,
+                            //                   fontWeight: FontWeight.w400,
+                            //                 ),
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     )
+                            //   ],
+                            // )
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: "${widget.user!.followers} ",
+                                        style: AdaptiveTheme.of(context)
+                                            .theme
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    RichText(
-                                      text: TextSpan(
-                                        children: [
-                                          TextSpan(
-                                            text: "${widget.user!.following} ",
-                                            style: AdaptiveTheme.of(context)
-                                                .theme
-                                                .textTheme
-                                                .titleSmall,
-                                          ),
-                                          TextSpan(
-                                            text: "following",
-                                            style: AdaptiveTheme.of(context)
-                                                .theme
-                                                .textTheme
-                                                .titleSmall!
-                                                .copyWith(
-                                                  color: AppColors
-                                                      .secondaryTextColor,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                          ),
-                                        ],
+                                      TextSpan(
+                                        text: "followers",
+                                        style: AdaptiveTheme.of(context)
+                                            .theme
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color:
+                                                  AppColors.secondaryTextColor,
+                                              fontWeight: FontWeight.w400,
+                                            ),
                                       ),
-                                    )
-                                  ],
-                                )
-                              ]))),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 14),
-                      child: Column(children: [
-                        ListTile(
-                          leading: const Icon(
-                            CupertinoIcons.profile_circled,
-                            color: Colors.black,
-                          ),
-                          title: Text(AppLocalizations.of(context)!.profile,
-                              style: AdaptiveTheme.of(context)
-                                  .theme
-                                  .textTheme
-                                  .titleLarge),
-                          onTap: () async {
-                            await Navigator.of(context).pushNamed(
-                                MainNavigationRouteNames.profile,
-                                arguments: widget.user!.id);
-                            await widget.reload();
-                          },
-                        ),
-                        ListTile(
-                          leading: const Icon(CupertinoIcons.app_badge,
-                              color: Colors.black),
-                          title: Text(AppLocalizations.of(context)!.main,
-                              style: AdaptiveTheme.of(context)
-                                  .theme
-                                  .textTheme
-                                  .titleLarge),
-                          onTap: () {
-                            Navigator.of(context).pushReplacementNamed(
-                                MainNavigationRouteNames.main);
-                          },
-                        ),
-                        ListTile(
-                          leading: const Icon(CupertinoIcons.bookmark,
-                              color: Colors.black),
-                          title: Text(AppLocalizations.of(context)!.bookMarks,
-                              style: AdaptiveTheme.of(context)
-                                  .theme
-                                  .textTheme
-                                  .titleLarge),
-                          onTap: () {},
-                        )
-                      ])),
-                ]),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: "${widget.user!.following} ",
+                                        style: AdaptiveTheme.of(context)
+                                            .theme
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                      TextSpan(
+                                        text: "following",
+                                        style: AdaptiveTheme.of(context)
+                                            .theme
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(
+                                              color:
+                                                  AppColors.secondaryTextColor,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10)
+                          ]))),
+              Padding(
+                  padding: const EdgeInsets.only(left: 14),
+                  child: Column(children: [
+                    ListTile(
+                      leading: const Icon(
+                        CupertinoIcons.profile_circled,
+                        color: Colors.black,
+                      ),
+                      title: Text(AppLocalizations.of(context)!.profile,
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .titleLarge),
+                      onTap: () async {
+                        await Navigator.of(context).pushNamed(
+                            MainNavigationRouteNames.profile,
+                            arguments: widget.user!.id);
+                        await widget.reload();
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(CupertinoIcons.app_badge,
+                          color: Colors.black),
+                      title: Text(AppLocalizations.of(context)!.main,
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .titleLarge),
+                      onTap: () {
+                        Navigator.of(context).pushReplacementNamed(
+                            MainNavigationRouteNames.main);
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(CupertinoIcons.bookmark,
+                          color: Colors.black),
+                      title: Text(AppLocalizations.of(context)!.bookMarks,
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .titleLarge),
+                      onTap: () {},
+                    )
+                  ])),
+            ]),
           ),
           Align(
               alignment: FractionalOffset.bottomCenter,
