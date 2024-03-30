@@ -90,8 +90,13 @@ class ProfileViewState extends State<ProfileView> {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
+          backgroundColor: AdaptiveTheme.of(context).theme.scaffoldBackgroundColor,
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
+              surfaceTintColor: AdaptiveTheme.of(context).theme.appBarTheme.surfaceTintColor,
+              bottomOpacity: 0,
+              shadowColor: AdaptiveTheme.of(context).theme.appBarTheme.shadowColor,
+              backgroundColor: AdaptiveTheme.of(context).theme.appBarTheme.backgroundColor,
               leading: InkWell(
                 onTap: () {
                   Navigator.of(context).pop();
@@ -232,12 +237,10 @@ class _HeaderState extends State<_Header> {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 24),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   model.profileId == model.user?.id
                       ? InkWell(

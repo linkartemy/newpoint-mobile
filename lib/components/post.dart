@@ -185,64 +185,63 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
+        Container(
+            margin: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
+            child: ProfileImage(
+              profileImageId: profileImageId,
+            )),
+        const SizedBox(
+          width: 10,
+        ),
+        Expanded(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-                margin: const EdgeInsets.all(10),
-                child: ProfileImage(
-                  profileImageId: profileImageId,
-                )),
-            const SizedBox(
-              width: 10,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                    width: 230,
-                    child: RichText(
-                      text: TextSpan(
-                          text: "$name $surname ",
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Expanded(
+                child: RichText(
+                    text: TextSpan(
+                        text: "$name $surname ",
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleMedium,
+                        children: [
+                      TextSpan(
+                          text: "@$login",
                           style: AdaptiveTheme.of(context)
                               .theme
                               .textTheme
-                              .titleMedium,
-                          children: [
-                            TextSpan(
-                                text: "@$login",
-                                style: AdaptiveTheme.of(context)
-                                    .theme
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(
-                                        color: CupertinoColors.secondaryLabel))
-                          ]),
-                    )),
-                const SizedBox(
-                  height: 2,
+                              .titleSmall!
+                              .copyWith(color: AppColors.secondaryTextColor)),
+                    ])),
+              ),
+              InkWell(
+                onTap: () async {
+                  await onDetailsTap(context);
+                },
+                child: const SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: Icon(
+                    Icons.more_vert,
+                    size: 25,
+                  ),
                 ),
-                Text(dateToAgoString(context, date),
-                    style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium)
-              ],
-            )
-          ],
-        ),
-        InkWell(
-          onTap: () async {
-            await onDetailsTap(context);
-          },
-          child: const SizedBox(
-            height: 30,
-            width: 30,
-            child: Icon(
-              Icons.more_vert,
-              size: 25,
+              )
+            ]),
+            const SizedBox(
+              height: 2,
             ),
-          ),
-        )
+            Text(dateToAgoString(context, date),
+                style: AdaptiveTheme.of(context)
+                    .theme
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: AppColors.secondaryTextColor))
+          ],
+        )),
       ],
     );
   }
@@ -293,16 +292,10 @@ class _Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final overall = likes + shares + views + comments;
-    final likesSpacePercentage = likes == 0 ? 1 : (likes / overall);
-    final sharesSpacePercentage = shares == 0 ? 1 : (shares / overall);
-    final commentsSpacePercentage = comments == 0 ? 1 : (comments / overall);
-    final viewsSpacePercentage = views == 0 ? 1 : (views / overall);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
-            flex: commentsSpacePercentage.toInt(),
             fit: FlexFit.loose,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -377,7 +370,6 @@ class _Footer extends StatelessWidget {
                   )),
             )),
         Flexible(
-            flex: viewsSpacePercentage.toInt(),
             fit: FlexFit.loose,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

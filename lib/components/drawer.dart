@@ -1,12 +1,11 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/domain/models/user/user.dart';
-import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/views/theme/theme.dart';
 
 class DrawerComponent extends StatefulWidget {
@@ -44,10 +43,11 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
-                      height: 250,
+                      height: 220,
                       child: DrawerHeader(
                           decoration: const BoxDecoration(),
-                          padding: const EdgeInsets.only(left: 30, top: 17),
+                          padding: const EdgeInsets.only(
+                              left: 30, top: 17, right: 30),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
@@ -57,25 +57,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
                                       profileImageId: widget.user != null
                                           ? widget.user!.profileImageId
                                           : 0,
-                                      radius: 48,
-                                    ),
-                                    const SizedBox(width: 17),
-                                    Column(
-                                      children: [
-                                        Text(
-                                            "${widget.user!.followers} followers",
-                                            style: AdaptiveTheme.of(context)
-                                                .theme
-                                                .textTheme
-                                                .titleMedium),
-                                        const SizedBox(height: 5),
-                                        Text(
-                                            "${widget.user!.following} following",
-                                            style: AdaptiveTheme.of(context)
-                                                .theme
-                                                .textTheme
-                                                .titleMedium)
-                                      ],
+                                      radius: 34,
                                     )
                                   ],
                                 ),
@@ -98,8 +80,70 @@ class _DrawerComponentState extends State<DrawerComponent> {
                                         .textTheme
                                         .titleSmall!
                                         .copyWith(
-                                            color:
-                                                AppColors.secondaryTextColor))
+                                            color: AppColors
+                                                .secondaryTextColor,
+                                            fontWeight: FontWeight.w400)),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: "${widget.user!.followers} ",
+                                            style: AdaptiveTheme.of(context)
+                                                .theme
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(),
+                                          ),
+                                          TextSpan(
+                                            text: "followers",
+                                            style: AdaptiveTheme.of(context)
+                                                .theme
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  color: AppColors
+                                                      .secondaryTextColor,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: "${widget.user!.following} ",
+                                            style: AdaptiveTheme.of(context)
+                                                .theme
+                                                .textTheme
+                                                .titleSmall,
+                                          ),
+                                          TextSpan(
+                                            text: "following",
+                                            style: AdaptiveTheme.of(context)
+                                                .theme
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                  color: AppColors
+                                                      .secondaryTextColor,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                )
                               ]))),
                   Padding(
                       padding: const EdgeInsets.only(left: 14),

@@ -8,8 +8,11 @@ DateTime? parseDateFromString(String? rawDate) {
   return DateTime.tryParse(rawDate);
 }
 
-String dateToAgoString(BuildContext context, DateTime date) {
-  final locale = AppLocalizations.of(context)!.localeName;
+String dateToAgoString(BuildContext context, DateTime date, {bool isShort = false}) {
+  var locale = AppLocalizations.of(context)!.localeName;
+  if (isShort) {
+    locale += '_short';
+  }
   return timeago.format(date, locale: locale);
 }
 

@@ -37,6 +37,7 @@ class _DynamicSliverAppBarState extends State<DynamicSliverAppBar> {
     });
 
     return SliverAppBar(
+      backgroundColor: Colors.white,
       forceElevated: widget.forceElevated,
       automaticallyImplyLeading: widget.implyLeading,
       leading: widget.implyLeading ? InkWell(
