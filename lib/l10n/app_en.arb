@@ -132,5 +132,13 @@
   "sentCode": "We have sent a code to your email",
   "resendCode": "Resend code",
   "back": "Back",
-  "apply": "Apply"
+  "apply": "Apply",
+
+  "loginOrEmail": "Login or email",
+  "password": "Password",
+  "next": "Next",
+
+  "welcomeBackGladToSee": "Welcome back!\nGlad to see ",
+  "you": "You",
+  "again": ", again!"
 }

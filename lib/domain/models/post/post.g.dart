@@ -35,7 +35,7 @@ Post _$PostFromModel(PostModel postModel) {
       comments: postModel.comments,
       views: postModel.views,
       liked: postModel.liked,
-      creationTimestamp: postModel.creationTimestamp.toDateTime());
+      creationTimestamp: postModel.creationTimestamp.toDateTime(toLocal: true));
 }
 
 Map<String, dynamic> _$PostToJson(Post post) => <String, dynamic>{
