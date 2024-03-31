@@ -131,32 +131,49 @@ class PostViewState extends State<PostView> {
                             .bodyMedium))
                 : _isLoadingPost || post == null
                     ? const LoaderView()
-                    : NestedScrollView(
-                        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                              DynamicSliverAppBar(
-                                forceElevated: innerBoxIsScrolled,
-                                maxHeight: 300,
-                                implyLeading: false,
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      InkWell(
-                                          onTap: () async {
-                                            await onHeaderTap();
-                                          },
-                                          child: const _Header()),
-                                      const SizedBox(height: 16),
-                                      const _Body(),
-                                      const _Footer(),
-                                    ]),
-                              ),
+                    : model.comments.isEmpty
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              InkWell(
+                                  onTap: () async {
+                                    await onHeaderTap();
+                                  },
+                                  child: const _Header()),
+                              const SizedBox(height: 16),
+                              const _Body(),
+                              const _Footer(),
                             ],
-                        body: _Comments(
-                            comments: model.comments,
-                            onLikeTap: onCommentLikeTap,
-                            reload: reload))));
+                          )
+                        : NestedScrollView(
+                            headerSliverBuilder:
+                                (context, innerBoxIsScrolled) => [
+                                      DynamicSliverAppBar(
+                                        forceElevated: innerBoxIsScrolled,
+                                        maxHeight: 300,
+                                        implyLeading: false,
+                                        child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            children: [
+                                              InkWell(
+                                                  onTap: () async {
+                                                    await onHeaderTap();
+                                                  },
+                                                  child: const _Header()),
+                                              const SizedBox(height: 16),
+                                              const _Body(),
+                                              const _Footer(),
+                                            ]),
+                                      ),
+                                    ],
+                            body: _Comments(
+                                comments: model.comments,
+                                onLikeTap: onCommentLikeTap,
+                                reload: reload))));
   }
 }
 
@@ -245,67 +262,61 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<PostViewModel>(context);
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
+        Container(
+            margin: const EdgeInsets.symmetric(horizontal: 22),
+            child: ProfileImage(
+              profileImageId: model.post!.profileImageId,
+            )),
+        Expanded(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-                margin: const EdgeInsets.all(10),
-                child: ProfileImage(
-                  profileImageId: model.post!.profileImageId,
-                )),
-            const SizedBox(
-              width: 10,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                    width: 250,
-                    child: RichText(
-                      text: TextSpan(
-                          text: "${model.post!.name} ${model.post!.surname} ",
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Expanded(
+                  child: RichText(
+                text: TextSpan(
+                    text: "${model.post!.name} ${model.post!.surname} ",
+                    style:
+                        AdaptiveTheme.of(context).theme.textTheme.titleMedium,
+                    children: [
+                      TextSpan(
+                          text: "@${model.post!.login}",
                           style: AdaptiveTheme.of(context)
                               .theme
                               .textTheme
-                              .titleMedium,
-                          children: [
-                            TextSpan(
-                                text: "@${model.post!.login}",
-                                style: AdaptiveTheme.of(context)
-                                    .theme
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(
-                                        color: CupertinoColors.secondaryLabel))
-                          ]),
-                    )),
-                const SizedBox(
-                  height: 2,
+                              .titleSmall!
+                              .copyWith(color: CupertinoColors.secondaryLabel))
+                    ]),
+              )),
+              InkWell(
+                onTap: () async {
+                  await onDetailsTap(
+                      model.user!.id, model.post!.authorId, context);
+                },
+                child: const SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: Icon(
+                    Icons.more_vert,
+                    size: 25,
+                  ),
                 ),
-                Text(
-                    AppLocalizations.of(context)!.postDateTime(
-                        model.post!.creationTimestamp,
-                        model.post!.creationTimestamp),
-                    style: AdaptiveTheme.of(context).theme.textTheme.titleSmall)
-              ],
-            )
-          ],
-        ),
-        InkWell(
-          onTap: () async {
-            await onDetailsTap(model.user!.id, model.post!.authorId, context);
-          },
-          child: const SizedBox(
-            height: 30,
-            width: 30,
-            child: Icon(
-              Icons.more_vert,
-              size: 25,
+              ),
+              SizedBox(
+                width: 10,
+              )
+            ]),
+            const SizedBox(
+              height: 2,
             ),
-          ),
-        )
+            Text(
+                AppLocalizations.of(context)!.postDateTime(
+                    model.post!.creationTimestamp,
+                    model.post!.creationTimestamp),
+                style: AdaptiveTheme.of(context).theme.textTheme.titleSmall)
+          ],
+        ))
       ],
     );
   }
@@ -319,7 +330,7 @@ class _Body extends StatelessWidget {
     final model = Provider.of<PostViewModel>(context, listen: false);
 
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 22),
         child: Column(
           children: [
             Container(
@@ -361,8 +372,17 @@ class _FooterState extends State<_Footer> {
     }
 
     Future<void> onCommentSendTap() async {
+      final comment = model.commentFieldText.text;
+      if (comment.isEmpty || comment.length > 255) {
+        return;
+      }
       await model.sendComment();
       await model.getComments();
+      setState(() {});
+    }
+
+    void onCommentTextChanged(String value) {
+      model.comment = value;
       setState(() {});
     }
 
@@ -444,7 +464,7 @@ class _FooterState extends State<_Footer> {
         ],
       ),
       TextFormField(
-        onChanged: model.onCommentTextChanged,
+        onChanged: onCommentTextChanged,
         controller: model.commentFieldText,
         decoration: InputDecoration(
           border: const UnderlineInputBorder(),
@@ -466,11 +486,21 @@ class _FooterState extends State<_Footer> {
         style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
       ),
       Padding(
-        padding: const EdgeInsets.only(left: 18, top: 4),
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 18),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(AppLocalizations.of(context)!.nComments(model.post!.comments),
                 style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium),
+            Text("${model.commentFieldText.text.length}/255",
+                style: AdaptiveTheme.of(context)
+                    .theme
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(
+                        color: model.commentFieldText.text.length > 255
+                            ? AppColors.errorColor
+                            : CupertinoColors.secondaryLabel))
           ],
         ),
       ),

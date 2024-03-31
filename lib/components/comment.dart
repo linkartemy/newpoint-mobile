@@ -1,9 +1,9 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/views/theme/theme.dart';
 
 class CommentComponent extends StatelessWidget {
@@ -49,58 +49,6 @@ class CommentComponent extends StatelessWidget {
         .pushNamed(MainNavigationRouteNames.profile, arguments: userId);
     await reload();
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        InkWell(
-            onTap: () async {
-              await onHeaderTap(context);
-            },
-            child: _Header(
-              login: login,
-              name: name,
-              surname: surname,
-              date: date,
-              deleteComment: deleteComment,
-              canDelete: canDelete,
-            )),
-        _Body(
-          index: index,
-          content: content,
-          likes: likes,
-          liked: liked,
-          onLikeTap: onLikeTap,
-        ),
-        const SizedBox(height: 5),
-        _Footer(
-          id: id,
-          likes: likes,
-          liked: liked,
-        )
-      ],
-    );
-  }
-}
-
-class _Header extends StatelessWidget {
-  const _Header(
-      {Key? key,
-      required this.login,
-      required this.name,
-      required this.surname,
-      required this.date,
-      required this.deleteComment,
-      required this.canDelete})
-      : super(key: key);
-  final String login;
-  final String name;
-  final String surname;
-  final DateTime date;
-  final Future<void> Function() deleteComment;
-  final bool canDelete;
 
   Future<void> onDetailsTap(BuildContext context) async {
     AlertDialog alert = AlertDialog(
@@ -177,53 +125,110 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return InkWell(
+        onLongPress: () async {
+          onDetailsTap(context);
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
-                width: 250,
-                child: RichText(
-                  text: TextSpan(
-                      text: "$name $surname ",
-                      style:
-                          AdaptiveTheme.of(context).theme.textTheme.titleSmall,
-                      children: [
-                        TextSpan(
-                            text: "@$login",
-                            style: AdaptiveTheme.of(context)
-                                .theme
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                    color: CupertinoColors.secondaryLabel))
-                      ]),
+            InkWell(
+                onTap: () async {
+                  await onHeaderTap(context);
+                },
+                child: _Header(
+                  login: login,
+                  name: name,
+                  surname: surname,
+                  date: date,
+                  onDetailsTap: onDetailsTap,
+                  deleteComment: deleteComment,
+                  canDelete: canDelete,
                 )),
-            const SizedBox(
-              width: 2,
+            _Body(
+              index: index,
+              content: content,
+              likes: likes,
+              liked: liked,
+              onLikeTap: onLikeTap,
             ),
-            Text(dateToAgoString(context, date),
-                style: AdaptiveTheme.of(context).theme.textTheme.bodySmall)
+            const SizedBox(height: 5),
+            _Footer(
+              id: id,
+              likes: likes,
+              liked: liked,
+            )
           ],
-        ),
-        InkWell(
-          onTap: () async {
-            await onDetailsTap(context);
-          },
-          child: const SizedBox(
-            height: 30,
-            width: 30,
-            child: Icon(
-              Icons.more_vert,
-              size: 18,
-            ),
+        ));
+  }
+}
+
+class _Header extends StatelessWidget {
+  const _Header(
+      {Key? key,
+      required this.login,
+      required this.name,
+      required this.surname,
+      required this.date,
+      required this.onDetailsTap,
+      required this.deleteComment,
+      required this.canDelete})
+      : super(key: key);
+  final String login;
+  final String name;
+  final String surname;
+  final DateTime date;
+  final Future<void> Function(BuildContext) onDetailsTap;
+  final Future<void> Function() deleteComment;
+  final bool canDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: [
+      Expanded(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Expanded(
+                child: RichText(
+              text: TextSpan(
+                  text: "$name $surname ",
+                  style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
+                  children: [
+                    TextSpan(
+                        text: "@$login ",
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: CupertinoColors.secondaryLabel)),
+                    TextSpan(
+                        text: dateToAgoString(context, date),
+                        style:
+                            AdaptiveTheme.of(context).theme.textTheme.bodySmall)
+                  ]),
+            )),
+            InkWell(
+              onTap: () async {
+                await onDetailsTap(context);
+              },
+              child: const SizedBox(
+                height: 30,
+                width: 30,
+                child: Icon(
+                  Icons.more_vert,
+                  size: 18,
+                ),
+              ),
+            )
+          ]),
+          const SizedBox(
+            width: 2,
           ),
-        )
-      ],
-    );
+        ],
+      ))
+    ]);
   }
 }
 

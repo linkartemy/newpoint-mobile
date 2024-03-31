@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/button.dart';
 import 'package:newpoint/components/error.dart';
 import 'package:newpoint/components/input.dart';
@@ -46,17 +47,17 @@ class LoginView extends StatelessWidget {
                                   .textTheme
                                   .titleMedium,
                               children: <TextSpan>[
-                                const TextSpan(
-                                  text: 'Welcome back!\nGlad to see ',
+                                TextSpan(
+                                  text: AppLocalizations.of(context)!.welcomeBackGladToSee,
                                 ),
                                 TextSpan(
-                                    text: 'You',
+                                    text: AppLocalizations.of(context)!.you,
                                     style: TextStyle(
                                         color: AdaptiveTheme.of(context)
                                             .theme
                                             .primaryColor)),
-                                const TextSpan(
-                                  text: ', again!',
+                                TextSpan(
+                                  text: AppLocalizations.of(context)!.again,
                                 ),
                               ],
                             ),
@@ -81,11 +82,13 @@ class _FormWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        InputComponent(controller: model.loginTextController, label: "Login"),
+        InputComponent(
+            controller: model.loginTextController,
+            label: AppLocalizations.of(context)!.loginOrEmail),
         const SizedBox(height: 21),
         InputComponent(
             controller: model.passwordTextController,
-            label: "Password",
+            label: AppLocalizations.of(context)!.password,
             obscureText: true),
         const SizedBox(height: 25),
         ErrorComponent(
@@ -112,7 +115,7 @@ class _AuthButtonWidget extends StatelessWidget {
             height: 15,
             child: CircularProgressIndicator(strokeWidth: 2),
           )
-        : const Text('Next');
+        : Text(AppLocalizations.of(context)!.next);
     return ButtonComponent(
       onPressed: onPressed,
       child: child,

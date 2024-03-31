@@ -42,6 +42,9 @@ class UserService {
     request.login = login;
     request.password = password;
     var response = _userServiceClient.login(request);
+    if (await _networkClient.proceed(await response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
     var headers = await response.headers;
     await _sessionDataProvider.setToken(headers["authorization"].toString());
   }

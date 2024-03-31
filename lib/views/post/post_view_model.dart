@@ -123,9 +123,6 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> sendComment() async {
     try {
-      if (comment.isEmpty) {
-        return;
-      }
       await _commentService.addComment(postId, comment);
       comment = "";
       commentFieldText.clear();

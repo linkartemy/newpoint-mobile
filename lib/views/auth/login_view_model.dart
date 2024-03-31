@@ -67,6 +67,7 @@ class LoginViewModel extends ChangeNotifier {
     }
     _errorMessage = errorMessage;
     _isAuthProgress = isAuthProgress;
+    passwordTextController.clear();
     Future.delayed(
         const Duration(milliseconds: 5000),
         () => {

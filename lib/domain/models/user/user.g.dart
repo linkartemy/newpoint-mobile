@@ -22,24 +22,23 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 User _$UserFromModel(UserModel userModel) {
   return User(
-    id: userModel.id.toInt(),
-    login: userModel.login,
-    name: userModel.name,
-    surname: userModel.surname,
-    description: userModel.description.parseNullable(),
-    location: userModel.location.parseNullable(),
-    email: userModel.email.parseNullable(),
-    phone: userModel.phone.parseNullable(),
-    profileImageId: userModel.profileImageId.toInt(),
-    headerImageId: userModel.headerImageId.toInt(),
-    birthDate: userModel.birthDate.parseNullable()?.toDateTime(),
-    registrationTimestamp:
-        userModel.registrationTimestamp.parseNullable()?.toDateTime(),
-    lastLoginTimestamp:
-        userModel.lastLoginTimestamp.parseNullable()?.toDateTime(),
-    followers: userModel.followers,
-    following: userModel.following
-  );
+      id: userModel.id.toInt(),
+      login: userModel.login,
+      name: userModel.name,
+      surname: userModel.surname,
+      description: userModel.description.parseNullable(),
+      location: userModel.location.parseNullable(),
+      email: userModel.email.parseNullable(),
+      phone: userModel.phone.parseNullable(),
+      profileImageId: userModel.profileImageId.toInt(),
+      headerImageId: userModel.headerImageId.toInt(),
+      birthDate: userModel.birthDate.parseNullable()?.toDateTime(),
+      registrationTimestamp:
+          userModel.registrationTimestamp.parseNullable()?.toDateTime(),
+      lastLoginTimestamp:
+          userModel.lastLoginTimestamp.parseNullable()?.toDateTime(),
+      followers: userModel.followers,
+      following: userModel.following);
 }
 
 Map<String, dynamic> _$UserToJson(User user) => <String, dynamic>{
@@ -69,6 +68,16 @@ extension NullableTimestampParser on NullableTimestamp {
 
 extension DateTimeToTimestamp on DateTime {
   Timestamp toTimestamp() {
-    return Timestamp.fromDateTime(this);
+    var timeStamp = Timestamp.fromDateTime(this);
+    if (timeStamp.toDateTime().day != day) {
+      if (Timestamp.fromDateTime(add(const Duration(days: 1)))
+              .toDateTime()
+              .day ==
+          day) {
+        return Timestamp.fromDateTime(add(const Duration(days: 1)));
+      }
+      return Timestamp.fromDateTime(subtract(const Duration(days: 1)));
+    }
+    return timeStamp;
   }
 }
