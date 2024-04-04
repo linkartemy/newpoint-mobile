@@ -23,6 +23,8 @@ abstract class MainNavigationRouteNames {
   static const privacySettingsMenu = '/settings/privacy';
 
   static const accessibilitySettingsMenu = '/settings/accessibility';
+  static const languageSettings = '/settings/accessibility/language';
+  static const themeSettings = '/settings/accessibility/theme';
 }
 
 class MainNavigation {
@@ -45,6 +47,10 @@ class MainNavigation {
         _screenFactory.makeAccountSettings(),
     MainNavigationRouteNames.accessibilitySettingsMenu: (_) =>
         _screenFactory.makeAccessibilitySettingsMenu(),
+    MainNavigationRouteNames.languageSettings: (_) =>
+        _screenFactory.makeLanguageSettings(),
+    MainNavigationRouteNames.themeSettings: (_) =>
+        _screenFactory.makeThemeSettings(),
   };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {

@@ -63,8 +63,7 @@ class ProfileEditorViewState extends State<ProfileEditorView> {
                 },
                 child: Text(
                   AppLocalizations.of(context)!.cancel,
-                  style: const TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w600),
+                  style: AdaptiveTheme.of(context).theme.textTheme.titleSmall
                 ),
               )),
           leadingWidth: 100,
@@ -79,8 +78,7 @@ class ProfileEditorViewState extends State<ProfileEditorView> {
                   setState(() {});
                 },
                 child: Text(AppLocalizations.of(context)!.save,
-                    style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w600)),
+                    style: AdaptiveTheme.of(context).theme.textTheme.titleSmall),
               )),
         ),
         body: SafeArea(

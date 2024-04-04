@@ -18,6 +18,7 @@ class ImageModel extends $pb.GeneratedMessage {
   factory ImageModel({
     $fixnum.Int64? id,
     $core.List<$core.int>? data,
+    $core.String? bucketName,
     $core.String? name,
   }) {
     final $result = create();
@@ -26,6 +27,9 @@ class ImageModel extends $pb.GeneratedMessage {
     }
     if (data != null) {
       $result.data = data;
+    }
+    if (bucketName != null) {
+      $result.bucketName = bucketName;
     }
     if (name != null) {
       $result.name = name;
@@ -39,7 +43,8 @@ class ImageModel extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ImageModel', package: const $pb.PackageName(_omitMessageNames ? '' : 'image'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'id')
     ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'data', $pb.PbFieldType.OY)
-    ..aOS(3, _omitFieldNames ? '' : 'name')
+    ..aOS(3, _omitFieldNames ? '' : 'bucketName')
+    ..aOS(4, _omitFieldNames ? '' : 'name')
     ..hasRequiredFields = false
   ;
 
@@ -83,13 +88,22 @@ class ImageModel extends $pb.GeneratedMessage {
   void clearData() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get name => $_getSZ(2);
+  $core.String get bucketName => $_getSZ(2);
   @$pb.TagNumber(3)
-  set name($core.String v) { $_setString(2, v); }
+  set bucketName($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasName() => $_has(2);
+  $core.bool hasBucketName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearName() => clearField(3);
+  void clearBucketName() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get name => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set name($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearName() => clearField(4);
 }
 
 class GetImageByIdRequest extends $pb.GeneratedMessage {

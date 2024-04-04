@@ -36,7 +36,6 @@ class _DrawerComponentState extends State<DrawerComponent> {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        decoration: const BoxDecoration(color: Colors.white),
         child: Column(children: <Widget>[
           Padding(
               padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
@@ -150,9 +149,10 @@ class _DrawerComponentState extends State<DrawerComponent> {
           Flexible(
               child: ListView(children: [
             ListTile(
-              leading: const Icon(
+              leading: Icon(
                 CupertinoIcons.profile_circled,
-                color: Colors.black,
+                color:
+                    AdaptiveTheme.of(context).theme.textTheme.titleLarge!.color,
               ),
               title: Text(AppLocalizations.of(context)!.profile,
                   style: AdaptiveTheme.of(context).theme.textTheme.titleLarge),
@@ -164,8 +164,11 @@ class _DrawerComponentState extends State<DrawerComponent> {
               },
             ),
             ListTile(
-              leading:
-                  const Icon(CupertinoIcons.app_badge, color: Colors.black),
+              leading: Icon(
+                CupertinoIcons.app_badge,
+                color:
+                    AdaptiveTheme.of(context).theme.textTheme.titleLarge!.color,
+              ),
               title: Text(AppLocalizations.of(context)!.main,
                   style: AdaptiveTheme.of(context).theme.textTheme.titleLarge),
               onTap: () {
@@ -174,7 +177,11 @@ class _DrawerComponentState extends State<DrawerComponent> {
               },
             ),
             ListTile(
-              leading: const Icon(CupertinoIcons.bookmark, color: Colors.black),
+              leading: Icon(
+                CupertinoIcons.bookmark,
+                color:
+                    AdaptiveTheme.of(context).theme.textTheme.titleLarge!.color,
+              ),
               title: Text(AppLocalizations.of(context)!.bookMarks,
                   style: AdaptiveTheme.of(context).theme.textTheme.titleLarge),
               onTap: () {},
@@ -186,9 +193,10 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 await Navigator.of(context)
                     .pushNamed(MainNavigationRouteNames.settings);
               },
-              leading: const Icon(
+              leading: Icon(
                 Icons.settings,
-                color: AppColors.textColor,
+                color:
+                    AdaptiveTheme.of(context).theme.textTheme.titleLarge!.color,
               ),
               title: Text(
                 AppLocalizations.of(context)!.settings,
@@ -221,7 +229,11 @@ class _DrawerComponentState extends State<DrawerComponent> {
                   },
                 );
               },
-              leading: const Icon(Icons.logout, color: AppColors.textColor),
+              leading: Icon(
+                Icons.logout,
+                color:
+                    AdaptiveTheme.of(context).theme.textTheme.titleLarge!.color,
+              ),
               title: Text(
                 AppLocalizations.of(context)!.logOut,
                 style: AdaptiveTheme.of(context).theme.textTheme.titleLarge,

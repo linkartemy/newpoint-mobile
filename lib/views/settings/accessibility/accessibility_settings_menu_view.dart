@@ -116,30 +116,9 @@ class _HeaderState extends State<_Header> {
     return Container(
         alignment: Alignment.center,
         margin: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            InputComponent(
-              label: "Setting name",
-              controller: model.settingsNameFieldText,
-              textAlign: TextAlign.center,
-              textFieldStyle: AdaptiveTheme.of(context)
-                  .theme
-                  .textTheme
-                  .titleSmall!
-                  .copyWith(color: AppColors.textColor),
-              fillColor: Colors.transparent,
-              border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.secondaryTextColor)),
-              alignLabelWithHint: true,
-              floatingLabelBehavior: FloatingLabelBehavior.never,
-              centerLabel: true,
-              onChanged: (value) async {
-                await widget.refresh();
-              },
-            )
-          ],
+        child: Text(
+          AppLocalizations.of(context)!.accessibilitySettingsMenuDescription,
+          style: AdaptiveTheme.of(context).theme.textTheme.bodySmall,
         ));
   }
 }
@@ -155,24 +134,18 @@ class _Body extends StatelessWidget {
 
     final settings = <SettingTabData>[
       SettingTabData(
-        title: AppLocalizations.of(context)!.accountInformation,
+        title: AppLocalizations.of(context)!.languagesSettings,
         description:
-            AppLocalizations.of(context)!.accountInformationDescription,
-        icon: Icons.person,
-        navigationRoute: MainNavigationRouteNames.accountSettings,
+            AppLocalizations.of(context)!.languagesSettingsDescription,
+        icon: Icons.language,
+        navigationRoute: MainNavigationRouteNames.languageSettings,
       ),
       SettingTabData(
-        title: AppLocalizations.of(context)!.changePassword,
-        description: AppLocalizations.of(context)!.changePasswordDescription,
-        icon: Icons.lock,
-        navigationRoute: MainNavigationRouteNames.passwordSettings,
-      ),
-      SettingTabData(
-        title: AppLocalizations.of(context)!.deleteAccount,
-        description: AppLocalizations.of(context)!.deleteAccountDescription,
-        icon: Icons.delete,
-        navigationRoute: MainNavigationRouteNames.deleteAccountSettings,
-      ),
+        title: AppLocalizations.of(context)!.themeSettings,
+        description: AppLocalizations.of(context)!.themeSettingsDescription,
+        icon: Icons.palette,
+        navigationRoute: MainNavigationRouteNames.themeSettings,
+      )
     ];
 
     return Container(

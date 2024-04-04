@@ -18,6 +18,10 @@ import 'package:newpoint/views/profile_editor/profile_editor_view.dart';
 import 'package:newpoint/views/profile_editor/profile_editor_view_model.dart';
 import 'package:newpoint/views/settings/accessibility/accessibility_settings_menu_view.dart';
 import 'package:newpoint/views/settings/accessibility/accessibility_settings_menu_view_model.dart';
+import 'package:newpoint/views/settings/accessibility/language_settings_view.dart';
+import 'package:newpoint/views/settings/accessibility/language_settings_view_model.dart';
+import 'package:newpoint/views/settings/accessibility/theme_settings_view.dart';
+import 'package:newpoint/views/settings/accessibility/theme_settings_view_model.dart';
 import 'package:newpoint/views/settings/account/account_settings_menu_view.dart';
 import 'package:newpoint/views/settings/account/account_settings_menu_view_model.dart';
 import 'package:newpoint/views/settings/account/account_settings_view.dart';
@@ -127,6 +131,20 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => AccessibilitySettingsMenuViewModel(),
       child: const AccessibilitySettingsMenuView(),
+    );
+  }
+
+  Widget makeLanguageSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => LanguageSettingsViewModel(),
+      child: const LanguageSettingsView(),
+    );
+  }
+
+  Widget makeThemeSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => ThemeSettingsViewModel(),
+      child: const ThemeSettingsView(),
     );
   }
 }

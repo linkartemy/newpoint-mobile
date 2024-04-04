@@ -116,33 +116,24 @@ class _BodyState extends State<_Body> {
                   InputComponent(
                     label: AppLocalizations.of(context)!.currentPassword,
                     controller: model.currentPasswordFieldText,
-                    textFieldStyle: AdaptiveTheme.of(context)
-                        .theme
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(color: AppColors.textColor),
+                    textFieldStyle:
+                        AdaptiveTheme.of(context).theme.textTheme.titleSmall,
                     obscureText: true,
                   ),
                   const SizedBox(height: 20),
                   InputComponent(
                     label: AppLocalizations.of(context)!.newPassword,
                     controller: model.newPasswordFieldText,
-                    textFieldStyle: AdaptiveTheme.of(context)
-                        .theme
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(color: AppColors.textColor),
+                    textFieldStyle:
+                        AdaptiveTheme.of(context).theme.textTheme.titleSmall,
                     obscureText: true,
                   ),
                   const SizedBox(height: 20),
                   InputComponent(
                     label: AppLocalizations.of(context)!.confirmNewPassword,
                     controller: model.confirmNewPasswordFieldText,
-                    textFieldStyle: AdaptiveTheme.of(context)
-                        .theme
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(color: AppColors.textColor),
+                    textFieldStyle:
+                        AdaptiveTheme.of(context).theme.textTheme.titleSmall,
                     obscureText: true,
                   ),
                   const SizedBox(height: 20),
@@ -180,11 +171,8 @@ class _BodyState extends State<_Body> {
                   InputComponent(
                       label: AppLocalizations.of(context)!.code,
                       controller: model.codeFieldText,
-                      textFieldStyle: AdaptiveTheme.of(context)
-                          .theme
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: AppColors.textColor)),
+                      textFieldStyle:
+                          AdaptiveTheme.of(context).theme.textTheme.titleSmall),
                   TextButtonComponent(
                     child: AppLocalizations.of(context)!.resendCode +
                         (model.resendCodeCountDown > 0

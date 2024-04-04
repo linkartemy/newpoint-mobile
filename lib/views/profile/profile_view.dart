@@ -317,7 +317,7 @@ class _HeaderState extends State<_Header> {
                                 .textTheme
                                 .bodyLarge!
                                 .copyWith(
-                                    color: CupertinoColors.secondaryLabel),
+                                    color: AdaptiveTheme.of(context).theme.colorScheme.secondary),
                           ))
                     ]),
               ),
@@ -435,7 +435,7 @@ class _Body extends StatelessWidget {
                 .theme
                 .textTheme
                 .bodyMedium!
-                .copyWith(color: CupertinoColors.secondaryLabel),
+                .copyWith(color: AdaptiveTheme.of(context).theme.colorScheme.secondary),
           ),
         ],
       ),
