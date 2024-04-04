@@ -286,7 +286,7 @@ class _Header extends StatelessWidget {
                               .theme
                               .textTheme
                               .titleSmall!
-                              .copyWith(color: CupertinoColors.secondaryLabel))
+                              .copyWith(color: AdaptiveTheme.of(context).theme.colorScheme.secondary))
                     ]),
               )),
               InkWell(
@@ -500,7 +500,7 @@ class _FooterState extends State<_Footer> {
                     .copyWith(
                         color: model.commentFieldText.text.length > 255
                             ? AppColors.errorColor
-                            : CupertinoColors.secondaryLabel))
+                            : AdaptiveTheme.of(context).theme.colorScheme.secondary))
           ],
         ),
       ),

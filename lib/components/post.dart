@@ -214,7 +214,7 @@ class _Header extends StatelessWidget {
                               .theme
                               .textTheme
                               .titleSmall!
-                              .copyWith(color: AppColors.secondaryTextColor)),
+                              .copyWith(color: AdaptiveTheme.of(context).theme.colorScheme.secondary)),
                     ])),
               ),
               InkWell(
@@ -239,7 +239,7 @@ class _Header extends StatelessWidget {
                     .theme
                     .textTheme
                     .bodyMedium!
-                    .copyWith(color: AppColors.secondaryTextColor))
+                    .copyWith(color: AdaptiveTheme.of(context).theme.colorScheme.secondary))
           ],
         )),
       ],

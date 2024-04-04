@@ -78,7 +78,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
                                 .textTheme
                                 .titleSmall!
                                 .copyWith(
-                                    color: AppColors.secondaryTextColor,
+                                    color: AdaptiveTheme.of(context).theme.colorScheme.secondary,
                                     fontWeight: FontWeight.w400),
                             overflow: TextOverflow.ellipsis,
                           )
@@ -108,7 +108,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
                                       .textTheme
                                       .titleSmall!
                                       .copyWith(
-                                        color: AppColors.secondaryTextColor,
+                                        color: AdaptiveTheme.of(context).theme.colorScheme.secondary,
                                         fontWeight: FontWeight.w400,
                                       ),
                                 ),
@@ -135,7 +135,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
                                       .textTheme
                                       .titleSmall!
                                       .copyWith(
-                                        color: AppColors.secondaryTextColor,
+                                        color: AdaptiveTheme.of(context).theme.colorScheme.secondary,
                                         fontWeight: FontWeight.w400,
                                       ),
                                 ),

@@ -140,7 +140,7 @@ class _BodyState extends State<_Body> {
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8),
                                       side: BorderSide(
-                                          color: AppColors.primary))),
+                                          color: model.isLightTheme ? AppColors.primary : Colors.white70))),
                               foregroundColor: MaterialStateProperty.all(
                                   AdaptiveTheme.of(context)
                                       .theme
@@ -169,14 +169,16 @@ class _BodyState extends State<_Body> {
                           .elevatedButtonTheme
                           .style!
                           .copyWith(
-                              textStyle: MaterialStateProperty.all(
-                                  AdaptiveTheme.of(context)
-                                      .theme
-                                      .textTheme
-                                      .titleSmall),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
+                              textStyle: MaterialStateProperty.all(AdaptiveTheme.of(context)
+                                  .theme
+                                  .textTheme
+                                  .titleSmall),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
+                                      side: model.isLightTheme
+                                          ? BorderSide.none
+                                          : BorderSide(
+                                              color: AppColors.primary),
                                       borderRadius: BorderRadius.circular(8))),
                               foregroundColor: MaterialStateProperty.all(
                                   AppColors.buttonTextColor),

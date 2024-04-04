@@ -6,12 +6,14 @@ class TextFieldComponent extends StatelessWidget {
     required this.label,
     required this.controller,
     this.textFieldStyle,
-  this.maxHeight = 100})
+    this.onChanged,
+    this.maxHeight = 100})
       : super(key: key);
   final String label;
   final TextEditingController controller;
   final TextStyle? textFieldStyle;
   final double maxHeight;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class TextFieldComponent extends StatelessWidget {
 
           // here's the actual text box
           child: TextField(
+            onChanged: onChanged,
             keyboardType: TextInputType.multiline,
             maxLines: null,
             //grow automatically
