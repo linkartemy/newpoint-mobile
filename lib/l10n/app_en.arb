@@ -133,12 +133,22 @@
   "resendCode": "Resend code",
   "back": "Back",
   "apply": "Apply",
+  "save": "Save",
 
   "loginOrEmail": "Login or email",
+  "login": "Login",
   "password": "Password",
   "next": "Next",
 
   "welcomeBackGladToSee": "Welcome back!\nGlad to see ",
   "you": "You",
-  "again": ", again!"
+  "again": ", again!",
+
+  "name": "Name",
+  "surname": "Surname",
+  "description": "Description",
+  "tellAboutYourself": "Tell about yourself",
+  "location": "Location",
+  "whereAreYou": "Where are you?",
+  "birthDateString": "Birth date"
 }

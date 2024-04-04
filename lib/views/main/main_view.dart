@@ -204,6 +204,9 @@ class _PostsState extends State<_PostsView> {
           : RefreshIndicatorComponent(
               onRefresh: onRefresh,
               child: ListView.separated(
+                  key: PageStorageKey<String>("psk1"),
+                  shrinkWrap: true,
+                  physics: AlwaysScrollableScrollPhysics(),
                   itemCount: posts.length,
                   scrollDirection: Axis.vertical,
                   separatorBuilder: (context, index) => Padding(

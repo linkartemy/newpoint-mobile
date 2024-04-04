@@ -133,12 +133,22 @@
   "resendCode": "Отправить код еще раз",
   "back": "Назад",
   "apply": "Применить",
+  "save": "Сохранить",
 
   "loginOrEmail": "Логин или почта",
+  "login": "Логин",
   "password": "Пароль",
   "next": "Далее",
 
   "welcomeBackGladToSee": "Добро пожаловать!\nРады видеть ",
   "you": "Вас",
-  "again": ", снова!"
+  "again": ", снова!",
+
+  "name": "Имя",
+  "surname": "Фамилия",
+  "description": "Описание",
+  "tellAboutYourself": "Расскажите о себе",
+  "location": "Локация",
+  "whereAreYou": "Где Вы?",
+  "birthDateString": "Дата рождения"
 }
