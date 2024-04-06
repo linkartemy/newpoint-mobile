@@ -379,6 +379,71 @@ class _Body extends StatelessWidget {
           const SizedBox(
             height: 21,
           ),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "${model.profile!.followers} ",
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(),
+                      ),
+                      TextSpan(
+                        text: "followers",
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(
+                          color: AdaptiveTheme.of(context)
+                              .theme
+                              .colorScheme
+                              .secondary,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "${model.profile!.following} ",
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleSmall,
+                      ),
+                      TextSpan(
+                        text: "following",
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(
+                          color: AdaptiveTheme.of(context)
+                              .theme
+                              .colorScheme
+                              .secondary,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10)
+              ]),
+          const SizedBox(height: 8),
           model.profile!.description != null
               ? Text(
                   model.profile!.description!,

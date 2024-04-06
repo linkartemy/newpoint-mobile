@@ -22,6 +22,8 @@ import 'package:newpoint/views/settings/accessibility/language_settings_view.dar
 import 'package:newpoint/views/settings/accessibility/language_settings_view_model.dart';
 import 'package:newpoint/views/settings/accessibility/theme_settings_view.dart';
 import 'package:newpoint/views/settings/accessibility/theme_settings_view_model.dart';
+import 'package:newpoint/views/settings/account/account_deletion_settings_view.dart';
+import 'package:newpoint/views/settings/account/account_deletion_settings_view_model.dart';
 import 'package:newpoint/views/settings/account/account_settings_menu_view.dart';
 import 'package:newpoint/views/settings/account/account_settings_menu_view_model.dart';
 import 'package:newpoint/views/settings/account/account_settings_view.dart';
@@ -117,6 +119,13 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => PasswordSettingsViewModel(),
       child: const PasswordSettingsView(),
+    );
+  }
+
+  Widget makeAccountDeletionSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => AccountDeletionSettingsViewModel(),
+      child: const AccountDeletionSettingsView(),
     );
   }
 

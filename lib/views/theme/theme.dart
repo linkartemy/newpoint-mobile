@@ -387,7 +387,7 @@ class AppColorsLightTheme {
 class AppColorsDarkTheme {
   static const scaffoldBackgroundColor = Color.fromRGBO(43, 43, 43, 1);
   static const textColor = Colors.white;
-  static const secondaryTextColor = Color.fromRGBO(86, 99, 111, 1);
+  static const secondaryTextColor = Color.fromRGBO(95, 103, 110, 1.0);
 }
 
 class _Fonts {

@@ -16,7 +16,7 @@ abstract class MainNavigationRouteNames {
   static const accountSettingsMenu = '/settings/account';
   static const accountSettings = '/settings/account/account';
   static const passwordSettings = '/settings/account/password';
-  static const deleteAccountSettings = '/settings/account/delete';
+  static const accountDeletionSettings = '/settings/account/delete';
 
   static const securitySettingsMenu = '/settings/security';
 
@@ -43,6 +43,8 @@ class MainNavigation {
         _screenFactory.makeAccountSettingsMenu(),
     MainNavigationRouteNames.passwordSettings: (_) =>
         _screenFactory.makePasswordSettings(),
+    MainNavigationRouteNames.accountDeletionSettings: (_) => _screenFactory
+        .makeAccountDeletionSettings(),
     MainNavigationRouteNames.accountSettings: (_) =>
         _screenFactory.makeAccountSettings(),
     MainNavigationRouteNames.accessibilitySettingsMenu: (_) =>
