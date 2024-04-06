@@ -25,7 +25,7 @@ class MainViewState extends State<MainView> {
 
   Future<void> getPosts() async {
     final model = Provider.of<MainViewModel>(context, listen: false);
-    await model.getPosts();
+    model.getPosts();
     setState(() {
       _isLoadingPosts = false;
     });
@@ -101,7 +101,10 @@ class MainViewState extends State<MainView> {
             isLoading: _isLoadingPosts,
             reload: reload,
           ),
-          _SubscribedPostsView(),
+          _SubscribedPostsView(
+            isLoading: _isLoadingPosts,
+            reload: reload,
+          ),
         ]),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -243,6 +246,11 @@ class _PostsState extends State<_PostsView> {
                       setState(() {});
                     }
 
+                    Future<void> addToBlacklist() async {
+                      await model.addToBlacklist(posts[index].authorId);
+                      setState(() {});
+                    }
+
                     return VisibilityDetector(
                         key: Key('postkey$index'),
                         onVisibilityChanged: (visibilityInfo) async {
@@ -279,6 +287,9 @@ class _PostsState extends State<_PostsView> {
                             onTap: onPostTap,
                             canDelete: posts[index].authorId == model.user!.id,
                             deletePost: deletePost,
+                            canAddToBlacklist:
+                                posts[index].authorId != model.user!.id,
+                            addToBlacklist: addToBlacklist,
                           ),
                         ));
                   })));
@@ -286,9 +297,138 @@ class _PostsState extends State<_PostsView> {
   }
 }
 
-class _SubscribedPostsView extends StatelessWidget {
+class _SubscribedPostsView extends StatefulWidget {
+  const _SubscribedPostsView(
+      {Key? key, required this.isLoading, required this.reload})
+      : super(key: key);
+  final bool isLoading;
+  final Future<void> Function() reload;
+
+  @override
+  _SubscribedPostsState createState() => _SubscribedPostsState();
+}
+
+class _SubscribedPostsState extends State<_SubscribedPostsView> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    Future<void> onRefresh() async {
+      final model = Provider.of<MainViewModel>(context, listen: false);
+      await model.getUser();
+      await model.getPosts();
+      setState(() {});
+    }
+
+    final model = Provider.of<MainViewModel>(context);
+    if (model.postsLoadingError.isNotEmpty) {
+      return RefreshIndicatorComponent(
+          onRefresh: onRefresh,
+          notificationPredicate: (ScrollNotification notification) {
+            return notification.depth == 0;
+          },
+          child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: Text(model.postsLoadingError,
+                      style: AdaptiveTheme.of(context)
+                          .theme
+                          .textTheme
+                          .bodyMedium))));
+    } else {
+      var posts = model.subscribedPosts;
+      return (widget.isLoading
+          ? const LoaderView()
+          : RefreshIndicatorComponent(
+              onRefresh: onRefresh,
+              child: ListView.separated(
+                  key: PageStorageKey<String>("psk2"),
+                  shrinkWrap: true,
+                  physics: AlwaysScrollableScrollPhysics(),
+                  itemCount: posts.length,
+                  scrollDirection: Axis.vertical,
+                  separatorBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: Divider(
+                        color:
+                            AdaptiveTheme.of(context).theme.dividerTheme.color,
+                        thickness: 0.2,
+                      )),
+                  itemBuilder: (context, index) {
+                    final model =
+                        Provider.of<MainViewModel>(context, listen: false);
+                    Future<void> onShareTap(BuildContext context) async {
+                      model.share(posts[index].id);
+                      setState(() {
+                        posts[index].shares++;
+                      });
+                    }
+
+                    Future<void> onLikeTap(BuildContext context) async {
+                      await model.likeSubscribedPost(index);
+                      setState(() {});
+                    }
+
+                    Future<void> onPostTap(BuildContext context) async {
+                      await Navigator.of(context).pushNamed(
+                          MainNavigationRouteNames.post,
+                          arguments: posts[index].id);
+                      await widget.reload();
+                    }
+
+                    Future<void> deletePost() async {
+                      await model.deletePost(posts[index].id);
+                      setState(() {});
+                    }
+
+                    Future<void> addToBlacklist() async {
+                      await model.addToBlacklist(posts[index].authorId);
+                      setState(() {});
+                    }
+
+                    return VisibilityDetector(
+                        key: Key('postkey$index'),
+                        onVisibilityChanged: (visibilityInfo) async {
+                          if (visibilityInfo.visibleFraction >= 0.9) {
+                            if (!model.viewedPosts.contains(posts[index].id) &&
+                                !model.isLoadingDatabase) {
+                              model.viewedPosts.add(posts[index].id);
+                              model.addView(posts[index].id);
+                              setState(() {
+                                posts[index].views++;
+                              });
+                            }
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 16),
+                          child: PostComponent(
+                            id: posts[index].id,
+                            login: posts[index].login,
+                            name: posts[index].name,
+                            surname: posts[index].surname,
+                            profileImageId: posts[index].profileImageId,
+                            date: posts[index].creationTimestamp,
+                            content: posts[index].content,
+                            images: [],
+                            likes: posts[index].likes,
+                            liked: posts[index].liked,
+                            shares: posts[index].shares,
+                            comments: posts[index].comments,
+                            views: posts[index].views,
+                            onLikeTap: onLikeTap,
+                            onShareTap: onShareTap,
+                            onTap: onPostTap,
+                            canDelete: posts[index].authorId == model.user!.id,
+                            deletePost: deletePost,
+                            canAddToBlacklist:
+                                posts[index].authorId != model.user!.id,
+                            addToBlacklist: addToBlacklist,
+                          ),
+                        ));
+                  })));
+    }
   }
 }

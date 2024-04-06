@@ -128,7 +128,7 @@ class _HeaderState extends State<_Header> {
                   .theme
                   .textTheme
                   .titleSmall!
-                  .copyWith(color: AppColors.textColor),
+                  .copyWith(color: AdaptiveTheme.of(context).theme.textTheme.titleSmall!.color),
               fillColor: Colors.transparent,
               border: UnderlineInputBorder(
                   borderSide: BorderSide(

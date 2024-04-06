@@ -238,7 +238,51 @@ class _Header extends StatelessWidget {
                   );
                 },
               )
-            : const SizedBox(),
+            : TextButton(
+                child: Text(AppLocalizations.of(context)!.addToBlacklist,
+                    textAlign: TextAlign.center),
+                onPressed: () async {
+                  AlertDialog alert = AlertDialog(
+                    actionsAlignment: MainAxisAlignment.start,
+                    actionsOverflowAlignment: OverflowBarAlignment.center,
+                    title: Text(
+                      AppLocalizations.of(context)!.areYouSure,
+                      textAlign: TextAlign.center,
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.yes,
+                            textAlign: TextAlign.center),
+                        onPressed: () async {
+                          final model = Provider.of<PostViewModel>(context,
+                              listen: false);
+                          await model.addToBlacklist();
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text(
+                          AppLocalizations.of(context)!.cancel,
+                          textAlign: TextAlign.center,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return alert;
+                    },
+                  );
+                },
+              ),
         TextButton(
           child: Text(
             AppLocalizations.of(context)!.cancel,
@@ -286,7 +330,11 @@ class _Header extends StatelessWidget {
                               .theme
                               .textTheme
                               .titleSmall!
-                              .copyWith(color: AdaptiveTheme.of(context).theme.colorScheme.secondary))
+                              .copyWith(
+                                  color: AdaptiveTheme.of(context)
+                                      .theme
+                                      .colorScheme
+                                      .secondary))
                     ]),
               )),
               InkWell(
@@ -500,7 +548,10 @@ class _FooterState extends State<_Footer> {
                     .copyWith(
                         color: model.commentFieldText.text.length > 255
                             ? AppColors.errorColor
-                            : AdaptiveTheme.of(context).theme.colorScheme.secondary))
+                            : AdaptiveTheme.of(context)
+                                .theme
+                                .colorScheme
+                                .secondary))
           ],
         ),
       ),

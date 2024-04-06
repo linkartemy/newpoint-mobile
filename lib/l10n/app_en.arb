@@ -1,4 +1,12 @@
 {
+  "theBestPlace": "The best place for writers and readers from all over the world",
+  "signIn": "Sign in",
+  "signUp": "Sign up",
+
+  "createA": "Create a",
+  "newBlue": "new",
+  "account": "account",
+
   "forYou": "For you",
   "youRead": "You read",
   "nComments": "{count, plural, other{{count} comments}}",
@@ -118,6 +126,13 @@
 
   "privacySettings": "Privacy and safety",
   "privacySettingsDescription": "Manage what information you see and share on NewPoint.",
+  "sensitiveContent": "Sensitive content",
+  "sensitiveContentDescription": "Manage your sensitive content settings.",
+  "showSensitiveContent": "Show sensitive content",
+  "blacklistSettings": "Blacklist",
+  "blacklistSettingsDescription": "Manage the accounts that you’ve blocked.",
+  "addToBlacklist": "Add to blacklist",
+  "removeFromBlacklist": "Remove from blacklist",
 
   "accessibilitySettings": "Accessibility, display and languages",
   "accessibilitySettingsDescription": "Manage how NewPoint content is displayed to you.",
@@ -131,6 +146,7 @@
   "newPassword": "New password",
   "confirmNewPassword": "Confirm new password",
 
+  "email": "Email",
   "changeEmail": "Change email",
   "changePhone": "Change phone",
   "code": "Code",
@@ -143,6 +159,8 @@
   "loginOrEmail": "Login or email",
   "login": "Login",
   "password": "Password",
+  "passwordConfirmation": "Password confirmation",
+  "previous": "Previous",
   "next": "Next",
 
   "welcomeBackGladToSee": "Welcome back!\nGlad to see ",

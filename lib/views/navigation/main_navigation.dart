@@ -19,8 +19,11 @@ abstract class MainNavigationRouteNames {
   static const accountDeletionSettings = '/settings/account/delete';
 
   static const securitySettingsMenu = '/settings/security';
+  static const twoFactorSettings = '/settings/security/two-factor';
 
   static const privacySettingsMenu = '/settings/privacy';
+  static const sensitiveContentSettings = '/settings/private/sensitive-content';
+  static const blacklistSettings = '/settings/privacy/blacklist';
 
   static const accessibilitySettingsMenu = '/settings/accessibility';
   static const languageSettings = '/settings/accessibility/language';
@@ -41,12 +44,18 @@ class MainNavigation {
     MainNavigationRouteNames.settings: (_) => _screenFactory.makeSettings(),
     MainNavigationRouteNames.accountSettingsMenu: (_) =>
         _screenFactory.makeAccountSettingsMenu(),
-    MainNavigationRouteNames.passwordSettings: (_) =>
-        _screenFactory.makePasswordSettings(),
-    MainNavigationRouteNames.accountDeletionSettings: (_) => _screenFactory
-        .makeAccountDeletionSettings(),
     MainNavigationRouteNames.accountSettings: (_) =>
         _screenFactory.makeAccountSettings(),
+    MainNavigationRouteNames.passwordSettings: (_) =>
+        _screenFactory.makePasswordSettings(),
+    MainNavigationRouteNames.accountDeletionSettings: (_) =>
+        _screenFactory.makeAccountDeletionSettings(),
+    MainNavigationRouteNames.privacySettingsMenu: (_) =>
+        _screenFactory.makePrivacySettingsMenu(),
+    MainNavigationRouteNames.sensitiveContentSettings: (_) =>
+        _screenFactory.makeSensitiveContentSettings(),
+    MainNavigationRouteNames.blacklistSettings: (_) =>
+        _screenFactory.makeBlacklistSettings(),
     MainNavigationRouteNames.accessibilitySettingsMenu: (_) =>
         _screenFactory.makeAccessibilitySettingsMenu(),
     MainNavigationRouteNames.languageSettings: (_) =>

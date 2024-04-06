@@ -1,4 +1,12 @@
 {
+  "theBestPlace": "Лучшее место для писателей и читателей со всего мира",
+  "signIn": "Войти",
+  "signUp": "Зарегистрироваться",
+
+  "createA": "Создайте",
+  "newBlue": "новый",
+  "account": "аккаунт",
+
   "forYou": "Для вас",
   "youRead": "Вы читаете",
   "nComments": "{count, plural, =0{0 комментариев} =1{1 комментарий} =2{2 комментария} many{{count} комментариев} other{{count} комментариев}}",
@@ -118,6 +126,13 @@
 
   "privacySettings": "Приватность и сохранность данных",
   "privacySettingsDescription": "Управляйте приватностью и сохранностью данных своего аккаунта, а также информацией, которой вы делитесь и которую вы видите на NewPoint.",
+  "sensitiveContent": "Чувствительный контент",
+  "sensitiveContentDescription": "Управляйте отображением чувствительного контента на NewPoint.",
+  "showSensitiveContent": "Показывать чувствительный контент",
+  "blacklistSettings": "Черный список",
+  "blacklistSettingsDescription": "Управляйте черным списком пользователей, которых вы заблокировали.",
+  "addToBlacklist": "Добавить в черный список",
+  "removeFromBlacklist": "Удалить из черного списка",
 
   "accessibilitySettings": "Доступность, экран и языки",
   "accessibilitySettingsDescription": "Управляйте отображением контента на NewPoint.",
@@ -131,6 +146,7 @@
   "newPassword": "Новый пароль",
   "confirmNewPassword": "Подтвердите новый пароль",
 
+  "email": "Почта",
   "changeEmail": "Сменить почту",
   "changePhone": "Сменить телефон",
   "code": "Код",
@@ -143,6 +159,8 @@
   "loginOrEmail": "Логин или почта",
   "login": "Логин",
   "password": "Пароль",
+  "passwordConfirmation": "Подтверждение пароля",
+  "previous": "Назад",
   "next": "Далее",
 
   "welcomeBackGladToSee": "Добро пожаловать!\nРады видеть ",

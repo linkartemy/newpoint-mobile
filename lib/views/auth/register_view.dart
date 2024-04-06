@@ -70,17 +70,17 @@ class RegisterViewState extends State<RegisterView> {
                               .textTheme
                               .titleMedium,
                           children: <TextSpan>[
-                            const TextSpan(
-                              text: 'Create a',
+                            TextSpan(
+                              text: AppLocalizations.of(context)!.createA,
                             ),
                             TextSpan(
-                                text: ' new ',
+                                text: ' ${AppLocalizations.of(context)!.newBlue} ',
                                 style: TextStyle(
                                     color: AdaptiveTheme.of(context)
                                         .theme
                                         .primaryColor)),
-                            const TextSpan(
-                              text: 'account',
+                            TextSpan(
+                              text: AppLocalizations.of(context)!.account,
                             ),
                           ],
                         ),
@@ -102,7 +102,7 @@ class RegisterViewState extends State<RegisterView> {
                               Container(
                                 alignment: Alignment.bottomRight,
                                 child: _AuthButtonWidget(
-                                  title: "Previous",
+                                  title: AppLocalizations.of(context)!.previous,
                                   onPressed: () async {
                                     await goBack();
                                   },
@@ -112,7 +112,7 @@ class RegisterViewState extends State<RegisterView> {
                               Container(
                                 alignment: Alignment.bottomRight,
                                 child: _AuthButtonWidget(
-                                  title: "Next",
+                                  title: AppLocalizations.of(context)!.next,
                                   onPressed: () async {
                                     await proceed();
                                   },
@@ -139,31 +139,31 @@ class _FormWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        InputComponent(controller: model.loginTextController, label: "Login"),
+        InputComponent(controller: model.loginTextController, label: AppLocalizations.of(context)!.login),
         const SizedBox(height: 10),
         InputComponent(
             controller: model.passwordTextController,
-            label: "Password",
+            label: AppLocalizations.of(context)!.password,
             obscureText: true),
         const SizedBox(height: 10),
         InputComponent(
             controller: model.passwordVerificationTextController,
-            label: "Password verification",
+            label: AppLocalizations.of(context)!.passwordConfirmation,
             obscureText: true),
         const SizedBox(height: 10),
         InputComponent(
           controller: model.nameTextController,
-          label: "Name",
+          label: AppLocalizations.of(context)!.name,
         ),
         const SizedBox(height: 10),
         InputComponent(
           controller: model.surnameTextController,
-          label: "Surname",
+          label: AppLocalizations.of(context)!.surname,
         ),
         const SizedBox(height: 10),
         InputComponent(
           controller: model.emailTextController,
-          label: "Email",
+          label: AppLocalizations.of(context)!.email,
         ),
         const SizedBox(height: 25),
         const _ErrorMessageWidget(),
@@ -183,11 +183,11 @@ class _EmailConfirmationWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          "We sent the code on your email",
+          AppLocalizations.of(context)!.sentCode,
           style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
         ),
         const SizedBox(height: 10),
-        InputComponent(controller: model.codeTextController, label: "Code"),
+        InputComponent(controller: model.codeTextController, label: AppLocalizations.of(context)!.code),
         const SizedBox(height: 25),
         const _ErrorMessageWidget(),
       ],
@@ -207,9 +207,9 @@ class _DataFormWidget extends StatelessWidget {
       children: [
         TextField(
           controller: model.birthDateController,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             icon: Icon(CupertinoIcons.calendar),
-            labelText: "Birth date",
+            labelText: AppLocalizations.of(context)!.birthDateString,
             border: UnderlineInputBorder(),
           ),
           readOnly: true,

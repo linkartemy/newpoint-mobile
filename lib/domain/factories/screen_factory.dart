@@ -30,6 +30,12 @@ import 'package:newpoint/views/settings/account/account_settings_view.dart';
 import 'package:newpoint/views/settings/account/account_settings_view_model.dart';
 import 'package:newpoint/views/settings/account/password_settings_view.dart';
 import 'package:newpoint/views/settings/account/password_settings_view_model.dart';
+import 'package:newpoint/views/settings/privacy/blacklist_settings_view.dart';
+import 'package:newpoint/views/settings/privacy/blacklist_settings_view_model.dart';
+import 'package:newpoint/views/settings/privacy/privacy_settings_menu_view.dart';
+import 'package:newpoint/views/settings/privacy/privacy_settings_menu_view_model.dart';
+import 'package:newpoint/views/settings/privacy/sensitive_content_settings_view.dart';
+import 'package:newpoint/views/settings/privacy/sensitive_content_settings_view_model.dart';
 import 'package:newpoint/views/settings/settings_view.dart';
 import 'package:newpoint/views/settings/settings_view_model.dart';
 import 'package:provider/provider.dart';
@@ -133,6 +139,27 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => AccountSettingsViewModel(),
       child: const AccountSettingsView(),
+    );
+  }
+
+  Widget makePrivacySettingsMenu() {
+    return ChangeNotifierProvider(
+      create: (_) => PrivacySettingsMenuViewModel(),
+      child: const PrivacySettingsMenuView(),
+    );
+  }
+
+  Widget makeSensitiveContentSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => SensitiveContentSettingsViewModel(),
+      child: const SensitiveContentSettingsView(),
+    );
+  }
+
+  Widget makeBlacklistSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => BlacklistSettingsViewModel(),
+      child: const BlacklistSettingsView(),
     );
   }
 

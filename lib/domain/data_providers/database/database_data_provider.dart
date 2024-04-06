@@ -1,4 +1,5 @@
-import 'package:newpoint/domain/data_providers/database/image_view_table.dart';
+import 'package:newpoint/domain/data_providers/database/blacklist_table.dart';
+import 'package:newpoint/domain/data_providers/database/image_table.dart';
 import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -30,6 +31,7 @@ class DatabaseDataProvider {
   Future<void> create(Database database, int version) async {
     await PostViewEntryTable().createTable(database);
     await ImageTable().createTable(database);
+    await BlacklistTable().createTable(database);
   }
 
   Future<void> clearTables() async {

@@ -577,6 +577,10 @@ class _FooterPostsState extends State<_FooterPosts> {
               deletePost: () async {
                 await deletePost(post.id);
               },
+              canAddToBlacklist: post.authorId != model.user!.id,
+              addToBlacklist: () async {
+                await model.addToBlacklist(post.authorId);
+              },
             ),
           );
         });
@@ -597,62 +601,6 @@ class _FooterArticlesState extends State<_FooterArticles> {
   Widget build(BuildContext context) {
     final model = Provider.of<ProfileViewModel>(context);
 
-    return ListView.builder(
-        itemCount: model.posts.length,
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          var post = model.posts[index];
-          return VisibilityDetector(
-              key: Key('postkey$index'),
-              onVisibilityChanged: (visibilityInfo) async {
-                if (visibilityInfo.visibleFraction >= 0.9) {
-                  if (!model.viewedPosts.contains(model.posts[index].id) &&
-                      !model.isLoadingDatabase) {
-                    model.viewedPosts.add(post.id);
-                    await model.addView(post.id);
-                    setState(() {
-                      post.views++;
-                    });
-                  }
-                }
-              },
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
-                child: PostComponent(
-                  id: post.id,
-                  login: post.login,
-                  name: post.name,
-                  surname: post.surname,
-                  profileImageId: post.profileImageId,
-                  date: post.creationTimestamp,
-                  content: post.content,
-                  images: [],
-                  likes: post.likes,
-                  liked: post.liked,
-                  shares: post.shares,
-                  comments: post.comments,
-                  views: post.views,
-                  onLikeTap: (BuildContext context) async {
-                    await model.like(index);
-                  },
-                  onShareTap: (BuildContext context) async {
-                    model.share(index);
-                  },
-                  onTap: (BuildContext context) async {
-                    await Navigator.of(context).pushNamed(
-                        MainNavigationRouteNames.post,
-                        arguments: post.id);
-                    widget.reload();
-                  },
-                  canDelete: post.authorId == model.user!.id,
-                  deletePost: () async {
-                    await model.deletePost(post.id);
-                    await widget.reload();
-                  },
-                ),
-              ));
-        });
+    return SizedBox();
   }
 }

@@ -15,32 +15,41 @@ import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/profile/profile_view_model.dart';
 import 'package:newpoint/views/settings/accessibility/accessibility_settings_menu_view_model.dart';
+import 'package:newpoint/views/settings/privacy/blacklist_settings_view_model.dart';
+import 'package:newpoint/views/settings/privacy/privacy_settings_menu_view_model.dart';
+import 'package:newpoint/views/settings/privacy/sensitive_content_settings_view_model.dart';
 import 'package:newpoint/views/settings/setting_tab_data.dart';
 import 'package:newpoint/views/settings/settings_view_model.dart';
 import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class AccessibilitySettingsMenuView extends StatefulWidget {
-  const AccessibilitySettingsMenuView({Key? key}) : super(key: key);
+class SensitiveContentSettingsView extends StatefulWidget {
+  const SensitiveContentSettingsView({Key? key}) : super(key: key);
 
   @override
-  AccessibilitySettingsMenuViewState createState() => AccessibilitySettingsMenuViewState();
+  SensitiveContentSettingsViewState createState() => SensitiveContentSettingsViewState();
 }
 
-class AccessibilitySettingsMenuViewState extends State<AccessibilitySettingsMenuView> {
+class SensitiveContentSettingsViewState extends State<SensitiveContentSettingsView> {
   bool _isLoading = false;
 
   Future<void> onRefresh() async {
     final model =
-        Provider.of<AccessibilitySettingsMenuViewModel>(context, listen: false);
+        Provider.of<SensitiveContentSettingsViewModel>(context, listen: false);
     await getUser();
   }
 
   Future<void> getUser() async {
     final model =
-        Provider.of<AccessibilitySettingsMenuViewModel>(context, listen: false);
+        Provider.of<SensitiveContentSettingsViewModel>(context, listen: false);
     await model.getUser();
+  }
+
+  Future<void> getSettings() async {
+    final model =
+        Provider.of<SensitiveContentSettingsViewModel>(context, listen: false);
+    await model.getSensitiveContentSettings();
     setState(() {
       _isLoading = false;
     });
@@ -64,11 +73,12 @@ class AccessibilitySettingsMenuViewState extends State<AccessibilitySettingsMenu
       _isLoading = true;
     });
     getUser();
+    getSettings();
   }
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilitySettingsMenuViewModel>(context);
+    final model = Provider.of<SensitiveContentSettingsViewModel>(context);
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -111,13 +121,13 @@ class _HeaderState extends State<_Header> {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilitySettingsMenuViewModel>(context);
+    final model = Provider.of<SensitiveContentSettingsViewModel>(context);
 
     return Container(
         alignment: Alignment.center,
         margin: const EdgeInsets.symmetric(horizontal: 24),
         child: Text(
-          AppLocalizations.of(context)!.accessibilitySettingsMenuDescription,
+          AppLocalizations.of(context)!.showSensitiveContent,
           style: AdaptiveTheme.of(context).theme.textTheme.bodySmall,
         ));
   }
@@ -130,52 +140,19 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilitySettingsMenuViewModel>(context);
-
-    final settings = <SettingTabData>[
-      // SettingTabData(
-      //   title: AppLocalizations.of(context)!.languagesSettings,
-      //   description:
-      //       AppLocalizations.of(context)!.languagesSettingsDescription,
-      //   icon: Icons.language,
-      //   navigationRoute: MainNavigationRouteNames.languageSettings,
-      // ),
-      SettingTabData(
-        title: AppLocalizations.of(context)!.themeSettings,
-        description: AppLocalizations.of(context)!.themeSettingsDescription,
-        icon: Icons.palette,
-        navigationRoute: MainNavigationRouteNames.themeSettings,
-      )
-    ];
+    final model = Provider.of<SensitiveContentSettingsViewModel>(context);
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 24),
-      child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: settings.length,
-          itemBuilder: (BuildContext context, int index) {
-            if (model.settingsNameFieldText.value.text.isNotEmpty) {
-              if (settings[index]
-                  .title
-                  .toString()
-                  .toLowerCase()
-                  .contains(model.settingsNameFieldText.value.text)) {
-                return SettingTab(
-                  title: settings[index].title,
-                  description: settings[index].description,
-                  icon: settings[index].icon,
-                  navigationRoute: settings[index].navigationRoute,
-                );
-              }
-              return const SizedBox();
-            }
-            return SettingTab(
-              title: settings[index].title,
-              description: settings[index].description,
-              icon: settings[index].icon,
-              navigationRoute: settings[index].navigationRoute,
-            );
-          }),
-    );
+        alignment: Alignment.center,
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Switch(value: model.sensitiveContent, onChanged: (value) {
+              model.setSensitiveContentSettings(value);
+            }),
+          ],
+        ));
   }
 }

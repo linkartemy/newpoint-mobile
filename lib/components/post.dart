@@ -26,7 +26,9 @@ class PostComponent extends StatelessWidget {
       required this.onLikeTap,
       required this.onTap,
       required this.canDelete,
-      required this.deletePost})
+      required this.deletePost,
+      required this.canAddToBlacklist,
+      required this.addToBlacklist})
       : super(key: key);
   final int id;
   final String login;
@@ -46,6 +48,8 @@ class PostComponent extends StatelessWidget {
   final Future<void> Function(BuildContext context) onTap;
   final bool canDelete;
   final Future<void> Function() deletePost;
+  final bool canAddToBlacklist;
+  final Future<void> Function() addToBlacklist;
 
   Future<void> onDetailsTap(BuildContext context) async {
     AlertDialog alert = AlertDialog(
@@ -79,6 +83,52 @@ class PostComponent extends StatelessWidget {
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();
                           await deletePost();
+                        },
+                      ),
+                      TextButton(
+                        child: Text(
+                          AppLocalizations.of(context)!.cancel,
+                          textAlign: TextAlign.center,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return alert;
+                    },
+                  );
+                },
+              )
+            : SizedBox(),
+        canAddToBlacklist
+            ? TextButton(
+                child: Text(
+                  AppLocalizations.of(context)!.addToBlacklist,
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () {
+                  AlertDialog alert = AlertDialog(
+                    actionsAlignment: MainAxisAlignment.start,
+                    actionsOverflowAlignment: OverflowBarAlignment.center,
+                    title: Text(
+                      AppLocalizations.of(context)!.areYouSure,
+                      textAlign: TextAlign.center,
+                      style:
+                      AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.yes,
+                            textAlign: TextAlign.center),
+                        onPressed: () async {
+                          await addToBlacklist();
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
                         },
                       ),
                       TextButton(
@@ -214,7 +264,11 @@ class _Header extends StatelessWidget {
                               .theme
                               .textTheme
                               .titleSmall!
-                              .copyWith(color: AdaptiveTheme.of(context).theme.colorScheme.secondary)),
+                              .copyWith(
+                                  color: AdaptiveTheme.of(context)
+                                      .theme
+                                      .colorScheme
+                                      .secondary)),
                     ])),
               ),
               InkWell(
@@ -239,7 +293,11 @@ class _Header extends StatelessWidget {
                     .theme
                     .textTheme
                     .bodyMedium!
-                    .copyWith(color: AdaptiveTheme.of(context).theme.colorScheme.secondary))
+                    .copyWith(
+                        color: AdaptiveTheme.of(context)
+                            .theme
+                            .colorScheme
+                            .secondary))
           ],
         )),
       ],

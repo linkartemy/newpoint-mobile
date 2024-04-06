@@ -15,31 +15,32 @@ import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/profile/profile_view_model.dart';
 import 'package:newpoint/views/settings/accessibility/accessibility_settings_menu_view_model.dart';
+import 'package:newpoint/views/settings/privacy/privacy_settings_menu_view_model.dart';
 import 'package:newpoint/views/settings/setting_tab_data.dart';
 import 'package:newpoint/views/settings/settings_view_model.dart';
 import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class AccessibilitySettingsMenuView extends StatefulWidget {
-  const AccessibilitySettingsMenuView({Key? key}) : super(key: key);
+class PrivacySettingsMenuView extends StatefulWidget {
+  const PrivacySettingsMenuView({Key? key}) : super(key: key);
 
   @override
-  AccessibilitySettingsMenuViewState createState() => AccessibilitySettingsMenuViewState();
+  PrivacySettingsMenuViewState createState() => PrivacySettingsMenuViewState();
 }
 
-class AccessibilitySettingsMenuViewState extends State<AccessibilitySettingsMenuView> {
+class PrivacySettingsMenuViewState extends State<PrivacySettingsMenuView> {
   bool _isLoading = false;
 
   Future<void> onRefresh() async {
     final model =
-        Provider.of<AccessibilitySettingsMenuViewModel>(context, listen: false);
+        Provider.of<PrivacySettingsMenuViewModel>(context, listen: false);
     await getUser();
   }
 
   Future<void> getUser() async {
     final model =
-        Provider.of<AccessibilitySettingsMenuViewModel>(context, listen: false);
+        Provider.of<PrivacySettingsMenuViewModel>(context, listen: false);
     await model.getUser();
     setState(() {
       _isLoading = false;
@@ -68,7 +69,7 @@ class AccessibilitySettingsMenuViewState extends State<AccessibilitySettingsMenu
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilitySettingsMenuViewModel>(context);
+    final model = Provider.of<PrivacySettingsMenuViewModel>(context);
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -111,13 +112,13 @@ class _HeaderState extends State<_Header> {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilitySettingsMenuViewModel>(context);
+    final model = Provider.of<PrivacySettingsMenuViewModel>(context);
 
     return Container(
         alignment: Alignment.center,
         margin: const EdgeInsets.symmetric(horizontal: 24),
         child: Text(
-          AppLocalizations.of(context)!.accessibilitySettingsMenuDescription,
+          AppLocalizations.of(context)!.privacySettingsDescription,
           style: AdaptiveTheme.of(context).theme.textTheme.bodySmall,
         ));
   }
@@ -130,21 +131,21 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<AccessibilitySettingsMenuViewModel>(context);
+    final model = Provider.of<PrivacySettingsMenuViewModel>(context);
 
     final settings = <SettingTabData>[
-      // SettingTabData(
-      //   title: AppLocalizations.of(context)!.languagesSettings,
-      //   description:
-      //       AppLocalizations.of(context)!.languagesSettingsDescription,
-      //   icon: Icons.language,
-      //   navigationRoute: MainNavigationRouteNames.languageSettings,
-      // ),
       SettingTabData(
-        title: AppLocalizations.of(context)!.themeSettings,
-        description: AppLocalizations.of(context)!.themeSettingsDescription,
-        icon: Icons.palette,
-        navigationRoute: MainNavigationRouteNames.themeSettings,
+        title: AppLocalizations.of(context)!.sensitiveContent,
+        description:
+            AppLocalizations.of(context)!.sensitiveContentDescription,
+        icon: Icons.privacy_tip,
+        navigationRoute: MainNavigationRouteNames.sensitiveContentSettings,
+      ),
+      SettingTabData(
+        title: AppLocalizations.of(context)!.blacklistSettings,
+        description: AppLocalizations.of(context)!.blacklistSettingsDescription,
+        icon: Icons.block,
+        navigationRoute: MainNavigationRouteNames.blacklistSettings,
       )
     ];
 

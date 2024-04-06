@@ -139,7 +139,8 @@ class PasswordSettingsViewModel extends ChangeNotifier {
         setError("Code cannot be empty");
         return;
       }
-      final verified = await _codeService.verifyEmailVerificationCode(user!.email!, code);
+      final verified = await _codeService.verifyPasswordChangeVerificationCode(
+          user!.email, user!.phone, code);
       if (!verified) {
         setError("Incorrect code");
         return;

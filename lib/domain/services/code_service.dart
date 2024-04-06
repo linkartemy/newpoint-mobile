@@ -85,4 +85,20 @@ class CodeService {
         .unpackInto<AddPasswordChangeVerificationCodeResponse>(addPasswordChangeCodeResponse)
         .sent;
   }
+
+  Future<bool> verifyPasswordChangeVerificationCode(String? email, String? phone, String code) async {
+    var request = VerifyPasswordChangeVerificationCodeRequest();
+    request.email = email as NullableString;
+    request.phone = phone as NullableString;
+    request.code = code;
+    var response = await _codeServiceClient.verifyPasswordChangeVerificationCode(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var verifyPasswordChangeCodeResponse = VerifyPasswordChangeVerificationCodeResponse();
+    return response.data
+        .unpackInto<VerifyPasswordChangeVerificationCodeResponse>(verifyPasswordChangeCodeResponse)
+        .verified;
+  }
 }
