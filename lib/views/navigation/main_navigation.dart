@@ -50,6 +50,10 @@ class MainNavigation {
         _screenFactory.makePasswordSettings(),
     MainNavigationRouteNames.accountDeletionSettings: (_) =>
         _screenFactory.makeAccountDeletionSettings(),
+    MainNavigationRouteNames.securitySettingsMenu: (_) =>
+        _screenFactory.makeSecuritySettingsMenu(),
+    MainNavigationRouteNames.twoFactorSettings: (_) =>
+        _screenFactory.makeTwoFactorSettings(),
     MainNavigationRouteNames.privacySettingsMenu: (_) =>
         _screenFactory.makePrivacySettingsMenu(),
     MainNavigationRouteNames.sensitiveContentSettings: (_) =>
@@ -85,8 +89,7 @@ class MainNavigation {
           builder: (_) => _screenFactory.makeProfileEditor(profileId),
         );
       default:
-        const widget = Text('Navigation error!!!');
-        return MaterialPageRoute(builder: (_) => widget);
+        return MaterialPageRoute(builder: (_) => _screenFactory.makeMain());
     }
   }
 

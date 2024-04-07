@@ -70,6 +70,14 @@ class GrpcUserClient extends $grpc.Client {
       '/user.GrpcUser/VerifyPassword',
       ($5.VerifyPasswordRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$getTwoFactorByToken = $grpc.ClientMethod<$5.GetTwoFactorByTokenRequest, $1.Response>(
+      '/user.GrpcUser/GetTwoFactorByToken',
+      ($5.GetTwoFactorByTokenRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$updateTwoFactor = $grpc.ClientMethod<$5.UpdateTwoFactorRequest, $1.Response>(
+      '/user.GrpcUser/UpdateTwoFactor',
+      ($5.UpdateTwoFactorRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
 
   GrpcUserClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -123,6 +131,14 @@ class GrpcUserClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$1.Response> verifyPassword($5.VerifyPasswordRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$verifyPassword, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> getTwoFactorByToken($5.GetTwoFactorByTokenRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getTwoFactorByToken, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> updateTwoFactor($5.UpdateTwoFactorRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$updateTwoFactor, request, options: options);
   }
 }
 
@@ -215,6 +231,20 @@ abstract class GrpcUserServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $5.VerifyPasswordRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$5.GetTwoFactorByTokenRequest, $1.Response>(
+        'GetTwoFactorByToken',
+        getTwoFactorByToken_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $5.GetTwoFactorByTokenRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$5.UpdateTwoFactorRequest, $1.Response>(
+        'UpdateTwoFactor',
+        updateTwoFactor_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $5.UpdateTwoFactorRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.Response> login_Pre($grpc.ServiceCall call, $async.Future<$5.LoginRequest> request) async {
@@ -265,6 +295,14 @@ abstract class GrpcUserServiceBase extends $grpc.Service {
     return verifyPassword(call, await request);
   }
 
+  $async.Future<$1.Response> getTwoFactorByToken_Pre($grpc.ServiceCall call, $async.Future<$5.GetTwoFactorByTokenRequest> request) async {
+    return getTwoFactorByToken(call, await request);
+  }
+
+  $async.Future<$1.Response> updateTwoFactor_Pre($grpc.ServiceCall call, $async.Future<$5.UpdateTwoFactorRequest> request) async {
+    return updateTwoFactor(call, await request);
+  }
+
   $async.Future<$1.Response> login($grpc.ServiceCall call, $5.LoginRequest request);
   $async.Future<$1.Response> register($grpc.ServiceCall call, $5.RegisterRequest request);
   $async.Future<$1.Response> getUserByToken($grpc.ServiceCall call, $5.GetUserByTokenRequest request);
@@ -277,4 +315,6 @@ abstract class GrpcUserServiceBase extends $grpc.Service {
   $async.Future<$1.Response> changeEmail($grpc.ServiceCall call, $5.ChangeEmailRequest request);
   $async.Future<$1.Response> changePassword($grpc.ServiceCall call, $5.ChangePasswordRequest request);
   $async.Future<$1.Response> verifyPassword($grpc.ServiceCall call, $5.VerifyPasswordRequest request);
+  $async.Future<$1.Response> getTwoFactorByToken($grpc.ServiceCall call, $5.GetTwoFactorByTokenRequest request);
+  $async.Future<$1.Response> updateTwoFactor($grpc.ServiceCall call, $5.UpdateTwoFactorRequest request);
 }

@@ -1741,6 +1741,206 @@ class IsFollowingResponse extends $pb.GeneratedMessage {
   void clearFollowing() => clearField(1);
 }
 
+class GetTwoFactorByTokenRequest extends $pb.GeneratedMessage {
+  factory GetTwoFactorByTokenRequest({
+    $core.String? token,
+  }) {
+    final $result = create();
+    if (token != null) {
+      $result.token = token;
+    }
+    return $result;
+  }
+  GetTwoFactorByTokenRequest._() : super();
+  factory GetTwoFactorByTokenRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetTwoFactorByTokenRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetTwoFactorByTokenRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'token')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetTwoFactorByTokenRequest clone() => GetTwoFactorByTokenRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetTwoFactorByTokenRequest copyWith(void Function(GetTwoFactorByTokenRequest) updates) => super.copyWith((message) => updates(message as GetTwoFactorByTokenRequest)) as GetTwoFactorByTokenRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetTwoFactorByTokenRequest create() => GetTwoFactorByTokenRequest._();
+  GetTwoFactorByTokenRequest createEmptyInstance() => create();
+  static $pb.PbList<GetTwoFactorByTokenRequest> createRepeated() => $pb.PbList<GetTwoFactorByTokenRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetTwoFactorByTokenRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetTwoFactorByTokenRequest>(create);
+  static GetTwoFactorByTokenRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get token => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set token($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasToken() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearToken() => clearField(1);
+}
+
+class GetTwoFactorByTokenResponse extends $pb.GeneratedMessage {
+  factory GetTwoFactorByTokenResponse({
+    $core.bool? enabled,
+  }) {
+    final $result = create();
+    if (enabled != null) {
+      $result.enabled = enabled;
+    }
+    return $result;
+  }
+  GetTwoFactorByTokenResponse._() : super();
+  factory GetTwoFactorByTokenResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetTwoFactorByTokenResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetTwoFactorByTokenResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'enabled')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetTwoFactorByTokenResponse clone() => GetTwoFactorByTokenResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetTwoFactorByTokenResponse copyWith(void Function(GetTwoFactorByTokenResponse) updates) => super.copyWith((message) => updates(message as GetTwoFactorByTokenResponse)) as GetTwoFactorByTokenResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetTwoFactorByTokenResponse create() => GetTwoFactorByTokenResponse._();
+  GetTwoFactorByTokenResponse createEmptyInstance() => create();
+  static $pb.PbList<GetTwoFactorByTokenResponse> createRepeated() => $pb.PbList<GetTwoFactorByTokenResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetTwoFactorByTokenResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetTwoFactorByTokenResponse>(create);
+  static GetTwoFactorByTokenResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get enabled => $_getBF(0);
+  @$pb.TagNumber(1)
+  set enabled($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEnabled() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEnabled() => clearField(1);
+}
+
+class UpdateTwoFactorRequest extends $pb.GeneratedMessage {
+  factory UpdateTwoFactorRequest({
+    $core.bool? enabled,
+  }) {
+    final $result = create();
+    if (enabled != null) {
+      $result.enabled = enabled;
+    }
+    return $result;
+  }
+  UpdateTwoFactorRequest._() : super();
+  factory UpdateTwoFactorRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateTwoFactorRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateTwoFactorRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'enabled')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UpdateTwoFactorRequest clone() => UpdateTwoFactorRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdateTwoFactorRequest copyWith(void Function(UpdateTwoFactorRequest) updates) => super.copyWith((message) => updates(message as UpdateTwoFactorRequest)) as UpdateTwoFactorRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static UpdateTwoFactorRequest create() => UpdateTwoFactorRequest._();
+  UpdateTwoFactorRequest createEmptyInstance() => create();
+  static $pb.PbList<UpdateTwoFactorRequest> createRepeated() => $pb.PbList<UpdateTwoFactorRequest>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateTwoFactorRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateTwoFactorRequest>(create);
+  static UpdateTwoFactorRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get enabled => $_getBF(0);
+  @$pb.TagNumber(1)
+  set enabled($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEnabled() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEnabled() => clearField(1);
+}
+
+class UpdateTwoFactorResponse extends $pb.GeneratedMessage {
+  factory UpdateTwoFactorResponse({
+    $core.bool? updated,
+  }) {
+    final $result = create();
+    if (updated != null) {
+      $result.updated = updated;
+    }
+    return $result;
+  }
+  UpdateTwoFactorResponse._() : super();
+  factory UpdateTwoFactorResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateTwoFactorResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateTwoFactorResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'user'), createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'updated')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UpdateTwoFactorResponse clone() => UpdateTwoFactorResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdateTwoFactorResponse copyWith(void Function(UpdateTwoFactorResponse) updates) => super.copyWith((message) => updates(message as UpdateTwoFactorResponse)) as UpdateTwoFactorResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static UpdateTwoFactorResponse create() => UpdateTwoFactorResponse._();
+  UpdateTwoFactorResponse createEmptyInstance() => create();
+  static $pb.PbList<UpdateTwoFactorResponse> createRepeated() => $pb.PbList<UpdateTwoFactorResponse>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateTwoFactorResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateTwoFactorResponse>(create);
+  static UpdateTwoFactorResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get updated => $_getBF(0);
+  @$pb.TagNumber(1)
+  set updated($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUpdated() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUpdated() => clearField(1);
+}
+
 
 const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
 const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

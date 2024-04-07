@@ -37,7 +37,7 @@ class UserService {
     await _sessionDataProvider.setToken(headers["authorization"].toString());
   }
 
-  Future<void> login(String login, String password) async {
+  Future<String> login(String login, String password) async {
     var request = LoginRequest();
     request.login = login;
     request.password = password;
@@ -46,7 +46,7 @@ class UserService {
       throw ApiClientException(ApiClientExceptionType.other);
     }
     var headers = await response.headers;
-    await _sessionDataProvider.setToken(headers["authorization"].toString());
+    return headers["authorization"].toString();
   }
 
   Future<User> getUser() async {
@@ -204,5 +204,33 @@ class UserService {
     return response.data
         .unpackInto<IsFollowingResponse>(isFollowingResponse)
         .following;
+  }
+
+  Future<bool> getTwoFactorByToken(String token) async {
+    var request = GetTwoFactorByTokenRequest();
+    request.token = token;
+    var response = await _userServiceClient.getTwoFactorByToken(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var getTwoFactorResponse = GetTwoFactorByTokenResponse();
+    return response.data
+        .unpackInto<GetTwoFactorByTokenResponse>(getTwoFactorResponse)
+        .enabled;
+  }
+
+  Future<bool> updateTwoFactor(bool enabled) async {
+    var request = UpdateTwoFactorRequest();
+    request.enabled = enabled;
+    var response = await _userServiceClient.updateTwoFactor(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var updateTwoFactorResponse = UpdateTwoFactorResponse();
+    return response.data
+        .unpackInto<UpdateTwoFactorResponse>(updateTwoFactorResponse)
+        .updated;
   }
 }

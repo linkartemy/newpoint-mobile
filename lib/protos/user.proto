@@ -21,6 +21,8 @@ service GrpcUser {
   rpc ChangeEmail (ChangeEmailRequest) returns (response.Response);
   rpc ChangePassword (ChangePasswordRequest) returns (response.Response);
   rpc VerifyPassword (VerifyPasswordRequest) returns (response.Response);
+  rpc GetTwoFactorByToken (GetTwoFactorByTokenRequest) returns (response.Response);
+  rpc UpdateTwoFactor (UpdateTwoFactorRequest) returns (response.Response);
 }
 
 message UserModel {
@@ -152,4 +154,20 @@ message IsFollowingRequest {
 
 message IsFollowingResponse {
   bool following = 1;
+}
+
+message GetTwoFactorByTokenRequest {
+  string token = 1;
+}
+
+message GetTwoFactorByTokenResponse {
+  bool enabled = 1;
+}
+
+message UpdateTwoFactorRequest {
+  bool enabled = 1;
+}
+
+message UpdateTwoFactorResponse {
+  bool updated = 1;
 }

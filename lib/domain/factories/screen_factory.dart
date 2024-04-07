@@ -36,6 +36,10 @@ import 'package:newpoint/views/settings/privacy/privacy_settings_menu_view.dart'
 import 'package:newpoint/views/settings/privacy/privacy_settings_menu_view_model.dart';
 import 'package:newpoint/views/settings/privacy/sensitive_content_settings_view.dart';
 import 'package:newpoint/views/settings/privacy/sensitive_content_settings_view_model.dart';
+import 'package:newpoint/views/settings/security/security_settings_menu_view.dart';
+import 'package:newpoint/views/settings/security/security_settings_menu_view_model.dart';
+import 'package:newpoint/views/settings/security/twofactor_settings_view.dart';
+import 'package:newpoint/views/settings/security/twofactor_settings_view_model.dart';
 import 'package:newpoint/views/settings/settings_view.dart';
 import 'package:newpoint/views/settings/settings_view_model.dart';
 import 'package:provider/provider.dart';
@@ -139,6 +143,20 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => AccountSettingsViewModel(),
       child: const AccountSettingsView(),
+    );
+  }
+
+  Widget makeSecuritySettingsMenu() {
+    return ChangeNotifierProvider(
+      create: (_) => SecuritySettingsMenuViewModel(),
+      child: const SecuritySettingsMenuView(),
+    );
+  }
+
+  Widget makeTwoFactorSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => TwoFactorSettingsViewModel(),
+      child: const TwoFactorSettingsView(),
     );
   }
 

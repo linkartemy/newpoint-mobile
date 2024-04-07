@@ -123,6 +123,9 @@
 
   "securitySettings": "Security and account access",
   "securitySettingsDescription": "Manage your account’s security.",
+  "twoFactorAuthentication": "Two-factor authentication",
+  "twoFactorAuthenticationDescription": "Add an extra layer of security to your account.",
+  "twoFactorAuthenticationText": "Currently, two-factor authentication is available only for email.",
 
   "privacySettings": "Privacy and safety",
   "privacySettingsDescription": "Manage what information you see and share on NewPoint.",

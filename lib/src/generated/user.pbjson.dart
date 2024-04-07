@@ -369,3 +369,52 @@ const IsFollowingResponse$json = {
 final $typed_data.Uint8List isFollowingResponseDescriptor = $convert.base64Decode(
     'ChNJc0ZvbGxvd2luZ1Jlc3BvbnNlEhwKCWZvbGxvd2luZxgBIAEoCFIJZm9sbG93aW5n');
 
+@$core.Deprecated('Use getTwoFactorByTokenRequestDescriptor instead')
+const GetTwoFactorByTokenRequest$json = {
+  '1': 'GetTwoFactorByTokenRequest',
+  '2': [
+    {'1': 'token', '3': 1, '4': 1, '5': 9, '10': 'token'},
+  ],
+};
+
+/// Descriptor for `GetTwoFactorByTokenRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getTwoFactorByTokenRequestDescriptor = $convert.base64Decode(
+    'ChpHZXRUd29GYWN0b3JCeVRva2VuUmVxdWVzdBIUCgV0b2tlbhgBIAEoCVIFdG9rZW4=');
+
+@$core.Deprecated('Use getTwoFactorByTokenResponseDescriptor instead')
+const GetTwoFactorByTokenResponse$json = {
+  '1': 'GetTwoFactorByTokenResponse',
+  '2': [
+    {'1': 'enabled', '3': 1, '4': 1, '5': 8, '10': 'enabled'},
+  ],
+};
+
+/// Descriptor for `GetTwoFactorByTokenResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getTwoFactorByTokenResponseDescriptor = $convert.base64Decode(
+    'ChtHZXRUd29GYWN0b3JCeVRva2VuUmVzcG9uc2USGAoHZW5hYmxlZBgBIAEoCFIHZW5hYmxlZA'
+    '==');
+
+@$core.Deprecated('Use updateTwoFactorRequestDescriptor instead')
+const UpdateTwoFactorRequest$json = {
+  '1': 'UpdateTwoFactorRequest',
+  '2': [
+    {'1': 'enabled', '3': 1, '4': 1, '5': 8, '10': 'enabled'},
+  ],
+};
+
+/// Descriptor for `UpdateTwoFactorRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateTwoFactorRequestDescriptor = $convert.base64Decode(
+    'ChZVcGRhdGVUd29GYWN0b3JSZXF1ZXN0EhgKB2VuYWJsZWQYASABKAhSB2VuYWJsZWQ=');
+
+@$core.Deprecated('Use updateTwoFactorResponseDescriptor instead')
+const UpdateTwoFactorResponse$json = {
+  '1': 'UpdateTwoFactorResponse',
+  '2': [
+    {'1': 'updated', '3': 1, '4': 1, '5': 8, '10': 'updated'},
+  ],
+};
+
+/// Descriptor for `UpdateTwoFactorResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateTwoFactorResponseDescriptor = $convert.base64Decode(
+    'ChdVcGRhdGVUd29GYWN0b3JSZXNwb25zZRIYCgd1cGRhdGVkGAEgASgIUgd1cGRhdGVk');
+
