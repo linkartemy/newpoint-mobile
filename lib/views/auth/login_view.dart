@@ -13,6 +13,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<LoginViewModel>();
     return Scaffold(
         appBar: AppBar(
           shadowColor: AdaptiveTheme.of(context).theme.appBarTheme.shadowColor,
@@ -48,7 +49,8 @@ class LoginView extends StatelessWidget {
                                   .titleMedium,
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: AppLocalizations.of(context)!.welcomeBackGladToSee,
+                                  text: AppLocalizations.of(context)!
+                                      .welcomeBackGladToSee,
                                 ),
                                 TextSpan(
                                     text: AppLocalizations.of(context)!.you,
@@ -65,7 +67,9 @@ class LoginView extends StatelessWidget {
                       Container(
                           padding: const EdgeInsets.only(
                               left: 20, right: 20, top: 70),
-                          child: const _FormWidget()),
+                          child: model.token != null
+                              ? const _CodeFormWidget()
+                              : const _FormWidget()),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05),
                     ]))));
@@ -91,6 +95,31 @@ class _FormWidget extends StatelessWidget {
             label: AppLocalizations.of(context)!.password,
             obscureText: true),
         const SizedBox(height: 25),
+        ErrorComponent(
+            error: context.select((LoginViewModel m) => m.errorMessage)),
+        Container(
+          alignment: Alignment.bottomRight,
+          child: const _AuthButtonWidget(),
+        )
+      ],
+    );
+  }
+}
+
+class _CodeFormWidget extends StatelessWidget {
+  const _CodeFormWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<LoginViewModel>();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        InputComponent(
+            controller: model.codeTextController,
+            label: AppLocalizations.of(context)!.code),
+        const SizedBox(height: 21),
         ErrorComponent(
             error: context.select((LoginViewModel m) => m.errorMessage)),
         Container(
