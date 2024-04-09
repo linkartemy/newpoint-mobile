@@ -418,3 +418,28 @@ const UpdateTwoFactorResponse$json = {
 final $typed_data.Uint8List updateTwoFactorResponseDescriptor = $convert.base64Decode(
     'ChdVcGRhdGVUd29GYWN0b3JSZXNwb25zZRIYCgd1cGRhdGVkGAEgASgIUgd1cGRhdGVk');
 
+@$core.Deprecated('Use getUserByLoginRequestDescriptor instead')
+const GetUserByLoginRequest$json = {
+  '1': 'GetUserByLoginRequest',
+  '2': [
+    {'1': 'login', '3': 1, '4': 1, '5': 9, '10': 'login'},
+  ],
+};
+
+/// Descriptor for `GetUserByLoginRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getUserByLoginRequestDescriptor = $convert.base64Decode(
+    'ChVHZXRVc2VyQnlMb2dpblJlcXVlc3QSFAoFbG9naW4YASABKAlSBWxvZ2lu');
+
+@$core.Deprecated('Use getUserByLoginResponseDescriptor instead')
+const GetUserByLoginResponse$json = {
+  '1': 'GetUserByLoginResponse',
+  '2': [
+    {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.user.UserModel', '10': 'user'},
+  ],
+};
+
+/// Descriptor for `GetUserByLoginResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getUserByLoginResponseDescriptor = $convert.base64Decode(
+    'ChZHZXRVc2VyQnlMb2dpblJlc3BvbnNlEiMKBHVzZXIYASABKAsyDy51c2VyLlVzZXJNb2RlbF'
+    'IEdXNlcg==');
+

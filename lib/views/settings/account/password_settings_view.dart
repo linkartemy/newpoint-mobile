@@ -99,8 +99,6 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
-  Future<void> onDetailsTap() async {}
-
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<PasswordSettingsViewModel>(context);
@@ -154,14 +152,16 @@ class _BodyState extends State<_Body> {
                         .copyWith(alignment: Alignment.centerLeft),
                     available: model.changePasswordButtonAvailable,
                   ),
-                  Container(
-                      alignment: Alignment.center,
-                      child: Text(model.success ?? "",
-                          style: AdaptiveTheme.of(context)
-                              .theme
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(color: AppColors.successColor))),
+                  model.success.isNotEmpty
+                      ? Container(
+                          alignment: Alignment.center,
+                          child: Text(model.success,
+                              style: AdaptiveTheme.of(context)
+                                  .theme
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(color: AppColors.successColor)))
+                      : Container(),
                 ],
               )
             : Column(

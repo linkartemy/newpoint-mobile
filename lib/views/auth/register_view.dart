@@ -1,11 +1,16 @@
+import 'dart:async';
+
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/button.dart';
+import 'package:newpoint/components/elevated_button.dart';
 import 'package:newpoint/components/input.dart';
+import 'package:newpoint/components/text_button.dart';
 import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/auth/register_view_model.dart';
+import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 class RegisterView extends StatefulWidget {
@@ -25,6 +30,15 @@ class RegisterViewState extends State<RegisterView> {
   Future<void> goBack() async {
     final model = context.read<RegisterViewModel>();
     await model.goBack();
+    setState(() {});
+  }
+
+  Future<void> resendCode() async {
+    final model = context.read<RegisterViewModel>();
+    if (!model.resendCodeButtonAvailable) return;
+    model.resendCodeButtonAvailable = false;
+    setState(() {});
+    await model.resendCode();
     setState(() {});
   }
 
@@ -52,9 +66,7 @@ class RegisterViewState extends State<RegisterView> {
             child: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context)
-                    .viewInsets
-                    .bottom / 2),
+                bottom: MediaQuery.of(context).viewInsets.bottom / 2),
             child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -74,7 +86,8 @@ class RegisterViewState extends State<RegisterView> {
                               text: AppLocalizations.of(context)!.createA,
                             ),
                             TextSpan(
-                                text: ' ${AppLocalizations.of(context)!.newBlue} ',
+                                text:
+                                    ' ${AppLocalizations.of(context)!.newBlue} ',
                                 style: TextStyle(
                                     color: AdaptiveTheme.of(context)
                                         .theme
@@ -114,7 +127,17 @@ class RegisterViewState extends State<RegisterView> {
                                 child: _AuthButtonWidget(
                                   title: AppLocalizations.of(context)!.next,
                                   onPressed: () async {
+                                    if (!model.proceedAvailable) {
+                                      return;
+                                    }
+                                    model.proceedAvailable = false;
                                     await proceed();
+                                    setState(() {});
+                                    Future.delayed(const Duration(seconds: 1),
+                                        () {
+                                      model.proceedAvailable = true;
+                                      setState(() {});
+                                    });
                                   },
                                   activated: true,
                                 ),
@@ -139,7 +162,9 @@ class _FormWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        InputComponent(controller: model.loginTextController, label: AppLocalizations.of(context)!.login),
+        InputComponent(
+            controller: model.loginTextController,
+            label: AppLocalizations.of(context)!.login),
         const SizedBox(height: 10),
         InputComponent(
             controller: model.passwordTextController,
@@ -172,9 +197,15 @@ class _FormWidget extends StatelessWidget {
   }
 }
 
-class _EmailConfirmationWidget extends StatelessWidget {
+class _EmailConfirmationWidget extends StatefulWidget {
   const _EmailConfirmationWidget({Key? key}) : super(key: key);
 
+  @override
+  _EmailConfirmationWidgetState createState() =>
+      _EmailConfirmationWidgetState();
+}
+
+class _EmailConfirmationWidgetState extends State<_EmailConfirmationWidget> {
   @override
   Widget build(BuildContext context) {
     final model = context.read<RegisterViewModel>();
@@ -187,7 +218,35 @@ class _EmailConfirmationWidget extends StatelessWidget {
           style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
         ),
         const SizedBox(height: 10),
-        InputComponent(controller: model.codeTextController, label: AppLocalizations.of(context)!.code),
+        InputComponent(
+            controller: model.codeTextController,
+            label: AppLocalizations.of(context)!.code),
+        TextButtonComponent(
+          child: AppLocalizations.of(context)!.resendCode +
+              (model.resendCodeCountDown > 0
+                  ? " (${model.resendCodeCountDown} seconds)"
+                  : ""),
+          onPressed: () async {
+            if (!model.resendCodeButtonAvailable) return;
+            model.resendCodeButtonAvailable = false;
+            await model.resendCode();
+            model.timer = Timer.periodic(
+              const Duration(seconds: 1),
+              (Timer timer) {
+                if (model.resendCodeCountDown == 0) {
+                  timer.cancel();
+                  model.resendCodeButtonAvailable = true;
+                  setState(() {});
+                } else {
+                  --model.resendCodeCountDown;
+                  setState(() {});
+                }
+              },
+            );
+            setState(() {});
+          },
+          available: model.resendCodeButtonAvailable,
+        ),
         const SizedBox(height: 25),
         const _ErrorMessageWidget(),
       ],
@@ -218,7 +277,7 @@ class _DataFormWidget extends StatelessWidget {
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime(1800),
-                lastDate: DateTime(2100));
+                lastDate: DateTime.now());
 
             if (pickedDate != null) {
               final formattedDate =
@@ -249,10 +308,13 @@ class _AuthButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.read<RegisterViewModel>();
+
     return activated
-        ? ButtonComponent(
+        ? ElevatedButtonComponent(
             onPressed: onPressed,
-            child: Text(title),
+            child: title,
+            available: model.proceedAvailable,
           )
         : Container();
   }
@@ -263,8 +325,7 @@ class _ErrorMessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final errorMessage =
-        context.select((RegisterViewModel m) => m.errorMessage);
+    final errorMessage = context.select((RegisterViewModel m) => m.error);
     if (errorMessage == null) return const SizedBox.shrink();
 
     return Padding(
@@ -273,7 +334,7 @@ class _ErrorMessageWidget extends StatelessWidget {
         errorMessage,
         style: const TextStyle(
           fontSize: 17,
-          color: Colors.red,
+          color: AppColors.errorColor,
         ),
       ),
     );

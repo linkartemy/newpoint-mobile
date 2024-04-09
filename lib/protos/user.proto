@@ -23,6 +23,7 @@ service GrpcUser {
   rpc VerifyPassword (VerifyPasswordRequest) returns (response.Response);
   rpc GetTwoFactorByToken (GetTwoFactorByTokenRequest) returns (response.Response);
   rpc UpdateTwoFactor (UpdateTwoFactorRequest) returns (response.Response);
+  rpc GetUserByLogin (GetUserByLoginRequest) returns (response.Response);
 }
 
 message UserModel {
@@ -170,4 +171,12 @@ message UpdateTwoFactorRequest {
 
 message UpdateTwoFactorResponse {
   bool updated = 1;
+}
+
+message GetUserByLoginRequest {
+  string login = 1;
+}
+
+message GetUserByLoginResponse {
+  UserModel user = 1;
 }

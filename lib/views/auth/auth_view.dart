@@ -70,12 +70,12 @@ class _AuthButtonsWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ButtonComponent(
+          ElevatedButtonComponent(
             onPressed: () => {
               Navigator.of(context).pushNamed(MainNavigationRouteNames.login),
             },
             style: AdaptiveTheme.of(context).theme.elevatedButtonTheme.style,
-            child: Text(AppLocalizations.of(context)!.signIn),
+            child: AppLocalizations.of(context)!.signIn,
           ),
           ElevatedButtonComponent(
             onPressed: () => {

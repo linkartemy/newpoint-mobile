@@ -233,4 +233,18 @@ class UserService {
         .unpackInto<UpdateTwoFactorResponse>(updateTwoFactorResponse)
         .updated;
   }
+
+  Future<User> getUserByLogin(String login) async {
+    var request = GetUserByLoginRequest();
+    request.login = login;
+    var response = await _userServiceClient.getUserByLogin(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var getUserByLoginResponse = GetUserByLoginResponse();
+    return User.fromModel(response.data
+        .unpackInto<GetUserByLoginResponse>(getUserByLoginResponse)
+        .user);
+  }
 }

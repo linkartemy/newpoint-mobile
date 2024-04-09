@@ -156,9 +156,11 @@ class _Body extends StatelessWidget {
               style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
             ),
             const SizedBox(height: 10),
-            Switch(value: model.twoFactorEnabled, onChanged: (value) {
-              model.setTwoFactorSettings(value);
-            }),
+            Switch(
+                value: model.twoFactorEnabled,
+                onChanged: (value) {
+                  model.setTwoFactorSettings(value);
+                }),
           ],
         ));
   }

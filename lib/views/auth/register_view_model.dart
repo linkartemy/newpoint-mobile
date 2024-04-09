@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
@@ -24,14 +26,18 @@ class RegisterViewModel extends ChangeNotifier {
 
   var birthDate = DateTime.now();
 
-  String? _errorMessage;
+  String? error;
 
-  String? get errorMessage => _errorMessage;
   bool _isAuthProgress = false;
 
   bool get canStartAuth => !_isAuthProgress;
 
   bool get isAuthProgress => _isAuthProgress;
+
+  bool proceedAvailable = true;
+  bool resendCodeButtonAvailable = true;
+  int resendCodeCountDown = 0;
+  Timer timer = Timer(Duration(seconds: 1), () {});
 
   bool _isValid(String login, String password, String name, String surname,
           String email) =>
@@ -43,6 +49,15 @@ class RegisterViewModel extends ChangeNotifier {
 
   int stage = 0;
 
+  void setError(String message) {
+    error = message;
+    notifyListeners();
+    Future.delayed(const Duration(milliseconds: 5000), () {
+      error = "";
+      notifyListeners();
+    });
+  }
+
   Future<String?> _register(String login, String password, String name,
       String surname, String email, String phone, DateTime birthDate) async {
     try {
@@ -53,7 +68,7 @@ class RegisterViewModel extends ChangeNotifier {
         case ApiClientExceptionType.network:
           return 'No access to server. Check the Internet connection.';
         case ApiClientExceptionType.auth:
-          return 'Неправильный логин пароль!';
+          return 'Invalid login or password';
         case ApiClientExceptionType.badRequest:
           if (e.error.isNotEmpty) {
             return e.error;
@@ -110,7 +125,8 @@ class RegisterViewModel extends ChangeNotifier {
       }
 
       if (stage == 1) {
-        var verified = await _codeService.verifyEmailVerificationCode(email, code);
+        var verified =
+            await _codeService.verifyEmailVerificationCode(email, code);
         if (!verified) {
           _updateState("Incorrect code", false);
           return;
@@ -120,24 +136,45 @@ class RegisterViewModel extends ChangeNotifier {
         return;
       }
 
-      _errorMessage =
+      error =
           await _register(login, password, name, surname, email, '', birthDate);
-      if (_errorMessage == null) {
+      if (error == null) {
         MainNavigation.resetNavigation(context);
       } else {
-        _updateState(_errorMessage, false);
+        _updateState(error, false);
       }
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
-        _errorMessage = "Something is wrong with the connection to the server";
+        error = "Something is wrong with the connection to the server";
       } else {
-        _errorMessage = e.error;
-        _updateState(_errorMessage, false);
+        error = e.error;
+        _updateState(error, false);
       }
     } catch (e) {
-      _errorMessage = "Something went wrong, please try again";
+      error = "Something went wrong, please try again";
     }
-    _updateState(_errorMessage, false);
+    _updateState(error, false);
+  }
+
+  Future<void> resendCode() async {
+    try {
+      final email = emailTextController.text;
+      if (email.isEmpty) {
+        setError("Email cannot be empty");
+        notifyListeners();
+        return;
+      }
+      resendCodeCountDown = 60;
+      _codeService.addEmailVerificationCode(email);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+      error = e.error;
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
   }
 
   Future<void> goBack() async {
@@ -149,10 +186,14 @@ class RegisterViewModel extends ChangeNotifier {
   }
 
   void _updateState(String? errorMessage, bool isAuthProgress) {
-    if (_errorMessage == errorMessage && _isAuthProgress == isAuthProgress) {
+    if (error == errorMessage && _isAuthProgress == isAuthProgress) {
       return;
     }
-    _errorMessage = errorMessage;
+    error = errorMessage;
+    Future.delayed(const Duration(milliseconds: 5000), () {
+      error = "";
+      notifyListeners();
+    });
     _isAuthProgress = isAuthProgress;
     notifyListeners();
   }

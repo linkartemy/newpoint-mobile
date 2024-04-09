@@ -18,19 +18,25 @@ class ElevatedButtonComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ButtonStyle buttonStyle = style ??
-        AdaptiveTheme.of(context).theme.elevatedButtonTheme.style!.copyWith(
-            backgroundColor: MaterialStateProperty.all(Colors.transparent));
+        AdaptiveTheme.of(context).theme.elevatedButtonTheme.style!.copyWith();
     TextStyle textStyle = AdaptiveTheme.of(context)
         .theme
         .textTheme
         .bodySmall!
-        .copyWith(color: AppColors.buttonTextColor);
-    if (style == null) {
-      textStyle = textStyle.copyWith(color: AppColors.primary);
+        .copyWith(color: AppColors.primary);
+    bool buttonHasBackground = buttonStyle.backgroundColor != null &&
+        buttonStyle.backgroundColor !=
+            MaterialStateProperty.all(Colors.transparent);
+    if (buttonHasBackground) {
+      textStyle = textStyle.copyWith(color: AppColors.buttonTextColor);
     }
     if (!available) {
-      buttonStyle = buttonStyle.copyWith(
-          backgroundColor: MaterialStateProperty.all(Colors.grey));
+      if (!buttonHasBackground) {
+        textStyle = textStyle.copyWith(color: Colors.grey);
+      } else {
+        buttonStyle = buttonStyle.copyWith(
+            backgroundColor: MaterialStateProperty.all(Colors.grey));
+      }
     }
     return TextButton(
       onPressed: onPressed,

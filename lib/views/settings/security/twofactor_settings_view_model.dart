@@ -57,6 +57,16 @@ class TwoFactorSettingsViewModel extends ChangeNotifier {
       if (processingTwoFactor) {
         return;
       }
+      if (user!.email == null) {
+        error = "You need to have an email to enable two-factor authentication";
+        return;
+      } else {
+        if (user!.email!.isEmpty) {
+          error =
+              "You need to have an email to enable two-factor authentication";
+          return;
+        }
+      }
       processingTwoFactor = true;
       twoFactorEnabled = value;
       await _userService.updateTwoFactor(value);

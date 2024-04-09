@@ -251,8 +251,7 @@ class _BodyState extends State<_Body> {
                           style: AdaptiveTheme.of(context)
                               .theme
                               .textTheme
-                              .bodyMedium!
-                              .copyWith(color: AppColors.textColor)),
+                              .bodyMedium),
                     ],
                   )
           ],
