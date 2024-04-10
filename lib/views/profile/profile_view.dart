@@ -532,6 +532,11 @@ class _FooterPostsState extends State<_FooterPosts> {
       setState(() {});
     }
 
+    Future<void> onBookmarkTap(int index) async {
+      await model.bookmark(index);
+      setState(() {});
+    }
+
     Future<void> deletePost(int postId) async {
       await model.deletePost(postId);
       setState(() {});
@@ -566,6 +571,9 @@ class _FooterPostsState extends State<_FooterPosts> {
               },
               onShareTap: (BuildContext context) async {
                 await onShareTap(context, index);
+              },
+              onBookmarkTap: () async {
+                await onBookmarkTap(index);
               },
               onTap: (BuildContext context) async {
                 final postUpdated = await Navigator.of(context).pushNamed(

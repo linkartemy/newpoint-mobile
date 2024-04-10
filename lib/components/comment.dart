@@ -208,7 +208,13 @@ class _Header extends StatelessWidget {
                                     .colorScheme
                                     .secondary)),
                     TextSpan(
-                        text: dateToAgoString(context, date),
+                        text: "· ",
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .bodySmall),
+                    TextSpan(
+                        text: dateToAgoString(context, date, isShort: true),
                         style:
                             AdaptiveTheme.of(context).theme.textTheme.bodySmall)
                   ]),

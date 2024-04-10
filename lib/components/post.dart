@@ -24,6 +24,7 @@ class PostComponent extends StatelessWidget {
       required this.views,
       required this.onShareTap,
       required this.onLikeTap,
+      required this.onBookmarkTap,
       required this.onTap,
       required this.canDelete,
       required this.deletePost,
@@ -45,6 +46,7 @@ class PostComponent extends StatelessWidget {
   final int views;
   final Future<void> Function(BuildContext context) onShareTap;
   final Future<void> Function(BuildContext context) onLikeTap;
+  final Future<void> Function() onBookmarkTap;
   final Future<void> Function(BuildContext context) onTap;
   final bool canDelete;
   final Future<void> Function() deletePost;
@@ -104,7 +106,7 @@ class PostComponent extends StatelessWidget {
                   );
                 },
               )
-            : SizedBox(),
+            : const SizedBox(),
         canAddToBlacklist
             ? TextButton(
                 child: Text(
@@ -119,7 +121,7 @@ class PostComponent extends StatelessWidget {
                       AppLocalizations.of(context)!.areYouSure,
                       textAlign: TextAlign.center,
                       style:
-                      AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+                          AdaptiveTheme.of(context).theme.textTheme.titleLarge,
                     ),
                     actions: [
                       TextButton(
@@ -150,7 +152,7 @@ class PostComponent extends StatelessWidget {
                   );
                 },
               )
-            : SizedBox(),
+            : const SizedBox(),
         TextButton(
           child: Text(
             AppLocalizations.of(context)!.cancel,
@@ -197,15 +199,15 @@ class PostComponent extends StatelessWidget {
               content: content,
             ),
             _Footer(
-              id: id,
-              likes: likes,
-              shares: shares,
-              comments: comments,
-              views: views,
-              liked: liked,
-              onLikeTap: onLikeTap,
-              onShareTap: onShareTap,
-            )
+                id: id,
+                likes: likes,
+                shares: shares,
+                comments: comments,
+                views: views,
+                liked: liked,
+                onLikeTap: onLikeTap,
+                onShareTap: onShareTap,
+                onBookmarkTap: onBookmarkTap)
           ],
         ));
   }
@@ -337,6 +339,7 @@ class _Footer extends StatelessWidget {
     required this.liked,
     required this.onLikeTap,
     required this.onShareTap,
+    required this.onBookmarkTap,
   }) : super(key: key);
 
   final int id;
@@ -347,6 +350,7 @@ class _Footer extends StatelessWidget {
   final bool liked;
   final onLikeTap;
   final onShareTap;
+  final onBookmarkTap;
 
   @override
   Widget build(BuildContext context) {
@@ -443,6 +447,19 @@ class _Footer extends StatelessWidget {
                     Icons.query_stats,
                     size: 16,
                   ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  InkWell(
+                      onTap: () async {
+                        await onBookmarkTap(context);
+                      },
+                      child: const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Icon(
+                            Icons.bookmark_border,
+                            size: 16,
+                          )))
                 ])),
       ],
     );

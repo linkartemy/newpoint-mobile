@@ -177,6 +177,18 @@ class ProfileViewModel extends ChangeNotifier {
     _processingLikePost = false;
   }
 
+  Future<void> bookmark(int index) async {
+    try {
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
   Future<void> addView(int postId) async {
     try {
       await postViewEntryTable.create(userId: user!.id, postId: postId);

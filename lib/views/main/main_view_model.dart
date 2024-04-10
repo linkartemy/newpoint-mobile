@@ -178,6 +178,10 @@ class MainViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> bookmark(int index) async {
+
+  }
+
   Future<void> deletePost(int postId) async {
     try {
       await _postService.deletePost(postId);

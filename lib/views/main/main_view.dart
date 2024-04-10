@@ -234,6 +234,11 @@ class _PostsState extends State<_PostsView> {
                       setState(() {});
                     }
 
+                    Future<void> onBookmarkTap() async {
+                      await model.bookmark(index);
+                      setState(() {});
+                    }
+
                     Future<void> onPostTap(BuildContext context) async {
                       await Navigator.of(context).pushNamed(
                           MainNavigationRouteNames.post,
@@ -284,6 +289,7 @@ class _PostsState extends State<_PostsView> {
                             views: posts[index].views,
                             onLikeTap: onLikeTap,
                             onShareTap: onShareTap,
+                            onBookmarkTap: onBookmarkTap,
                             onTap: onPostTap,
                             canDelete: posts[index].authorId == model.user!.id,
                             deletePost: deletePost,
@@ -370,6 +376,11 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
                       setState(() {});
                     }
 
+                    Future<void> onBookmarkTap() async {
+                      await model.bookmark(index);
+                      setState(() {});
+                    }
+
                     Future<void> onPostTap(BuildContext context) async {
                       await Navigator.of(context).pushNamed(
                           MainNavigationRouteNames.post,
@@ -420,6 +431,7 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
                             views: posts[index].views,
                             onLikeTap: onLikeTap,
                             onShareTap: onShareTap,
+                            onBookmarkTap: onBookmarkTap,
                             onTap: onPostTap,
                             canDelete: posts[index].authorId == model.user!.id,
                             deletePost: deletePost,
