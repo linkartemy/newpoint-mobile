@@ -18,12 +18,28 @@ import 'package:newpoint/views/profile_editor/profile_editor_view.dart';
 import 'package:newpoint/views/profile_editor/profile_editor_view_model.dart';
 import 'package:newpoint/views/settings/accessibility/accessibility_settings_menu_view.dart';
 import 'package:newpoint/views/settings/accessibility/accessibility_settings_menu_view_model.dart';
+import 'package:newpoint/views/settings/accessibility/language_settings_view.dart';
+import 'package:newpoint/views/settings/accessibility/language_settings_view_model.dart';
+import 'package:newpoint/views/settings/accessibility/theme_settings_view.dart';
+import 'package:newpoint/views/settings/accessibility/theme_settings_view_model.dart';
+import 'package:newpoint/views/settings/account/account_deletion_settings_view.dart';
+import 'package:newpoint/views/settings/account/account_deletion_settings_view_model.dart';
 import 'package:newpoint/views/settings/account/account_settings_menu_view.dart';
 import 'package:newpoint/views/settings/account/account_settings_menu_view_model.dart';
 import 'package:newpoint/views/settings/account/account_settings_view.dart';
 import 'package:newpoint/views/settings/account/account_settings_view_model.dart';
 import 'package:newpoint/views/settings/account/password_settings_view.dart';
 import 'package:newpoint/views/settings/account/password_settings_view_model.dart';
+import 'package:newpoint/views/settings/privacy/blacklist_settings_view.dart';
+import 'package:newpoint/views/settings/privacy/blacklist_settings_view_model.dart';
+import 'package:newpoint/views/settings/privacy/privacy_settings_menu_view.dart';
+import 'package:newpoint/views/settings/privacy/privacy_settings_menu_view_model.dart';
+import 'package:newpoint/views/settings/privacy/sensitive_content_settings_view.dart';
+import 'package:newpoint/views/settings/privacy/sensitive_content_settings_view_model.dart';
+import 'package:newpoint/views/settings/security/security_settings_menu_view.dart';
+import 'package:newpoint/views/settings/security/security_settings_menu_view_model.dart';
+import 'package:newpoint/views/settings/security/twofactor_settings_view.dart';
+import 'package:newpoint/views/settings/security/twofactor_settings_view_model.dart';
 import 'package:newpoint/views/settings/settings_view.dart';
 import 'package:newpoint/views/settings/settings_view_model.dart';
 import 'package:provider/provider.dart';
@@ -116,6 +132,13 @@ class ScreenFactory {
     );
   }
 
+  Widget makeAccountDeletionSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => AccountDeletionSettingsViewModel(),
+      child: const AccountDeletionSettingsView(),
+    );
+  }
+
   Widget makeAccountSettings() {
     return ChangeNotifierProvider(
       create: (_) => AccountSettingsViewModel(),
@@ -123,10 +146,59 @@ class ScreenFactory {
     );
   }
 
+  Widget makeSecuritySettingsMenu() {
+    return ChangeNotifierProvider(
+      create: (_) => SecuritySettingsMenuViewModel(),
+      child: const SecuritySettingsMenuView(),
+    );
+  }
+
+  Widget makeTwoFactorSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => TwoFactorSettingsViewModel(),
+      child: const TwoFactorSettingsView(),
+    );
+  }
+
+  Widget makePrivacySettingsMenu() {
+    return ChangeNotifierProvider(
+      create: (_) => PrivacySettingsMenuViewModel(),
+      child: const PrivacySettingsMenuView(),
+    );
+  }
+
+  Widget makeSensitiveContentSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => SensitiveContentSettingsViewModel(),
+      child: const SensitiveContentSettingsView(),
+    );
+  }
+
+  Widget makeBlacklistSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => BlacklistSettingsViewModel(),
+      child: const BlacklistSettingsView(),
+    );
+  }
+
   Widget makeAccessibilitySettingsMenu() {
     return ChangeNotifierProvider(
       create: (_) => AccessibilitySettingsMenuViewModel(),
       child: const AccessibilitySettingsMenuView(),
+    );
+  }
+
+  Widget makeLanguageSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => LanguageSettingsViewModel(),
+      child: const LanguageSettingsView(),
+    );
+  }
+
+  Widget makeThemeSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => ThemeSettingsViewModel(),
+      child: const ThemeSettingsView(),
     );
   }
 }

@@ -24,9 +24,12 @@ class PostComponent extends StatelessWidget {
       required this.views,
       required this.onShareTap,
       required this.onLikeTap,
+      required this.onBookmarkTap,
       required this.onTap,
       required this.canDelete,
-      required this.deletePost})
+      required this.deletePost,
+      required this.canAddToBlacklist,
+      required this.addToBlacklist})
       : super(key: key);
   final int id;
   final String login;
@@ -43,9 +46,12 @@ class PostComponent extends StatelessWidget {
   final int views;
   final Future<void> Function(BuildContext context) onShareTap;
   final Future<void> Function(BuildContext context) onLikeTap;
+  final Future<void> Function() onBookmarkTap;
   final Future<void> Function(BuildContext context) onTap;
   final bool canDelete;
   final Future<void> Function() deletePost;
+  final bool canAddToBlacklist;
+  final Future<void> Function() addToBlacklist;
 
   Future<void> onDetailsTap(BuildContext context) async {
     AlertDialog alert = AlertDialog(
@@ -100,7 +106,53 @@ class PostComponent extends StatelessWidget {
                   );
                 },
               )
-            : SizedBox(),
+            : const SizedBox(),
+        canAddToBlacklist
+            ? TextButton(
+                child: Text(
+                  AppLocalizations.of(context)!.addToBlacklist,
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () {
+                  AlertDialog alert = AlertDialog(
+                    actionsAlignment: MainAxisAlignment.start,
+                    actionsOverflowAlignment: OverflowBarAlignment.center,
+                    title: Text(
+                      AppLocalizations.of(context)!.areYouSure,
+                      textAlign: TextAlign.center,
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(AppLocalizations.of(context)!.yes,
+                            textAlign: TextAlign.center),
+                        onPressed: () async {
+                          await addToBlacklist();
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text(
+                          AppLocalizations.of(context)!.cancel,
+                          textAlign: TextAlign.center,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return alert;
+                    },
+                  );
+                },
+              )
+            : const SizedBox(),
         TextButton(
           child: Text(
             AppLocalizations.of(context)!.cancel,
@@ -147,15 +199,15 @@ class PostComponent extends StatelessWidget {
               content: content,
             ),
             _Footer(
-              id: id,
-              likes: likes,
-              shares: shares,
-              comments: comments,
-              views: views,
-              liked: liked,
-              onLikeTap: onLikeTap,
-              onShareTap: onShareTap,
-            )
+                id: id,
+                likes: likes,
+                shares: shares,
+                comments: comments,
+                views: views,
+                liked: liked,
+                onLikeTap: onLikeTap,
+                onShareTap: onShareTap,
+                onBookmarkTap: onBookmarkTap)
           ],
         ));
   }
@@ -214,7 +266,11 @@ class _Header extends StatelessWidget {
                               .theme
                               .textTheme
                               .titleSmall!
-                              .copyWith(color: AppColors.secondaryTextColor)),
+                              .copyWith(
+                                  color: AdaptiveTheme.of(context)
+                                      .theme
+                                      .colorScheme
+                                      .secondary)),
                     ])),
               ),
               InkWell(
@@ -239,7 +295,11 @@ class _Header extends StatelessWidget {
                     .theme
                     .textTheme
                     .bodyMedium!
-                    .copyWith(color: AppColors.secondaryTextColor))
+                    .copyWith(
+                        color: AdaptiveTheme.of(context)
+                            .theme
+                            .colorScheme
+                            .secondary))
           ],
         )),
       ],
@@ -279,6 +339,7 @@ class _Footer extends StatelessWidget {
     required this.liked,
     required this.onLikeTap,
     required this.onShareTap,
+    required this.onBookmarkTap,
   }) : super(key: key);
 
   final int id;
@@ -289,6 +350,7 @@ class _Footer extends StatelessWidget {
   final bool liked;
   final onLikeTap;
   final onShareTap;
+  final onBookmarkTap;
 
   @override
   Widget build(BuildContext context) {
@@ -385,6 +447,19 @@ class _Footer extends StatelessWidget {
                     Icons.query_stats,
                     size: 16,
                   ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  InkWell(
+                      onTap: () async {
+                        await onBookmarkTap(context);
+                      },
+                      child: const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Icon(
+                            Icons.bookmark_border,
+                            size: 16,
+                          )))
                 ])),
       ],
     );

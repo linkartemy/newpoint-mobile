@@ -7,6 +7,7 @@ import 'package:newpoint/components/button.dart';
 import 'package:newpoint/components/text_field.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/post_creator/post_creator_view_model.dart';
+import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 class PostCreatorView extends StatefulWidget {
@@ -40,6 +41,10 @@ class PostCreatorViewState extends State<PostCreatorView> {
       _isLoading = true;
     });
     getUser();
+  }
+
+  void onCommentTextChanged(String value) {
+
   }
 
   @override
@@ -85,7 +90,28 @@ class PostCreatorViewState extends State<PostCreatorView> {
                                 .wordsHaveAGreatPower,
                             controller: model.textFieldController,
                             maxHeight: 300,
+                            onChanged: (String value) {
+                              setState(() {});
+                            },
                           ),
+                          Container(
+                              alignment: Alignment.centerRight,
+                              padding: EdgeInsets.only(right: 10),
+                              child: Text(
+                                  "${model.textFieldController.text.length}/255",
+                                  style: AdaptiveTheme.of(context)
+                                      .theme
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                          color: model.textFieldController.text
+                                                      .length >
+                                                  255
+                                              ? AppColors.errorColor
+                                              : AdaptiveTheme.of(context)
+                                                  .theme
+                                                  .colorScheme
+                                                  .secondary))),
                           Container(
                             alignment: Alignment.center,
                             margin: EdgeInsets.only(top: 10),

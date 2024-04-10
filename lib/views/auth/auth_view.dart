@@ -4,6 +4,7 @@ import 'package:newpoint/components/button.dart';
 import 'package:newpoint/components/elevated_button.dart';
 import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthView extends StatelessWidget {
   const AuthView({Key? key}) : super(key: key);
@@ -44,13 +45,13 @@ class _TextWidget extends StatelessWidget {
       margin: const EdgeInsets.only(top: 100),
       padding: const EdgeInsets.symmetric(horizontal: 51),
       child: Text(
-          "The best place for writers and readers from all over the world ",
+          AppLocalizations.of(context)!.theBestPlace,
           style: AdaptiveTheme.of(context)
               .theme
               .textTheme
               .titleMedium
               ?.copyWith(
-                  color: Colors.black,
+                  color: AdaptiveTheme.of(context).theme.textTheme.titleMedium!.color,
                   fontSize: 24,
                   fontWeight: FontWeight.bold)),
     );
@@ -69,19 +70,19 @@ class _AuthButtonsWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ButtonComponent(
+          ElevatedButtonComponent(
             onPressed: () => {
               Navigator.of(context).pushNamed(MainNavigationRouteNames.login),
             },
             style: AdaptiveTheme.of(context).theme.elevatedButtonTheme.style,
-            child: const Text("Sign in"),
+            child: AppLocalizations.of(context)!.signIn,
           ),
           ElevatedButtonComponent(
             onPressed: () => {
               Navigator.of(context)
                   .pushNamed(MainNavigationRouteNames.register),
             },
-            child: "Sign up",
+            child: AppLocalizations.of(context)!.signUp,
           )
         ],
       ),

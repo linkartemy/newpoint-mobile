@@ -108,19 +108,7 @@ class PasswordSettingsViewModel extends ChangeNotifier {
       }
       resendCodeCountDown = 60;
       _codeService.addEmailVerificationCode(email);
-      timer = Timer.periodic(
-        const Duration(seconds: 1),
-        (Timer timer) {
-          if (resendCodeCountDown == 0) {
-            timer.cancel();
-            resendCodeButtonAvailable = true;
-            notifyListeners();
-          } else {
-            --resendCodeCountDown;
-            notifyListeners();
-          }
-        },
-      );
+
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -139,7 +127,8 @@ class PasswordSettingsViewModel extends ChangeNotifier {
         setError("Code cannot be empty");
         return;
       }
-      final verified = await _codeService.verifyEmailVerificationCode(user!.email!, code);
+      final verified = await _codeService.verifyPasswordChangeVerificationCode(
+          user!.email, user!.phone, code);
       if (!verified) {
         setError("Incorrect code");
         return;

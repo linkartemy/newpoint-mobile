@@ -151,11 +151,8 @@ class _ChangeEmailState extends State<_ChangeEmail> {
                   InputComponent(
                       label: AppLocalizations.of(context)!.changeEmail,
                       controller: model.emailFieldText,
-                      textFieldStyle: AdaptiveTheme.of(context)
-                          .theme
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: AppColors.textColor)),
+                      textFieldStyle:
+                          AdaptiveTheme.of(context).theme.textTheme.titleSmall),
                   model.successEmail.isNotEmpty
                       ? Container(
                           alignment: Alignment.center,
@@ -189,11 +186,8 @@ class _ChangeEmailState extends State<_ChangeEmail> {
                   InputComponent(
                       label: AppLocalizations.of(context)!.code,
                       controller: model.emailCodeFieldText,
-                      textFieldStyle: AdaptiveTheme.of(context)
-                          .theme
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: AppColors.textColor)),
+                      textFieldStyle:
+                          AdaptiveTheme.of(context).theme.textTheme.titleSmall),
                   TextButtonComponent(
                     child: AppLocalizations.of(context)!.resendCode +
                         (model.resendCodeCountDown > 0
@@ -250,11 +244,8 @@ class _ChangeEmailState extends State<_ChangeEmail> {
                   ),
                   const SizedBox(height: 20),
                   Text(AppLocalizations.of(context)!.sentCode,
-                      style: AdaptiveTheme.of(context)
-                          .theme
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(color: AppColors.textColor)),
+                      style:
+                          AdaptiveTheme.of(context).theme.textTheme.bodyMedium),
                 ],
               ));
   }
@@ -281,11 +272,8 @@ class _ChangePhoneState extends State<_ChangePhone> {
             InputComponent(
                 label: AppLocalizations.of(context)!.changePhone,
                 controller: model.phoneFieldText,
-                textFieldStyle: AdaptiveTheme.of(context)
-                    .theme
-                    .textTheme
-                    .titleSmall!
-                    .copyWith(color: AppColors.textColor)),
+                textFieldStyle:
+                    AdaptiveTheme.of(context).theme.textTheme.titleSmall),
             model.successPhone.isNotEmpty
                 ? Container(
                     alignment: Alignment.center,

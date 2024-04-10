@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:newpoint/domain/data_providers/blacklist_data_provider.dart';
 import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
 import 'package:newpoint/domain/models/post/post.dart';
@@ -15,6 +16,7 @@ class ProfileViewModel extends ChangeNotifier {
   final _userService = UserService();
   final _postService = PostService();
   final postViewEntryTable = PostViewEntryTable();
+  final _blacklistDataProvider = BlacklistDataProvider();
 
   late int profileId;
   User? user;
@@ -175,6 +177,18 @@ class ProfileViewModel extends ChangeNotifier {
     _processingLikePost = false;
   }
 
+  Future<void> bookmark(int index) async {
+    try {
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
   Future<void> addView(int postId) async {
     try {
       await postViewEntryTable.create(userId: user!.id, postId: postId);
@@ -213,5 +227,15 @@ class ProfileViewModel extends ChangeNotifier {
       error = "Something went wrong, please try again";
     }
     proceedingFollowing = false;
+  }
+
+  Future<void> addToBlacklist(int userId) async {
+    try {
+      await _blacklistDataProvider.create(userId: userId);
+      posts.removeWhere((element) => element.authorId == userId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {}
+    } catch (e) {}
   }
 }

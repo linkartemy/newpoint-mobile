@@ -1,4 +1,12 @@
 {
+  "theBestPlace": "The best place for writers and readers from all over the world",
+  "signIn": "Sign in",
+  "signUp": "Sign up",
+
+  "createA": "Create a",
+  "newBlue": "new",
+  "account": "account",
+
   "forYou": "For you",
   "youRead": "You read",
   "nComments": "{count, plural, other{{count} comments}}",
@@ -105,27 +113,43 @@
   "setting": "Setting",
 
   "accountSettings": "Account",
-  "accountSettingsDescription": "See information about your account, download an archive of your data, or learn about your account deactivation options",
+  "accountSettingsDescription": "See information about your account or learn about your account deactivation options",
   "accountInformation": "Account information",
-  "accountInformationDescription": "See information about your account, download an archive of your data, or learn about your account deactivation options",
+  "accountInformationDescription": "Manage your account information, including login, email and phone.",
   "changePassword": "Change password",
-  "changePasswordDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+  "changePasswordDescription": "Change your account password.",
   "deleteAccount": "Delete account",
-  "deleteAccountDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+  "deleteAccountDescription": "Learn how you can delete your account.",
 
   "securitySettings": "Security and account access",
-  "securitySettingsDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+  "securitySettingsDescription": "Manage your account’s security.",
+  "twoFactorAuthentication": "Two-factor authentication",
+  "twoFactorAuthenticationDescription": "Add an extra layer of security to your account.",
+  "twoFactorAuthenticationText": "Currently, two-factor authentication is available only for email.",
 
   "privacySettings": "Privacy and safety",
-  "privacySettingsDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+  "privacySettingsDescription": "Manage what information you see and share on NewPoint.",
+  "sensitiveContent": "Sensitive content",
+  "sensitiveContentDescription": "Manage your sensitive content settings.",
+  "showSensitiveContent": "Show sensitive content",
+  "blacklistSettings": "Blacklist",
+  "blacklistSettingsDescription": "Manage the accounts that you’ve blocked.",
+  "addToBlacklist": "Add to blacklist",
+  "removeFromBlacklist": "Remove from blacklist",
 
   "accessibilitySettings": "Accessibility, display and languages",
-  "accessibilitySettingsDescription": "Manage your account’s security and keep track of your account’s usage including apps that you have connected to your account.",
+  "accessibilitySettingsDescription": "Manage how NewPoint content is displayed to you.",
+  "accessibilitySettingsMenuDescription": "Manage how NewPoint content is displayed to you.",
+  "languagesSettings": "Languages",
+  "languagesSettingsDescription": "Manage your language preferences.",
+  "themeSettings": "Theme",
+  "themeSettingsDescription": "Manage your theme preferences.",
 
   "currentPassword": "Current password",
   "newPassword": "New password",
   "confirmNewPassword": "Confirm new password",
 
+  "email": "Email",
   "changeEmail": "Change email",
   "changePhone": "Change phone",
   "code": "Code",
@@ -133,12 +157,24 @@
   "resendCode": "Resend code",
   "back": "Back",
   "apply": "Apply",
+  "save": "Save",
 
   "loginOrEmail": "Login or email",
+  "login": "Login",
   "password": "Password",
+  "passwordConfirmation": "Password confirmation",
+  "previous": "Previous",
   "next": "Next",
 
   "welcomeBackGladToSee": "Welcome back!\nGlad to see ",
   "you": "You",
-  "again": ", again!"
+  "again": ", again!",
+
+  "name": "Name",
+  "surname": "Surname",
+  "description": "Description",
+  "tellAboutYourself": "Tell about yourself",
+  "location": "Location",
+  "whereAreYou": "Where are you?",
+  "birthDateString": "Birth date"
 }

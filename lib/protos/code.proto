@@ -14,6 +14,8 @@ service GrpcCode {
   rpc VerifyPhoneVerificationCode (VerifyPhoneVerificationCodeRequest) returns (response.Response);
   rpc AddPasswordChangeVerificationCode (AddPasswordChangeVerificationCodeRequest) returns (response.Response);
   rpc VerifyPasswordChangeVerificationCode (VerifyPasswordChangeVerificationCodeRequest) returns (response.Response);
+  rpc AddAccountDeletionVerificationCode (AddAccountDeletionVerificationCodeRequest) returns (response.Response);
+  rpc VerifyAccountDeletionVerificationCode (VerifyAccountDeletionVerificationCodeRequest) returns (response.Response);
 }
 
 message AddEmailVerificationCodeRequest {
@@ -66,5 +68,24 @@ message VerifyPasswordChangeVerificationCodeRequest {
 }
 
 message VerifyPasswordChangeVerificationCodeResponse {
+  bool verified = 1;
+}
+
+message AddAccountDeletionVerificationCodeRequest {
+  NullableString email = 1;
+  NullableString phone = 2;
+}
+
+message AddAccountDeletionCodeResponse {
+  bool sent = 1;
+}
+
+message VerifyAccountDeletionVerificationCodeRequest {
+  NullableString email = 1;
+  NullableString phone = 2;
+  string code = 3;
+}
+
+message VerifyAccountDeletionVerificationCodeResponse {
   bool verified = 1;
 }

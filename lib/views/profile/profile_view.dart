@@ -90,13 +90,17 @@ class ProfileViewState extends State<ProfileView> {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
-          backgroundColor: AdaptiveTheme.of(context).theme.scaffoldBackgroundColor,
+            backgroundColor:
+                AdaptiveTheme.of(context).theme.scaffoldBackgroundColor,
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              surfaceTintColor: AdaptiveTheme.of(context).theme.appBarTheme.surfaceTintColor,
+              surfaceTintColor:
+                  AdaptiveTheme.of(context).theme.appBarTheme.surfaceTintColor,
               bottomOpacity: 0,
-              shadowColor: AdaptiveTheme.of(context).theme.appBarTheme.shadowColor,
-              backgroundColor: AdaptiveTheme.of(context).theme.appBarTheme.backgroundColor,
+              shadowColor:
+                  AdaptiveTheme.of(context).theme.appBarTheme.shadowColor,
+              backgroundColor:
+                  AdaptiveTheme.of(context).theme.appBarTheme.backgroundColor,
               leading: InkWell(
                 onTap: () {
                   Navigator.of(context).pop();
@@ -240,87 +244,84 @@ class _HeaderState extends State<_Header> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-                children: [
-                  model.profileId == model.user?.id
-                      ? InkWell(
-                          onTap: () async {
-                            AlertDialog alert = AlertDialog(
-                              actionsAlignment: MainAxisAlignment.start,
-                              actionsOverflowAlignment:
-                                  OverflowBarAlignment.center,
-                              title: Text(
-                                AppLocalizations.of(context)!.profileImages,
-                                textAlign: TextAlign.center,
-                                style: AdaptiveTheme.of(context)
-                                    .theme
-                                    .textTheme
-                                    .titleLarge,
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: Text(
-                                      AppLocalizations.of(context)!
-                                          .changeProfileImage,
-                                      textAlign: TextAlign.center),
-                                  onPressed: () async {
-                                    await model.onImageTap();
-                                    setState(() {});
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                TextButton(
-                                  child: Text(
-                                    AppLocalizations.of(context)!.cancel,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return alert;
-                              },
-                            );
-                          },
-                          child: ProfileImage(
-                            profileImageId: model.profile!.profileImageId,
-                          ))
-                      : ProfileImage(
-                          profileImageId: model.profile!.profileImageId),
-                  Container(
-                    margin: const EdgeInsets.only(top: 0, left: 16),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 210,
-                            child: Text(
-                              "${model.profile!.name} ${model.profile!.surname}",
-                              style: AdaptiveTheme.of(context)
-                                  .theme
-                                  .textTheme
-                                  .bodyLarge,
-                            ),
+            Row(children: [
+              model.profileId == model.user?.id
+                  ? InkWell(
+                      onTap: () async {
+                        AlertDialog alert = AlertDialog(
+                          actionsAlignment: MainAxisAlignment.start,
+                          actionsOverflowAlignment: OverflowBarAlignment.center,
+                          title: Text(
+                            AppLocalizations.of(context)!.profileImages,
+                            textAlign: TextAlign.center,
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .titleLarge,
                           ),
-                          SizedBox(
-                              width: 210,
+                          actions: [
+                            TextButton(
                               child: Text(
-                                "@${model.profile!.login}",
-                                style: AdaptiveTheme.of(context)
-                                    .theme
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                        color: CupertinoColors.secondaryLabel),
-                              ))
-                        ]),
-                  ),
-                ]),
+                                  AppLocalizations.of(context)!
+                                      .changeProfileImage,
+                                  textAlign: TextAlign.center),
+                              onPressed: () async {
+                                await model.onImageTap();
+                                setState(() {});
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: Text(
+                                AppLocalizations.of(context)!.cancel,
+                                textAlign: TextAlign.center,
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return alert;
+                          },
+                        );
+                      },
+                      child: ProfileImage(
+                        profileImageId: model.profile!.profileImageId,
+                      ))
+                  : ProfileImage(profileImageId: model.profile!.profileImageId),
+              Container(
+                margin: const EdgeInsets.only(top: 0, left: 16),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 210,
+                        child: Text(
+                          "${model.profile!.name} ${model.profile!.surname}",
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .bodyLarge,
+                        ),
+                      ),
+                      SizedBox(
+                          width: 210,
+                          child: Text(
+                            "@${model.profile!.login}",
+                            style: AdaptiveTheme.of(context)
+                                .theme
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                    color: AdaptiveTheme.of(context).theme.colorScheme.secondary),
+                          ))
+                    ]),
+              ),
+            ]),
             Container(
               margin: const EdgeInsets.only(top: 10),
               child: model.profileId == model.user!.id
@@ -378,6 +379,71 @@ class _Body extends StatelessWidget {
           const SizedBox(
             height: 21,
           ),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "${model.profile!.followers} ",
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(),
+                      ),
+                      TextSpan(
+                        text: "followers",
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(
+                          color: AdaptiveTheme.of(context)
+                              .theme
+                              .colorScheme
+                              .secondary,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "${model.profile!.following} ",
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleSmall,
+                      ),
+                      TextSpan(
+                        text: "following",
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(
+                          color: AdaptiveTheme.of(context)
+                              .theme
+                              .colorScheme
+                              .secondary,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10)
+              ]),
+          const SizedBox(height: 8),
           model.profile!.description != null
               ? Text(
                   model.profile!.description!,
@@ -418,7 +484,8 @@ class _Body extends StatelessWidget {
               ),
               const SizedBox(width: 5),
               Text(
-                AppLocalizations.of(context)!.birthDate(model.profile!.birthDate!),
+                AppLocalizations.of(context)!
+                    .birthDate(model.profile!.birthDate!),
                 style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
               )
             ],
@@ -433,7 +500,7 @@ class _Body extends StatelessWidget {
                 .theme
                 .textTheme
                 .bodyMedium!
-                .copyWith(color: CupertinoColors.secondaryLabel),
+                .copyWith(color: AdaptiveTheme.of(context).theme.colorScheme.secondary),
           ),
         ],
       ),
@@ -465,15 +532,22 @@ class _FooterPostsState extends State<_FooterPosts> {
       setState(() {});
     }
 
+    Future<void> onBookmarkTap(int index) async {
+      await model.bookmark(index);
+      setState(() {});
+    }
+
     Future<void> deletePost(int postId) async {
       await model.deletePost(postId);
       setState(() {});
     }
 
     return ListView.builder(
+        key: PageStorageKey<String>("psk2"),
         itemCount: model.posts.length,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
+        physics: AlwaysScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           var post = model.posts[index];
           return Padding(
@@ -498,6 +572,9 @@ class _FooterPostsState extends State<_FooterPosts> {
               onShareTap: (BuildContext context) async {
                 await onShareTap(context, index);
               },
+              onBookmarkTap: () async {
+                await onBookmarkTap(index);
+              },
               onTap: (BuildContext context) async {
                 final postUpdated = await Navigator.of(context).pushNamed(
                     MainNavigationRouteNames.post,
@@ -507,6 +584,10 @@ class _FooterPostsState extends State<_FooterPosts> {
               canDelete: post.authorId == model.user!.id,
               deletePost: () async {
                 await deletePost(post.id);
+              },
+              canAddToBlacklist: post.authorId != model.user!.id,
+              addToBlacklist: () async {
+                await model.addToBlacklist(post.authorId);
               },
             ),
           );
@@ -528,62 +609,6 @@ class _FooterArticlesState extends State<_FooterArticles> {
   Widget build(BuildContext context) {
     final model = Provider.of<ProfileViewModel>(context);
 
-    return ListView.builder(
-        itemCount: model.posts.length,
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          var post = model.posts[index];
-          return VisibilityDetector(
-              key: Key('postkey$index'),
-              onVisibilityChanged: (visibilityInfo) async {
-                if (visibilityInfo.visibleFraction >= 0.9) {
-                  if (!model.viewedPosts.contains(model.posts[index].id) &&
-                      !model.isLoadingDatabase) {
-                    model.viewedPosts.add(post.id);
-                    await model.addView(post.id);
-                    setState(() {
-                      post.views++;
-                    });
-                  }
-                }
-              },
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
-                child: PostComponent(
-                  id: post.id,
-                  login: post.login,
-                  name: post.name,
-                  surname: post.surname,
-                  profileImageId: post.profileImageId,
-                  date: post.creationTimestamp,
-                  content: post.content,
-                  images: [],
-                  likes: post.likes,
-                  liked: post.liked,
-                  shares: post.shares,
-                  comments: post.comments,
-                  views: post.views,
-                  onLikeTap: (BuildContext context) async {
-                    await model.like(index);
-                  },
-                  onShareTap: (BuildContext context) async {
-                    model.share(index);
-                  },
-                  onTap: (BuildContext context) async {
-                    await Navigator.of(context).pushNamed(
-                        MainNavigationRouteNames.post,
-                        arguments: post.id);
-                    widget.reload();
-                  },
-                  canDelete: post.authorId == model.user!.id,
-                  deletePost: () async {
-                    await model.deletePost(post.id);
-                    await widget.reload();
-                  },
-                ),
-              ));
-        });
+    return SizedBox();
   }
 }

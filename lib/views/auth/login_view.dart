@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/button.dart';
+import 'package:newpoint/components/elevated_button.dart';
 import 'package:newpoint/components/error.dart';
 import 'package:newpoint/components/input.dart';
+import 'package:newpoint/components/text_button.dart';
 import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/auth/login_view_model.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +17,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<LoginViewModel>();
     return Scaffold(
         appBar: AppBar(
           shadowColor: AdaptiveTheme.of(context).theme.appBarTheme.shadowColor,
@@ -48,7 +53,8 @@ class LoginView extends StatelessWidget {
                                   .titleMedium,
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: AppLocalizations.of(context)!.welcomeBackGladToSee,
+                                  text: AppLocalizations.of(context)!
+                                      .welcomeBackGladToSee,
                                 ),
                                 TextSpan(
                                     text: AppLocalizations.of(context)!.you,
@@ -65,7 +71,9 @@ class LoginView extends StatelessWidget {
                       Container(
                           padding: const EdgeInsets.only(
                               left: 20, right: 20, top: 70),
-                          child: const _FormWidget()),
+                          child: model.token != null
+                              ? const _CodeFormWidget()
+                              : const _FormWidget()),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05),
                     ]))));
@@ -91,12 +99,77 @@ class _FormWidget extends StatelessWidget {
             label: AppLocalizations.of(context)!.password,
             obscureText: true),
         const SizedBox(height: 25),
-        ErrorComponent(
-            error: context.select((LoginViewModel m) => m.errorMessage)),
+        ErrorComponent(error: context.select((LoginViewModel m) => m.error)),
         Container(
           alignment: Alignment.bottomRight,
           child: const _AuthButtonWidget(),
         )
+      ],
+    );
+  }
+}
+
+class _CodeFormWidget extends StatefulWidget {
+  const _CodeFormWidget({Key? key}) : super(key: key);
+
+  @override
+  _CodeFormWidgetState createState() => _CodeFormWidgetState();
+}
+
+class _CodeFormWidgetState extends State<_CodeFormWidget> {
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<LoginViewModel>();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        InputComponent(
+            controller: model.codeTextController,
+            label: AppLocalizations.of(context)!.code),
+        TextButtonComponent(
+          child: AppLocalizations.of(context)!.resendCode +
+              (model.resendCodeCountDown > 0
+                  ? " (${model.resendCodeCountDown} seconds)"
+                  : ""),
+          onPressed: () async {
+            if (!model.resendCodeButtonAvailable) return;
+            model.resendCodeButtonAvailable = false;
+            await model.resendCode();
+            model.timer = Timer.periodic(
+              const Duration(seconds: 1),
+              (Timer timer) {
+                if (model.resendCodeCountDown == 0) {
+                  timer.cancel();
+                  model.resendCodeButtonAvailable = true;
+                  setState(() {});
+                } else {
+                  --model.resendCodeCountDown;
+                  setState(() {});
+                }
+              },
+            );
+            setState(() {});
+          },
+          available: model.resendCodeButtonAvailable,
+        ),
+        const SizedBox(height: 21),
+        ErrorComponent(error: context.select((LoginViewModel m) => m.error)),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          ElevatedButtonComponent(
+            child: AppLocalizations.of(context)!.back,
+            onPressed: () async {
+              model.goBack();
+              setState(() {});
+            },
+            style: AdaptiveTheme.of(context)
+                .theme
+                .elevatedButtonTheme
+                .style!
+                .copyWith(alignment: Alignment.center),
+          ),
+          const _AuthButtonWidget(),
+        ])
       ],
     );
   }
@@ -115,7 +188,8 @@ class _AuthButtonWidget extends StatelessWidget {
             height: 15,
             child: CircularProgressIndicator(strokeWidth: 2),
           )
-        : Text(AppLocalizations.of(context)!.next);
+        : Text(AppLocalizations.of(context)!.next,
+            style: AdaptiveTheme.of(context).theme.textTheme.bodySmall);
     return ButtonComponent(
       onPressed: onPressed,
       child: child,

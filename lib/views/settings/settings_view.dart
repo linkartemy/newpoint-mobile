@@ -121,17 +121,18 @@ class _HeaderState extends State<_Header> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             InputComponent(
-              label: "Setting name",
+              label: AppLocalizations.of(context)!.setting,
               controller: model.settingsNameFieldText,
               textAlign: TextAlign.center,
               textFieldStyle: AdaptiveTheme.of(context)
                   .theme
                   .textTheme
                   .titleSmall!
-                  .copyWith(color: AppColors.textColor),
+                  .copyWith(color: AdaptiveTheme.of(context).theme.textTheme.titleSmall!.color),
               fillColor: Colors.transparent,
               border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.secondaryTextColor)),
+                  borderSide: BorderSide(
+                      color: AdaptiveTheme.of(context).theme.inputDecorationTheme.border!.borderSide.color)),
               alignLabelWithHint: true,
               floatingLabelBehavior: FloatingLabelBehavior.never,
               centerLabel: true,

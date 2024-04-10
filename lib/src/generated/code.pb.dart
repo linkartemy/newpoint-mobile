@@ -693,6 +693,256 @@ class VerifyPasswordChangeVerificationCodeResponse extends $pb.GeneratedMessage 
   void clearVerified() => clearField(1);
 }
 
+class AddAccountDeletionVerificationCodeRequest extends $pb.GeneratedMessage {
+  factory AddAccountDeletionVerificationCodeRequest({
+    $9.NullableString? email,
+    $9.NullableString? phone,
+  }) {
+    final $result = create();
+    if (email != null) {
+      $result.email = email;
+    }
+    if (phone != null) {
+      $result.phone = phone;
+    }
+    return $result;
+  }
+  AddAccountDeletionVerificationCodeRequest._() : super();
+  factory AddAccountDeletionVerificationCodeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddAccountDeletionVerificationCodeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddAccountDeletionVerificationCodeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'code'), createEmptyInstance: create)
+    ..aOM<$9.NullableString>(1, _omitFieldNames ? '' : 'email', subBuilder: $9.NullableString.create)
+    ..aOM<$9.NullableString>(2, _omitFieldNames ? '' : 'phone', subBuilder: $9.NullableString.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  AddAccountDeletionVerificationCodeRequest clone() => AddAccountDeletionVerificationCodeRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AddAccountDeletionVerificationCodeRequest copyWith(void Function(AddAccountDeletionVerificationCodeRequest) updates) => super.copyWith((message) => updates(message as AddAccountDeletionVerificationCodeRequest)) as AddAccountDeletionVerificationCodeRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AddAccountDeletionVerificationCodeRequest create() => AddAccountDeletionVerificationCodeRequest._();
+  AddAccountDeletionVerificationCodeRequest createEmptyInstance() => create();
+  static $pb.PbList<AddAccountDeletionVerificationCodeRequest> createRepeated() => $pb.PbList<AddAccountDeletionVerificationCodeRequest>();
+  @$core.pragma('dart2js:noInline')
+  static AddAccountDeletionVerificationCodeRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddAccountDeletionVerificationCodeRequest>(create);
+  static AddAccountDeletionVerificationCodeRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $9.NullableString get email => $_getN(0);
+  @$pb.TagNumber(1)
+  set email($9.NullableString v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEmail() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEmail() => clearField(1);
+  @$pb.TagNumber(1)
+  $9.NullableString ensureEmail() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $9.NullableString get phone => $_getN(1);
+  @$pb.TagNumber(2)
+  set phone($9.NullableString v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPhone() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPhone() => clearField(2);
+  @$pb.TagNumber(2)
+  $9.NullableString ensurePhone() => $_ensure(1);
+}
+
+class AddAccountDeletionCodeResponse extends $pb.GeneratedMessage {
+  factory AddAccountDeletionCodeResponse({
+    $core.bool? sent,
+  }) {
+    final $result = create();
+    if (sent != null) {
+      $result.sent = sent;
+    }
+    return $result;
+  }
+  AddAccountDeletionCodeResponse._() : super();
+  factory AddAccountDeletionCodeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddAccountDeletionCodeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddAccountDeletionCodeResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'code'), createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'sent')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  AddAccountDeletionCodeResponse clone() => AddAccountDeletionCodeResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AddAccountDeletionCodeResponse copyWith(void Function(AddAccountDeletionCodeResponse) updates) => super.copyWith((message) => updates(message as AddAccountDeletionCodeResponse)) as AddAccountDeletionCodeResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AddAccountDeletionCodeResponse create() => AddAccountDeletionCodeResponse._();
+  AddAccountDeletionCodeResponse createEmptyInstance() => create();
+  static $pb.PbList<AddAccountDeletionCodeResponse> createRepeated() => $pb.PbList<AddAccountDeletionCodeResponse>();
+  @$core.pragma('dart2js:noInline')
+  static AddAccountDeletionCodeResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddAccountDeletionCodeResponse>(create);
+  static AddAccountDeletionCodeResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get sent => $_getBF(0);
+  @$pb.TagNumber(1)
+  set sent($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSent() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSent() => clearField(1);
+}
+
+class VerifyAccountDeletionVerificationCodeRequest extends $pb.GeneratedMessage {
+  factory VerifyAccountDeletionVerificationCodeRequest({
+    $9.NullableString? email,
+    $9.NullableString? phone,
+    $core.String? code,
+  }) {
+    final $result = create();
+    if (email != null) {
+      $result.email = email;
+    }
+    if (phone != null) {
+      $result.phone = phone;
+    }
+    if (code != null) {
+      $result.code = code;
+    }
+    return $result;
+  }
+  VerifyAccountDeletionVerificationCodeRequest._() : super();
+  factory VerifyAccountDeletionVerificationCodeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory VerifyAccountDeletionVerificationCodeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'VerifyAccountDeletionVerificationCodeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'code'), createEmptyInstance: create)
+    ..aOM<$9.NullableString>(1, _omitFieldNames ? '' : 'email', subBuilder: $9.NullableString.create)
+    ..aOM<$9.NullableString>(2, _omitFieldNames ? '' : 'phone', subBuilder: $9.NullableString.create)
+    ..aOS(3, _omitFieldNames ? '' : 'code')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  VerifyAccountDeletionVerificationCodeRequest clone() => VerifyAccountDeletionVerificationCodeRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  VerifyAccountDeletionVerificationCodeRequest copyWith(void Function(VerifyAccountDeletionVerificationCodeRequest) updates) => super.copyWith((message) => updates(message as VerifyAccountDeletionVerificationCodeRequest)) as VerifyAccountDeletionVerificationCodeRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static VerifyAccountDeletionVerificationCodeRequest create() => VerifyAccountDeletionVerificationCodeRequest._();
+  VerifyAccountDeletionVerificationCodeRequest createEmptyInstance() => create();
+  static $pb.PbList<VerifyAccountDeletionVerificationCodeRequest> createRepeated() => $pb.PbList<VerifyAccountDeletionVerificationCodeRequest>();
+  @$core.pragma('dart2js:noInline')
+  static VerifyAccountDeletionVerificationCodeRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<VerifyAccountDeletionVerificationCodeRequest>(create);
+  static VerifyAccountDeletionVerificationCodeRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $9.NullableString get email => $_getN(0);
+  @$pb.TagNumber(1)
+  set email($9.NullableString v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEmail() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEmail() => clearField(1);
+  @$pb.TagNumber(1)
+  $9.NullableString ensureEmail() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $9.NullableString get phone => $_getN(1);
+  @$pb.TagNumber(2)
+  set phone($9.NullableString v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPhone() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPhone() => clearField(2);
+  @$pb.TagNumber(2)
+  $9.NullableString ensurePhone() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $core.String get code => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set code($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasCode() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearCode() => clearField(3);
+}
+
+class VerifyAccountDeletionVerificationCodeResponse extends $pb.GeneratedMessage {
+  factory VerifyAccountDeletionVerificationCodeResponse({
+    $core.bool? verified,
+  }) {
+    final $result = create();
+    if (verified != null) {
+      $result.verified = verified;
+    }
+    return $result;
+  }
+  VerifyAccountDeletionVerificationCodeResponse._() : super();
+  factory VerifyAccountDeletionVerificationCodeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory VerifyAccountDeletionVerificationCodeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'VerifyAccountDeletionVerificationCodeResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'code'), createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'verified')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  VerifyAccountDeletionVerificationCodeResponse clone() => VerifyAccountDeletionVerificationCodeResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  VerifyAccountDeletionVerificationCodeResponse copyWith(void Function(VerifyAccountDeletionVerificationCodeResponse) updates) => super.copyWith((message) => updates(message as VerifyAccountDeletionVerificationCodeResponse)) as VerifyAccountDeletionVerificationCodeResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static VerifyAccountDeletionVerificationCodeResponse create() => VerifyAccountDeletionVerificationCodeResponse._();
+  VerifyAccountDeletionVerificationCodeResponse createEmptyInstance() => create();
+  static $pb.PbList<VerifyAccountDeletionVerificationCodeResponse> createRepeated() => $pb.PbList<VerifyAccountDeletionVerificationCodeResponse>();
+  @$core.pragma('dart2js:noInline')
+  static VerifyAccountDeletionVerificationCodeResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<VerifyAccountDeletionVerificationCodeResponse>(create);
+  static VerifyAccountDeletionVerificationCodeResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get verified => $_getBF(0);
+  @$pb.TagNumber(1)
+  set verified($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasVerified() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearVerified() => clearField(1);
+}
+
 
 const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
 const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

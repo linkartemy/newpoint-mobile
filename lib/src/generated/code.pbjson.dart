@@ -174,3 +174,59 @@ final $typed_data.Uint8List verifyPasswordChangeVerificationCodeResponseDescript
     'CixWZXJpZnlQYXNzd29yZENoYW5nZVZlcmlmaWNhdGlvbkNvZGVSZXNwb25zZRIaCgh2ZXJpZm'
     'llZBgBIAEoCFIIdmVyaWZpZWQ=');
 
+@$core.Deprecated('Use addAccountDeletionVerificationCodeRequestDescriptor instead')
+const AddAccountDeletionVerificationCodeRequest$json = {
+  '1': 'AddAccountDeletionVerificationCodeRequest',
+  '2': [
+    {'1': 'email', '3': 1, '4': 1, '5': 11, '6': '.NullableString', '10': 'email'},
+    {'1': 'phone', '3': 2, '4': 1, '5': 11, '6': '.NullableString', '10': 'phone'},
+  ],
+};
+
+/// Descriptor for `AddAccountDeletionVerificationCodeRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List addAccountDeletionVerificationCodeRequestDescriptor = $convert.base64Decode(
+    'CilBZGRBY2NvdW50RGVsZXRpb25WZXJpZmljYXRpb25Db2RlUmVxdWVzdBIlCgVlbWFpbBgBIA'
+    'EoCzIPLk51bGxhYmxlU3RyaW5nUgVlbWFpbBIlCgVwaG9uZRgCIAEoCzIPLk51bGxhYmxlU3Ry'
+    'aW5nUgVwaG9uZQ==');
+
+@$core.Deprecated('Use addAccountDeletionCodeResponseDescriptor instead')
+const AddAccountDeletionCodeResponse$json = {
+  '1': 'AddAccountDeletionCodeResponse',
+  '2': [
+    {'1': 'sent', '3': 1, '4': 1, '5': 8, '10': 'sent'},
+  ],
+};
+
+/// Descriptor for `AddAccountDeletionCodeResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List addAccountDeletionCodeResponseDescriptor = $convert.base64Decode(
+    'Ch5BZGRBY2NvdW50RGVsZXRpb25Db2RlUmVzcG9uc2USEgoEc2VudBgBIAEoCFIEc2VudA==');
+
+@$core.Deprecated('Use verifyAccountDeletionVerificationCodeRequestDescriptor instead')
+const VerifyAccountDeletionVerificationCodeRequest$json = {
+  '1': 'VerifyAccountDeletionVerificationCodeRequest',
+  '2': [
+    {'1': 'email', '3': 1, '4': 1, '5': 11, '6': '.NullableString', '10': 'email'},
+    {'1': 'phone', '3': 2, '4': 1, '5': 11, '6': '.NullableString', '10': 'phone'},
+    {'1': 'code', '3': 3, '4': 1, '5': 9, '10': 'code'},
+  ],
+};
+
+/// Descriptor for `VerifyAccountDeletionVerificationCodeRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List verifyAccountDeletionVerificationCodeRequestDescriptor = $convert.base64Decode(
+    'CixWZXJpZnlBY2NvdW50RGVsZXRpb25WZXJpZmljYXRpb25Db2RlUmVxdWVzdBIlCgVlbWFpbB'
+    'gBIAEoCzIPLk51bGxhYmxlU3RyaW5nUgVlbWFpbBIlCgVwaG9uZRgCIAEoCzIPLk51bGxhYmxl'
+    'U3RyaW5nUgVwaG9uZRISCgRjb2RlGAMgASgJUgRjb2Rl');
+
+@$core.Deprecated('Use verifyAccountDeletionVerificationCodeResponseDescriptor instead')
+const VerifyAccountDeletionVerificationCodeResponse$json = {
+  '1': 'VerifyAccountDeletionVerificationCodeResponse',
+  '2': [
+    {'1': 'verified', '3': 1, '4': 1, '5': 8, '10': 'verified'},
+  ],
+};
+
+/// Descriptor for `VerifyAccountDeletionVerificationCodeResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List verifyAccountDeletionVerificationCodeResponseDescriptor = $convert.base64Decode(
+    'Ci1WZXJpZnlBY2NvdW50RGVsZXRpb25WZXJpZmljYXRpb25Db2RlUmVzcG9uc2USGgoIdmVyaW'
+    'ZpZWQYASABKAhSCHZlcmlmaWVk');
+

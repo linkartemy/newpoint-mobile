@@ -46,6 +46,14 @@ class GrpcCodeClient extends $grpc.Client {
       '/code.GrpcCode/VerifyPasswordChangeVerificationCode',
       ($0.VerifyPasswordChangeVerificationCodeRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$addAccountDeletionVerificationCode = $grpc.ClientMethod<$0.AddAccountDeletionVerificationCodeRequest, $1.Response>(
+      '/code.GrpcCode/AddAccountDeletionVerificationCode',
+      ($0.AddAccountDeletionVerificationCodeRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$verifyAccountDeletionVerificationCode = $grpc.ClientMethod<$0.VerifyAccountDeletionVerificationCodeRequest, $1.Response>(
+      '/code.GrpcCode/VerifyAccountDeletionVerificationCode',
+      ($0.VerifyAccountDeletionVerificationCodeRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
 
   GrpcCodeClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -75,6 +83,14 @@ class GrpcCodeClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$1.Response> verifyPasswordChangeVerificationCode($0.VerifyPasswordChangeVerificationCodeRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$verifyPasswordChangeVerificationCode, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> addAccountDeletionVerificationCode($0.AddAccountDeletionVerificationCodeRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$addAccountDeletionVerificationCode, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> verifyAccountDeletionVerificationCode($0.VerifyAccountDeletionVerificationCodeRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$verifyAccountDeletionVerificationCode, request, options: options);
   }
 }
 
@@ -125,6 +141,20 @@ abstract class GrpcCodeServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.VerifyPasswordChangeVerificationCodeRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.AddAccountDeletionVerificationCodeRequest, $1.Response>(
+        'AddAccountDeletionVerificationCode',
+        addAccountDeletionVerificationCode_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.AddAccountDeletionVerificationCodeRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.VerifyAccountDeletionVerificationCodeRequest, $1.Response>(
+        'VerifyAccountDeletionVerificationCode',
+        verifyAccountDeletionVerificationCode_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.VerifyAccountDeletionVerificationCodeRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.Response> addEmailVerificationCode_Pre($grpc.ServiceCall call, $async.Future<$0.AddEmailVerificationCodeRequest> request) async {
@@ -151,10 +181,20 @@ abstract class GrpcCodeServiceBase extends $grpc.Service {
     return verifyPasswordChangeVerificationCode(call, await request);
   }
 
+  $async.Future<$1.Response> addAccountDeletionVerificationCode_Pre($grpc.ServiceCall call, $async.Future<$0.AddAccountDeletionVerificationCodeRequest> request) async {
+    return addAccountDeletionVerificationCode(call, await request);
+  }
+
+  $async.Future<$1.Response> verifyAccountDeletionVerificationCode_Pre($grpc.ServiceCall call, $async.Future<$0.VerifyAccountDeletionVerificationCodeRequest> request) async {
+    return verifyAccountDeletionVerificationCode(call, await request);
+  }
+
   $async.Future<$1.Response> addEmailVerificationCode($grpc.ServiceCall call, $0.AddEmailVerificationCodeRequest request);
   $async.Future<$1.Response> verifyEmailVerificationCode($grpc.ServiceCall call, $0.VerifyEmailVerificationCodeRequest request);
   $async.Future<$1.Response> addPhoneVerificationCode($grpc.ServiceCall call, $0.AddPhoneVerificationCodeRequest request);
   $async.Future<$1.Response> verifyPhoneVerificationCode($grpc.ServiceCall call, $0.VerifyPhoneVerificationCodeRequest request);
   $async.Future<$1.Response> addPasswordChangeVerificationCode($grpc.ServiceCall call, $0.AddPasswordChangeVerificationCodeRequest request);
   $async.Future<$1.Response> verifyPasswordChangeVerificationCode($grpc.ServiceCall call, $0.VerifyPasswordChangeVerificationCodeRequest request);
+  $async.Future<$1.Response> addAccountDeletionVerificationCode($grpc.ServiceCall call, $0.AddAccountDeletionVerificationCodeRequest request);
+  $async.Future<$1.Response> verifyAccountDeletionVerificationCode($grpc.ServiceCall call, $0.VerifyAccountDeletionVerificationCodeRequest request);
 }

@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:newpoint/domain/data_providers/database/image_view_table.dart';
+import 'package:newpoint/domain/data_providers/database/image_table.dart';
 
 class ImageDataProvider {
   final imageTable = ImageTable();

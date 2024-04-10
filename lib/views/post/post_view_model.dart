@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newpoint/domain/data_providers/blacklist_data_provider.dart';
 import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
 import 'package:newpoint/domain/models/post/post.dart';
@@ -14,6 +15,7 @@ class PostViewModel extends ChangeNotifier {
   final _userService = UserService();
   final _postService = PostService();
   final _commentService = CommentService();
+  final _blacklistDataProvider = BlacklistDataProvider();
 
   late int postId;
   User? user;
@@ -176,5 +178,18 @@ class PostViewModel extends ChangeNotifier {
       error = "Something went wrong, please try again";
     }
     proceedingLikeComment = false;
+  }
+
+  Future<void> addToBlacklist() async {
+    try {
+      await _blacklistDataProvider.create(userId: post!.authorId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
   }
 }

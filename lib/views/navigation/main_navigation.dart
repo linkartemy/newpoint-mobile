@@ -16,13 +16,18 @@ abstract class MainNavigationRouteNames {
   static const accountSettingsMenu = '/settings/account';
   static const accountSettings = '/settings/account/account';
   static const passwordSettings = '/settings/account/password';
-  static const deleteAccountSettings = '/settings/account/delete';
+  static const accountDeletionSettings = '/settings/account/delete';
 
   static const securitySettingsMenu = '/settings/security';
+  static const twoFactorSettings = '/settings/security/two-factor';
 
   static const privacySettingsMenu = '/settings/privacy';
+  static const sensitiveContentSettings = '/settings/private/sensitive-content';
+  static const blacklistSettings = '/settings/privacy/blacklist';
 
   static const accessibilitySettingsMenu = '/settings/accessibility';
+  static const languageSettings = '/settings/accessibility/language';
+  static const themeSettings = '/settings/accessibility/theme';
 }
 
 class MainNavigation {
@@ -39,12 +44,28 @@ class MainNavigation {
     MainNavigationRouteNames.settings: (_) => _screenFactory.makeSettings(),
     MainNavigationRouteNames.accountSettingsMenu: (_) =>
         _screenFactory.makeAccountSettingsMenu(),
-    MainNavigationRouteNames.passwordSettings: (_) =>
-        _screenFactory.makePasswordSettings(),
     MainNavigationRouteNames.accountSettings: (_) =>
         _screenFactory.makeAccountSettings(),
+    MainNavigationRouteNames.passwordSettings: (_) =>
+        _screenFactory.makePasswordSettings(),
+    MainNavigationRouteNames.accountDeletionSettings: (_) =>
+        _screenFactory.makeAccountDeletionSettings(),
+    MainNavigationRouteNames.securitySettingsMenu: (_) =>
+        _screenFactory.makeSecuritySettingsMenu(),
+    MainNavigationRouteNames.twoFactorSettings: (_) =>
+        _screenFactory.makeTwoFactorSettings(),
+    MainNavigationRouteNames.privacySettingsMenu: (_) =>
+        _screenFactory.makePrivacySettingsMenu(),
+    MainNavigationRouteNames.sensitiveContentSettings: (_) =>
+        _screenFactory.makeSensitiveContentSettings(),
+    MainNavigationRouteNames.blacklistSettings: (_) =>
+        _screenFactory.makeBlacklistSettings(),
     MainNavigationRouteNames.accessibilitySettingsMenu: (_) =>
         _screenFactory.makeAccessibilitySettingsMenu(),
+    MainNavigationRouteNames.languageSettings: (_) =>
+        _screenFactory.makeLanguageSettings(),
+    MainNavigationRouteNames.themeSettings: (_) =>
+        _screenFactory.makeThemeSettings(),
   };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {
@@ -68,8 +89,7 @@ class MainNavigation {
           builder: (_) => _screenFactory.makeProfileEditor(profileId),
         );
       default:
-        const widget = Text('Navigation error!!!');
-        return MaterialPageRoute(builder: (_) => widget);
+        return MaterialPageRoute(builder: (_) => _screenFactory.makeMain());
     }
   }
 

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
+import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/models/post/post.dart';
-import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileEditorViewModel extends ChangeNotifier {
   ProfileEditorViewModel(this.profileId);
@@ -36,6 +35,15 @@ class ProfileEditorViewModel extends ChangeNotifier {
   ImagePicker picker = ImagePicker();
   XFile? image;
 
+  void setError(String message) {
+    error = message;
+    notifyListeners();
+    Future.delayed(const Duration(milliseconds: 5000), () {
+      error = "";
+      notifyListeners();
+    });
+  }
+
   Future<void> onImageTap() async {
     try {
       image = await picker.pickImage(source: ImageSource.gallery);
@@ -63,7 +71,8 @@ class ProfileEditorViewModel extends ChangeNotifier {
   }
 
   Future<void> setBirthDate(BuildContext context, DateTime birthDate) async {
-    birthDateController.text = AppLocalizations.of(context)!.birthDate(birthDate);
+    birthDateController.text =
+        AppLocalizations.of(context)!.birthDate(birthDate);
   }
 
   Future<void> getProfile() async {
@@ -87,19 +96,28 @@ class ProfileEditorViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> updateProfile() async {
+  Future<bool> updateProfile() async {
     try {
+      final login = loginTextController.text;
       final name = nameTextController.text;
       final surname = surnameTextController.text;
       final description = descriptionTextController.text;
       final location = locationTextController.text;
-      if (name.isEmpty || surname.isEmpty) {
-        error = "Name or surname can't be empty";
-        return;
+      if (login == profile!.login &&
+          name == profile!.name &&
+          surname == profile!.surname &&
+          description == profile!.description &&
+          location == profile!.location) {
+        return true;
+      }
+      if (login.isEmpty || name.isEmpty || surname.isEmpty) {
+        setError("Login, name or surname can't be empty");
+        return false;
       }
       profile = await _userService.updateProfile(
           name, surname, description, location, birthDate);
       notifyListeners();
+      return true;
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
         error = "Something is wrong with the connection to the server";
@@ -109,5 +127,6 @@ class ProfileEditorViewModel extends ChangeNotifier {
     } catch (e) {
       error = "Something went wrong, please try again";
     }
+    return false;
   }
 }

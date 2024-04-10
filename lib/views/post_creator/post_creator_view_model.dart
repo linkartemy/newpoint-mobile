@@ -17,6 +17,15 @@ class PostCreatorViewModel extends ChangeNotifier {
   String textFieldError = "";
   final textFieldController = TextEditingController();
 
+  void setTextFieldError(String message) {
+    textFieldError = message;
+    notifyListeners();
+    Future.delayed(const Duration(milliseconds: 5000), () {
+      textFieldError = "";
+      notifyListeners();
+    });
+  }
+
   Future<void> getUser() async {
     try {
       user = await _userService.getUser();
@@ -35,11 +44,11 @@ class PostCreatorViewModel extends ChangeNotifier {
       textFieldError = "";
       final postText = textFieldController.text;
       if (postText.isEmpty) {
-        textFieldError = "Post content mustn't be empty";
+        setTextFieldError("Post content can't be empty");
         return;
       }
       if (postText.length > 255) {
-        textFieldError = "Post content length mustn't be more than 255 characters";
+        setTextFieldError("Post content can't be longer than 255 characters");
         return;
       }
       await _postService.addPost(user!.id, postText, []);

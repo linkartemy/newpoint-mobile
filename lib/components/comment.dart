@@ -202,9 +202,19 @@ class _Header extends StatelessWidget {
                             .theme
                             .textTheme
                             .bodySmall!
-                            .copyWith(color: CupertinoColors.secondaryLabel)),
+                            .copyWith(
+                                color: AdaptiveTheme.of(context)
+                                    .theme
+                                    .colorScheme
+                                    .secondary)),
                     TextSpan(
-                        text: dateToAgoString(context, date),
+                        text: "· ",
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .bodySmall),
+                    TextSpan(
+                        text: dateToAgoString(context, date, isShort: true),
                         style:
                             AdaptiveTheme.of(context).theme.textTheme.bodySmall)
                   ]),

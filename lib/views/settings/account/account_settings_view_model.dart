@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
@@ -39,6 +40,24 @@ class AccountSettingsViewModel extends ChangeNotifier {
   TextEditingController emailFieldText = TextEditingController();
   TextEditingController emailCodeFieldText = TextEditingController();
 
+  void setEmailError(String message) {
+    errorEmail = message;
+    notifyListeners();
+    Future.delayed(const Duration(seconds: 5), () {
+      errorEmail = "";
+      notifyListeners();
+    });
+  }
+
+  void setPhoneError(String message) {
+    errorPhone = message;
+    notifyListeners();
+    Future.delayed(const Duration(seconds: 5), () {
+      errorPhone = "";
+      notifyListeners();
+    });
+  }
+
   Future<void> getUser() async {
     try {
       user = await _userService.getUser();
@@ -62,12 +81,7 @@ class AccountSettingsViewModel extends ChangeNotifier {
       errorPhone = "";
       final phone = phoneFieldText.text;
       if (phone.isEmpty) {
-        errorPhone = "Phone number cannot be empty";
-        notifyListeners();
-        Future.delayed(const Duration(seconds: 5), () {
-          errorPhone = "";
-          notifyListeners();
-        });
+        setPhoneError("Phone number cannot be empty");
         return;
       }
       if (phone == currentPhone) {
@@ -94,12 +108,7 @@ class AccountSettingsViewModel extends ChangeNotifier {
     try {
       final email = emailFieldText.text;
       if (email.isEmpty) {
-        errorEmail = "Email cannot be empty";
-        notifyListeners();
-        Future.delayed(const Duration(seconds: 5), () {
-          errorEmail = "";
-          notifyListeners();
-        });
+        setEmailError("Email cannot be empty");
         return;
       }
       resendCodeCountDown = 60;
@@ -133,15 +142,14 @@ class AccountSettingsViewModel extends ChangeNotifier {
       errorEmail = "";
       final email = emailFieldText.text;
       if (email.isEmpty) {
-        errorEmail = "Email cannot be empty";
-        notifyListeners();
-        Future.delayed(const Duration(seconds: 5), () {
-          errorEmail = "";
-          notifyListeners();
-        });
+        setEmailError("Email cannot be empty");
         return;
       }
       if (email == currentEmail) {
+        return;
+      }
+      if (!EmailValidator.validate(email)) {
+        setEmailError("Email is invalid");
         return;
       }
       resendCodeCountDown = 0;
@@ -164,22 +172,12 @@ class AccountSettingsViewModel extends ChangeNotifier {
       final email = emailFieldText.text;
       final code = emailCodeFieldText.text;
       if (code.isEmpty) {
-        errorEmail = "Code cannot be empty";
-        notifyListeners();
-        Future.delayed(const Duration(seconds: 5), () {
-          errorEmail = "";
-          notifyListeners();
-        });
+        setEmailError("Code cannot be empty");
         return;
       }
       final verified = await _codeService.verifyEmailVerificationCode(email, code);
       if (!verified) {
-        errorEmail = "Incorrect code";
-        notifyListeners();
-        Future.delayed(const Duration(seconds: 5), () {
-          errorEmail = "";
-          notifyListeners();
-        });
+        setEmailError("Incorrect code");
         return;
       }
       await _userService.changeEmail(email);

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:newpoint/components/error.dart';
 import 'package:newpoint/components/input.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/profile_editor/profile_editor_view_model.dart';
@@ -60,10 +61,9 @@ class ProfileEditorViewState extends State<ProfileEditorView> {
                 onPressed: () async {
                   Navigator.of(context).pop(model.profile);
                 },
-                child: const Text(
-                  "Cancel",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w600),
+                child: Text(
+                  AppLocalizations.of(context)!.cancel,
+                  style: AdaptiveTheme.of(context).theme.textTheme.titleSmall
                 ),
               )),
           leadingWidth: 100,
@@ -71,36 +71,30 @@ class ProfileEditorViewState extends State<ProfileEditorView> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () async {
-                  await model.updateProfile();
-                  Navigator.of(context).pop(model.profile);
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  if (await model.updateProfile()) {
+                    Navigator.of(context).pop(model.profile);
+                  }
+                  setState(() {});
                 },
-                child: const Text("Save",
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w600)),
+                child: Text(AppLocalizations.of(context)!.save,
+                    style: AdaptiveTheme.of(context).theme.textTheme.titleSmall),
               )),
         ),
-        body: RefreshIndicator(
-            onRefresh: onRefresh,
-            notificationPredicate: (ScrollNotification notification) {
-              if (model.error.isNotEmpty ||
-                  _isLoadingProfile ||
-                  profile == null) return notification.depth == 0;
-              return notification.depth == 1;
-            },
-            child: model.error.isNotEmpty
-                ? SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 300, horizontal: 10),
-                    child: Text(model.error,
-                        style: AdaptiveTheme.of(context)
-                            .theme
-                            .textTheme
-                            .bodyMedium))
-                : _isLoadingProfile || profile == null
+        body: SafeArea(
+            child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: _isLoadingProfile || profile == null
                     ? const LoaderView()
-                    : _Editor()));
+                    : Column(children: [
+                        const _Editor(),
+                        ErrorComponent(
+                          error: model.error,
+                        )
+                      ]))));
   }
 }
 
@@ -125,14 +119,14 @@ class _Editor extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Login",
+                AppLocalizations.of(context)!.login,
                 style: AdaptiveTheme.of(context).theme.textTheme.labelLarge,
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: InputComponent(
                   controller: model.loginTextController,
-                  label: "Login",
+                  label: AppLocalizations.of(context)!.login,
                   textFieldStyle: AdaptiveTheme.of(context)
                       .theme
                       .textTheme
@@ -145,18 +139,18 @@ class _Editor extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Name",
+              Text(AppLocalizations.of(context)!.name,
                   style: AdaptiveTheme.of(context).theme.textTheme.labelLarge),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: InputComponent(
                   controller: model.nameTextController,
-                  label: "Name",
+                  label: AppLocalizations.of(context)!.name,
                   textFieldStyle: AdaptiveTheme.of(context)
                       .theme
                       .textTheme
@@ -169,18 +163,18 @@ class _Editor extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Surname",
+              Text(AppLocalizations.of(context)!.surname,
                   style: AdaptiveTheme.of(context).theme.textTheme.labelLarge),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: InputComponent(
                     controller: model.surnameTextController,
-                    label: "Surname",
+                    label: AppLocalizations.of(context)!.surname,
                     textFieldStyle: AdaptiveTheme.of(context)
                         .theme
                         .textTheme
@@ -192,18 +186,18 @@ class _Editor extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Description",
+              Text(AppLocalizations.of(context)!.description,
                   style: AdaptiveTheme.of(context).theme.textTheme.labelLarge),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: InputComponent(
                     controller: model.descriptionTextController,
-                    label: "Tell about yourself",
+                    label: AppLocalizations.of(context)!.tellAboutYourself,
                     textFieldStyle: AdaptiveTheme.of(context)
                         .theme
                         .textTheme
@@ -215,18 +209,18 @@ class _Editor extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Location",
+              Text(AppLocalizations.of(context)!.location,
                   style: AdaptiveTheme.of(context).theme.textTheme.labelLarge),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: InputComponent(
                     controller: model.locationTextController,
-                    label: "Where are you?",
+                    label: AppLocalizations.of(context)!.whereAreYou,
                     textFieldStyle: AdaptiveTheme.of(context)
                         .theme
                         .textTheme
@@ -238,12 +232,12 @@ class _Editor extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Birth date",
+              Text(AppLocalizations.of(context)!.birthDateString,
                   style: AdaptiveTheme.of(context).theme.textTheme.labelLarge),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
@@ -255,10 +249,10 @@ class _Editor extends StatelessWidget {
                       .titleSmall!
                       .copyWith(fontWeight: FontWeight.normal),
                   decoration: InputDecoration(
-                      labelText: "Birth date",
+                      labelText: AppLocalizations.of(context)!.birthDateString,
                       border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       labelStyle:
                           AdaptiveTheme.of(context).theme.textTheme.bodySmall,

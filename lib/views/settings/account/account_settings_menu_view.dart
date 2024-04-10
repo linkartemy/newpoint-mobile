@@ -171,7 +171,7 @@ class _Body extends StatelessWidget {
         title: AppLocalizations.of(context)!.deleteAccount,
         description: AppLocalizations.of(context)!.deleteAccountDescription,
         icon: Icons.delete,
-        navigationRoute: MainNavigationRouteNames.deleteAccountSettings,
+        navigationRoute: MainNavigationRouteNames.accountDeletionSettings,
       ),
     ];
 
