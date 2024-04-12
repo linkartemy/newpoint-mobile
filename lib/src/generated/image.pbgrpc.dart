@@ -15,16 +15,16 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'image.pb.dart' as $3;
+import 'image.pb.dart' as $7;
 import 'response.pb.dart' as $1;
 
 export 'image.pb.dart';
 
 @$pb.GrpcServiceName('image.GrpcImage')
 class GrpcImageClient extends $grpc.Client {
-  static final _$getImageById = $grpc.ClientMethod<$3.GetImageByIdRequest, $1.Response>(
+  static final _$getImageById = $grpc.ClientMethod<$7.GetImageByIdRequest, $1.Response>(
       '/image.GrpcImage/GetImageById',
-      ($3.GetImageByIdRequest value) => value.writeToBuffer(),
+      ($7.GetImageByIdRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
 
   GrpcImageClient($grpc.ClientChannel channel,
@@ -33,7 +33,7 @@ class GrpcImageClient extends $grpc.Client {
       : super(channel, options: options,
         interceptors: interceptors);
 
-  $grpc.ResponseFuture<$1.Response> getImageById($3.GetImageByIdRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.Response> getImageById($7.GetImageByIdRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getImageById, request, options: options);
   }
 }
@@ -43,18 +43,18 @@ abstract class GrpcImageServiceBase extends $grpc.Service {
   $core.String get $name => 'image.GrpcImage';
 
   GrpcImageServiceBase() {
-    $addMethod($grpc.ServiceMethod<$3.GetImageByIdRequest, $1.Response>(
+    $addMethod($grpc.ServiceMethod<$7.GetImageByIdRequest, $1.Response>(
         'GetImageById',
         getImageById_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $3.GetImageByIdRequest.fromBuffer(value),
+        ($core.List<$core.int> value) => $7.GetImageByIdRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
   }
 
-  $async.Future<$1.Response> getImageById_Pre($grpc.ServiceCall call, $async.Future<$3.GetImageByIdRequest> request) async {
+  $async.Future<$1.Response> getImageById_Pre($grpc.ServiceCall call, $async.Future<$7.GetImageByIdRequest> request) async {
     return getImageById(call, await request);
   }
 
-  $async.Future<$1.Response> getImageById($grpc.ServiceCall call, $3.GetImageByIdRequest request);
+  $async.Future<$1.Response> getImageById($grpc.ServiceCall call, $7.GetImageByIdRequest request);
 }

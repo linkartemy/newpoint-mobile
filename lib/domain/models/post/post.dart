@@ -1,11 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:newpoint/domain/models/feed_element/feed_element.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
 import 'package:newpoint/protos.dart';
 
 part 'post.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class Post {
+class Post implements FeedEntry {
   final int id;
   final int authorId;
   final String login;

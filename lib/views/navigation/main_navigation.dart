@@ -6,7 +6,9 @@ abstract class MainNavigationRouteNames {
   static const auth = '/auth';
   static const main = '/main';
   static const post = '/post';
+  static const article = '/article';
   static const postCreator = '/post/creator';
+  static const articleCreator = '/article/creator';
   static const profile = '/profile';
   static const profileEditor = '/profile/editor';
   static const register = '/register';
@@ -41,6 +43,8 @@ class MainNavigation {
     MainNavigationRouteNames.main: (_) => _screenFactory.makeMain(),
     MainNavigationRouteNames.postCreator: (_) =>
         _screenFactory.makePostCreator(),
+    MainNavigationRouteNames.articleCreator: (_) =>
+        _screenFactory.makeArticleCreator(),
     MainNavigationRouteNames.settings: (_) => _screenFactory.makeSettings(),
     MainNavigationRouteNames.accountSettingsMenu: (_) =>
         _screenFactory.makeAccountSettingsMenu(),
@@ -75,6 +79,12 @@ class MainNavigation {
         final postId = arguments is int ? arguments : 0;
         return MaterialPageRoute(
           builder: (_) => _screenFactory.makePost(postId),
+        );
+      case MainNavigationRouteNames.article:
+        final arguments = settings.arguments;
+        final articleId = arguments is int ? arguments : 0;
+        return MaterialPageRoute(
+          builder: (_) => _screenFactory.makeArticle(articleId),
         );
       case MainNavigationRouteNames.profile:
         final arguments = settings.arguments;

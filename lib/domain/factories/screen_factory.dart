@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:newpoint/views/article/article_view.dart';
+import 'package:newpoint/views/article/article_view_model.dart';
+import 'package:newpoint/views/article_creator/article_creator_view.dart';
+import 'package:newpoint/views/article_creator/article_creator_view_model.dart';
 import 'package:newpoint/views/auth/auth_view.dart';
 import 'package:newpoint/views/auth/auth_view_model.dart';
 import 'package:newpoint/views/auth/login_view.dart';
@@ -83,10 +87,24 @@ class ScreenFactory {
     );
   }
 
+  Widget makeArticle(int id) {
+    return ChangeNotifierProvider(
+      create: (_) => ArticleViewModel(id),
+      child: const ArticleView(),
+    );
+  }
+
   Widget makePostCreator() {
     return ChangeNotifierProvider(
       create: (_) => PostCreatorViewModel(),
       child: const PostCreatorView(),
+    );
+  }
+
+  Widget makeArticleCreator() {
+    return ChangeNotifierProvider(
+      create: (_) => ArticleCreatorViewModel(),
+      child: const ArticleCreatorView(),
     );
   }
 

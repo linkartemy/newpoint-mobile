@@ -14,7 +14,7 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $7;
+import 'google/protobuf/timestamp.pb.dart' as $10;
 
 class PostModel extends $pb.GeneratedMessage {
   factory PostModel({
@@ -31,7 +31,7 @@ class PostModel extends $pb.GeneratedMessage {
     $core.int? comments,
     $core.int? views,
     $core.bool? liked,
-    $7.Timestamp? creationTimestamp,
+    $10.Timestamp? creationTimestamp,
   }) {
     final $result = create();
     if (id != null) {
@@ -96,7 +96,7 @@ class PostModel extends $pb.GeneratedMessage {
     ..a<$core.int>(11, _omitFieldNames ? '' : 'comments', $pb.PbFieldType.O3)
     ..a<$core.int>(12, _omitFieldNames ? '' : 'views', $pb.PbFieldType.O3)
     ..aOB(13, _omitFieldNames ? '' : 'liked')
-    ..aOM<$7.Timestamp>(14, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $7.Timestamp.create)
+    ..aOM<$10.Timestamp>(14, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $10.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -239,15 +239,15 @@ class PostModel extends $pb.GeneratedMessage {
   void clearLiked() => clearField(13);
 
   @$pb.TagNumber(14)
-  $7.Timestamp get creationTimestamp => $_getN(13);
+  $10.Timestamp get creationTimestamp => $_getN(13);
   @$pb.TagNumber(14)
-  set creationTimestamp($7.Timestamp v) { setField(14, v); }
+  set creationTimestamp($10.Timestamp v) { setField(14, v); }
   @$pb.TagNumber(14)
   $core.bool hasCreationTimestamp() => $_has(13);
   @$pb.TagNumber(14)
   void clearCreationTimestamp() => clearField(14);
   @$pb.TagNumber(14)
-  $7.Timestamp ensureCreationTimestamp() => $_ensure(13);
+  $10.Timestamp ensureCreationTimestamp() => $_ensure(13);
 }
 
 class AddPostRequest extends $pb.GeneratedMessage {

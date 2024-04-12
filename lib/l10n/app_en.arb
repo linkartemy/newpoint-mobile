@@ -109,6 +109,8 @@
   "areYouSure": "Are you sure?",
   "yes": "Yes",
   "deleteComment": "Delete comment",
+  "deleteArticle": "Delete article",
+  "writeTitle": "Write a title",
 
   "setting": "Setting",
 
@@ -176,5 +178,7 @@
   "tellAboutYourself": "Tell about yourself",
   "location": "Location",
   "whereAreYou": "Where are you?",
-  "birthDateString": "Birth date"
+  "birthDateString": "Birth date",
+
+  "ok": "Ok"
 }

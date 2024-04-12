@@ -54,3 +54,9 @@ Map<String, dynamic> _$PostToJson(Post post) => <String, dynamic>{
       'liked': post.liked,
       'creation_timestamp': post.creationTimestamp.toIso8601String(),
     };
+
+extension NullablePostParser on NullablePost {
+  PostModel? parseNullable() {
+    return hasData() ? data : null;
+  }
+}

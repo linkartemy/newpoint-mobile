@@ -109,6 +109,7 @@
   "areYouSure": "Вы уверены?",
   "yes": "Да",
   "deleteComment": "Удалить комментарий",
+  "writeTitle": "Напишите заголовок",
 
   "setting": "Настройка",
 
@@ -176,5 +177,7 @@
   "tellAboutYourself": "Расскажите о себе",
   "location": "Локация",
   "whereAreYou": "Где Вы?",
-  "birthDateString": "Дата рождения"
+  "birthDateString": "Дата рождения",
+
+  "ok": "Ок"
 }

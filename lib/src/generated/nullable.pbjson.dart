@@ -48,3 +48,38 @@ final $typed_data.Uint8List nullableTimestampDescriptor = $convert.base64Decode(
     'xWYWx1ZUgAUgRudWxsEjAKBGRhdGEYAiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1w'
     'SABSBGRhdGFCBgoEa2luZA==');
 
+@$core.Deprecated('Use nullableArticleDescriptor instead')
+const NullableArticle$json = {
+  '1': 'NullableArticle',
+  '2': [
+    {'1': 'null', '3': 1, '4': 1, '5': 14, '6': '.google.protobuf.NullValue', '9': 0, '10': 'null'},
+    {'1': 'data', '3': 2, '4': 1, '5': 11, '6': '.article.ArticleModel', '9': 0, '10': 'data'},
+  ],
+  '8': [
+    {'1': 'kind'},
+  ],
+};
+
+/// Descriptor for `NullableArticle`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List nullableArticleDescriptor = $convert.base64Decode(
+    'Cg9OdWxsYWJsZUFydGljbGUSMAoEbnVsbBgBIAEoDjIaLmdvb2dsZS5wcm90b2J1Zi5OdWxsVm'
+    'FsdWVIAFIEbnVsbBIrCgRkYXRhGAIgASgLMhUuYXJ0aWNsZS5BcnRpY2xlTW9kZWxIAFIEZGF0'
+    'YUIGCgRraW5k');
+
+@$core.Deprecated('Use nullablePostDescriptor instead')
+const NullablePost$json = {
+  '1': 'NullablePost',
+  '2': [
+    {'1': 'null', '3': 1, '4': 1, '5': 14, '6': '.google.protobuf.NullValue', '9': 0, '10': 'null'},
+    {'1': 'data', '3': 2, '4': 1, '5': 11, '6': '.post.PostModel', '9': 0, '10': 'data'},
+  ],
+  '8': [
+    {'1': 'kind'},
+  ],
+};
+
+/// Descriptor for `NullablePost`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List nullablePostDescriptor = $convert.base64Decode(
+    'CgxOdWxsYWJsZVBvc3QSMAoEbnVsbBgBIAEoDjIaLmdvb2dsZS5wcm90b2J1Zi5OdWxsVmFsdW'
+    'VIAFIEbnVsbBIlCgRkYXRhGAIgASgLMg8ucG9zdC5Qb3N0TW9kZWxIAFIEZGF0YUIGCgRraW5k');
+
