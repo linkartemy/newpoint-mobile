@@ -118,32 +118,6 @@ class _Editor extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                AppLocalizations.of(context)!.login,
-                style: AdaptiveTheme.of(context).theme.textTheme.labelLarge,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.5,
-                child: InputComponent(
-                  controller: model.loginTextController,
-                  label: AppLocalizations.of(context)!.login,
-                  textFieldStyle: AdaptiveTheme.of(context)
-                      .theme
-                      .textTheme
-                      .titleSmall!
-                      .copyWith(fontWeight: FontWeight.normal),
-                  fillColor: Colors.transparent,
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                  isCollapsed: true,
-                ),
-              )
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
               Text(AppLocalizations.of(context)!.name,
                   style: AdaptiveTheme.of(context).theme.textTheme.labelLarge),
               SizedBox(
@@ -263,7 +237,7 @@ class _Editor extends StatelessWidget {
                         context: context,
                         initialDate: DateTime.now(),
                         firstDate: DateTime(1800),
-                        lastDate: DateTime(2100));
+                        lastDate: DateTime.now());
 
                     if (pickedDate != null) {
                       final formattedDate =

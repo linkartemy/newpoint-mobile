@@ -6,13 +6,15 @@ class DynamicSliverAppBar extends StatefulWidget {
       required this.child,
       required this.maxHeight,
       required this.forceElevated,
-      required this.implyLeading})
+      required this.implyLeading,
+      this.collapseMode})
       : super(key: key);
 
   final Widget child;
   final double maxHeight;
   final forceElevated;
   final implyLeading;
+  final CollapseMode? collapseMode;
 
   @override
   _DynamicSliverAppBarState createState() => _DynamicSliverAppBarState();
@@ -48,6 +50,7 @@ class _DynamicSliverAppBarState extends State<DynamicSliverAppBar> {
       elevation: 0,
       expandedHeight: isHeightCalculated ? height : widget.maxHeight,
       flexibleSpace: FlexibleSpaceBar(
+collapseMode: widget.collapseMode ?? CollapseMode.parallax,
         background: Column(
           children: [
             Container(

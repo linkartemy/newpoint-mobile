@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'markdown_field.dart';
 import 'markdown_parse.dart';
 import 'markdown_toolbar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MarkdownFormField extends StatefulWidget {
   const MarkdownFormField({
@@ -191,7 +192,7 @@ class _MarkdownFormFieldState extends State<MarkdownFormField> {
             child: MarkdownParse(
               key: const ValueKey<String>("zmarkdownparse"),
               data: _internalController.text.isEmpty
-                  ? "Type here. . ."
+                  ? AppLocalizations.of(context)!.typeHere
                   : _internalController.text,
               onTapLink: widget.onTapLink,
               onTapHashtag: widget.onTapHashtag,

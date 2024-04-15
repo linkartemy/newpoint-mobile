@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/data_providers/blacklist_data_provider.dart';
 import 'package:newpoint/domain/models/article/article.dart';
@@ -10,6 +12,7 @@ import 'package:newpoint/domain/services/article_comment_service.dart';
 import 'package:newpoint/domain/services/article_service.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/domain/services/comment_service.dart';
+import 'package:newpoint/domain/services/image_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
 
@@ -20,6 +23,7 @@ class ArticleViewModel extends ChangeNotifier {
   final _articleService = ArticleService();
   final _articleCommentService = ArticleCommentService();
   final _blacklistDataProvider = BlacklistDataProvider();
+  final _imageService = ImageService();
 
   late int articleId;
   User? user;
@@ -32,6 +36,8 @@ class ArticleViewModel extends ChangeNotifier {
   bool proceedingLikePost = false;
   bool proceedingLikeComment = false;
 
+  late List<int> profileImageData;
+
   void onCommentTextChanged(String value) {
     comment = value;
   }
@@ -39,6 +45,7 @@ class ArticleViewModel extends ChangeNotifier {
   Future<void> getUser() async {
     try {
       user = await _userService.getUser();
+      profileImageData = await _imageService.getImageById(user!.profileImageId);
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -78,6 +85,24 @@ class ArticleViewModel extends ChangeNotifier {
   Future<void> getComments() async {
     try {
       comments = await _articleCommentService.getCommentsByArticleId(articleId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> loadComments() async {
+    try {
+      var loadedComments = await _articleCommentService.getCommentsByArticleId(articleId);
+      for (var comment in loadedComments) {
+        if (!comments.any((element) => element.id == comment.id)) {
+          comments.add(comment);
+        }
+      }
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../src/emoji_input_formatter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:newpoint/components/simple_markdown_editor/src/emoji_input_formatter.dart';
 
 class MarkdownField extends StatelessWidget {
   const MarkdownField({
@@ -132,8 +133,8 @@ class MarkdownField extends StatelessWidget {
             cut: true,
             selectAll: true,
           ),
-          decoration: const InputDecoration.collapsed(
-            hintText: "Type here. . .",
+          decoration: InputDecoration.collapsed(
+            hintText: AppLocalizations.of(context)!.typeHere,
           ),
         ),
       ),

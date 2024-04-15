@@ -320,7 +320,7 @@ class _Body extends StatelessWidget {
             child: Column(
               children: [
                 Text(content,
-                    style: AdaptiveTheme.of(context).theme.textTheme.bodyLarge)
+                    style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium)
               ],
             ))
       ],
@@ -365,7 +365,7 @@ class _Footer extends StatelessWidget {
                 children: [
                   Text(AppLocalizations.of(context)!.nCompact(comments),
                       style:
-                          AdaptiveTheme.of(context).theme.textTheme.titleSmall),
+                          AdaptiveTheme.of(context).theme.textTheme.bodySmall),
                   const SizedBox(
                     width: 5,
                   ),
@@ -390,7 +390,7 @@ class _Footer extends StatelessWidget {
                           style: AdaptiveTheme.of(context)
                               .theme
                               .textTheme
-                              .titleSmall),
+                              .bodySmall),
                       const SizedBox(
                         width: 5,
                       ),
@@ -417,7 +417,7 @@ class _Footer extends StatelessWidget {
                           style: AdaptiveTheme.of(context)
                               .theme
                               .textTheme
-                              .titleSmall),
+                              .bodySmall),
                       const SizedBox(
                         width: 5,
                       ),
@@ -439,7 +439,7 @@ class _Footer extends StatelessWidget {
                 children: [
                   Text(AppLocalizations.of(context)!.nCompact(views),
                       style:
-                          AdaptiveTheme.of(context).theme.textTheme.titleSmall),
+                          AdaptiveTheme.of(context).theme.textTheme.bodySmall),
                   const SizedBox(
                     width: 5,
                   ),

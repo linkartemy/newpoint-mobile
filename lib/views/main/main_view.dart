@@ -26,7 +26,7 @@ class MainViewState extends State<MainView> {
   bool _isLoadingPosts = false;
   var _user;
 
-  Future<void> getPosts() async {
+  Future<void> getFeed() async {
     final model = Provider.of<MainViewModel>(context, listen: false);
     model.getFeed();
     setState(() {
@@ -42,22 +42,38 @@ class MainViewState extends State<MainView> {
     });
   }
 
+  Future<void> loadPostById(int postId) async {
+    final model = Provider.of<MainViewModel>(context, listen: false);
+    await model.loadPostById(postId);
+    setState(() {});
+  }
+
+  Future<void> loadArticleById(int articleId) async {
+    final model = Provider.of<MainViewModel>(context, listen: false);
+    await model.loadArticleById(articleId);
+    setState(() {});
+  }
+
   Future<void> reload() async {
+    final model = Provider.of<MainViewModel>(context, listen: false);
     setState(() {
       _isLoadingPosts = true;
     });
+    model.init();
     await getUser();
-    await getPosts();
+    await getFeed();
   }
 
   @override
   void initState() {
+    final model = Provider.of<MainViewModel>(context, listen: false);
     super.initState();
     setState(() {
       _isLoadingPosts = true;
     });
+    model.init();
     getUser();
-    getPosts();
+    getFeed();
   }
 
   @override
@@ -74,7 +90,9 @@ class MainViewState extends State<MainView> {
           title: Container(
               alignment: Alignment.centerRight,
               child: Image.asset(
-                AppImages.logoTitleOutline,
+                AdaptiveTheme.of(context).mode.isLight
+                    ? AppImages.logoTitle
+                    : AppImages.logoTitleDark,
                 width: 100,
               )),
           bottom: TabBar(
@@ -124,21 +142,24 @@ class MainViewState extends State<MainView> {
                   child: Text(AppLocalizations.of(context)!.createPost,
                       textAlign: TextAlign.center),
                   onPressed: () async {
-                    await Navigator.of(context)
+                    final postId = await Navigator.of(context)
                         .pushNamed(MainNavigationRouteNames.postCreator);
                     Navigator.of(context).pop();
-                    await getPosts();
+                    if (postId != null) {
+                      loadPostById(postId as int);
+                    }
                   },
                 ),
                 TextButton(
                   child: Text(AppLocalizations.of(context)!.createArticle,
                       textAlign: TextAlign.center),
                   onPressed: () async {
-                    await Navigator.of(context)
+                    final articleId = await Navigator.of(context)
                         .pushNamed(MainNavigationRouteNames.articleCreator);
-                    setState(() {});
                     Navigator.of(context).pop();
-                    await getPosts();
+                    if (articleId != null) {
+                      loadArticleById(articleId as int);
+                    }
                   },
                 ),
                 TextButton(
@@ -277,21 +298,36 @@ class _PostsState extends State<_PostsView> {
                     return VisibilityDetector(
                         key: Key('postkey$index'),
                         onVisibilityChanged: (visibilityInfo) async {
-                          if (visibilityInfo.visibleFraction >= 0.9) {
-                            if (index == feed.length - 1) {
-                              await model.loadFeed();
-                              setState(() {});
+                          if (visibilityInfo.visibleFraction < 0.9) {
+                            return;
+                          }
+                          if (index == feed.length - 1) {
+                            if (model.lastArticleId ==
+                                    model.previousArticleId &&
+                                model.lastPostId == model.previousPostId) {
+                              return;
                             }
-                            if (feed[index] is Article) {
-                            } else {
-                              if (!model.viewedPosts.contains(feed[index].id) &&
-                                  !model.isLoadingDatabase) {
-                                model.viewedPosts.add(feed[index].id);
-                                model.addView(feed[index].id);
-                                setState(() {
-                                  feed[index].views++;
-                                });
-                              }
+                            await model.loadFeed();
+                            setState(() {});
+                          }
+                          if (feed[index] is Article) {
+                            if (!model.viewedArticles
+                                    .contains(feed[index].id) &&
+                                !model.isLoadingDatabase) {
+                              model.viewedArticles.add(feed[index].id);
+                              model.addArticleView(feed[index].id);
+                              setState(() {
+                                feed[index].views++;
+                              });
+                            }
+                          } else {
+                            if (!model.viewedPosts.contains(feed[index].id) &&
+                                !model.isLoadingDatabase) {
+                              model.viewedPosts.add(feed[index].id);
+                              model.addPostView(feed[index].id);
+                              setState(() {
+                                feed[index].views++;
+                              });
                             }
                           }
                         },
@@ -373,8 +409,7 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
       final model = Provider.of<MainViewModel>(context, listen: false);
       model.lastPostId = -1;
       model.lastArticleId = -1;
-      await model.getUser();
-      await model.getFeed();
+      await model.getSubscribedPosts();
       setState(() {});
     }
 
@@ -464,16 +499,25 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
                         key: Key('postkey$index'),
                         onVisibilityChanged: (visibilityInfo) async {
                           if (visibilityInfo.visibleFraction >= 0.9) {
-                            if (index == feed.length - 1) {
+                            if (index == feed.length - 1 && feed.length > 5) {
                               await model.loadSubscribedFeed();
                               setState(() {});
                             }
                             if (feed[index] is Article) {
+                              if (!model.viewedArticles
+                                      .contains(feed[index].id) &&
+                                  !model.isLoadingDatabase) {
+                                model.viewedArticles.add(feed[index].id);
+                                model.addArticleView(feed[index].id);
+                                setState(() {
+                                  feed[index].views++;
+                                });
+                              }
                             } else {
                               if (!model.viewedPosts.contains(feed[index].id) &&
                                   !model.isLoadingDatabase) {
                                 model.viewedPosts.add(feed[index].id);
-                                model.addView(feed[index].id);
+                                model.addPostView(feed[index].id);
                                 setState(() {
                                   feed[index].views++;
                                 });

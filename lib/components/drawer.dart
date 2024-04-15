@@ -49,12 +49,14 @@ class _DrawerComponentState extends State<DrawerComponent> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(alignment: Alignment.centerLeft, child: ProfileImage(
-                          profileImageId: widget.user != null
-                              ? widget.user!.profileImageId
-                              : 0,
-                          radius: 34,
-                        )),
+                        Container(
+                            alignment: Alignment.centerLeft,
+                            child: ProfileImage(
+                              profileImageId: widget.user != null
+                                  ? widget.user!.profileImageId
+                                  : 0,
+                              radius: 34,
+                            )),
                         const SizedBox(height: 10),
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +108,8 @@ class _DrawerComponentState extends State<DrawerComponent> {
                                           .copyWith(),
                                     ),
                                     TextSpan(
-                                      text: "followers",
+                                      text: AppLocalizations.of(context)!
+                                          .followers,
                                       style: AdaptiveTheme.of(context)
                                           .theme
                                           .textTheme
@@ -136,7 +139,8 @@ class _DrawerComponentState extends State<DrawerComponent> {
                                           .titleSmall,
                                     ),
                                     TextSpan(
-                                      text: "following",
+                                      text: AppLocalizations.of(context)!
+                                          .following,
                                       style: AdaptiveTheme.of(context)
                                           .theme
                                           .textTheme

@@ -4,15 +4,15 @@ import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/domain/grpc_clients/network_client.dart';
 import 'package:newpoint/domain/models/article/article.dart';
 import 'package:newpoint/protos.dart';
-import 'package:newpoint/src/generated/article.pb.dart';
-import 'package:newpoint/src/generated/article.pbgrpc.dart';
 
 class ArticleService {
   final _networkClient = NetworkClient();
-  late final _articleServiceClient = GrpcArticleClient(_networkClient.clientChannel);
+  late final _articleServiceClient =
+      GrpcArticleClient(_networkClient.clientChannel);
   final _sessionDataProvider = SessionDataProvider();
 
-  Future<void> addArticle(int authorId, String title, String content, List<int> images) async {
+  Future<int> addArticle(
+      int authorId, String title, String content, List<int> images) async {
     final request = AddArticleRequest();
     request.title = title;
     request.authorId = Int64.parseInt(authorId.toString());
@@ -22,6 +22,11 @@ class ArticleService {
     if (await _networkClient.proceed(response) == false) {
       throw ApiClientException(ApiClientExceptionType.other);
     }
+    var addArticleResponse = AddArticleResponse();
+    return response.data
+        .unpackInto<AddArticleResponse>(addArticleResponse)
+        .id
+        .toInt();
   }
 
   Future<List<Article>> getArticles() async {
@@ -31,8 +36,9 @@ class ArticleService {
       throw ApiClientException(ApiClientExceptionType.other);
     }
     var getArticlesResponse = GetArticlesResponse();
-    final articleModels =
-        response.data.unpackInto<GetArticlesResponse>(getArticlesResponse).articles;
+    final articleModels = response.data
+        .unpackInto<GetArticlesResponse>(getArticlesResponse)
+        .articles;
     List<Article> articles = [];
     for (final articleModel in articleModels) {
       final article = Article.fromModel(articleModel);
@@ -41,9 +47,11 @@ class ArticleService {
     return articles;
   }
 
-  Future<List<Article>> getArticlesByUserId(int id) async {
+  Future<List<Article>> getArticlesByUserId(int id,
+      {lastArticleId = -1}) async {
     final request = GetArticlesByUserIdRequest();
     request.userId = Int64.parseInt(id.toString());
+    request.lastArticleId = Int64.parseInt(lastArticleId.toString());
     var response = await _articleServiceClient.getArticlesByUserId(request,
         options: await _networkClient.getAuthorizedCallOptions());
     if (await _networkClient.proceed(response) == false) {
@@ -97,7 +105,9 @@ class ArticleService {
       throw ApiClientException(ApiClientExceptionType.other);
     }
     final unLikeResponse = UnLikeArticleResponse();
-    return response.data.unpackInto<UnLikeArticleResponse>(unLikeResponse).liked;
+    return response.data
+        .unpackInto<UnLikeArticleResponse>(unLikeResponse)
+        .liked;
   }
 
   Future<bool> shareArticle(int id) async {

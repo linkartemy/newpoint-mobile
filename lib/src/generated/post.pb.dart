@@ -315,12 +315,21 @@ class AddPostRequest extends $pb.GeneratedMessage {
 }
 
 class AddPostResponse extends $pb.GeneratedMessage {
-  factory AddPostResponse() => create();
+  factory AddPostResponse({
+    $fixnum.Int64? id,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    return $result;
+  }
   AddPostResponse._() : super();
   factory AddPostResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory AddPostResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddPostResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
+    ..aInt64(1, _omitFieldNames ? '' : 'id')
     ..hasRequiredFields = false
   ;
 
@@ -344,6 +353,15 @@ class AddPostResponse extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static AddPostResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddPostResponse>(create);
   static AddPostResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get id => $_getI64(0);
+  @$pb.TagNumber(1)
+  set id($fixnum.Int64 v) { $_setInt64(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
 }
 
 class GetPostsRequest extends $pb.GeneratedMessage {
@@ -425,10 +443,14 @@ class GetPostsResponse extends $pb.GeneratedMessage {
 class GetPostsByUserIdRequest extends $pb.GeneratedMessage {
   factory GetPostsByUserIdRequest({
     $fixnum.Int64? userId,
+    $fixnum.Int64? lastPostId,
   }) {
     final $result = create();
     if (userId != null) {
       $result.userId = userId;
+    }
+    if (lastPostId != null) {
+      $result.lastPostId = lastPostId;
     }
     return $result;
   }
@@ -438,6 +460,7 @@ class GetPostsByUserIdRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPostsByUserIdRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'userId')
+    ..aInt64(2, _omitFieldNames ? '' : 'lastPostId')
     ..hasRequiredFields = false
   ;
 
@@ -470,6 +493,15 @@ class GetPostsByUserIdRequest extends $pb.GeneratedMessage {
   $core.bool hasUserId() => $_has(0);
   @$pb.TagNumber(1)
   void clearUserId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get lastPostId => $_getI64(1);
+  @$pb.TagNumber(2)
+  set lastPostId($fixnum.Int64 v) { $_setInt64(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasLastPostId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearLastPostId() => clearField(2);
 }
 
 class GetPostsByUserIdResponse extends $pb.GeneratedMessage {

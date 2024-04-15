@@ -62,11 +62,14 @@ final $typed_data.Uint8List addPostRequestDescriptor = $convert.base64Decode(
 @$core.Deprecated('Use addPostResponseDescriptor instead')
 const AddPostResponse$json = {
   '1': 'AddPostResponse',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 3, '10': 'id'},
+  ],
 };
 
 /// Descriptor for `AddPostResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List addPostResponseDescriptor = $convert.base64Decode(
-    'Cg9BZGRQb3N0UmVzcG9uc2U=');
+    'Cg9BZGRQb3N0UmVzcG9uc2USDgoCaWQYASABKANSAmlk');
 
 @$core.Deprecated('Use getPostsRequestDescriptor instead')
 const GetPostsRequest$json = {
@@ -95,12 +98,14 @@ const GetPostsByUserIdRequest$json = {
   '1': 'GetPostsByUserIdRequest',
   '2': [
     {'1': 'user_id', '3': 1, '4': 1, '5': 3, '10': 'userId'},
+    {'1': 'last_post_id', '3': 2, '4': 1, '5': 3, '10': 'lastPostId'},
   ],
 };
 
 /// Descriptor for `GetPostsByUserIdRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getPostsByUserIdRequestDescriptor = $convert.base64Decode(
-    'ChdHZXRQb3N0c0J5VXNlcklkUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgDUgZ1c2VySWQ=');
+    'ChdHZXRQb3N0c0J5VXNlcklkUmVxdWVzdBIXCgd1c2VyX2lkGAEgASgDUgZ1c2VySWQSIAoMbG'
+    'FzdF9wb3N0X2lkGAIgASgDUgpsYXN0UG9zdElk');
 
 @$core.Deprecated('Use getPostsByUserIdResponseDescriptor instead')
 const GetPostsByUserIdResponse$json = {

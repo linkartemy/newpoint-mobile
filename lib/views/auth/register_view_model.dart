@@ -180,6 +180,8 @@ class RegisterViewModel extends ChangeNotifier {
   Future<void> goBack() async {
     if (stage > 0) {
       stage--;
+      passwordTextController.clear();
+      passwordVerificationTextController.clear();
       _updateState(null, false);
       return;
     }

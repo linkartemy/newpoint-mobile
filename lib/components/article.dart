@@ -320,44 +320,41 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-            alignment: Alignment.topLeft,
-            child: Column(
-              children: [
-                Text(title,
-                    style:
-                        AdaptiveTheme.of(context).theme.textTheme.titleLarge),
-                const SizedBox(
-                  height: 10,
+    return Container(
+        alignment: Alignment.topLeft,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title,
+                style: AdaptiveTheme.of(context).theme.textTheme.titleLarge),
+            const SizedBox(
+              height: 10,
+            ),
+            ClipRect(
+                child: ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.black, Colors.transparent],
+                  stops: [0.8, 1.0],
+                ).createShader(bounds);
+              },
+              blendMode: BlendMode.dstIn,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxHeight: 200,
                 ),
-                ClipRect(
-                    child: ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Colors.black, Colors.transparent],
-                      stops: [0.8, 1.0],
-                    ).createShader(bounds);
-                  },
-                  blendMode: BlendMode.dstIn,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxHeight: 200,
-                    ),
-                    child: SingleChildScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        child: MarkdownBodyComponent(
-                          content: content,
-                        )),
-                  ),
-                )),
-              ],
-            ))
-      ],
-    );
+                child: SingleChildScrollView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    child: MarkdownBodyComponent(
+                      content: content,
+                    )),
+              ),
+            )),
+          ],
+        ));
   }
 }
 

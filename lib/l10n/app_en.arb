@@ -180,5 +180,9 @@
   "whereAreYou": "Where are you?",
   "birthDateString": "Birth date",
 
-  "ok": "Ok"
+  "ok": "Ok",
+  "openPhoto": "Open photo",
+  "followers": "Followers",
+  "following": "Following",
+  "typeHere": "Type here"
 }

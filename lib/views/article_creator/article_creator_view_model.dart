@@ -43,24 +43,24 @@ class ArticleCreatorViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> createArticle() async {
+  Future<int> createArticle() async {
     try {
       textFieldError = "";
       final title = titleFieldController.text;
       final text = textFieldController.text;
       if (title.isEmpty) {
         setTextFieldError("Article title can't be empty");
-        return;
+        return -1;
       }
       if (text.isEmpty) {
         setTextFieldError("Article content can't be empty");
-        return;
+        return -1;
       }
       if (text.length > 10000) {
         setTextFieldError("Article content can't be longer than 10000 characters");
-        return;
+        return -1;
       }
-      await _articleService.addArticle(user!.id, title, text, []);
+      return await _articleService.addArticle(user!.id, title, text, []);
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -69,5 +69,6 @@ class ArticleCreatorViewModel extends ChangeNotifier {
     } catch (e) {
       error = "Something went wrong, please try again";
     }
+    return -1;
   }
 }

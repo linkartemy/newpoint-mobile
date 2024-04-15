@@ -390,6 +390,11 @@ class AppColorsDarkTheme {
   static const secondaryTextColor = Color.fromRGBO(95, 103, 110, 1.0);
 }
 
+class AppFonts {
+  static const codeBlockFont = _Fonts.codeBlockFont;
+}
+
 class _Fonts {
-  static const regular = "SF";
+  static const regular = "SF-Pro";
+  static const codeBlockFont = "SF-Mono";
 }

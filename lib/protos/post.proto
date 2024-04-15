@@ -41,7 +41,9 @@ message AddPostRequest {
   string content = 2;
 }
 
-message AddPostResponse {}
+message AddPostResponse {
+  int64 id = 1;
+}
 
 message GetPostsRequest {}
 
@@ -51,6 +53,7 @@ message GetPostsResponse {
 
 message GetPostsByUserIdRequest {
   int64 user_id = 1;
+  int64 last_post_id = 2;
 }
 
 message GetPostsByUserIdResponse {

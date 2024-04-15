@@ -39,20 +39,19 @@ class PostCreatorViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> createPost() async {
+  Future<int> createPost() async {
     try {
       textFieldError = "";
       final postText = textFieldController.text;
       if (postText.isEmpty) {
         setTextFieldError("Post content can't be empty");
-        return;
+        return -1;
       }
       if (postText.length > 255) {
         setTextFieldError("Post content can't be longer than 255 characters");
-        return;
+        return -1;
       }
-      await _postService.addPost(user!.id, postText, []);
-      notifyListeners();
+      return await _postService.addPost(user!.id, postText, []);
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
         error = "Something is wrong with the connection to the server";
@@ -60,5 +59,6 @@ class PostCreatorViewModel extends ChangeNotifier {
     } catch (e) {
       error = "Something went wrong, please try again";
     }
+    return -1;
   }
 }

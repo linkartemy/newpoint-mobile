@@ -28,6 +28,7 @@ class ArticleView extends StatefulWidget {
 
 class ArticleViewState extends State<ArticleView> {
   bool _isLoadingPost = false;
+  final scrollController = ScrollController();
 
   Future<void> onRefresh() async {
     final model = Provider.of<ArticleViewModel>(context, listen: false);
@@ -77,6 +78,12 @@ class ArticleViewState extends State<ArticleView> {
     });
   }
 
+  Future<void> loadComments() async {
+    final model = Provider.of<ArticleViewModel>(context, listen: false);
+    await model.loadComments();
+    setState(() {});
+  }
+
   Future<void> reload() async {
     setState(() {
       _isLoadingPost = true;
@@ -98,7 +105,6 @@ class ArticleViewState extends State<ArticleView> {
     var article = model.article;
 
     return Scaffold(
-        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
@@ -106,20 +112,14 @@ class ArticleViewState extends State<ArticleView> {
             },
             child: const Icon(Icons.arrow_back_rounded, size: 25),
           ),
-          title: Container(
-              alignment: Alignment.centerRight,
-              child: Image.asset(
-                AppImages.logoTitleOutline,
-                width: 100,
-              )),
         ),
         body: RefreshIndicatorComponent(
             onRefresh: onRefresh,
             notificationPredicate: (ScrollNotification notification) {
-              if (model.error.isNotEmpty || _isLoadingPost || article == null) {
-                return notification.depth == 0;
+              if (scrollController.hasClients) {
+                return scrollController.position.pixels == 0;
               }
-              return notification.depth == 1;
+              return false;
             },
             child: model.error.isNotEmpty
                 ? SingleChildScrollView(
@@ -135,7 +135,8 @@ class ArticleViewState extends State<ArticleView> {
                 : _isLoadingPost || article == null
                     ? const LoaderView()
                     : model.comments.isEmpty
-                        ? Column(
+                        ? SingleChildScrollView(
+                            child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
@@ -148,14 +149,16 @@ class ArticleViewState extends State<ArticleView> {
                               const _Body(),
                               const _Footer(),
                             ],
-                          )
+                          ))
                         : NestedScrollView(
+              controller: scrollController,
                             headerSliverBuilder:
                                 (context, innerBoxIsScrolled) => [
                                       DynamicSliverAppBar(
                                         forceElevated: innerBoxIsScrolled,
                                         maxHeight: 10000,
                                         implyLeading: false,
+                                        collapseMode: CollapseMode.pin,
                                         child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
@@ -176,7 +179,7 @@ class ArticleViewState extends State<ArticleView> {
                             body: _Comments(
                                 comments: model.comments,
                                 onLikeTap: onCommentLikeTap,
-                                reload: reload))));
+                                loadComments: loadComments))));
   }
 }
 
@@ -198,7 +201,7 @@ class _Header extends StatelessWidget {
       actions: [
         userId == authorId
             ? TextButton(
-                child: Text(AppLocalizations.of(context)!.deletePost,
+                child: Text(AppLocalizations.of(context)!.deleteArticle,
                     textAlign: TextAlign.center),
                 onPressed: () async {
                   AlertDialog alert = AlertDialog(
@@ -383,17 +386,12 @@ class _Body extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-                alignment: Alignment.topLeft,
-                child: Column(
-                  children: [
-                    Text(model.article!.title,
-                        style: AdaptiveTheme.of(context).theme.textTheme.titleLarge),
-                    const SizedBox(height: 10),
-                    MarkdownBodyComponent(content: model.article!.content),
-                  ],
-                ))
+            Text(model.article!.title,
+                style: AdaptiveTheme.of(context).theme.textTheme.titleLarge),
+            const SizedBox(height: 10),
+            MarkdownBodyComponent(content: model.article!.content),
           ],
         ));
   }
@@ -542,7 +540,9 @@ class _FooterState extends State<_Footer> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(AppLocalizations.of(context)!.nComments(model.article!.comments),
+            Text(
+                AppLocalizations.of(context)!
+                    .nComments(model.article!.comments),
                 style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium),
             Text("${model.commentFieldText.text.length}/255",
                 style: AdaptiveTheme.of(context)
@@ -568,12 +568,12 @@ class _Comments extends StatefulWidget {
       {Key? key,
       required this.comments,
       required this.onLikeTap,
-      required this.reload})
+      required this.loadComments})
       : super(key: key);
 
   final List<ArticleComment> comments;
   final Future<void> Function(int) onLikeTap;
-  final Future<void> Function() reload;
+  final Future<void> Function() loadComments;
 
   @override
   _CommentsState createState() => _CommentsState();
@@ -610,7 +610,9 @@ class _CommentsState extends State<_Comments> {
                 likes: comment.likes,
                 liked: comment.liked,
                 onLikeTap: widget.onLikeTap,
-                reload: widget.reload,
+                reload: () async {
+                  widget.loadComments();
+                },
                 deleteComment: () async {
                   await deleteComment(index);
                 },

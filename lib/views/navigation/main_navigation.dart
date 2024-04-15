@@ -30,6 +30,8 @@ abstract class MainNavigationRouteNames {
   static const accessibilitySettingsMenu = '/settings/accessibility';
   static const languageSettings = '/settings/accessibility/language';
   static const themeSettings = '/settings/accessibility/theme';
+
+  static const imageViewer = '/image-viewer';
 }
 
 class MainNavigation {
@@ -97,6 +99,12 @@ class MainNavigation {
         final profileId = arguments is int ? arguments : 0;
         return MaterialPageRoute(
           builder: (_) => _screenFactory.makeProfileEditor(profileId),
+        );
+      case MainNavigationRouteNames.imageViewer:
+        final arguments = settings.arguments;
+        final imageId = arguments is int ? arguments : 0;
+        return MaterialPageRoute(
+          builder: (_) => _screenFactory.makeImageViewer(imageId),
         );
       default:
         return MaterialPageRoute(builder: (_) => _screenFactory.makeMain());

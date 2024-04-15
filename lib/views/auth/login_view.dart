@@ -30,7 +30,9 @@ class LoginView extends StatelessWidget {
               icon: const Icon(Icons.arrow_back_ios_new_rounded)),
           centerTitle: true,
           title: Image.asset(
-            AppImages.logoTitleOutline,
+            AdaptiveTheme.of(context).mode.isLight
+                ? AppImages.logoTitle
+                : AppImages.logoTitleDark,
             width: 100,
           ),
         ),

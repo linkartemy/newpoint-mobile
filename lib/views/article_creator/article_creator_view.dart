@@ -132,7 +132,39 @@ class ArticleCreatorViewState extends State<ArticleCreatorView> {
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
-              Navigator.of(context).pop();
+              AlertDialog alert = AlertDialog(
+                actionsAlignment: MainAxisAlignment.start,
+                actionsOverflowAlignment: OverflowBarAlignment.center,
+                title: Text(
+                  AppLocalizations.of(context)!.areYouSure,
+                  textAlign: TextAlign.center,
+                  style: AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+                ),
+                actions: [
+                  TextButton(
+                    child: Text(AppLocalizations.of(context)!.yes,
+                        textAlign: TextAlign.center),
+                    onPressed: () async {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                      onPressed: () async {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.cancel,
+                        textAlign: TextAlign.center,
+                      )),
+                ],
+              );
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return alert;
+                },
+              );
             },
             child: const Icon(Icons.arrow_back_rounded, size: 25),
           ),
@@ -161,10 +193,10 @@ class ArticleCreatorViewState extends State<ArticleCreatorView> {
                             textAlign: TextAlign.center),
                         onPressed: () async {
                           Navigator.of(context).pop();
-                          await model.createArticle();
+                          var id = await model.createArticle();
                           setState(() {});
                           if (model.textFieldError.isEmpty) {
-                            Navigator.of(context).pop();
+                            Navigator.of(context).pop(id != -1 ? id : null);
                           } else {
                             AlertDialog alert = AlertDialog(
                               title: ErrorComponent(
@@ -209,7 +241,7 @@ class ArticleCreatorViewState extends State<ArticleCreatorView> {
                     },
                   );
                 },
-                child: AppLocalizations.of(context)!.createPost,
+                child: AppLocalizations.of(context)!.createArticle,
               ),
             ),
           ],

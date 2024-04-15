@@ -28,7 +28,9 @@ class _LogoWidget extends StatelessWidget {
       alignment: Alignment.center,
       margin: const EdgeInsets.only(top: 100),
       child: Image.asset(
-        AppImages.logoTitle,
+        AdaptiveTheme.of(context).mode.isLight
+            ? AppImages.logoTitleRounded
+            : AppImages.logoTitleRoundedDark,
         width: 200,
       ),
     );

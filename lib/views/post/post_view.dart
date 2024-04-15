@@ -103,12 +103,6 @@ class PostViewState extends State<PostView> {
             },
             child: const Icon(Icons.arrow_back_rounded, size: 25),
           ),
-          title: Container(
-              alignment: Alignment.centerRight,
-              child: Image.asset(
-                AppImages.logoTitleOutline,
-                width: 100,
-              )),
         ),
         body: RefreshIndicatorComponent(
             onRefresh: onRefresh,
@@ -387,7 +381,7 @@ class _Body extends StatelessWidget {
                   children: [
                     Text(model.post!.content,
                         style:
-                            AdaptiveTheme.of(context).theme.textTheme.bodyLarge)
+                            AdaptiveTheme.of(context).theme.textTheme.bodyMedium)
                   ],
                 ))
           ],

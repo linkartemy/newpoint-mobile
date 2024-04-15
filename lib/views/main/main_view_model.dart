@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/data_providers/blacklist_data_provider.dart';
+import 'package:newpoint/domain/data_providers/database/article_view_table.dart';
 import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
 import 'package:newpoint/domain/models/article/article.dart';
 import 'package:newpoint/domain/models/feed_element/feed_element.dart';
@@ -18,10 +19,12 @@ class MainViewModel extends ChangeNotifier {
   final _postService = PostService();
   final _articleService = ArticleService();
   final postViewEntryTable = PostViewEntryTable();
+  final articleViewEntryTable = ArticleViewEntryTable();
   final _blacklistDataProvider = BlacklistDataProvider();
   var _feed = <FeedEntry>[];
   var subscribedPosts = <FeedEntry>[];
   var viewedPosts = <int>[];
+  var viewedArticles = <int>[];
 
   User? _user;
   var isLoading = false;
@@ -34,19 +37,33 @@ class MainViewModel extends ChangeNotifier {
 
   int lastArticleId = -1;
   int lastPostId = -1;
+  int previousArticleId = -1;
+  int previousPostId = -1;
 
   bool loadingFeed = false;
   bool loadingSubscribedFeed = false;
 
   MainViewModel() {}
 
+  void init() {
+    lastArticleId = -1;
+    lastPostId = -1;
+    previousArticleId = -1;
+    previousPostId = -1;
+  }
+
   Future<List<PostViewEntry>> getViewedPosts() async {
     try {
       final viewedPostsEntries =
           await postViewEntryTable.getAllByUserId(userId: user!.id);
+      final viewedArticlesEntries =
+          await articleViewEntryTable.getAllByUserId(userId: user!.id);
       isLoadingDatabase = false;
       for (var i = 0; i < viewedPostsEntries.length; ++i) {
         viewedPosts.add(viewedPostsEntries[i].postId);
+      }
+      for (var i = 0; i < viewedArticlesEntries.length; ++i) {
+        viewedArticles.add(viewedArticlesEntries[i].articleId);
       }
       return viewedPostsEntries;
     } catch (e) {
@@ -141,6 +158,8 @@ class MainViewModel extends ChangeNotifier {
         }
       }
       _feed.addAll(feed);
+      previousArticleId = lastArticleId;
+      previousPostId = lastPostId;
       loadingFeed = false;
       getSubscribedPosts();
     } on ApiClientException catch (e) {
@@ -207,6 +226,34 @@ class MainViewModel extends ChangeNotifier {
   }
 
   List<FeedEntry> get feed => _feed;
+
+  Future<void> loadArticleById(int id) async {
+    try {
+      final article = await _articleService.getArticleById(id);
+      _feed.insert(0, article);
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        postsLoadingError =
+            "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      postsLoadingError = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> loadPostById(int id) async {
+    try {
+      final post = await _postService.getPostById(id);
+      _feed.insert(0, post);
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        postsLoadingError =
+            "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      postsLoadingError = "Something went wrong, please try again";
+    }
+  }
 
   Future<void> getUser() async {
     try {
@@ -313,10 +360,27 @@ class MainViewModel extends ChangeNotifier {
     return false;
   }
 
-  Future<void> addView(int postId) async {
+  Future<void> addPostView(int postId) async {
     try {
       await postViewEntryTable.create(userId: user!.id, postId: postId);
       await _postService.addPostView(postId);
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        postsLoadingError =
+            "Something is wrong with the connection to the server";
+      }
+      print(e);
+    } catch (e) {
+      print(e);
+      postsLoadingError = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> addArticleView(int articleId) async {
+    try {
+      await articleViewEntryTable.create(
+          userId: user!.id, articleId: articleId);
+      await _articleService.addArticleView(articleId);
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
         postsLoadingError =
@@ -353,7 +417,7 @@ class MainViewModel extends ChangeNotifier {
   Future<void> addToBlacklist(int userId) async {
     try {
       await _blacklistDataProvider.create(userId: userId);
-      _feed.removeWhere((element) => (element as Post).authorId == userId);
+      _feed.removeWhere((element) => element.authorId == userId);
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {}

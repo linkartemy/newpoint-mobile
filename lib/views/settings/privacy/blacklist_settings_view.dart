@@ -163,7 +163,7 @@ class _Body extends StatelessWidget {
                     },
                     child: ListTile(
                       leading:
-                          ProfileImage(profileImageId: user.profileImageId),
+                          ProfileImage(profileImageId: model.blacklist[index].profileImageId),
                       title: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

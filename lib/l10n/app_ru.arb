@@ -109,6 +109,7 @@
   "areYouSure": "Вы уверены?",
   "yes": "Да",
   "deleteComment": "Удалить комментарий",
+  "deleteArticle": "Удалить статью",
   "writeTitle": "Напишите заголовок",
 
   "setting": "Настройка",
@@ -179,5 +180,9 @@
   "whereAreYou": "Где Вы?",
   "birthDateString": "Дата рождения",
 
-  "ok": "Ок"
+  "ok": "Ок",
+  "openPhoto": "Открыть фото",
+  "followers": "Подписчики",
+  "following": "Подписки",
+  "typeHere": "Пишите здесь..."
 }

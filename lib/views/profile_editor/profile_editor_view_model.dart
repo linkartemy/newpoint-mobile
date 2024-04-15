@@ -15,7 +15,6 @@ class ProfileEditorViewModel extends ChangeNotifier {
   final _postService = PostService();
   final postViewEntryTable = PostViewEntryTable();
 
-  final loginTextController = TextEditingController();
   final nameTextController = TextEditingController();
   final surnameTextController = TextEditingController();
   final descriptionTextController = TextEditingController();
@@ -79,7 +78,6 @@ class ProfileEditorViewModel extends ChangeNotifier {
     try {
       profile = await _userService.getProfileById(profileId);
       if (profile != null) {
-        loginTextController.text = profile!.login;
         nameTextController.text = profile!.name;
         surnameTextController.text = profile!.surname;
         descriptionTextController.text = profile!.description ?? "";
@@ -98,20 +96,18 @@ class ProfileEditorViewModel extends ChangeNotifier {
 
   Future<bool> updateProfile() async {
     try {
-      final login = loginTextController.text;
       final name = nameTextController.text;
       final surname = surnameTextController.text;
       final description = descriptionTextController.text;
       final location = locationTextController.text;
-      if (login == profile!.login &&
-          name == profile!.name &&
+      if (name == profile!.name &&
           surname == profile!.surname &&
           description == profile!.description &&
           location == profile!.location) {
         return true;
       }
-      if (login.isEmpty || name.isEmpty || surname.isEmpty) {
-        setError("Login, name or surname can't be empty");
+      if (name.isEmpty || surname.isEmpty) {
+        setError("Name or surname can't be empty");
         return false;
       }
       profile = await _userService.updateProfile(

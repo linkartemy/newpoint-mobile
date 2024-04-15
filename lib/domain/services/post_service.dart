@@ -4,14 +4,13 @@ import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/domain/grpc_clients/network_client.dart';
 import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/protos.dart';
-import 'package:newpoint/src/generated/user.pbgrpc.dart';
 
 class PostService {
   final _networkClient = NetworkClient();
   late final _postServiceClient = GrpcPostClient(_networkClient.clientChannel);
   final _sessionDataProvider = SessionDataProvider();
 
-  Future<void> addPost(int authorId, String content, List<int> images) async {
+  Future<int> addPost(int authorId, String content, List<int> images) async {
     final request = AddPostRequest();
     request.authorId = Int64.parseInt(authorId.toString());
     request.content = content;
@@ -20,6 +19,11 @@ class PostService {
     if (await _networkClient.proceed(response) == false) {
       throw ApiClientException(ApiClientExceptionType.other);
     }
+    var addPostResponse = AddPostResponse();
+    return response.data
+        .unpackInto<AddPostResponse>(addPostResponse)
+        .id
+        .toInt();
   }
 
   Future<List<Post>> getPosts() async {
@@ -39,9 +43,10 @@ class PostService {
     return posts;
   }
 
-  Future<List<Post>> getPostsByUserId(int id) async {
+  Future<List<Post>> getPostsByUserId(int id, {lastPostId = -1}) async {
     final request = GetPostsByUserIdRequest();
     request.userId = Int64.parseInt(id.toString());
+    request.lastPostId = Int64.parseInt(lastPostId.toString());
     var response = await _postServiceClient.getPostsByUserId(request,
         options: await _networkClient.getAuthorizedCallOptions());
     if (await _networkClient.proceed(response) == false) {

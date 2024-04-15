@@ -54,6 +54,7 @@ dependencies:
   expandable: ^5.0.1
   url_launcher: ^6.2.4
   font_awesome_flutter: ^10.7.0
+  photo_view: ^0.14.0
 
 dev_dependencies:
   flutter_test:
@@ -71,39 +72,29 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  fonts:
+    - family: SF-Pro
+      fonts:
+        - asset: assets/fonts/SF/SF-Pro/SF-Pro.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+    - family: SF-Mono
+      fonts:
+        - asset: assets/fonts/SF/SF-Mono/SFMono-Regular.otf
+    - family: SF-NY
+      fonts:
+        - asset: assets/fonts/SF/NY/NY.otf
   generate: true
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/light-theme/logo-title.png
     - assets/images/light-theme/logo-title-rounded.png
-    - assets/images/light-theme/logo-title-outline.png
     - assets/images/dark-theme/logo-title.png
+    - assets/images/dark-theme/logo-title-rounded.png
     - lib/.env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  fonts:
-    - family: SF
-      fonts:
-        - asset: assets/fonts/SF/SF-Pro.dmg
-    - family: Roboto
-      fonts:
-        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
