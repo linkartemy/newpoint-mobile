@@ -34,6 +34,10 @@ class GrpcPostClient extends $grpc.Client {
       '/post.GrpcPost/GetPostsByUserId',
       ($3.GetPostsByUserIdRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$getPostsByUserIdAfterTimestamp = $grpc.ClientMethod<$3.GetPostsByUserIdAfterTimestampRequest, $1.Response>(
+      '/post.GrpcPost/GetPostsByUserIdAfterTimestamp',
+      ($3.GetPostsByUserIdAfterTimestampRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
   static final _$getPostById = $grpc.ClientMethod<$3.GetPostByIdRequest, $1.Response>(
       '/post.GrpcPost/GetPostById',
       ($3.GetPostByIdRequest value) => value.writeToBuffer(),
@@ -75,6 +79,10 @@ class GrpcPostClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$1.Response> getPostsByUserId($3.GetPostsByUserIdRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getPostsByUserId, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> getPostsByUserIdAfterTimestamp($3.GetPostsByUserIdAfterTimestampRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getPostsByUserIdAfterTimestamp, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.Response> getPostById($3.GetPostByIdRequest request, {$grpc.CallOptions? options}) {
@@ -127,6 +135,13 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
         false,
         false,
         ($core.List<$core.int> value) => $3.GetPostsByUserIdRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.GetPostsByUserIdAfterTimestampRequest, $1.Response>(
+        'GetPostsByUserIdAfterTimestamp',
+        getPostsByUserIdAfterTimestamp_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $3.GetPostsByUserIdAfterTimestampRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$3.GetPostByIdRequest, $1.Response>(
         'GetPostById',
@@ -184,6 +199,10 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
     return getPostsByUserId(call, await request);
   }
 
+  $async.Future<$1.Response> getPostsByUserIdAfterTimestamp_Pre($grpc.ServiceCall call, $async.Future<$3.GetPostsByUserIdAfterTimestampRequest> request) async {
+    return getPostsByUserIdAfterTimestamp(call, await request);
+  }
+
   $async.Future<$1.Response> getPostById_Pre($grpc.ServiceCall call, $async.Future<$3.GetPostByIdRequest> request) async {
     return getPostById(call, await request);
   }
@@ -211,6 +230,7 @@ abstract class GrpcPostServiceBase extends $grpc.Service {
   $async.Future<$1.Response> addPost($grpc.ServiceCall call, $3.AddPostRequest request);
   $async.Future<$1.Response> getPosts($grpc.ServiceCall call, $3.GetPostsRequest request);
   $async.Future<$1.Response> getPostsByUserId($grpc.ServiceCall call, $3.GetPostsByUserIdRequest request);
+  $async.Future<$1.Response> getPostsByUserIdAfterTimestamp($grpc.ServiceCall call, $3.GetPostsByUserIdAfterTimestampRequest request);
   $async.Future<$1.Response> getPostById($grpc.ServiceCall call, $3.GetPostByIdRequest request);
   $async.Future<$1.Response> likePost($grpc.ServiceCall call, $3.LikePostRequest request);
   $async.Future<$1.Response> unLikePost($grpc.ServiceCall call, $3.UnLikePostRequest request);

@@ -120,11 +120,10 @@ class ProfileViewModel extends ChangeNotifier {
 
   Future<Post> getPostById(Post post) async {
     try {
-        return await _postService.getPostById(post.id);
+      return await _postService.getPostById(post.id);
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
-        error =
-        "Something is wrong with the connection to the server";
+        error = "Something is wrong with the connection to the server";
       } else {
         error = e.error;
       }
@@ -139,8 +138,7 @@ class ProfileViewModel extends ChangeNotifier {
       return await _articleService.getArticleById(article.id);
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
-        error =
-        "Something is wrong with the connection to the server";
+        error = "Something is wrong with the connection to the server";
       } else {
         error = e.error;
       }
@@ -154,15 +152,19 @@ class ProfileViewModel extends ChangeNotifier {
     try {
       error = "";
       posts = await _postService.getPostsByUserId(profileId);
-      final minPostId = posts.fold<int>(0, (previousValue, element) {
-        return element.id < previousValue ? element.id : previousValue;
-      });
-      lastPostId = minPostId;
+      lastPostId = posts.isNotEmpty ? posts[0].id : -1;
+      for (var post in posts) {
+        if (post.id < lastPostId) {
+          lastPostId = post.id;
+        }
+      }
       articles = await _articleService.getArticlesByUserId(profileId);
-      final minArticleId = articles.fold<int>(0, (previousValue, element) {
-        return element.id < previousValue ? element.id : previousValue;
-      });
-      lastArticleId = minArticleId;
+      lastArticleId = posts.isNotEmpty ? posts[0].id : -1;
+      for (var article in articles) {
+        if (article.id < lastArticleId) {
+          lastArticleId = article.id;
+        }
+      }
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -185,15 +187,15 @@ class ProfileViewModel extends ChangeNotifier {
           lastPostId: lastPostId - 1);
       for (var i = 0; i < postsFeed.length; ++i) {
         final post = postsFeed[i];
+        if (post.id < lastPostId || lastPostId == -1) {
           lastPostId = post.id;
+        }
       }
       posts.addAll(postsFeed);
-      previousPostId = lastPostId;
       loadingPostsFeed = false;
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
-        error =
-        "Something is wrong with the connection to the server";
+        error = "Something is wrong with the connection to the server";
       } else {
         error = e.error;
       }
@@ -208,19 +210,19 @@ class ProfileViewModel extends ChangeNotifier {
         return;
       }
       loadingArticlesFeed = true;
-      final postsFeed = await _articleService.getArticlesByUserId(profileId,
+      final articlesFeed = await _articleService.getArticlesByUserId(profileId,
           lastArticleId: lastArticleId - 1);
-      for (var i = 0; i < postsFeed.length; ++i) {
-        final post = postsFeed[i];
-        lastArticleId = post.id;
+      for (var i = 0; i < articlesFeed.length; ++i) {
+        final article = articlesFeed[i];
+        if (article.id < lastArticleId || lastArticleId == -1) {
+          lastArticleId = article.id;
+        }
       }
-      articles.addAll(postsFeed);
-      previousArticleId = lastArticleId;
+      articles.addAll(articlesFeed);
       loadingArticlesFeed = false;
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
-        error =
-        "Something is wrong with the connection to the server";
+        error = "Something is wrong with the connection to the server";
       } else {
         error = e.error;
       }

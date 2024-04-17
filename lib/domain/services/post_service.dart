@@ -3,7 +3,9 @@ import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/domain/grpc_clients/network_client.dart';
 import 'package:newpoint/domain/models/post/post.dart';
+import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/protos.dart';
+import 'package:newpoint/src/generated/google/protobuf/timestamp.pb.dart';
 
 class PostService {
   final _networkClient = NetworkClient();
@@ -55,6 +57,31 @@ class PostService {
     var getPostsByUserIdResponse = GetPostsByUserIdResponse();
     final postModels = response.data
         .unpackInto<GetPostsByUserIdResponse>(getPostsByUserIdResponse)
+        .posts;
+    List<Post> posts = [];
+    for (final postModel in postModels) {
+      final post = Post.fromModel(postModel);
+      posts.add(post);
+    }
+    return posts;
+  }
+
+  Future<List<Post>> getPostsByUserIdAfterTimestamp(
+      int id, Timestamp timestamp) async {
+    final request = GetPostsByUserIdAfterTimestampRequest();
+    request.userId = Int64.parseInt(id.toString());
+    request.timestamp = timestamp;
+    var response = await _postServiceClient.getPostsByUserIdAfterTimestamp(
+        request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var getPostsByUserIdAfterTimestampResponse =
+        GetPostsByUserIdAfterTimestampResponse();
+    final postModels = response.data
+        .unpackInto<GetPostsByUserIdAfterTimestampResponse>(
+            getPostsByUserIdAfterTimestampResponse)
         .posts;
     List<Post> posts = [];
     for (final postModel in postModels) {

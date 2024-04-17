@@ -37,8 +37,6 @@ class MainViewModel extends ChangeNotifier {
 
   int lastArticleId = -1;
   int lastPostId = -1;
-  int previousArticleId = -1;
-  int previousPostId = -1;
 
   bool loadingFeed = false;
   bool loadingSubscribedFeed = false;
@@ -48,8 +46,6 @@ class MainViewModel extends ChangeNotifier {
   void init() {
     lastArticleId = -1;
     lastPostId = -1;
-    previousArticleId = -1;
-    previousPostId = -1;
   }
 
   Future<List<PostViewEntry>> getViewedPosts() async {
@@ -158,8 +154,6 @@ class MainViewModel extends ChangeNotifier {
         }
       }
       _feed.addAll(feed);
-      previousArticleId = lastArticleId;
-      previousPostId = lastPostId;
       loadingFeed = false;
       getSubscribedPosts();
     } on ApiClientException catch (e) {

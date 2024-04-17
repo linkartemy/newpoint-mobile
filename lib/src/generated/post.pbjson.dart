@@ -120,6 +120,34 @@ final $typed_data.Uint8List getPostsByUserIdResponseDescriptor = $convert.base64
     'ChhHZXRQb3N0c0J5VXNlcklkUmVzcG9uc2USJQoFcG9zdHMYASADKAsyDy5wb3N0LlBvc3RNb2'
     'RlbFIFcG9zdHM=');
 
+@$core.Deprecated('Use getPostsByUserIdAfterTimestampRequestDescriptor instead')
+const GetPostsByUserIdAfterTimestampRequest$json = {
+  '1': 'GetPostsByUserIdAfterTimestampRequest',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 3, '10': 'userId'},
+    {'1': 'timestamp', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'timestamp'},
+  ],
+};
+
+/// Descriptor for `GetPostsByUserIdAfterTimestampRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getPostsByUserIdAfterTimestampRequestDescriptor = $convert.base64Decode(
+    'CiVHZXRQb3N0c0J5VXNlcklkQWZ0ZXJUaW1lc3RhbXBSZXF1ZXN0EhcKB3VzZXJfaWQYASABKA'
+    'NSBnVzZXJJZBI4Cgl0aW1lc3RhbXAYAiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1w'
+    'Ugl0aW1lc3RhbXA=');
+
+@$core.Deprecated('Use getPostsByUserIdAfterTimestampResponseDescriptor instead')
+const GetPostsByUserIdAfterTimestampResponse$json = {
+  '1': 'GetPostsByUserIdAfterTimestampResponse',
+  '2': [
+    {'1': 'posts', '3': 1, '4': 3, '5': 11, '6': '.post.PostModel', '10': 'posts'},
+  ],
+};
+
+/// Descriptor for `GetPostsByUserIdAfterTimestampResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getPostsByUserIdAfterTimestampResponseDescriptor = $convert.base64Decode(
+    'CiZHZXRQb3N0c0J5VXNlcklkQWZ0ZXJUaW1lc3RhbXBSZXNwb25zZRIlCgVwb3N0cxgBIAMoCz'
+    'IPLnBvc3QuUG9zdE1vZGVsUgVwb3N0cw==');
+
 @$core.Deprecated('Use getPostByIdRequestDescriptor instead')
 const GetPostByIdRequest$json = {
   '1': 'GetPostByIdRequest',

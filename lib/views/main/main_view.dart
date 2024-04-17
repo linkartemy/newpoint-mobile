@@ -302,11 +302,6 @@ class _PostsState extends State<_PostsView> {
                             return;
                           }
                           if (index == feed.length - 1) {
-                            if (model.lastArticleId ==
-                                    model.previousArticleId &&
-                                model.lastPostId == model.previousPostId) {
-                              return;
-                            }
                             await model.loadFeed();
                             setState(() {});
                           }

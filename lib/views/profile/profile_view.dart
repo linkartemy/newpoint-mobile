@@ -583,8 +583,7 @@ class _FooterPostsState extends State<_FooterPosts> {
             return VisibilityDetector(
               key: Key('postkey$index'),
               onVisibilityChanged: (visibilityInfo) async {
-                if (model.lastPostId == model.previousPostId ||
-                    visibilityInfo.visibleFraction < 0.9 ||
+                if (visibilityInfo.visibleFraction < 0.9 ||
                     model.posts.length < 5) {
                   return;
                 }
@@ -709,7 +708,7 @@ class _FooterArticlesState extends State<_FooterArticles> {
     }
 
     Future<void> onTap(BuildContext context, int index) async {
-      await Navigator.of(context).pushNamed(MainNavigationRouteNames.post,
+      await Navigator.of(context).pushNamed(MainNavigationRouteNames.article,
           arguments: model.articles[index].id);
       model.articles[index] = await model.getArticleById(model.articles[index]);
       widget.reload();
@@ -728,8 +727,7 @@ class _FooterArticlesState extends State<_FooterArticles> {
             return VisibilityDetector(
                 key: Key('articlekey$index'),
                 onVisibilityChanged: (visibilityInfo) async {
-                  if (model.lastArticleId == model.previousArticleId ||
-                      visibilityInfo.visibleFraction < 0.9 ||
+                  if (visibilityInfo.visibleFraction < 0.9 ||
                       model.articles.length < 5) {
                     return;
                   }

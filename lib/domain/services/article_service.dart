@@ -4,6 +4,7 @@ import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/domain/grpc_clients/network_client.dart';
 import 'package:newpoint/domain/models/article/article.dart';
 import 'package:newpoint/protos.dart';
+import 'package:newpoint/src/generated/google/protobuf/timestamp.pb.dart';
 
 class ArticleService {
   final _networkClient = NetworkClient();
@@ -60,6 +61,31 @@ class ArticleService {
     var getArticlesByUserIdResponse = GetArticlesByUserIdResponse();
     final articleModels = response.data
         .unpackInto<GetArticlesByUserIdResponse>(getArticlesByUserIdResponse)
+        .articles;
+    List<Article> articles = [];
+    for (final articleModel in articleModels) {
+      final article = Article.fromModel(articleModel);
+      articles.add(article);
+    }
+    return articles;
+  }
+
+  Future<List<Article>> getArticlesByUserIdAfterTimestamp(
+      int id, Timestamp timestamp) async {
+    final request = GetArticlesByUserIdAfterTimestampRequest();
+    request.userId = Int64.parseInt(id.toString());
+    request.timestamp = timestamp;
+    var response =
+        await _articleServiceClient.getArticlesByUserIdAfterTimestamp(request,
+            options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var getArticlesByUserIdAfterTimestampResponse =
+        GetArticlesByUserIdAfterTimestampResponse();
+    final articleModels = response.data
+        .unpackInto<GetArticlesByUserIdAfterTimestampResponse>(
+            getArticlesByUserIdAfterTimestampResponse)
         .articles;
     List<Article> articles = [];
     for (final articleModel in articleModels) {

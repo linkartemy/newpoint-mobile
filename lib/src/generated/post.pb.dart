@@ -548,6 +548,116 @@ class GetPostsByUserIdResponse extends $pb.GeneratedMessage {
   $core.List<PostModel> get posts => $_getList(0);
 }
 
+class GetPostsByUserIdAfterTimestampRequest extends $pb.GeneratedMessage {
+  factory GetPostsByUserIdAfterTimestampRequest({
+    $fixnum.Int64? userId,
+    $10.Timestamp? timestamp,
+  }) {
+    final $result = create();
+    if (userId != null) {
+      $result.userId = userId;
+    }
+    if (timestamp != null) {
+      $result.timestamp = timestamp;
+    }
+    return $result;
+  }
+  GetPostsByUserIdAfterTimestampRequest._() : super();
+  factory GetPostsByUserIdAfterTimestampRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPostsByUserIdAfterTimestampRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPostsByUserIdAfterTimestampRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
+    ..aInt64(1, _omitFieldNames ? '' : 'userId')
+    ..aOM<$10.Timestamp>(2, _omitFieldNames ? '' : 'timestamp', subBuilder: $10.Timestamp.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetPostsByUserIdAfterTimestampRequest clone() => GetPostsByUserIdAfterTimestampRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPostsByUserIdAfterTimestampRequest copyWith(void Function(GetPostsByUserIdAfterTimestampRequest) updates) => super.copyWith((message) => updates(message as GetPostsByUserIdAfterTimestampRequest)) as GetPostsByUserIdAfterTimestampRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetPostsByUserIdAfterTimestampRequest create() => GetPostsByUserIdAfterTimestampRequest._();
+  GetPostsByUserIdAfterTimestampRequest createEmptyInstance() => create();
+  static $pb.PbList<GetPostsByUserIdAfterTimestampRequest> createRepeated() => $pb.PbList<GetPostsByUserIdAfterTimestampRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetPostsByUserIdAfterTimestampRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPostsByUserIdAfterTimestampRequest>(create);
+  static GetPostsByUserIdAfterTimestampRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get userId => $_getI64(0);
+  @$pb.TagNumber(1)
+  set userId($fixnum.Int64 v) { $_setInt64(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUserId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUserId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $10.Timestamp get timestamp => $_getN(1);
+  @$pb.TagNumber(2)
+  set timestamp($10.Timestamp v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasTimestamp() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTimestamp() => clearField(2);
+  @$pb.TagNumber(2)
+  $10.Timestamp ensureTimestamp() => $_ensure(1);
+}
+
+class GetPostsByUserIdAfterTimestampResponse extends $pb.GeneratedMessage {
+  factory GetPostsByUserIdAfterTimestampResponse({
+    $core.Iterable<PostModel>? posts,
+  }) {
+    final $result = create();
+    if (posts != null) {
+      $result.posts.addAll(posts);
+    }
+    return $result;
+  }
+  GetPostsByUserIdAfterTimestampResponse._() : super();
+  factory GetPostsByUserIdAfterTimestampResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPostsByUserIdAfterTimestampResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPostsByUserIdAfterTimestampResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
+    ..pc<PostModel>(1, _omitFieldNames ? '' : 'posts', $pb.PbFieldType.PM, subBuilder: PostModel.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetPostsByUserIdAfterTimestampResponse clone() => GetPostsByUserIdAfterTimestampResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPostsByUserIdAfterTimestampResponse copyWith(void Function(GetPostsByUserIdAfterTimestampResponse) updates) => super.copyWith((message) => updates(message as GetPostsByUserIdAfterTimestampResponse)) as GetPostsByUserIdAfterTimestampResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetPostsByUserIdAfterTimestampResponse create() => GetPostsByUserIdAfterTimestampResponse._();
+  GetPostsByUserIdAfterTimestampResponse createEmptyInstance() => create();
+  static $pb.PbList<GetPostsByUserIdAfterTimestampResponse> createRepeated() => $pb.PbList<GetPostsByUserIdAfterTimestampResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetPostsByUserIdAfterTimestampResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPostsByUserIdAfterTimestampResponse>(create);
+  static GetPostsByUserIdAfterTimestampResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<PostModel> get posts => $_getList(0);
+}
+
 class GetPostByIdRequest extends $pb.GeneratedMessage {
   factory GetPostByIdRequest({
     $fixnum.Int64? id,
