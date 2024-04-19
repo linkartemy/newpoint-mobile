@@ -21,6 +21,7 @@ class Article implements FeedEntry {
   int comments;
   int views;
   bool liked;
+  bool bookmarked;
   @JsonKey(fromJson: parseDateFromString)
   final DateTime creationTimestamp;
 
@@ -39,6 +40,7 @@ class Article implements FeedEntry {
     required this.comments,
     required this.views,
     required this.liked,
+    required this.bookmarked,
     required this.creationTimestamp,
   });
 

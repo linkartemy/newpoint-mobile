@@ -184,5 +184,6 @@
   "openPhoto": "Открыть фото",
   "followers": "Подписчики",
   "following": "Подписки",
-  "typeHere": "Пишите здесь..."
+  "typeHere": "Пишите здесь...",
+  "thereIsNothingHere": "Здесь пока ничего нет"
 }

@@ -14,8 +14,8 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'article.pb.dart' as $0;
-import 'google/protobuf/struct.pbenum.dart' as $11;
-import 'google/protobuf/timestamp.pb.dart' as $10;
+import 'google/protobuf/struct.pbenum.dart' as $12;
+import 'google/protobuf/timestamp.pb.dart' as $11;
 import 'post.pb.dart' as $3;
 
 enum NullableString_Kind {
@@ -26,7 +26,7 @@ enum NullableString_Kind {
 
 class NullableString extends $pb.GeneratedMessage {
   factory NullableString({
-    $11.NullValue? null_1,
+    $12.NullValue? null_1,
     $core.String? data,
   }) {
     final $result = create();
@@ -49,7 +49,7 @@ class NullableString extends $pb.GeneratedMessage {
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NullableString', createEmptyInstance: create)
     ..oo(0, [1, 2])
-    ..e<$11.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE, defaultOrMaker: $11.NullValue.NULL_VALUE, valueOf: $11.NullValue.valueOf, enumValues: $11.NullValue.values)
+    ..e<$12.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE, defaultOrMaker: $12.NullValue.NULL_VALUE, valueOf: $12.NullValue.valueOf, enumValues: $12.NullValue.values)
     ..aOS(2, _omitFieldNames ? '' : 'data')
     ..hasRequiredFields = false
   ;
@@ -79,9 +79,9 @@ class NullableString extends $pb.GeneratedMessage {
   void clearKind() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
-  $11.NullValue get null_1 => $_getN(0);
+  $12.NullValue get null_1 => $_getN(0);
   @$pb.TagNumber(1)
-  set null_1($11.NullValue v) { setField(1, v); }
+  set null_1($12.NullValue v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasNull_1() => $_has(0);
   @$pb.TagNumber(1)
@@ -105,8 +105,8 @@ enum NullableTimestamp_Kind {
 
 class NullableTimestamp extends $pb.GeneratedMessage {
   factory NullableTimestamp({
-    $11.NullValue? null_1,
-    $10.Timestamp? data,
+    $12.NullValue? null_1,
+    $11.Timestamp? data,
   }) {
     final $result = create();
     if (null_1 != null) {
@@ -128,8 +128,8 @@ class NullableTimestamp extends $pb.GeneratedMessage {
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NullableTimestamp', createEmptyInstance: create)
     ..oo(0, [1, 2])
-    ..e<$11.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE, defaultOrMaker: $11.NullValue.NULL_VALUE, valueOf: $11.NullValue.valueOf, enumValues: $11.NullValue.values)
-    ..aOM<$10.Timestamp>(2, _omitFieldNames ? '' : 'data', subBuilder: $10.Timestamp.create)
+    ..e<$12.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE, defaultOrMaker: $12.NullValue.NULL_VALUE, valueOf: $12.NullValue.valueOf, enumValues: $12.NullValue.values)
+    ..aOM<$11.Timestamp>(2, _omitFieldNames ? '' : 'data', subBuilder: $11.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -158,24 +158,24 @@ class NullableTimestamp extends $pb.GeneratedMessage {
   void clearKind() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
-  $11.NullValue get null_1 => $_getN(0);
+  $12.NullValue get null_1 => $_getN(0);
   @$pb.TagNumber(1)
-  set null_1($11.NullValue v) { setField(1, v); }
+  set null_1($12.NullValue v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasNull_1() => $_has(0);
   @$pb.TagNumber(1)
   void clearNull_1() => clearField(1);
 
   @$pb.TagNumber(2)
-  $10.Timestamp get data => $_getN(1);
+  $11.Timestamp get data => $_getN(1);
   @$pb.TagNumber(2)
-  set data($10.Timestamp v) { setField(2, v); }
+  set data($11.Timestamp v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasData() => $_has(1);
   @$pb.TagNumber(2)
   void clearData() => clearField(2);
   @$pb.TagNumber(2)
-  $10.Timestamp ensureData() => $_ensure(1);
+  $11.Timestamp ensureData() => $_ensure(1);
 }
 
 enum NullableArticle_Kind {
@@ -186,7 +186,7 @@ enum NullableArticle_Kind {
 
 class NullableArticle extends $pb.GeneratedMessage {
   factory NullableArticle({
-    $11.NullValue? null_1,
+    $12.NullValue? null_1,
     $0.ArticleModel? data,
   }) {
     final $result = create();
@@ -209,7 +209,7 @@ class NullableArticle extends $pb.GeneratedMessage {
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NullableArticle', createEmptyInstance: create)
     ..oo(0, [1, 2])
-    ..e<$11.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE, defaultOrMaker: $11.NullValue.NULL_VALUE, valueOf: $11.NullValue.valueOf, enumValues: $11.NullValue.values)
+    ..e<$12.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE, defaultOrMaker: $12.NullValue.NULL_VALUE, valueOf: $12.NullValue.valueOf, enumValues: $12.NullValue.values)
     ..aOM<$0.ArticleModel>(2, _omitFieldNames ? '' : 'data', subBuilder: $0.ArticleModel.create)
     ..hasRequiredFields = false
   ;
@@ -239,9 +239,9 @@ class NullableArticle extends $pb.GeneratedMessage {
   void clearKind() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
-  $11.NullValue get null_1 => $_getN(0);
+  $12.NullValue get null_1 => $_getN(0);
   @$pb.TagNumber(1)
-  set null_1($11.NullValue v) { setField(1, v); }
+  set null_1($12.NullValue v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasNull_1() => $_has(0);
   @$pb.TagNumber(1)
@@ -267,7 +267,7 @@ enum NullablePost_Kind {
 
 class NullablePost extends $pb.GeneratedMessage {
   factory NullablePost({
-    $11.NullValue? null_1,
+    $12.NullValue? null_1,
     $3.PostModel? data,
   }) {
     final $result = create();
@@ -290,7 +290,7 @@ class NullablePost extends $pb.GeneratedMessage {
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NullablePost', createEmptyInstance: create)
     ..oo(0, [1, 2])
-    ..e<$11.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE, defaultOrMaker: $11.NullValue.NULL_VALUE, valueOf: $11.NullValue.valueOf, enumValues: $11.NullValue.values)
+    ..e<$12.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE, defaultOrMaker: $12.NullValue.NULL_VALUE, valueOf: $12.NullValue.valueOf, enumValues: $12.NullValue.values)
     ..aOM<$3.PostModel>(2, _omitFieldNames ? '' : 'data', subBuilder: $3.PostModel.create)
     ..hasRequiredFields = false
   ;
@@ -320,9 +320,9 @@ class NullablePost extends $pb.GeneratedMessage {
   void clearKind() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
-  $11.NullValue get null_1 => $_getN(0);
+  $12.NullValue get null_1 => $_getN(0);
   @$pb.TagNumber(1)
-  set null_1($11.NullValue v) { setField(1, v); }
+  set null_1($12.NullValue v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasNull_1() => $_has(0);
   @$pb.TagNumber(1)

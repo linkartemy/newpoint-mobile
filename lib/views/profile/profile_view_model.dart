@@ -36,8 +36,6 @@ class ProfileViewModel extends ChangeNotifier {
   bool loadingArticlesFeed = false;
   int lastArticleId = -1;
   int lastPostId = -1;
-  int previousArticleId = -1;
-  int previousPostId = -1;
 
   ImagePicker picker = ImagePicker();
   XFile? image;
@@ -154,14 +152,14 @@ class ProfileViewModel extends ChangeNotifier {
       posts = await _postService.getPostsByUserId(profileId);
       lastPostId = posts.isNotEmpty ? posts[0].id : -1;
       for (var post in posts) {
-        if (post.id < lastPostId) {
+        if (post.id < lastPostId || lastPostId == -1) {
           lastPostId = post.id;
         }
       }
       articles = await _articleService.getArticlesByUserId(profileId);
       lastArticleId = posts.isNotEmpty ? posts[0].id : -1;
       for (var article in articles) {
-        if (article.id < lastArticleId) {
+        if (article.id < lastArticleId || lastArticleId == -1) {
           lastArticleId = article.id;
         }
       }

@@ -30,7 +30,8 @@ const PostModel$json = {
     {'1': 'comments', '3': 11, '4': 1, '5': 5, '10': 'comments'},
     {'1': 'views', '3': 12, '4': 1, '5': 5, '10': 'views'},
     {'1': 'liked', '3': 13, '4': 1, '5': 8, '10': 'liked'},
-    {'1': 'creation_timestamp', '3': 14, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'creationTimestamp'},
+    {'1': 'bookmarked', '3': 14, '4': 1, '5': 8, '10': 'bookmarked'},
+    {'1': 'creation_timestamp', '3': 15, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'creationTimestamp'},
   ],
 };
 
@@ -42,8 +43,8 @@ final $typed_data.Uint8List postModelDescriptor = $convert.base64Decode(
     'IYCgdjb250ZW50GAcgASgJUgdjb250ZW50EhYKBmltYWdlcxgIIAEoCVIGaW1hZ2VzEhQKBWxp'
     'a2VzGAkgASgFUgVsaWtlcxIWCgZzaGFyZXMYCiABKAVSBnNoYXJlcxIaCghjb21tZW50cxgLIA'
     'EoBVIIY29tbWVudHMSFAoFdmlld3MYDCABKAVSBXZpZXdzEhQKBWxpa2VkGA0gASgIUgVsaWtl'
-    'ZBJJChJjcmVhdGlvbl90aW1lc3RhbXAYDiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW'
-    '1wUhFjcmVhdGlvblRpbWVzdGFtcA==');
+    'ZBIeCgpib29rbWFya2VkGA4gASgIUgpib29rbWFya2VkEkkKEmNyZWF0aW9uX3RpbWVzdGFtcB'
+    'gPIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSEWNyZWF0aW9uVGltZXN0YW1w');
 
 @$core.Deprecated('Use addPostRequestDescriptor instead')
 const AddPostRequest$json = {

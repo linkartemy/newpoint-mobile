@@ -9,6 +9,8 @@ import 'package:newpoint/views/auth/login_view.dart';
 import 'package:newpoint/views/auth/login_view_model.dart';
 import 'package:newpoint/views/auth/register_view.dart';
 import 'package:newpoint/views/auth/register_view_model.dart';
+import 'package:newpoint/views/bookmarks/bookmarks_view.dart';
+import 'package:newpoint/views/bookmarks/bookmarks_view_model.dart';
 import 'package:newpoint/views/image_viewer/image_viewer_view.dart';
 import 'package:newpoint/views/image_viewer/image_viewer_view_model.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
@@ -128,6 +130,13 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => ProfileEditorViewModel(id),
       child: const ProfileEditorView(),
+    );
+  }
+
+  Widget makeBookmarks() {
+    return ChangeNotifierProvider(
+      create: (_) => BookmarksViewModel(),
+      child: const BookmarksView(),
     );
   }
 

@@ -35,7 +35,8 @@ message ArticleModel {
   int32 comments = 12;
   int32 views = 13;
   bool liked = 14;
-  google.protobuf.Timestamp creation_timestamp = 15;
+  bool bookmarked = 15;
+  google.protobuf.Timestamp creation_timestamp = 16;
 }
 
 message AddArticleRequest {

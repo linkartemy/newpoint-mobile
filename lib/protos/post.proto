@@ -34,7 +34,8 @@ message PostModel {
   int32 comments = 11;
   int32 views = 12;
   bool liked = 13;
-  google.protobuf.Timestamp creation_timestamp = 14;
+  bool bookmarked = 14;
+  google.protobuf.Timestamp creation_timestamp = 15;
 }
 
 message AddPostRequest {

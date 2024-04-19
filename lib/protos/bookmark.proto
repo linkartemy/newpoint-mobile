@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+import "response.proto";
+import "google/protobuf/timestamp.proto";
+import "article.proto";
+import "post.proto";
+
+option csharp_namespace = "NewPoint";
+
+package bookmark;
+
+service GrpcBookmark {
+  rpc AddPostBookmark (AddPostBookmarkRequest) returns (response.Response);
+  rpc AddArticleBookmark (AddArticleBookmarkRequest) returns (response.Response);
+  rpc GetBookmarkedPosts (GetBookmarkedPostsRequest) returns (response.Response);
+  rpc GetBookmarkedArticles (GetBookmarkedArticlesRequest) returns (response.Response);
+  rpc DeletePostBookmarkByPostId (DeletePostBookmarkByPostIdRequest) returns (response.Response);
+  rpc DeleteArticleBookmarkByArticleId (DeleteArticleBookmarkByArticleIdRequest) returns (response.Response);
+}
+
+message AddPostBookmarkRequest {
+  int64 user_id = 1;
+  int64 post_id = 2;
+}
+
+message AddPostBookmarkResponse {
+  int64 id = 1;
+}
+
+message AddArticleBookmarkRequest {
+  int64 user_id = 1;
+  int64 article_id = 2;
+}
+
+message AddArticleBookmarkResponse {
+  int64 id = 1;
+}
+
+message GetBookmarkedPostsRequest {
+  int64 user_id = 1;
+  int64 last_post_id = 2;
+}
+
+message GetBookmarkedPostsResponse {
+  repeated post.PostModel posts = 1;
+}
+
+message GetBookmarkedArticlesRequest {
+  int64 user_id = 1;
+  int64 last_article_id = 2;
+}
+
+message GetBookmarkedArticlesResponse {
+  repeated article.ArticleModel articles = 1;
+}
+
+message DeletePostBookmarkByPostIdRequest {
+  int64 post_id = 1;
+}
+
+message DeletePostBookmarkByPostIdResponse {
+  bool deleted = 1;
+}
+
+message DeleteArticleBookmarkByArticleIdRequest {
+  int64 article_id = 1;
+}
+
+message DeleteArticleBookmarkByArticleIdResponse {
+  bool deleted = 1;
+}

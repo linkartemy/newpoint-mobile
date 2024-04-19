@@ -20,6 +20,7 @@ class Post implements FeedEntry {
   int comments;
   int views;
   bool liked;
+  bool bookmarked;
   @JsonKey(fromJson: parseDateFromString)
   final DateTime creationTimestamp;
 
@@ -37,10 +38,12 @@ class Post implements FeedEntry {
     required this.comments,
     required this.views,
     required this.liked,
+    required this.bookmarked,
     required this.creationTimestamp,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
+
   factory Post.fromModel(PostModel postModel) => _$PostFromModel(postModel);
 
   Map<String, dynamic> toJson() => _$PostToJson(this);

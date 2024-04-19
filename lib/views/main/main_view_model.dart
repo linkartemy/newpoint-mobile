@@ -9,6 +9,7 @@ import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/article_service.dart';
+import 'package:newpoint/domain/services/bookmark_service.dart';
 import 'package:newpoint/domain/services/feed_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
@@ -18,6 +19,7 @@ class MainViewModel extends ChangeNotifier {
   final _userService = UserService();
   final _postService = PostService();
   final _articleService = ArticleService();
+  final _bookmarkService = BookmarkService();
   final postViewEntryTable = PostViewEntryTable();
   final articleViewEntryTable = ArticleViewEntryTable();
   final _blacklistDataProvider = BlacklistDataProvider();
@@ -31,6 +33,7 @@ class MainViewModel extends ChangeNotifier {
   var isLoadingDatabase = true;
   String postsLoadingError = "";
   bool _processingLikePost = false;
+  bool _processingBookmark = false;
 
   final feedScrollController = ScrollController();
   final subscribedFeedScrollController = ScrollController();
@@ -388,8 +391,74 @@ class MainViewModel extends ChangeNotifier {
   }
 
   Future<void> bookmark(int index) async {
-    if (isLoading) {
-      return;
+    try {
+      if (isLoading) {
+        return;
+      }
+      if (_processingBookmark) {
+        return;
+      }
+      _processingBookmark = true;
+      final feedEntry = _feed[index];
+      if (feedEntry is Article) {
+        if (feedEntry.bookmarked) {
+          await _bookmarkService.deleteArticleBookmarkByArticleId(feedEntry.id);
+        } else {
+          await _bookmarkService.addArticleBookmark(user!.id, feedEntry.id);
+        }
+      } else {
+        if (feedEntry.bookmarked) {
+          await _bookmarkService.deletePostBookmarkByPostId(feedEntry.id);
+        } else {
+          await _bookmarkService.addPostBookmark(user!.id, feedEntry.id);
+        }
+      }
+      feedEntry.bookmarked = !feedEntry.bookmarked;
+      _processingBookmark = false;
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        postsLoadingError =
+            "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      postsLoadingError = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> bookmarkSubscribed(int index) async {
+    try {
+      if (isLoading) {
+        return;
+      }
+      if (_processingBookmark) {
+        return;
+      }
+      _processingBookmark = true;
+      final feedEntry = subscribedPosts[index];
+      if (feedEntry is Article) {
+        if (feedEntry.bookmarked) {
+          await _bookmarkService.deleteArticleBookmarkByArticleId(feedEntry.id);
+        } else {
+          await _bookmarkService.addArticleBookmark(user!.id, feedEntry.id);
+        }
+      } else {
+        if (feedEntry.bookmarked) {
+          await _bookmarkService.deletePostBookmarkByPostId(feedEntry.id);
+        } else {
+          await _bookmarkService.addPostBookmark(user!.id, feedEntry.id);
+        }
+      }
+      feedEntry.bookmarked = !feedEntry.bookmarked;
+      _processingBookmark = false;
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        postsLoadingError =
+        "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      postsLoadingError = "Something went wrong, please try again";
     }
   }
 

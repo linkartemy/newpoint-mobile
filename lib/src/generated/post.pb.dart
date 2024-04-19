@@ -14,7 +14,7 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $10;
+import 'google/protobuf/timestamp.pb.dart' as $11;
 
 class PostModel extends $pb.GeneratedMessage {
   factory PostModel({
@@ -31,7 +31,8 @@ class PostModel extends $pb.GeneratedMessage {
     $core.int? comments,
     $core.int? views,
     $core.bool? liked,
-    $10.Timestamp? creationTimestamp,
+    $core.bool? bookmarked,
+    $11.Timestamp? creationTimestamp,
   }) {
     final $result = create();
     if (id != null) {
@@ -73,6 +74,9 @@ class PostModel extends $pb.GeneratedMessage {
     if (liked != null) {
       $result.liked = liked;
     }
+    if (bookmarked != null) {
+      $result.bookmarked = bookmarked;
+    }
     if (creationTimestamp != null) {
       $result.creationTimestamp = creationTimestamp;
     }
@@ -96,7 +100,8 @@ class PostModel extends $pb.GeneratedMessage {
     ..a<$core.int>(11, _omitFieldNames ? '' : 'comments', $pb.PbFieldType.O3)
     ..a<$core.int>(12, _omitFieldNames ? '' : 'views', $pb.PbFieldType.O3)
     ..aOB(13, _omitFieldNames ? '' : 'liked')
-    ..aOM<$10.Timestamp>(14, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $10.Timestamp.create)
+    ..aOB(14, _omitFieldNames ? '' : 'bookmarked')
+    ..aOM<$11.Timestamp>(15, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $11.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -239,15 +244,24 @@ class PostModel extends $pb.GeneratedMessage {
   void clearLiked() => clearField(13);
 
   @$pb.TagNumber(14)
-  $10.Timestamp get creationTimestamp => $_getN(13);
+  $core.bool get bookmarked => $_getBF(13);
   @$pb.TagNumber(14)
-  set creationTimestamp($10.Timestamp v) { setField(14, v); }
+  set bookmarked($core.bool v) { $_setBool(13, v); }
   @$pb.TagNumber(14)
-  $core.bool hasCreationTimestamp() => $_has(13);
+  $core.bool hasBookmarked() => $_has(13);
   @$pb.TagNumber(14)
-  void clearCreationTimestamp() => clearField(14);
-  @$pb.TagNumber(14)
-  $10.Timestamp ensureCreationTimestamp() => $_ensure(13);
+  void clearBookmarked() => clearField(14);
+
+  @$pb.TagNumber(15)
+  $11.Timestamp get creationTimestamp => $_getN(14);
+  @$pb.TagNumber(15)
+  set creationTimestamp($11.Timestamp v) { setField(15, v); }
+  @$pb.TagNumber(15)
+  $core.bool hasCreationTimestamp() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearCreationTimestamp() => clearField(15);
+  @$pb.TagNumber(15)
+  $11.Timestamp ensureCreationTimestamp() => $_ensure(14);
 }
 
 class AddPostRequest extends $pb.GeneratedMessage {
@@ -551,7 +565,7 @@ class GetPostsByUserIdResponse extends $pb.GeneratedMessage {
 class GetPostsByUserIdAfterTimestampRequest extends $pb.GeneratedMessage {
   factory GetPostsByUserIdAfterTimestampRequest({
     $fixnum.Int64? userId,
-    $10.Timestamp? timestamp,
+    $11.Timestamp? timestamp,
   }) {
     final $result = create();
     if (userId != null) {
@@ -568,7 +582,7 @@ class GetPostsByUserIdAfterTimestampRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPostsByUserIdAfterTimestampRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'userId')
-    ..aOM<$10.Timestamp>(2, _omitFieldNames ? '' : 'timestamp', subBuilder: $10.Timestamp.create)
+    ..aOM<$11.Timestamp>(2, _omitFieldNames ? '' : 'timestamp', subBuilder: $11.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -603,15 +617,15 @@ class GetPostsByUserIdAfterTimestampRequest extends $pb.GeneratedMessage {
   void clearUserId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $10.Timestamp get timestamp => $_getN(1);
+  $11.Timestamp get timestamp => $_getN(1);
   @$pb.TagNumber(2)
-  set timestamp($10.Timestamp v) { setField(2, v); }
+  set timestamp($11.Timestamp v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasTimestamp() => $_has(1);
   @$pb.TagNumber(2)
   void clearTimestamp() => clearField(2);
   @$pb.TagNumber(2)
-  $10.Timestamp ensureTimestamp() => $_ensure(1);
+  $11.Timestamp ensureTimestamp() => $_ensure(1);
 }
 
 class GetPostsByUserIdAfterTimestampResponse extends $pb.GeneratedMessage {

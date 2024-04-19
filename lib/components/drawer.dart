@@ -198,7 +198,11 @@ class _DrawerComponentState extends State<DrawerComponent> {
               ),
               title: Text(AppLocalizations.of(context)!.bookMarks,
                   style: AdaptiveTheme.of(context).theme.textTheme.titleLarge),
-              onTap: () {},
+              onTap: () async {
+                Navigator.of(context)
+                    .pushNamed(MainNavigationRouteNames.bookmarks);
+                await widget.reload();
+              },
             )
           ])),
           const Divider(),

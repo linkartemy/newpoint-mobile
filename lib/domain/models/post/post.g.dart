@@ -15,6 +15,7 @@ Post _$PostFromJson(Map<String, dynamic> json) {
     comments: json['comments'] as int,
     views: json['views'] as int,
     liked: json['liked'] as bool,
+    bookmarked: json['bookmarked'] as bool,
     creationTimestamp:
         parseDateFromString(json['creation_timestamp'] as String?)!,
   );
@@ -35,6 +36,7 @@ Post _$PostFromModel(PostModel postModel) {
       comments: postModel.comments,
       views: postModel.views,
       liked: postModel.liked,
+      bookmarked: postModel.bookmarked,
       creationTimestamp: postModel.creationTimestamp.toDateTime(toLocal: true));
 }
 
@@ -52,6 +54,7 @@ Map<String, dynamic> _$PostToJson(Post post) => <String, dynamic>{
       'comments': post.comments,
       'views': post.views,
       'liked': post.liked,
+      'bookmarked': post.bookmarked,
       'creation_timestamp': post.creationTimestamp.toIso8601String(),
     };
 

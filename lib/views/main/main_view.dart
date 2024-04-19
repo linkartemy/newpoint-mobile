@@ -204,8 +204,7 @@ class _PostsState extends State<_PostsView> {
   Widget build(BuildContext context) {
     Future<void> onRefresh() async {
       final model = Provider.of<MainViewModel>(context, listen: false);
-      model.lastPostId = -1;
-      model.lastArticleId = -1;
+      model.init();
       await model.getUser();
       await model.getFeed();
       setState(() {});
@@ -341,6 +340,7 @@ class _PostsState extends State<_PostsView> {
                                     images: [],
                                     likes: feed[index].likes,
                                     liked: feed[index].liked,
+                                    isBookmarked: feed[index].bookmarked,
                                     shares: feed[index].shares,
                                     comments: feed[index].comments,
                                     views: feed[index].views,
@@ -367,6 +367,7 @@ class _PostsState extends State<_PostsView> {
                                     images: [],
                                     likes: feed[index].likes,
                                     liked: feed[index].liked,
+                                    bookmarked: feed[index].bookmarked,
                                     shares: feed[index].shares,
                                     comments: feed[index].comments,
                                     views: feed[index].views,
@@ -402,8 +403,7 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
   Widget build(BuildContext context) {
     Future<void> onRefresh() async {
       final model = Provider.of<MainViewModel>(context, listen: false);
-      model.lastPostId = -1;
-      model.lastArticleId = -1;
+      model.init();
       await model.getSubscribedPosts();
       setState(() {});
     }
@@ -462,7 +462,7 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
                     }
 
                     Future<void> onBookmarkTap() async {
-                      await model.bookmark(index);
+                      await model.bookmarkSubscribed(index);
                       setState(() {});
                     }
 
@@ -535,6 +535,7 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
                                     images: [],
                                     likes: feed[index].likes,
                                     liked: feed[index].liked,
+                                    isBookmarked: feed[index].bookmarked,
                                     shares: feed[index].shares,
                                     comments: feed[index].comments,
                                     views: feed[index].views,
@@ -561,6 +562,7 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
                                     images: [],
                                     likes: feed[index].likes,
                                     liked: feed[index].liked,
+                                    bookmarked: feed[index].bookmarked,
                                     shares: feed[index].shares,
                                     comments: feed[index].comments,
                                     views: feed[index].views,

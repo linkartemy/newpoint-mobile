@@ -184,5 +184,6 @@
   "openPhoto": "Open photo",
   "followers": "Followers",
   "following": "Following",
-  "typeHere": "Type here"
+  "typeHere": "Type here",
+  "thereIsNothingHere": "There is nothing here"
 }

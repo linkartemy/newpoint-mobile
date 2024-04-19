@@ -22,6 +22,7 @@ class ArticleComponent extends StatelessWidget {
       required this.images,
       required this.likes,
       required this.liked,
+      required this.bookmarked,
       required this.shares,
       required this.comments,
       required this.views,
@@ -45,6 +46,7 @@ class ArticleComponent extends StatelessWidget {
   final List<Image> images;
   final int likes;
   final bool liked;
+  final bool bookmarked;
   final int shares;
   final int comments;
   final int views;
@@ -210,6 +212,7 @@ class ArticleComponent extends StatelessWidget {
                 comments: comments,
                 views: views,
                 liked: liked,
+                bookmarked: bookmarked,
                 onLikeTap: onLikeTap,
                 onShareTap: onShareTap,
                 onBookmarkTap: onBookmarkTap)
@@ -367,6 +370,7 @@ class _Footer extends StatelessWidget {
     required this.comments,
     required this.views,
     required this.liked,
+    required this.bookmarked,
     required this.onLikeTap,
     required this.onShareTap,
     required this.onBookmarkTap,
@@ -378,9 +382,10 @@ class _Footer extends StatelessWidget {
   final int comments;
   final int views;
   final bool liked;
+  final bool bookmarked;
   final onLikeTap;
   final onShareTap;
-  final onBookmarkTap;
+  final Future<void> Function() onBookmarkTap;
 
   @override
   Widget build(BuildContext context) {
@@ -482,12 +487,12 @@ class _Footer extends StatelessWidget {
                   ),
                   InkWell(
                       onTap: () async {
-                        await onBookmarkTap(context);
+                        await onBookmarkTap();
                       },
-                      child: const Padding(
+                      child: Padding(
                           padding: EdgeInsets.all(10),
                           child: Icon(
-                            Icons.bookmark_border,
+                            bookmarked ? Icons.bookmark : Icons.bookmark_border,
                             size: 16,
                           )))
                 ])),

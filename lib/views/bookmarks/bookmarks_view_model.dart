@@ -8,60 +8,43 @@ import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/article_service.dart';
+import 'package:newpoint/domain/services/bookmark_service.dart';
 import 'package:newpoint/domain/services/image_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
 
 class BookmarksViewModel extends ChangeNotifier {
-  BookmarksViewModel(this.profileId);
+  BookmarksViewModel();
 
   final _userService = UserService();
+  final _bookmarkService = BookmarkService();
   final _postService = PostService();
   final _articleService = ArticleService();
   final postViewEntryTable = PostViewEntryTable();
   final _blacklistDataProvider = BlacklistDataProvider();
 
-  late int profileId;
   User? user;
-  User? profile;
   List<Post> posts = [];
   List<Article> articles = [];
   var viewedPosts = <int>[];
   var isLoadingDatabase = true;
   String error = "";
-  bool following = false;
   bool _processingLikePost = false;
 
   bool loadingPostsFeed = false;
   bool loadingArticlesFeed = false;
   int lastArticleId = -1;
   int lastPostId = -1;
-  int previousArticleId = -1;
-  int previousPostId = -1;
 
   ImagePicker picker = ImagePicker();
   XFile? image;
 
   bool proceedingFollowing = false;
+  bool _processingBookmark = false;
 
-  Future<void> onImageTap() async {
-    try {
-      image = await picker.pickImage(source: ImageSource.gallery);
-      if (image == null) {
-        throw Exception("Error occurred while getting photo");
-      }
-      final id = await _userService.updateProfileImage(
-          (await image!.readAsBytes()).toList(), image!.name);
-      user?.profileImageId = id;
-      getProfile();
-      notifyListeners();
-    } on ApiClientException catch (e) {
-      if (e.type == ApiClientExceptionType.network) {
-        error = "Something is wrong with the connection to the server";
-      }
-    } catch (e) {
-      error = "Something went wrong, please try again";
-    }
+  void init() {
+    lastArticleId = -1;
+    lastPostId = -1;
   }
 
   Future<void> deletePost(int postId) async {
@@ -86,33 +69,6 @@ class BookmarksViewModel extends ChangeNotifier {
       if (e.type == ApiClientExceptionType.network) {
         error = "Something is wrong with the connection to the server";
       }
-    } catch (e) {
-      error = "Something went wrong, please try again";
-    }
-  }
-
-  Future<void> getProfile() async {
-    try {
-      profile = await _userService.getProfileById(profileId);
-      notifyListeners();
-    } on ApiClientException catch (e) {
-      if (e.type == ApiClientExceptionType.network) {
-        error = "Something is wrong with the connection to the server";
-      }
-      error = e.error;
-    } catch (e) {
-      error = "Something went wrong, please try again";
-    }
-  }
-
-  Future<void> getIsFollowing() async {
-    try {
-      following = await _userService.isFollowing(profileId);
-    } on ApiClientException catch (e) {
-      if (e.type == ApiClientExceptionType.network) {
-        error = "Something is wrong with the connection to the server";
-      }
-      error = e.error;
     } catch (e) {
       error = "Something went wrong, please try again";
     }
@@ -151,17 +107,32 @@ class BookmarksViewModel extends ChangeNotifier {
   Future<void> getPosts() async {
     try {
       error = "";
-      posts = await _postService.getPostsByUserId(profileId);
+      posts = await _bookmarkService.getBookmarkedPosts(user!.id);
       lastPostId = posts.isNotEmpty ? posts[0].id : -1;
       for (var post in posts) {
-        if (post.id < lastPostId) {
+        if (post.id < lastPostId || lastPostId == -1) {
           lastPostId = post.id;
         }
       }
-      articles = await _articleService.getArticlesByUserId(profileId);
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      } else {
+        error = e.error;
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> getArticles() async {
+    try {
+      error = "";
+      articles = await _bookmarkService.getBookmarkedArticles(user!.id);
       lastArticleId = posts.isNotEmpty ? posts[0].id : -1;
       for (var article in articles) {
-        if (article.id < lastArticleId) {
+        if (article.id < lastArticleId || lastArticleId == -1) {
           lastArticleId = article.id;
         }
       }
@@ -183,7 +154,7 @@ class BookmarksViewModel extends ChangeNotifier {
         return;
       }
       loadingPostsFeed = true;
-      final postsFeed = await _postService.getPostsByUserId(profileId,
+      final postsFeed = await _bookmarkService.getBookmarkedPosts(user!.id,
           lastPostId: lastPostId - 1);
       for (var i = 0; i < postsFeed.length; ++i) {
         final post = postsFeed[i];
@@ -210,8 +181,8 @@ class BookmarksViewModel extends ChangeNotifier {
         return;
       }
       loadingArticlesFeed = true;
-      final articlesFeed = await _articleService.getArticlesByUserId(profileId,
-          lastArticleId: lastArticleId - 1);
+      final articlesFeed = await _bookmarkService
+          .getBookmarkedArticles(user!.id, lastArticleId: lastArticleId - 1);
       for (var i = 0; i < articlesFeed.length; ++i) {
         final article = articlesFeed[i];
         if (article.id < lastArticleId || lastArticleId == -1) {
@@ -270,8 +241,44 @@ class BookmarksViewModel extends ChangeNotifier {
     _processingLikePost = false;
   }
 
-  Future<void> bookmark(int index) async {
+  Future<void> bookmarkPost(int index) async {
     try {
+      if (_processingBookmark) {
+        return;
+      }
+      _processingBookmark = true;
+      final post = posts[index];
+      if (post.bookmarked) {
+        await _bookmarkService.deletePostBookmarkByPostId(post.id);
+      } else {
+        await _bookmarkService.addPostBookmark(user!.id, post.id);
+      }
+      post.bookmarked = !post.bookmarked;
+      _processingBookmark = false;
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> bookmarkArticle(int index) async {
+    try {
+      if (_processingBookmark) {
+        return;
+      }
+      _processingBookmark = true;
+      final article = articles[index];
+      if (article.bookmarked) {
+        await _bookmarkService.deleteArticleBookmarkByArticleId(article.id);
+      } else {
+        await _bookmarkService.addArticleBookmark(user!.id, article.id);
+      }
+      article.bookmarked = !article.bookmarked;
+      _processingBookmark = false;
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -296,30 +303,6 @@ class BookmarksViewModel extends ChangeNotifier {
       print(e);
       error = "Something went wrong, please try again";
     }
-  }
-
-  Future<void> follow() async {
-    try {
-      if (proceedingFollowing) {
-        return;
-      }
-      proceedingFollowing = true;
-      following = !following;
-      notifyListeners();
-      final followingResult = await _userService.follow(profileId);
-      if (followingResult != following) {
-        following = followingResult;
-      }
-    } on ApiClientException catch (e) {
-      if (e.type == ApiClientExceptionType.network) {
-        error = "Something is wrong with the connection to the server";
-      }
-      print(e);
-    } catch (e) {
-      print(e);
-      error = "Something went wrong, please try again";
-    }
-    proceedingFollowing = false;
   }
 
   Future<void> addToBlacklist(int userId) async {

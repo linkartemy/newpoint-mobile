@@ -11,6 +11,7 @@ abstract class MainNavigationRouteNames {
   static const articleCreator = '/article/creator';
   static const profile = '/profile';
   static const profileEditor = '/profile/editor';
+  static const bookmarks = '/bookmarks';
   static const register = '/register';
   static const login = '/login';
   static const settings = '/settings';
@@ -47,6 +48,7 @@ class MainNavigation {
         _screenFactory.makePostCreator(),
     MainNavigationRouteNames.articleCreator: (_) =>
         _screenFactory.makeArticleCreator(),
+    MainNavigationRouteNames.bookmarks: (_) => _screenFactory.makeBookmarks(),
     MainNavigationRouteNames.settings: (_) => _screenFactory.makeSettings(),
     MainNavigationRouteNames.accountSettingsMenu: (_) =>
         _screenFactory.makeAccountSettingsMenu(),
