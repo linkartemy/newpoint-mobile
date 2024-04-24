@@ -10,7 +10,7 @@ import 'package:newpoint/views/theme/theme.dart';
 class PostComponent extends StatelessWidget {
   const PostComponent(
       {Key? key,
-        required this.post,
+      required this.post,
       required this.onShareTap,
       required this.onLikeTap,
       required this.onBookmarkTap,

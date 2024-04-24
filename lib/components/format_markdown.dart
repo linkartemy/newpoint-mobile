@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 /// Use this class for converting String to [ResultMarkdown]
@@ -38,7 +39,7 @@ class FormatMarkdown {
         break;
       case MarkdownType.title:
         changedData =
-        "${"#" * titleSize} ${data.substring(fromIndex, toIndex)}";
+            "${"#" * titleSize} ${data.substring(fromIndex, toIndex)}";
         replaceCursorIndex = 0;
         break;
       case MarkdownType.list:
@@ -69,7 +70,7 @@ class FormatMarkdown {
         break;
       case MarkdownType.image:
         changedData =
-        '![${data.substring(fromIndex, toIndex)}](${data.substring(fromIndex, toIndex)})';
+            '![${data.substring(fromIndex, toIndex)}](${data.substring(fromIndex, toIndex)})';
         replaceCursorIndex = 3;
         break;
     }

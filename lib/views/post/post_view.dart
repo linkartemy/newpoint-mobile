@@ -9,7 +9,6 @@ import 'package:newpoint/components/dynamic_sliver_appbar.dart';
 import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/components/refresh_indicator.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
-import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
@@ -620,7 +619,8 @@ class _CommentsState extends State<_Comments> {
               return VisibilityDetector(
                   key: Key('commentkey$index'),
                   onVisibilityChanged: (visibilityInfo) async {
-                    if (visibilityInfo.visibleFraction < 0.9 || widget.comments.length < 5) {
+                    if (visibilityInfo.visibleFraction < 0.9 ||
+                        widget.comments.length < 5) {
                       return;
                     }
                     if (index == widget.comments.length - 1) {

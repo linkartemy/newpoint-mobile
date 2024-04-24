@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'quick_action.dart';
 import 'quick_action_button.dart';
 import 'quick_action_floating_action_button.dart';
@@ -61,7 +62,7 @@ class _QuickActionMenuState extends State<QuickActionMenu> {
           ),
         ),
         ...widget.actions.map(
-              (action) => QuickActionButton(
+          (action) => QuickActionButton(
             action,
             isOpen: _isOpen,
             index: widget.actions.indexOf(action),

@@ -1,20 +1,14 @@
 import 'dart:async';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/article.dart';
-import 'package:newpoint/components/dynamic_sliver_appbar.dart';
 import 'package:newpoint/components/post.dart';
-import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/components/refresh_indicator.dart';
-import 'package:newpoint/domain/factories/screen_factory.dart';
 import 'package:newpoint/views/bookmarks/bookmarks_view_model.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:newpoint/views/profile/profile_view_model.dart';
-import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 

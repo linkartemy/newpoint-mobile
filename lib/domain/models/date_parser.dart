@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 DateTime? parseDateFromString(String? rawDate) {
   if (rawDate == null || rawDate.isEmpty) return null;
   return DateTime.tryParse(rawDate);
 }
 
-String dateToAgoString(BuildContext context, DateTime date, {bool isShort = false}) {
+String dateToAgoString(BuildContext context, DateTime date,
+    {bool isShort = false}) {
   var locale = AppLocalizations.of(context)!.localeName;
   if (isShort) {
     locale += '_short';

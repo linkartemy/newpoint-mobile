@@ -17,7 +17,15 @@ import 'dart:typed_data' as $typed_data;
 const NullableString$json = {
   '1': 'NullableString',
   '2': [
-    {'1': 'null', '3': 1, '4': 1, '5': 14, '6': '.google.protobuf.NullValue', '9': 0, '10': 'null'},
+    {
+      '1': 'null',
+      '3': 1,
+      '4': 1,
+      '5': 14,
+      '6': '.google.protobuf.NullValue',
+      '9': 0,
+      '10': 'null'
+    },
     {'1': 'data', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'data'},
   ],
   '8': [
@@ -34,7 +42,15 @@ final $typed_data.Uint8List nullableStringDescriptor = $convert.base64Decode(
 const NullableInt64$json = {
   '1': 'NullableInt64',
   '2': [
-    {'1': 'null', '3': 1, '4': 1, '5': 14, '6': '.google.protobuf.NullValue', '9': 0, '10': 'null'},
+    {
+      '1': 'null',
+      '3': 1,
+      '4': 1,
+      '5': 14,
+      '6': '.google.protobuf.NullValue',
+      '9': 0,
+      '10': 'null'
+    },
     {'1': 'data', '3': 2, '4': 1, '5': 3, '9': 0, '10': 'data'},
   ],
   '8': [
@@ -51,8 +67,24 @@ final $typed_data.Uint8List nullableInt64Descriptor = $convert.base64Decode(
 const NullableTimestamp$json = {
   '1': 'NullableTimestamp',
   '2': [
-    {'1': 'null', '3': 1, '4': 1, '5': 14, '6': '.google.protobuf.NullValue', '9': 0, '10': 'null'},
-    {'1': 'data', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '9': 0, '10': 'data'},
+    {
+      '1': 'null',
+      '3': 1,
+      '4': 1,
+      '5': 14,
+      '6': '.google.protobuf.NullValue',
+      '9': 0,
+      '10': 'null'
+    },
+    {
+      '1': 'data',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '9': 0,
+      '10': 'data'
+    },
   ],
   '8': [
     {'1': 'kind'},
@@ -64,4 +96,3 @@ final $typed_data.Uint8List nullableTimestampDescriptor = $convert.base64Decode(
     'ChFOdWxsYWJsZVRpbWVzdGFtcBIwCgRudWxsGAEgASgOMhouZ29vZ2xlLnByb3RvYnVmLk51bG'
     'xWYWx1ZUgAUgRudWxsEjAKBGRhdGEYAiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1w'
     'SABSBGRhdGFCBgoEa2luZA==');
-

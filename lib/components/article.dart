@@ -2,7 +2,6 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/components/simple_markdown_editor/widgets/markdown_body.dart';
 import 'package:newpoint/domain/models/date_parser.dart';

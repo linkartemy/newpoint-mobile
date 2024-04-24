@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'markdown_field.dart';
 import 'markdown_parse.dart';
 import 'markdown_toolbar.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MarkdownFormField extends StatefulWidget {
   const MarkdownFormField({

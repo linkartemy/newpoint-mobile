@@ -1,25 +1,11 @@
 import 'dart:async';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:newpoint/components/comment.dart';
-import 'package:newpoint/components/dynamic_sliver_appbar.dart';
-import 'package:newpoint/components/profile_image.dart';
-import 'package:newpoint/components/refresh_indicator.dart';
-import 'package:newpoint/components/simple_markdown_editor/widgets/markdown_body.dart';
-import 'package:newpoint/domain/models/article_comment/article_comment.dart';
-import 'package:newpoint/domain/models/comment/comment.dart';
-import 'package:newpoint/resources/resources.dart';
-import 'package:newpoint/views/article/article_view_model.dart';
 import 'package:newpoint/views/image_viewer/image_viewer_view_model.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
-import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:newpoint/views/theme/theme.dart';
-import 'package:provider/provider.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:provider/provider.dart';
 
 class ImageViewerView extends StatefulWidget {
   const ImageViewerView({Key? key}) : super(key: key);
@@ -83,7 +69,7 @@ class _Image extends StatelessWidget {
     final model = Provider.of<ImageViewerViewModel>(context, listen: false);
 
     return PhotoView(
-              imageProvider: Image.memory(model.imageData).image,
-            );
+      imageProvider: Image.memory(model.imageData).image,
+    );
   }
 }

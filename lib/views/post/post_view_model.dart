@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/data_providers/blacklist_data_provider.dart';
-import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/models/comment/comment.dart';
+import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/domain/models/user/user.dart';
-import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/domain/services/bookmark_service.dart';
 import 'package:newpoint/domain/services/comment_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
@@ -106,11 +105,12 @@ class PostViewModel extends ChangeNotifier {
         return;
       }
       loadingComments = true;
-      final commentsUpdated = await _commentService.getCommentsByPostId(postId, lastCommentId: lastCommentId - 1);
+      final commentsUpdated = await _commentService.getCommentsByPostId(postId,
+          lastCommentId: lastCommentId - 1);
       for (var i = 0; i < commentsUpdated.length; ++i) {
         final comment = commentsUpdated[i];
         if (comment.id < lastCommentId || lastCommentId == -1) {
-    lastCommentId = comment.id;
+          lastCommentId = comment.id;
         }
       }
       comments.addAll(commentsUpdated);

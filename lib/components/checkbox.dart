@@ -99,14 +99,16 @@ class _CheckBoxComponentState extends State<CheckBoxComponent> {
           width: widget.shouldShowBorder ? widget.borderWidth ?? 2.0 : 1.0,
         ),
       ),
-      child: _status == CheckStatus.checked ? Icon(
-        iconData,
-        color: iconColor,
-        size: widget.checkBoxSize ?? 18,
-      ) : SizedBox(
-        width: widget.checkBoxSize ?? 18,
-        height: widget.checkBoxSize ?? 18,
-      ),
+      child: _status == CheckStatus.checked
+          ? Icon(
+              iconData,
+              color: iconColor,
+              size: widget.checkBoxSize ?? 18,
+            )
+          : SizedBox(
+              width: widget.checkBoxSize ?? 18,
+              height: widget.checkBoxSize ?? 18,
+            ),
     );
   }
 

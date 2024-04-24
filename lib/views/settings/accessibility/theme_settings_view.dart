@@ -1,31 +1,13 @@
 import 'dart:async';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:newpoint/components/button.dart';
-import 'package:newpoint/components/dynamic_sliver_appbar.dart';
 import 'package:newpoint/components/error.dart';
-import 'package:newpoint/components/input.dart';
-import 'package:newpoint/components/post.dart';
-import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/components/select_button.dart';
-import 'package:newpoint/components/setting_tab.dart';
-import 'package:newpoint/components/elevated_button.dart';
-import 'package:newpoint/components/text_button.dart';
-import 'package:newpoint/domain/factories/screen_factory.dart';
-import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
-import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:newpoint/views/profile/profile_view_model.dart';
-import 'package:newpoint/views/settings/accessibility/language_settings_view_model.dart';
 import 'package:newpoint/views/settings/accessibility/theme_settings_view_model.dart';
-import 'package:newpoint/views/settings/account/password_settings_view_model.dart';
-import 'package:newpoint/views/settings/settings_view_model.dart';
 import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 class ThemeSettingsView extends StatefulWidget {
   const ThemeSettingsView({Key? key}) : super(key: key);
@@ -140,15 +122,12 @@ class _BodyState extends State<_Body> {
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8),
                                       side: BorderSide(
-                                          color: model.isLightTheme ? AppColors.primary : Colors.white70))),
+                                          color: model.isLightTheme
+                                              ? AppColors.primary
+                                              : Colors.white70))),
                               foregroundColor: MaterialStateProperty.all(
-                                  AdaptiveTheme.of(context)
-                                      .theme
-                                      .textTheme
-                                      .titleSmall!
-                                      .color),
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.transparent)),
+                                  AdaptiveTheme.of(context).theme.textTheme.titleSmall!.color),
+                              backgroundColor: MaterialStateProperty.all(Colors.transparent)),
                       fillColor: AppColors.primary,
                     )),
                 const SizedBox(width: 10),

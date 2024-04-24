@@ -10,6 +10,7 @@ class Configuration {
   static String? grpcKey = dotenv.env['GRPC_KEY'];
 
   static String? grpcStorageHost = dotenv.env['GRPC_STORAGE_IP'];
-  static int grpcStoragePort = int.parse(dotenv.env['GRPC_STORAGE_PORT'].toString());
+  static int grpcStoragePort =
+      int.parse(dotenv.env['GRPC_STORAGE_PORT'].toString());
   static String? grpcStorageKey = dotenv.env['GRPC_STORAGE_KEY'];
 }

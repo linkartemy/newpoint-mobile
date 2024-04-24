@@ -1,9 +1,10 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../src/toolbar.dart';
-import 'modal_select_emoji.dart';
 import 'modal_input_url.dart';
+import 'modal_select_emoji.dart';
 import 'toolbar_item.dart';
 
 class MarkdownToolbar extends StatelessWidget {
@@ -37,7 +38,8 @@ class MarkdownToolbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: toolbarBackground ?? AdaptiveTheme.of(context).theme.scaffoldBackgroundColor,
+      color: toolbarBackground ??
+          AdaptiveTheme.of(context).theme.scaffoldBackgroundColor,
       width: double.infinity,
       height: 45,
       child: SingleChildScrollView(

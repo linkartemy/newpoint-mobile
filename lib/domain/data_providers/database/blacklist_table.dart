@@ -1,5 +1,4 @@
 import 'package:newpoint/domain/data_providers/database/database_data_provider.dart';
-import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
 import 'package:sqflite/sqflite.dart';
 
 class BlacklistTable {

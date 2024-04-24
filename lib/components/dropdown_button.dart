@@ -8,17 +8,20 @@ class DropdownButtonComponent extends StatefulWidget {
   final List<String> list;
 
   @override
-  State<DropdownButtonComponent> createState() => _DropdownButtonComponentState();
+  State<DropdownButtonComponent> createState() =>
+      _DropdownButtonComponentState();
 }
 
 class _DropdownButtonComponentState extends State<DropdownButtonComponent> {
-
   @override
   Widget build(BuildContext context) {
-  String dropdownValue = widget.list.first;
+    String dropdownValue = widget.list.first;
     return DropdownButton<String>(
       value: dropdownValue,
-      icon: const Icon(Icons.keyboard_arrow_down, size: 14,),
+      icon: const Icon(
+        Icons.keyboard_arrow_down,
+        size: 14,
+      ),
       elevation: 16,
       style: AdaptiveTheme.of(context).theme.textTheme.bodySmall,
       underline: Container(

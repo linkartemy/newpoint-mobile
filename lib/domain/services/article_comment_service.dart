@@ -1,12 +1,9 @@
 import 'package:fixnum/src/int64.dart';
-import 'package:newpoint/domain/models/article_comment/article_comment.dart';
-import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/domain/grpc_clients/network_client.dart';
-import 'package:newpoint/domain/models/comment/comment.dart';
-import 'package:newpoint/domain/models/post/post.dart';
+import 'package:newpoint/domain/models/article_comment/article_comment.dart';
+import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/protos.dart';
-import 'package:newpoint/src/generated/user.pbgrpc.dart';
 
 class ArticleCommentService {
   final _networkClient = NetworkClient();
@@ -14,7 +11,8 @@ class ArticleCommentService {
       GrpcArticleCommentClient(_networkClient.clientChannel);
   final _sessionDataProvider = SessionDataProvider();
 
-  Future<List<ArticleComment>> getCommentsByArticleId(int id, {lastCommentId = -1}) async {
+  Future<List<ArticleComment>> getCommentsByArticleId(int id,
+      {lastCommentId = -1}) async {
     final request = GetCommentsByArticleIdRequest();
     request.articleId = Int64.parseInt(id.toString());
     request.lastCommentId = Int64.parseInt(lastCommentId.toString());

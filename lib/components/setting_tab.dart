@@ -1,6 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/theme/theme.dart';
 
 class SettingTab extends StatelessWidget {

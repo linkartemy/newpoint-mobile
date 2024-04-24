@@ -16,16 +16,22 @@ class ArticleViewEntryTable {
 
   Future<int> create({required int userId, required int articleId}) async {
     final database = await DatabaseDataProvider().database;
-    return await database.rawInsert("""INSERT INTO $tableName (user_id, article_id, creation_timestamp) VALUES (?, ?, CURRENT_TIMESTAMP)""", [userId, articleId]);
+    return await database.rawInsert(
+        """INSERT INTO $tableName (user_id, article_id, creation_timestamp) VALUES (?, ?, CURRENT_TIMESTAMP)""",
+        [userId, articleId]);
   }
 
   Future<List<ArticleViewEntry>> getAllByUserId({required int userId}) async {
     final database = await DatabaseDataProvider().database;
-    return (await database.rawQuery("""SELECT * FROM $tableName WHERE user_id = ?""", [userId])).map((view) => ArticleViewEntry.fromSqflite(view)).toList();
+    return (await database.rawQuery(
+            """SELECT * FROM $tableName WHERE user_id = ?""", [userId]))
+        .map((view) => ArticleViewEntry.fromSqflite(view))
+        .toList();
   }
 
   Future<void> clear() async {
     final database = await DatabaseDataProvider().database;
-    await database.execute("""DELETE FROM $tableName WHERE creation_timestamp < DATE('now', '-1 days');""");
+    await database.execute(
+        """DELETE FROM $tableName WHERE creation_timestamp < DATE('now', '-1 days');""");
   }
 }

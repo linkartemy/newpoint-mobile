@@ -4,7 +4,6 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:newpoint/components/button.dart';
 import 'package:newpoint/components/elevated_button.dart';
 import 'package:newpoint/components/input.dart';
 import 'package:newpoint/components/text_button.dart';

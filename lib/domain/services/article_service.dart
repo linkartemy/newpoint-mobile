@@ -1,8 +1,8 @@
 import 'package:fixnum/src/int64.dart';
-import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/domain/grpc_clients/network_client.dart';
 import 'package:newpoint/domain/models/article/article.dart';
+import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/protos.dart';
 import 'package:newpoint/src/generated/google/protobuf/timestamp.pb.dart';
 

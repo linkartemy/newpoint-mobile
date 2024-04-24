@@ -3,8 +3,8 @@ import 'package:newpoint/domain/data_providers/blacklist_data_provider.dart';
 import 'package:newpoint/domain/data_providers/database/article_view_table.dart';
 import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
 import 'package:newpoint/domain/models/article/article.dart';
-import 'package:newpoint/domain/models/feed_element/feed_element.dart';
 import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
+import 'package:newpoint/domain/models/feed_element/feed_element.dart';
 import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
 import 'package:newpoint/domain/models/user/user.dart';
@@ -455,7 +455,7 @@ class MainViewModel extends ChangeNotifier {
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
         postsLoadingError =
-        "Something is wrong with the connection to the server";
+            "Something is wrong with the connection to the server";
       }
     } catch (e) {
       postsLoadingError = "Something went wrong, please try again";

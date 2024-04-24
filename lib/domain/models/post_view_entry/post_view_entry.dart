@@ -17,5 +17,6 @@ class PostViewEntry {
     required this.creationTimestamp,
   });
 
-  factory PostViewEntry.fromSqflite(Map<String, dynamic> map) => _$PostViewEntryFromSqfliteDatabase(map);
+  factory PostViewEntry.fromSqflite(Map<String, dynamic> map) =>
+      _$PostViewEntryFromSqfliteDatabase(map);
 }

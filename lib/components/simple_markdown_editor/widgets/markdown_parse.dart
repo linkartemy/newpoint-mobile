@@ -3,6 +3,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:newpoint/views/theme/theme.dart';
+
 import '../src/markdown_syntax.dart';
 import 'image_network.dart';
 

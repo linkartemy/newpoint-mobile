@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
-import 'package:newpoint/domain/models/comment/comment.dart';
-import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/article_service.dart';
-import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
 
 class ArticleCreatorViewModel extends ChangeNotifier {
@@ -57,7 +54,8 @@ class ArticleCreatorViewModel extends ChangeNotifier {
         return -1;
       }
       if (text.length > 10000) {
-        setTextFieldError("Article content can't be longer than 10000 characters");
+        setTextFieldError(
+            "Article content can't be longer than 10000 characters");
         return -1;
       }
       return await _articleService.addArticle(user!.id, title, text, []);

@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:newpoint/domain/data_providers/database/article_view_table.dart';
 import 'package:newpoint/domain/data_providers/database/blacklist_table.dart';
@@ -10,7 +11,6 @@ import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
 import 'package:newpoint/domain/data_providers/settings_data_provider.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/theme/theme.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 Future<void> main() async {

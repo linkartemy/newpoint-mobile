@@ -20,22 +20,21 @@ abstract class FeedEntry {
   @JsonKey(fromJson: parseDateFromString)
   final DateTime creationTimestamp;
 
-  FeedEntry({
-    required this.id,
-    required this.authorId,
-    required this.login,
-    required this.name,
-    required this.surname,
-    required this.profileImageId,
-    required this.content,
-    required this.images,
-    required this.likes,
-    required this.shares,
-    required this.comments,
-    required this.views,
-    required this.liked,
-    required this.shared,
-    required this.bookmarked,
-    required this.creationTimestamp
-  });
+  FeedEntry(
+      {required this.id,
+      required this.authorId,
+      required this.login,
+      required this.name,
+      required this.surname,
+      required this.profileImageId,
+      required this.content,
+      required this.images,
+      required this.likes,
+      required this.shares,
+      required this.comments,
+      required this.views,
+      required this.liked,
+      required this.shared,
+      required this.bookmarked,
+      required this.creationTimestamp});
 }

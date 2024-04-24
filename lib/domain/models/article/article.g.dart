@@ -2,25 +2,24 @@ part of 'article.dart';
 
 Article _$ArticleFromJson(Map<String, dynamic> json) {
   return Article(
-    id: json['id'] as int,
-    authorId: json['author_id'] as int,
-    login: json['login'] as String,
-    name: json['name'] as String,
-    surname: json['surname'] as String,
-    profileImageId: json['profile_image_id'] as int,
-    title: json['title'] as String,
-    content: json['content'] as String,
-    images: json['images'] as String?,
-    likes: json['likes'] as int,
-    shares: json['shares'] as int,
-    comments: json['comments'] as int,
-    views: json['views'] as int,
-    liked: json['liked'] as bool,
-    shared: json['shared'] as bool,
-    bookmarked: json['bookmarked'] as bool,
-    creationTimestamp:
-        parseDateFromString(json['creation_timestamp'] as String?)!
-  );
+      id: json['id'] as int,
+      authorId: json['author_id'] as int,
+      login: json['login'] as String,
+      name: json['name'] as String,
+      surname: json['surname'] as String,
+      profileImageId: json['profile_image_id'] as int,
+      title: json['title'] as String,
+      content: json['content'] as String,
+      images: json['images'] as String?,
+      likes: json['likes'] as int,
+      shares: json['shares'] as int,
+      comments: json['comments'] as int,
+      views: json['views'] as int,
+      liked: json['liked'] as bool,
+      shared: json['shared'] as bool,
+      bookmarked: json['bookmarked'] as bool,
+      creationTimestamp:
+          parseDateFromString(json['creation_timestamp'] as String?)!);
 }
 
 Article _$ArticleFromModel(ArticleModel articleModel) {
@@ -42,8 +41,7 @@ Article _$ArticleFromModel(ArticleModel articleModel) {
       shared: articleModel.shared,
       bookmarked: articleModel.bookmarked,
       creationTimestamp:
-          articleModel.creationTimestamp.toDateTime(toLocal: true)
-  );
+          articleModel.creationTimestamp.toDateTime(toLocal: true));
 }
 
 Map<String, dynamic> _$ArticleToJson(Article article) => <String, dynamic>{
@@ -65,4 +63,3 @@ Map<String, dynamic> _$ArticleToJson(Article article) => <String, dynamic>{
       'bookmarked': article.bookmarked,
       'creation_timestamp': article.creationTimestamp.toIso8601String()
     };
-

@@ -1,10 +1,9 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:newpoint/components/button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/elevated_button.dart';
 import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthView extends StatelessWidget {
   const AuthView({Key? key}) : super(key: key);
@@ -46,14 +45,17 @@ class _TextWidget extends StatelessWidget {
       alignment: Alignment.center,
       margin: const EdgeInsets.only(top: 100),
       padding: const EdgeInsets.symmetric(horizontal: 51),
-      child: Text(
-          AppLocalizations.of(context)!.theBestPlace,
+      child: Text(AppLocalizations.of(context)!.theBestPlace,
           style: AdaptiveTheme.of(context)
               .theme
               .textTheme
               .titleMedium
               ?.copyWith(
-                  color: AdaptiveTheme.of(context).theme.textTheme.titleMedium!.color,
+                  color: AdaptiveTheme.of(context)
+                      .theme
+                      .textTheme
+                      .titleMedium!
+                      .color,
                   fontSize: 24,
                   fontWeight: FontWeight.bold)),
     );

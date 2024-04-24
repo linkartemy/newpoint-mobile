@@ -1,12 +1,11 @@
 import 'dart:async';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
-import 'package:newpoint/domain/services/auth_service.dart';
 import 'package:newpoint/domain/services/code_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:email_validator/email_validator.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   final _userService = UserService();

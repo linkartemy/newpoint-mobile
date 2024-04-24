@@ -54,8 +54,6 @@ Map<String, dynamic> _$UserToJson(User user) => <String, dynamic>{
       'following': user.following
     };
 
-
-
 extension DateTimeToTimestamp on DateTime {
   Timestamp toTimestamp() {
     var timeStamp = Timestamp.fromDateTime(this);

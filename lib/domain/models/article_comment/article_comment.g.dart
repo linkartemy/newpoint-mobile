@@ -30,7 +30,8 @@ ArticleComment _$ArticleCommentFromModel(ArticleCommentModel commentModel) {
       creationTimestamp: commentModel.creationTimestamp.toDateTime());
 }
 
-Map<String, dynamic> _$ArticleCommentToJson(ArticleComment comment) => <String, dynamic>{
+Map<String, dynamic> _$ArticleCommentToJson(ArticleComment comment) =>
+    <String, dynamic>{
       'id': comment.id,
       'userId': comment.userId,
       'articleId': comment.articleId,

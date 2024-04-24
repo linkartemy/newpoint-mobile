@@ -61,10 +61,9 @@ class ProfileEditorViewState extends State<ProfileEditorView> {
                 onPressed: () async {
                   Navigator.of(context).pop(model.profile);
                 },
-                child: Text(
-                  AppLocalizations.of(context)!.cancel,
-                  style: AdaptiveTheme.of(context).theme.textTheme.titleSmall
-                ),
+                child: Text(AppLocalizations.of(context)!.cancel,
+                    style:
+                        AdaptiveTheme.of(context).theme.textTheme.titleSmall),
               )),
           leadingWidth: 100,
           title: Container(
@@ -78,7 +77,8 @@ class ProfileEditorViewState extends State<ProfileEditorView> {
                   setState(() {});
                 },
                 child: Text(AppLocalizations.of(context)!.save,
-                    style: AdaptiveTheme.of(context).theme.textTheme.titleSmall),
+                    style:
+                        AdaptiveTheme.of(context).theme.textTheme.titleSmall),
               )),
         ),
         body: SafeArea(

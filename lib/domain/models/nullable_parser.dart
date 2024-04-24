@@ -1,6 +1,6 @@
+import 'package:fixnum/src/int64.dart';
 import 'package:newpoint/protos.dart';
 import 'package:newpoint/src/generated/google/protobuf/timestamp.pb.dart';
-import 'package:fixnum/src/int64.dart';
 
 extension NullableStringParser on NullableString {
   String? parseNullable() {

@@ -2,14 +2,10 @@ import 'dart:async';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
-import 'package:newpoint/domain/models/post/post.dart';
-import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
+import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/code_service.dart';
-import 'package:newpoint/domain/services/image_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
 
@@ -175,7 +171,8 @@ class AccountSettingsViewModel extends ChangeNotifier {
         setEmailError("Code cannot be empty");
         return;
       }
-      final verified = await _codeService.verifyEmailVerificationCode(email, code);
+      final verified =
+          await _codeService.verifyEmailVerificationCode(email, code);
       if (!verified) {
         setEmailError("Incorrect code");
         return;

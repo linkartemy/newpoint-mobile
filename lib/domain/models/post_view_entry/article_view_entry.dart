@@ -17,5 +17,6 @@ class ArticleViewEntry {
     required this.creationTimestamp,
   });
 
-  factory ArticleViewEntry.fromSqflite(Map<String, dynamic> map) => _$ArticleViewEntryFromSqfliteDatabase(map);
+  factory ArticleViewEntry.fromSqflite(Map<String, dynamic> map) =>
+      _$ArticleViewEntryFromSqfliteDatabase(map);
 }

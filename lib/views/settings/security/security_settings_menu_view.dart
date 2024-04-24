@@ -1,33 +1,21 @@
 import 'dart:async';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:newpoint/components/dynamic_sliver_appbar.dart';
-import 'package:newpoint/components/input.dart';
-import 'package:newpoint/components/post.dart';
-import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/components/setting_tab.dart';
-import 'package:newpoint/domain/factories/screen_factory.dart';
-import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
-import 'package:newpoint/views/profile/profile_view_model.dart';
-import 'package:newpoint/views/settings/accessibility/accessibility_settings_menu_view_model.dart';
-import 'package:newpoint/views/settings/privacy/privacy_settings_menu_view_model.dart';
 import 'package:newpoint/views/settings/security/security_settings_menu_view_model.dart';
 import 'package:newpoint/views/settings/setting_tab_data.dart';
-import 'package:newpoint/views/settings/settings_view_model.dart';
-import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 class SecuritySettingsMenuView extends StatefulWidget {
   const SecuritySettingsMenuView({Key? key}) : super(key: key);
 
   @override
-  SecuritySettingsMenuViewState createState() => SecuritySettingsMenuViewState();
+  SecuritySettingsMenuViewState createState() =>
+      SecuritySettingsMenuViewState();
 }
 
 class SecuritySettingsMenuViewState extends State<SecuritySettingsMenuView> {

@@ -1,13 +1,6 @@
-import 'package:fixnum/src/int64.dart';
-import 'package:grpc/grpc.dart';
-import 'package:newpoint/domain/api_clients/account_api_client.dart';
-import 'package:newpoint/domain/api_clients/auth_api_client.dart';
-import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
-import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/domain/grpc_clients/network_client.dart';
-import 'package:newpoint/domain/models/user/user.dart';
+import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/protos.dart';
-import 'package:newpoint/src/generated/google/protobuf/timestamp.pb.dart';
 
 class CodeService {
   final _networkClient = NetworkClient();
@@ -38,7 +31,8 @@ class CodeService {
     }
     var verifyEmailCodeResponse = VerifyEmailVerificationCodeResponse();
     return response.data
-        .unpackInto<VerifyEmailVerificationCodeResponse>(verifyEmailCodeResponse)
+        .unpackInto<VerifyEmailVerificationCodeResponse>(
+            verifyEmailCodeResponse)
         .verified;
   }
 
@@ -67,38 +61,47 @@ class CodeService {
     }
     var verifyPhoneCodeResponse = VerifyPhoneVerificationCodeResponse();
     return response.data
-        .unpackInto<VerifyPhoneVerificationCodeResponse>(verifyPhoneCodeResponse)
+        .unpackInto<VerifyPhoneVerificationCodeResponse>(
+            verifyPhoneCodeResponse)
         .verified;
   }
 
-  Future<bool> addPasswordChangeVerificationCode(String? email, String? phone) async {
+  Future<bool> addPasswordChangeVerificationCode(
+      String? email, String? phone) async {
     var request = AddPasswordChangeVerificationCodeRequest();
-      request.email = email as NullableString;
-      request.phone = phone as NullableString;
-    var response = await _codeServiceClient.addPasswordChangeVerificationCode(request,
+    request.email = email as NullableString;
+    request.phone = phone as NullableString;
+    var response = await _codeServiceClient.addPasswordChangeVerificationCode(
+        request,
         options: await _networkClient.getAuthorizedCallOptions());
     if (await _networkClient.proceed(response) == false) {
       throw ApiClientException(ApiClientExceptionType.other);
     }
-    var addPasswordChangeCodeResponse = AddPasswordChangeVerificationCodeResponse();
+    var addPasswordChangeCodeResponse =
+        AddPasswordChangeVerificationCodeResponse();
     return response.data
-        .unpackInto<AddPasswordChangeVerificationCodeResponse>(addPasswordChangeCodeResponse)
+        .unpackInto<AddPasswordChangeVerificationCodeResponse>(
+            addPasswordChangeCodeResponse)
         .sent;
   }
 
-  Future<bool> verifyPasswordChangeVerificationCode(String? email, String? phone, String code) async {
+  Future<bool> verifyPasswordChangeVerificationCode(
+      String? email, String? phone, String code) async {
     var request = VerifyPasswordChangeVerificationCodeRequest();
     request.email = email as NullableString;
     request.phone = phone as NullableString;
     request.code = code;
-    var response = await _codeServiceClient.verifyPasswordChangeVerificationCode(request,
-        options: await _networkClient.getAuthorizedCallOptions());
+    var response =
+        await _codeServiceClient.verifyPasswordChangeVerificationCode(request,
+            options: await _networkClient.getAuthorizedCallOptions());
     if (await _networkClient.proceed(response) == false) {
       throw ApiClientException(ApiClientExceptionType.other);
     }
-    var verifyPasswordChangeCodeResponse = VerifyPasswordChangeVerificationCodeResponse();
+    var verifyPasswordChangeCodeResponse =
+        VerifyPasswordChangeVerificationCodeResponse();
     return response.data
-        .unpackInto<VerifyPasswordChangeVerificationCodeResponse>(verifyPasswordChangeCodeResponse)
+        .unpackInto<VerifyPasswordChangeVerificationCodeResponse>(
+            verifyPasswordChangeCodeResponse)
         .verified;
   }
 }

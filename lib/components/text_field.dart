@@ -2,12 +2,13 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldComponent extends StatelessWidget {
-  const TextFieldComponent({Key? key,
-    required this.label,
-    required this.controller,
-    this.textFieldStyle,
-    this.onChanged,
-    this.maxHeight = 100})
+  const TextFieldComponent(
+      {Key? key,
+      required this.label,
+      required this.controller,
+      this.textFieldStyle,
+      this.onChanged,
+      this.maxHeight = 100})
       : super(key: key);
   final String label;
   final TextEditingController controller;
@@ -20,20 +21,13 @@ class TextFieldComponent extends StatelessWidget {
     return Container(
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery
-              .of(context)
-              .size
-              .width,
-          minWidth: MediaQuery
-              .of(context)
-              .size
-              .width,
-          minHeight: MediaQuery
-              .of(context)
-              .orientation == Orientation.landscape ? 25.0 : 25.0,
+          maxWidth: MediaQuery.of(context).size.width,
+          minWidth: MediaQuery.of(context).size.width,
+          minHeight: MediaQuery.of(context).orientation == Orientation.landscape
+              ? 25.0
+              : 25.0,
           maxHeight: maxHeight,
         ),
-
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           reverse: true,
@@ -49,25 +43,16 @@ class TextFieldComponent extends StatelessWidget {
               labelText: label,
               alignLabelWithHint: true,
               border: const UnderlineInputBorder(),
-              contentPadding: EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 10),
-              floatingLabelBehavior:
-              FloatingLabelBehavior.never,
-              labelStyle: AdaptiveTheme
-                  .of(context)
-                  .theme
-                  .textTheme
-                  .bodyLarge,
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              labelStyle: AdaptiveTheme.of(context).theme.textTheme.bodyLarge,
               isCollapsed: true,
             ),
-            style: textFieldStyle ?? AdaptiveTheme
-                .of(context)
-                .theme
-                .textTheme
-                .bodyLarge,
+            style: textFieldStyle ??
+                AdaptiveTheme.of(context).theme.textTheme.bodyLarge,
           ),
           // ends the actual text box
-
         ),
       ),
     );

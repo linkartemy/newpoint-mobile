@@ -41,16 +41,18 @@ class _DynamicSliverAppBarState extends State<DynamicSliverAppBar> {
     return SliverAppBar(
       forceElevated: widget.forceElevated,
       automaticallyImplyLeading: widget.implyLeading,
-      leading: widget.implyLeading ? InkWell(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: const Icon(Icons.arrow_back)) : null,
+      leading: widget.implyLeading
+          ? InkWell(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: const Icon(Icons.arrow_back))
+          : null,
       pinned: false,
       elevation: 0,
       expandedHeight: isHeightCalculated ? height : widget.maxHeight,
       flexibleSpace: FlexibleSpaceBar(
-collapseMode: widget.collapseMode ?? CollapseMode.parallax,
+        collapseMode: widget.collapseMode ?? CollapseMode.parallax,
         background: Column(
           children: [
             Container(

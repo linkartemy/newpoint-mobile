@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+
 import 'quick_action.dart';
 import 'quick_action_icon.dart';
 
@@ -11,12 +12,12 @@ class QuickActionButton extends StatefulWidget {
   final Function() close;
 
   const QuickActionButton(
-      this.action, {
-        super.key,
-        required this.isOpen,
-        required this.index,
-        required this.close,
-      });
+    this.action, {
+    super.key,
+    required this.isOpen,
+    required this.index,
+    required this.close,
+  });
 
   @override
   State<QuickActionButton> createState() => _QuickActionButtonState();

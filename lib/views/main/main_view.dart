@@ -330,7 +330,7 @@ class _PostsState extends State<_PostsView> {
                                 vertical: 10, horizontal: 16),
                             child: feed[index] is Post
                                 ? PostComponent(
-                              post: feed[index] as Post,
+                                    post: feed[index] as Post,
                                     onLikeTap: onLikeTap,
                                     onShareTap: onShareTap,
                                     onBookmarkTap: onBookmarkTap,
