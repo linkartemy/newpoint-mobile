@@ -122,4 +122,21 @@ class BookmarkService {
             deleteArticleBookmarkByArticleIdResponse)
         .deleted;
   }
+
+  Future<bool> deleteAllBookmarksByUserId(int userId) async {
+    final request = DeleteAllBookmarksByUserIdRequest();
+    request.userId = Int64.parseInt(userId.toString());
+    var response = await _bookmarkServiceClient.deleteAllBookmarksByUserId(
+        request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    final deleteAllBookmarksByUserIdResponse =
+        DeleteAllBookmarksByUserIdResponse();
+    return response.data
+        .unpackInto<DeleteAllBookmarksByUserIdResponse>(
+            deleteAllBookmarksByUserIdResponse)
+        .deleted;
+  }
 }

@@ -14,17 +14,20 @@ class ArticleCommentService {
       GrpcArticleCommentClient(_networkClient.clientChannel);
   final _sessionDataProvider = SessionDataProvider();
 
-  Future<List<ArticleComment>> getCommentsByArticleId(int id) async {
+  Future<List<ArticleComment>> getCommentsByArticleId(int id, {lastCommentId = -1}) async {
     final request = GetCommentsByArticleIdRequest();
     request.articleId = Int64.parseInt(id.toString());
-    var response = await _articleCommentServiceClient.getCommentsByArticleId(request,
+    request.lastCommentId = Int64.parseInt(lastCommentId.toString());
+    var response = await _articleCommentServiceClient.getCommentsByArticleId(
+        request,
         options: await _networkClient.getAuthorizedCallOptions());
     if (await _networkClient.proceed(response) == false) {
       throw ApiClientException(ApiClientExceptionType.other);
     }
     var getCommentsByArticleIdResponse = GetCommentsByArticleIdResponse();
     final commentModels = response.data
-        .unpackInto<GetCommentsByArticleIdResponse>(getCommentsByArticleIdResponse)
+        .unpackInto<GetCommentsByArticleIdResponse>(
+            getCommentsByArticleIdResponse)
         .comments;
     List<ArticleComment> comments = [];
     for (final commentModel in commentModels) {
@@ -32,6 +35,21 @@ class ArticleCommentService {
       comments.add(comment);
     }
     return comments;
+  }
+
+  Future<ArticleComment> getCommentById(int id) async {
+    final request = GetArticleCommentByIdRequest();
+    request.id = Int64.parseInt(id.toString());
+    var response = await _articleCommentServiceClient.getArticleCommentById(
+        request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var getCommentByIdResponse = GetArticleCommentByIdResponse();
+    return ArticleComment.fromModel(response.data
+        .unpackInto<GetArticleCommentByIdResponse>(getCommentByIdResponse)
+        .comment);
   }
 
   Future<bool> addComment(int id, String content) async {

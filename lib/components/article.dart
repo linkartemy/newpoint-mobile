@@ -69,6 +69,16 @@ class ArticleComponent extends StatelessWidget {
         style: AdaptiveTheme.of(context).theme.textTheme.titleLarge,
       ),
       actions: [
+        TextButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              await onBookmarkTap();
+            },
+            child: bookmarked
+                ? Text(AppLocalizations.of(context)!.removeFromBookmarks,
+                    textAlign: TextAlign.center)
+                : Text(AppLocalizations.of(context)!.addToBookmarks,
+                    textAlign: TextAlign.center)),
         canDelete
             ? TextButton(
                 child: Text(AppLocalizations.of(context)!.deleteArticle,
@@ -204,6 +214,7 @@ class ArticleComponent extends StatelessWidget {
             _Body(
               title: title,
               content: content,
+              onTap: onTap,
             ),
             _Footer(
                 id: id,
@@ -316,10 +327,15 @@ class _Header extends StatelessWidget {
 }
 
 class _Body extends StatelessWidget {
-  const _Body({Key? key, required this.title, required this.content})
+  const _Body(
+      {Key? key,
+      required this.title,
+      required this.content,
+      required this.onTap})
       : super(key: key);
   final String title;
   final String content;
+  final Future<void> Function(BuildContext) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -351,9 +367,13 @@ class _Body extends StatelessWidget {
                 child: SingleChildScrollView(
                     physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    child: MarkdownBodyComponent(
-                      content: content,
-                    )),
+                    child: InkWell(
+                        onTap: () async {
+                          await onTap(context);
+                        },
+                        child: MarkdownBodyComponent(
+                          content: content,
+                        ))),
               ),
             )),
           ],
@@ -485,16 +505,6 @@ class _Footer extends StatelessWidget {
                   const SizedBox(
                     width: 5,
                   ),
-                  InkWell(
-                      onTap: () async {
-                        await onBookmarkTap();
-                      },
-                      child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Icon(
-                            bookmarked ? Icons.bookmark : Icons.bookmark_border,
-                            size: 16,
-                          )))
                 ])),
       ],
     );

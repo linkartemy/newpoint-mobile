@@ -191,7 +191,17 @@ class _AuthButtonWidget extends StatelessWidget {
             child: CircularProgressIndicator(strokeWidth: 2),
           )
         : Text(AppLocalizations.of(context)!.next,
-            style: AdaptiveTheme.of(context).theme.textTheme.bodySmall);
+            style: AdaptiveTheme.of(context)
+                .theme
+                .textTheme
+                .bodySmall!
+                .copyWith(
+                    color: AdaptiveTheme.of(context)
+                        .theme
+                        .elevatedButtonTheme
+                        .style!
+                        .textStyle!
+                        .resolve({MaterialState.disabled})!.color));
     return ButtonComponent(
       onPressed: onPressed,
       child: child,

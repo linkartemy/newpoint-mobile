@@ -61,6 +61,24 @@ class BookmarksViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> deleteAllBookmarks() async {
+    try {
+      if (posts.isEmpty && articles.isEmpty) {
+        return;
+      }
+      await _bookmarkService.deleteAllBookmarksByUserId(user!.id);
+      posts.clear();
+      articles.clear();
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
   Future<void> getUser() async {
     try {
       user = await _userService.getUser();
@@ -250,6 +268,7 @@ class BookmarksViewModel extends ChangeNotifier {
       final post = posts[index];
       if (post.bookmarked) {
         await _bookmarkService.deletePostBookmarkByPostId(post.id);
+        posts.removeWhere((element) => element.id == post.id);
       } else {
         await _bookmarkService.addPostBookmark(user!.id, post.id);
       }
@@ -274,6 +293,7 @@ class BookmarksViewModel extends ChangeNotifier {
       final article = articles[index];
       if (article.bookmarked) {
         await _bookmarkService.deleteArticleBookmarkByArticleId(article.id);
+        articles.removeWhere((element) => element.id == article.id);
       } else {
         await _bookmarkService.addArticleBookmark(user!.id, article.id);
       }

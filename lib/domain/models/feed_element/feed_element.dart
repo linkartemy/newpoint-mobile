@@ -15,6 +15,7 @@ abstract class FeedEntry {
   int comments;
   int views;
   bool liked;
+  bool shared;
   bool bookmarked;
   @JsonKey(fromJson: parseDateFromString)
   final DateTime creationTimestamp;
@@ -33,7 +34,8 @@ abstract class FeedEntry {
     required this.comments,
     required this.views,
     required this.liked,
+    required this.shared,
     required this.bookmarked,
-    required this.creationTimestamp,
+    required this.creationTimestamp
   });
 }

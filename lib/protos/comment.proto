@@ -9,6 +9,7 @@ package comment;
 
 service GrpcComment {
   rpc GetCommentsByPostId (GetCommentsByPostIdRequest) returns (response.Response);
+  rpc GetCommentById (GetCommentByIdRequest) returns (response.Response);
   rpc AddComment (AddCommentRequest) returns (response.Response);
   rpc DeleteComment (DeleteCommentRequest) returns (response.Response);
   rpc LikeComment (LikeCommentRequest) returns (response.Response);
@@ -30,10 +31,19 @@ message CommentModel {
 
 message GetCommentsByPostIdRequest {
     int64 post_id = 1;
+    int64 last_comment_id = 2;
 }
 
 message GetCommentsByPostIdResponse {
   repeated CommentModel comments = 1;
+}
+
+message GetCommentByIdRequest {
+  int64 id = 1;
+}
+
+message GetCommentByIdResponse {
+  CommentModel comment = 1;
 }
 
 message AddCommentRequest {

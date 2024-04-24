@@ -26,6 +26,10 @@ class GrpcCommentClient extends $grpc.Client {
       '/comment.GrpcComment/GetCommentsByPostId',
       ($6.GetCommentsByPostIdRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
+  static final _$getCommentById = $grpc.ClientMethod<$6.GetCommentByIdRequest, $1.Response>(
+      '/comment.GrpcComment/GetCommentById',
+      ($6.GetCommentByIdRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Response.fromBuffer(value));
   static final _$addComment = $grpc.ClientMethod<$6.AddCommentRequest, $1.Response>(
       '/comment.GrpcComment/AddComment',
       ($6.AddCommentRequest value) => value.writeToBuffer(),
@@ -51,6 +55,10 @@ class GrpcCommentClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$1.Response> getCommentsByPostId($6.GetCommentsByPostIdRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getCommentsByPostId, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Response> getCommentById($6.GetCommentByIdRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getCommentById, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.Response> addComment($6.AddCommentRequest request, {$grpc.CallOptions? options}) {
@@ -81,6 +89,13 @@ abstract class GrpcCommentServiceBase extends $grpc.Service {
         false,
         false,
         ($core.List<$core.int> value) => $6.GetCommentsByPostIdRequest.fromBuffer(value),
+        ($1.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$6.GetCommentByIdRequest, $1.Response>(
+        'GetCommentById',
+        getCommentById_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $6.GetCommentByIdRequest.fromBuffer(value),
         ($1.Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$6.AddCommentRequest, $1.Response>(
         'AddComment',
@@ -116,6 +131,10 @@ abstract class GrpcCommentServiceBase extends $grpc.Service {
     return getCommentsByPostId(call, await request);
   }
 
+  $async.Future<$1.Response> getCommentById_Pre($grpc.ServiceCall call, $async.Future<$6.GetCommentByIdRequest> request) async {
+    return getCommentById(call, await request);
+  }
+
   $async.Future<$1.Response> addComment_Pre($grpc.ServiceCall call, $async.Future<$6.AddCommentRequest> request) async {
     return addComment(call, await request);
   }
@@ -133,6 +152,7 @@ abstract class GrpcCommentServiceBase extends $grpc.Service {
   }
 
   $async.Future<$1.Response> getCommentsByPostId($grpc.ServiceCall call, $6.GetCommentsByPostIdRequest request);
+  $async.Future<$1.Response> getCommentById($grpc.ServiceCall call, $6.GetCommentByIdRequest request);
   $async.Future<$1.Response> addComment($grpc.ServiceCall call, $6.AddCommentRequest request);
   $async.Future<$1.Response> deleteComment($grpc.ServiceCall call, $6.DeleteCommentRequest request);
   $async.Future<$1.Response> likeComment($grpc.ServiceCall call, $6.LikeCommentRequest request);

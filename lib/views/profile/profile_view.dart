@@ -549,7 +549,7 @@ class _FooterPostsState extends State<_FooterPosts> {
     }
 
     Future<void> onLikeTap(BuildContext context, int index) async {
-      await model.like(index);
+      await model.likePost(index);
       setState(() {});
     }
 
@@ -594,20 +594,7 @@ class _FooterPostsState extends State<_FooterPosts> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
                 child: PostComponent(
-                  id: post.id,
-                  login: post.login,
-                  name: post.name,
-                  surname: post.surname,
-                  profileImageId: post.profileImageId,
-                  date: post.creationTimestamp,
-                  content: post.content,
-                  images: [],
-                  likes: post.likes,
-                  liked: post.liked,
-                  isBookmarked: post.bookmarked,
-                  shares: post.shares,
-                  comments: post.comments,
-                  views: post.views,
+                  post: post,
                   onLikeTap: (BuildContext context) async {
                     await onLikeTap(context, index);
                   },
@@ -635,20 +622,7 @@ class _FooterPostsState extends State<_FooterPosts> {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
             child: PostComponent(
-              id: post.id,
-              login: post.login,
-              name: post.name,
-              surname: post.surname,
-              profileImageId: post.profileImageId,
-              date: post.creationTimestamp,
-              content: post.content,
-              images: [],
-              likes: post.likes,
-              liked: post.liked,
-              isBookmarked: post.bookmarked,
-              shares: post.shares,
-              comments: post.comments,
-              views: post.views,
+              post: post,
               onLikeTap: (BuildContext context) async {
                 await onLikeTap(context, index);
               },
@@ -695,7 +669,7 @@ class _FooterArticlesState extends State<_FooterArticles> {
     }
 
     Future<void> onLikeTap(BuildContext context, int index) async {
-      await model.like(index);
+      await model.likeArticle(index);
       setState(() {});
     }
 

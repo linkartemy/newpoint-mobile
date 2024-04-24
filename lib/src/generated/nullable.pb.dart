@@ -11,12 +11,11 @@
 
 import 'dart:core' as $core;
 
+import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'article.pb.dart' as $0;
 import 'google/protobuf/struct.pbenum.dart' as $12;
 import 'google/protobuf/timestamp.pb.dart' as $11;
-import 'post.pb.dart' as $3;
 
 enum NullableString_Kind {
   null_1, 
@@ -91,6 +90,85 @@ class NullableString extends $pb.GeneratedMessage {
   $core.String get data => $_getSZ(1);
   @$pb.TagNumber(2)
   set data($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasData() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearData() => clearField(2);
+}
+
+enum NullableInt64_Kind {
+  null_1, 
+  data, 
+  notSet
+}
+
+class NullableInt64 extends $pb.GeneratedMessage {
+  factory NullableInt64({
+    $12.NullValue? null_1,
+    $fixnum.Int64? data,
+  }) {
+    final $result = create();
+    if (null_1 != null) {
+      $result.null_1 = null_1;
+    }
+    if (data != null) {
+      $result.data = data;
+    }
+    return $result;
+  }
+  NullableInt64._() : super();
+  factory NullableInt64.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory NullableInt64.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static const $core.Map<$core.int, NullableInt64_Kind> _NullableInt64_KindByTag = {
+    1 : NullableInt64_Kind.null_1,
+    2 : NullableInt64_Kind.data,
+    0 : NullableInt64_Kind.notSet
+  };
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NullableInt64', createEmptyInstance: create)
+    ..oo(0, [1, 2])
+    ..e<$12.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE, defaultOrMaker: $12.NullValue.NULL_VALUE, valueOf: $12.NullValue.valueOf, enumValues: $12.NullValue.values)
+    ..aInt64(2, _omitFieldNames ? '' : 'data')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  NullableInt64 clone() => NullableInt64()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NullableInt64 copyWith(void Function(NullableInt64) updates) => super.copyWith((message) => updates(message as NullableInt64)) as NullableInt64;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static NullableInt64 create() => NullableInt64._();
+  NullableInt64 createEmptyInstance() => create();
+  static $pb.PbList<NullableInt64> createRepeated() => $pb.PbList<NullableInt64>();
+  @$core.pragma('dart2js:noInline')
+  static NullableInt64 getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NullableInt64>(create);
+  static NullableInt64? _defaultInstance;
+
+  NullableInt64_Kind whichKind() => _NullableInt64_KindByTag[$_whichOneof(0)]!;
+  void clearKind() => clearField($_whichOneof(0));
+
+  @$pb.TagNumber(1)
+  $12.NullValue get null_1 => $_getN(0);
+  @$pb.TagNumber(1)
+  set null_1($12.NullValue v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasNull_1() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearNull_1() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get data => $_getI64(1);
+  @$pb.TagNumber(2)
+  set data($fixnum.Int64 v) { $_setInt64(1, v); }
   @$pb.TagNumber(2)
   $core.bool hasData() => $_has(1);
   @$pb.TagNumber(2)
@@ -176,168 +254,6 @@ class NullableTimestamp extends $pb.GeneratedMessage {
   void clearData() => clearField(2);
   @$pb.TagNumber(2)
   $11.Timestamp ensureData() => $_ensure(1);
-}
-
-enum NullableArticle_Kind {
-  null_1, 
-  data, 
-  notSet
-}
-
-class NullableArticle extends $pb.GeneratedMessage {
-  factory NullableArticle({
-    $12.NullValue? null_1,
-    $0.ArticleModel? data,
-  }) {
-    final $result = create();
-    if (null_1 != null) {
-      $result.null_1 = null_1;
-    }
-    if (data != null) {
-      $result.data = data;
-    }
-    return $result;
-  }
-  NullableArticle._() : super();
-  factory NullableArticle.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory NullableArticle.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static const $core.Map<$core.int, NullableArticle_Kind> _NullableArticle_KindByTag = {
-    1 : NullableArticle_Kind.null_1,
-    2 : NullableArticle_Kind.data,
-    0 : NullableArticle_Kind.notSet
-  };
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NullableArticle', createEmptyInstance: create)
-    ..oo(0, [1, 2])
-    ..e<$12.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE, defaultOrMaker: $12.NullValue.NULL_VALUE, valueOf: $12.NullValue.valueOf, enumValues: $12.NullValue.values)
-    ..aOM<$0.ArticleModel>(2, _omitFieldNames ? '' : 'data', subBuilder: $0.ArticleModel.create)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  NullableArticle clone() => NullableArticle()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  NullableArticle copyWith(void Function(NullableArticle) updates) => super.copyWith((message) => updates(message as NullableArticle)) as NullableArticle;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static NullableArticle create() => NullableArticle._();
-  NullableArticle createEmptyInstance() => create();
-  static $pb.PbList<NullableArticle> createRepeated() => $pb.PbList<NullableArticle>();
-  @$core.pragma('dart2js:noInline')
-  static NullableArticle getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NullableArticle>(create);
-  static NullableArticle? _defaultInstance;
-
-  NullableArticle_Kind whichKind() => _NullableArticle_KindByTag[$_whichOneof(0)]!;
-  void clearKind() => clearField($_whichOneof(0));
-
-  @$pb.TagNumber(1)
-  $12.NullValue get null_1 => $_getN(0);
-  @$pb.TagNumber(1)
-  set null_1($12.NullValue v) { setField(1, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasNull_1() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearNull_1() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $0.ArticleModel get data => $_getN(1);
-  @$pb.TagNumber(2)
-  set data($0.ArticleModel v) { setField(2, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasData() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearData() => clearField(2);
-  @$pb.TagNumber(2)
-  $0.ArticleModel ensureData() => $_ensure(1);
-}
-
-enum NullablePost_Kind {
-  null_1, 
-  data, 
-  notSet
-}
-
-class NullablePost extends $pb.GeneratedMessage {
-  factory NullablePost({
-    $12.NullValue? null_1,
-    $3.PostModel? data,
-  }) {
-    final $result = create();
-    if (null_1 != null) {
-      $result.null_1 = null_1;
-    }
-    if (data != null) {
-      $result.data = data;
-    }
-    return $result;
-  }
-  NullablePost._() : super();
-  factory NullablePost.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory NullablePost.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static const $core.Map<$core.int, NullablePost_Kind> _NullablePost_KindByTag = {
-    1 : NullablePost_Kind.null_1,
-    2 : NullablePost_Kind.data,
-    0 : NullablePost_Kind.notSet
-  };
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NullablePost', createEmptyInstance: create)
-    ..oo(0, [1, 2])
-    ..e<$12.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE, defaultOrMaker: $12.NullValue.NULL_VALUE, valueOf: $12.NullValue.valueOf, enumValues: $12.NullValue.values)
-    ..aOM<$3.PostModel>(2, _omitFieldNames ? '' : 'data', subBuilder: $3.PostModel.create)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  NullablePost clone() => NullablePost()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  NullablePost copyWith(void Function(NullablePost) updates) => super.copyWith((message) => updates(message as NullablePost)) as NullablePost;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static NullablePost create() => NullablePost._();
-  NullablePost createEmptyInstance() => create();
-  static $pb.PbList<NullablePost> createRepeated() => $pb.PbList<NullablePost>();
-  @$core.pragma('dart2js:noInline')
-  static NullablePost getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NullablePost>(create);
-  static NullablePost? _defaultInstance;
-
-  NullablePost_Kind whichKind() => _NullablePost_KindByTag[$_whichOneof(0)]!;
-  void clearKind() => clearField($_whichOneof(0));
-
-  @$pb.TagNumber(1)
-  $12.NullValue get null_1 => $_getN(0);
-  @$pb.TagNumber(1)
-  set null_1($12.NullValue v) { setField(1, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasNull_1() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearNull_1() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $3.PostModel get data => $_getN(1);
-  @$pb.TagNumber(2)
-  set data($3.PostModel v) { setField(2, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasData() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearData() => clearField(2);
-  @$pb.TagNumber(2)
-  $3.PostModel ensureData() => $_ensure(1);
 }
 
 

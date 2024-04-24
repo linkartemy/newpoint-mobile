@@ -83,6 +83,90 @@ class BookmarksViewState extends State<BookmarksView> {
               },
               child: const Icon(Icons.arrow_back_rounded, size: 25),
             ),
+            title: Container(
+                alignment: Alignment.centerRight,
+                child: InkWell(
+                    onTap: () async {
+                      AlertDialog alert = AlertDialog(
+                        actionsAlignment: MainAxisAlignment.start,
+                        actionsOverflowAlignment: OverflowBarAlignment.center,
+                        title: Text(
+                          AppLocalizations.of(context)!.actions,
+                          textAlign: TextAlign.center,
+                          style: AdaptiveTheme.of(context)
+                              .theme
+                              .textTheme
+                              .titleLarge,
+                        ),
+                        actions: [
+                          TextButton(
+                            child: Text(
+                                AppLocalizations.of(context)!
+                                    .deleteAllBookmarks,
+                                textAlign: TextAlign.center),
+                            onPressed: () async {
+                              AlertDialog alert = AlertDialog(
+                                actionsAlignment: MainAxisAlignment.start,
+                                actionsOverflowAlignment:
+                                    OverflowBarAlignment.center,
+                                title: Text(
+                                  AppLocalizations.of(context)!.areYouSure,
+                                  textAlign: TextAlign.center,
+                                  style: AdaptiveTheme.of(context)
+                                      .theme
+                                      .textTheme
+                                      .titleLarge,
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: Text(
+                                        AppLocalizations.of(context)!.yes,
+                                        textAlign: TextAlign.center),
+                                    onPressed: () async {
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                      await model.deleteAllBookmarks();
+                                      setState(() {});
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text(
+                                      AppLocalizations.of(context)!.cancel,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return alert;
+                                },
+                              );
+                            },
+                          ),
+                          TextButton(
+                            child: Text(
+                              AppLocalizations.of(context)!.cancel,
+                              textAlign: TextAlign.center,
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return alert;
+                        },
+                      );
+                    },
+                    child: Icon(Icons.more_horiz_rounded, size: 25))),
             bottom: TabBar(
               indicatorColor: AdaptiveTheme.of(context).theme.primaryColor,
               tabs: [
@@ -221,20 +305,7 @@ class _PostsViewState extends State<_PostsView> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 24),
                               child: PostComponent(
-                                id: post.id,
-                                login: post.login,
-                                name: post.name,
-                                surname: post.surname,
-                                profileImageId: post.profileImageId,
-                                date: post.creationTimestamp,
-                                content: post.content,
-                                images: [],
-                                likes: post.likes,
-                                liked: post.liked,
-                                isBookmarked: post.bookmarked,
-                                shares: post.shares,
-                                comments: post.comments,
-                                views: post.views,
+                                post: post,
                                 onLikeTap: (BuildContext context) async {
                                   await onLikeTap(context, index);
                                 },
@@ -245,6 +316,9 @@ class _PostsViewState extends State<_PostsView> {
                                   await onBookmarkTap(index);
                                 },
                                 onTap: (BuildContext context) async {
+                                  if (post.id == -1) {
+                                    return;
+                                  }
                                   await onTap(context, index);
                                 },
                                 canDelete: post.authorId == model.user!.id,
@@ -264,20 +338,7 @@ class _PostsViewState extends State<_PostsView> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 24),
                           child: PostComponent(
-                            id: post.id,
-                            login: post.login,
-                            name: post.name,
-                            surname: post.surname,
-                            profileImageId: post.profileImageId,
-                            date: post.creationTimestamp,
-                            content: post.content,
-                            images: [],
-                            likes: post.likes,
-                            liked: post.liked,
-                            isBookmarked: post.bookmarked,
-                            shares: post.shares,
-                            comments: post.comments,
-                            views: post.views,
+                            post: post,
                             onLikeTap: (BuildContext context) async {
                               await onLikeTap(context, index);
                             },
@@ -288,6 +349,9 @@ class _PostsViewState extends State<_PostsView> {
                               await onBookmarkTap(index);
                             },
                             onTap: (BuildContext context) async {
+                              if (post.id == -1) {
+                                return;
+                              }
                               await onTap(context, index);
                             },
                             canDelete: post.authorId == model.user!.id,
@@ -416,6 +480,9 @@ class _ArticlesViewState extends State<_ArticlesView> {
                                   await onBookmarkTap(index);
                                 },
                                 onTap: (BuildContext context) async {
+                                  if (article.id == -1) {
+                                    return;
+                                  }
                                   await onTap(context, index);
                                 },
                                 canDelete: article.authorId == model.user!.id,
@@ -459,6 +526,9 @@ class _ArticlesViewState extends State<_ArticlesView> {
                             await onBookmarkTap(index);
                           },
                           onTap: (BuildContext context) async {
+                            if (article.id == -1) {
+                              return;
+                            }
                             await onTap(context, index);
                           },
                           canDelete: article.authorId == model.user!.id,

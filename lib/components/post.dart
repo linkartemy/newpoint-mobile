@@ -4,25 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:newpoint/components/profile_image.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
+import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/views/theme/theme.dart';
 
 class PostComponent extends StatelessWidget {
   const PostComponent(
       {Key? key,
-      required this.id,
-      required this.login,
-      required this.name,
-      required this.surname,
-      required this.profileImageId,
-      required this.date,
-      required this.content,
-      required this.images,
-      required this.likes,
-      required this.liked,
-      required this.isBookmarked,
-      required this.shares,
-      required this.comments,
-      required this.views,
+        required this.post,
       required this.onShareTap,
       required this.onLikeTap,
       required this.onBookmarkTap,
@@ -32,20 +20,7 @@ class PostComponent extends StatelessWidget {
       required this.canAddToBlacklist,
       required this.addToBlacklist})
       : super(key: key);
-  final int id;
-  final String login;
-  final String name;
-  final String surname;
-  final int profileImageId;
-  final DateTime date;
-  final String content;
-  final List<Image> images;
-  final int likes;
-  final bool liked;
-  final bool isBookmarked;
-  final int shares;
-  final int comments;
-  final int views;
+  final Post post;
   final Future<void> Function(BuildContext context) onShareTap;
   final Future<void> Function(BuildContext context) onLikeTap;
   final Future<void> Function() onBookmarkTap;
@@ -65,6 +40,14 @@ class PostComponent extends StatelessWidget {
         style: AdaptiveTheme.of(context).theme.textTheme.titleLarge,
       ),
       actions: [
+        TextButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              await onBookmarkTap();
+            },
+            child: post.bookmarked
+                ? Text(AppLocalizations.of(context)!.removeFromBookmarks)
+                : Text(AppLocalizations.of(context)!.addToBookmarks)),
         canDelete
             ? TextButton(
                 child: Text(AppLocalizations.of(context)!.deletePost,
@@ -187,27 +170,27 @@ class PostComponent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _Header(
-              login: login,
-              name: name,
-              surname: surname,
-              profileImageId: profileImageId,
-              date: date,
+              login: post.login,
+              name: post.name,
+              surname: post.surname,
+              profileImageId: post.profileImageId,
+              date: post.creationTimestamp,
               onDetailsTap: onDetailsTap,
               deletePost: deletePost,
               canDelete: canDelete,
             ),
             const SizedBox(height: 10),
             _Body(
-              content: content,
+              content: post.content,
             ),
             _Footer(
-                id: id,
-                likes: likes,
-                shares: shares,
-                comments: comments,
-                views: views,
-                liked: liked,
-                isBookmarked: isBookmarked,
+                id: post.id,
+                likes: post.likes,
+                shares: post.shares,
+                comments: post.comments,
+                views: post.views,
+                liked: post.liked,
+                isBookmarked: post.bookmarked,
                 onLikeTap: onLikeTap,
                 onShareTap: onShareTap,
                 onBookmarkTap: onBookmarkTap)
@@ -452,21 +435,6 @@ class _Footer extends StatelessWidget {
                     Icons.query_stats,
                     size: 16,
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  InkWell(
-                      onTap: () async {
-                        await onBookmarkTap();
-                      },
-                      child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Icon(
-                            isBookmarked
-                                ? Icons.bookmark
-                                : Icons.bookmark_border,
-                            size: 16,
-                          )))
                 ])),
       ],
     );

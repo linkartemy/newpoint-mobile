@@ -18,6 +18,7 @@ import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class ArticleView extends StatefulWidget {
   const ArticleView({Key? key}) : super(key: key);
@@ -84,19 +85,24 @@ class ArticleViewState extends State<ArticleView> {
     setState(() {});
   }
 
+  Future<void> reloadComments() async {
+    final model = Provider.of<ArticleViewModel>(context, listen: false);
+    await model.reloadComments();
+    setState(() {});
+  }
+
   Future<void> reload() async {
-    setState(() {
-      _isLoadingPost = true;
-    });
     await getUser();
     await getArticle();
-    await getComments();
+    await reloadComments();
   }
 
   @override
   void initState() {
     super.initState();
-    reload();
+    getUser();
+    getArticle();
+    getComments();
   }
 
   @override
@@ -151,7 +157,8 @@ class ArticleViewState extends State<ArticleView> {
                             ],
                           ))
                         : NestedScrollView(
-              controller: scrollController,
+                            controller: scrollController,
+                            physics: const NeverScrollableScrollPhysics(),
                             headerSliverBuilder:
                                 (context, innerBoxIsScrolled) => [
                                       DynamicSliverAppBar(
@@ -179,7 +186,7 @@ class ArticleViewState extends State<ArticleView> {
                             body: _Comments(
                                 comments: model.comments,
                                 onLikeTap: onCommentLikeTap,
-                                loadComments: loadComments))));
+                                reload: reload))));
   }
 }
 
@@ -409,7 +416,7 @@ class _FooterState extends State<_Footer> {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<ArticleViewModel>(context, listen: false);
+    final model = Provider.of<ArticleViewModel>(context, listen: true);
 
     Future<void> onShareTap() async {
       await model.share();
@@ -511,6 +518,20 @@ class _FooterState extends State<_Footer> {
                           size: 22,
                         ),
                       ]))),
+          Expanded(
+              child: InkWell(
+                  onTap: () async {
+                    await model.bookmark();
+                    setState(() {});
+                  },
+                  child: SizedBox(
+                      height: 46,
+                      child: Icon(
+                        model.article!.bookmarked
+                            ? Icons.bookmark
+                            : Icons.bookmark_border,
+                        size: 22,
+                      )))),
         ],
       ),
       TextFormField(
@@ -568,12 +589,12 @@ class _Comments extends StatefulWidget {
       {Key? key,
       required this.comments,
       required this.onLikeTap,
-      required this.loadComments})
+      required this.reload})
       : super(key: key);
 
   final List<ArticleComment> comments;
   final Future<void> Function(int) onLikeTap;
-  final Future<void> Function() loadComments;
+  final Future<void> Function() reload;
 
   @override
   _CommentsState createState() => _CommentsState();
@@ -582,7 +603,7 @@ class _Comments extends StatefulWidget {
 class _CommentsState extends State<_Comments> {
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<ArticleViewModel>(context, listen: false);
+    final model = Provider.of<ArticleViewModel>(context, listen: true);
 
     Future<void> deleteComment(int index) async {
       await model.deleteComment(widget.comments[index].id);
@@ -592,32 +613,43 @@ class _CommentsState extends State<_Comments> {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: ListView.builder(
+            key: const PageStorageKey("psk1"),
             itemCount: widget.comments.length,
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemBuilder: (context, index) {
               var comment = widget.comments[index];
 
-              return CommentComponent(
-                index: index,
-                id: comment.id,
-                userId: comment.userId,
-                login: comment.login,
-                name: comment.name,
-                surname: comment.surname,
-                date: comment.creationTimestamp,
-                content: comment.content,
-                likes: comment.likes,
-                liked: comment.liked,
-                onLikeTap: widget.onLikeTap,
-                reload: () async {
-                  widget.loadComments();
-                },
-                deleteComment: () async {
-                  await deleteComment(index);
-                },
-                canDelete: model.user!.id == widget.comments[index].userId,
-              );
+              return VisibilityDetector(
+                  key: Key('commentkey$index'),
+                  onVisibilityChanged: (visibilityInfo) async {
+                    if (visibilityInfo.visibleFraction < 0.9 ||
+                        widget.comments.length < 5) {
+                      return;
+                    }
+                    if (index == widget.comments.length - 1) {
+                      await model.loadComments();
+                      setState(() {});
+                    }
+                  },
+                  child: CommentComponent(
+                    index: index,
+                    id: comment.id,
+                    userId: comment.userId,
+                    login: comment.login,
+                    name: comment.name,
+                    surname: comment.surname,
+                    date: comment.creationTimestamp,
+                    content: comment.content,
+                    likes: comment.likes,
+                    liked: comment.liked,
+                    onLikeTap: widget.onLikeTap,
+                    reload: widget.reload,
+                    deleteComment: () async {
+                      await deleteComment(index);
+                    },
+                    canDelete: model.user!.id == widget.comments[index].userId,
+                  ));
             }));
   }
 }

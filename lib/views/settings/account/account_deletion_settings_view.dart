@@ -102,29 +102,32 @@ class _BodyState extends State<_Body> {
             Column(
               children: [
                 Text(
-                  "This will deactivate your account",
+                  AppLocalizations.of(context)!.thisWillDeactivateYourAccount,
                   style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
-                  "You’re about to start the process of deactivating your NewPoint account. Your display name, @username, and public profile will no longer be viewable on NewPoint for iOS, or NewPoint for Android.",
+                  AppLocalizations.of(context)!.youAreAboutToStartDeactivation,
                   style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
                 )
               ],
             ),
+            SizedBox(
+              height: 20,
+            ),
             Column(
               children: [
                 Text(
-                  "What else you should know",
+                  AppLocalizations.of(context)!.whatElseYouShouldKnow,
                   style: AdaptiveTheme.of(context).theme.textTheme.titleSmall,
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
-                  "- You can restore your NewPoint account if it was accidentally or wrongfully deactivated for up to 30 days after deactivation.\nIf you just want to change your @username, you don’t need to deactivate your account — edit it in your settings.\nTo use your current @username or email address with a different NewPoint account, change them before you deactivate this account.",
+                  AppLocalizations.of(context)!.youCanRestoreYourNewPoint,
                   style: AdaptiveTheme.of(context).theme.textTheme.bodyMedium,
                 )
               ],

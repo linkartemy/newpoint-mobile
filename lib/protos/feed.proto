@@ -16,8 +16,8 @@ service GrpcFeed {
 
 message FeedElement {
   string id = 1;
-  NullableArticle article = 2;
-  NullablePost post = 3;
+  article.NullableArticle article = 2;
+  post.NullablePost post = 3;
 }
 
 message GetFeedByUserIdRequest {

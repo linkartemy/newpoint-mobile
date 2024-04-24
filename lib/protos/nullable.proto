@@ -2,8 +2,6 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
-import "article.proto";
-import "post.proto";
 
 option csharp_namespace = "NewPoint";
 
@@ -14,6 +12,13 @@ message NullableString {
   }
 }
 
+message NullableInt64 {
+  oneof kind {
+    google.protobuf.NullValue null = 1;
+    int64 data = 2;
+  }
+}
+
 message NullableTimestamp {
   oneof kind {
     google.protobuf.NullValue null = 1;
@@ -21,16 +26,3 @@ message NullableTimestamp {
   }
 }
 
-message NullableArticle {
-  oneof kind {
-    google.protobuf.NullValue null = 1;
-    article.ArticleModel data = 2;
-  }
-}
-
-message NullablePost {
-  oneof kind {
-    google.protobuf.NullValue null = 1;
-    post.PostModel data = 2;
-  }
-}

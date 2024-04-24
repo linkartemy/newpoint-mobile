@@ -197,10 +197,14 @@ class CommentModel extends $pb.GeneratedMessage {
 class GetCommentsByPostIdRequest extends $pb.GeneratedMessage {
   factory GetCommentsByPostIdRequest({
     $fixnum.Int64? postId,
+    $fixnum.Int64? lastCommentId,
   }) {
     final $result = create();
     if (postId != null) {
       $result.postId = postId;
+    }
+    if (lastCommentId != null) {
+      $result.lastCommentId = lastCommentId;
     }
     return $result;
   }
@@ -210,6 +214,7 @@ class GetCommentsByPostIdRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetCommentsByPostIdRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'comment'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'postId')
+    ..aInt64(2, _omitFieldNames ? '' : 'lastCommentId')
     ..hasRequiredFields = false
   ;
 
@@ -242,6 +247,15 @@ class GetCommentsByPostIdRequest extends $pb.GeneratedMessage {
   $core.bool hasPostId() => $_has(0);
   @$pb.TagNumber(1)
   void clearPostId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get lastCommentId => $_getI64(1);
+  @$pb.TagNumber(2)
+  set lastCommentId($fixnum.Int64 v) { $_setInt64(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasLastCommentId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearLastCommentId() => clearField(2);
 }
 
 class GetCommentsByPostIdResponse extends $pb.GeneratedMessage {
@@ -286,6 +300,108 @@ class GetCommentsByPostIdResponse extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<CommentModel> get comments => $_getList(0);
+}
+
+class GetCommentByIdRequest extends $pb.GeneratedMessage {
+  factory GetCommentByIdRequest({
+    $fixnum.Int64? id,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    return $result;
+  }
+  GetCommentByIdRequest._() : super();
+  factory GetCommentByIdRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetCommentByIdRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetCommentByIdRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'comment'), createEmptyInstance: create)
+    ..aInt64(1, _omitFieldNames ? '' : 'id')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetCommentByIdRequest clone() => GetCommentByIdRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetCommentByIdRequest copyWith(void Function(GetCommentByIdRequest) updates) => super.copyWith((message) => updates(message as GetCommentByIdRequest)) as GetCommentByIdRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetCommentByIdRequest create() => GetCommentByIdRequest._();
+  GetCommentByIdRequest createEmptyInstance() => create();
+  static $pb.PbList<GetCommentByIdRequest> createRepeated() => $pb.PbList<GetCommentByIdRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetCommentByIdRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetCommentByIdRequest>(create);
+  static GetCommentByIdRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get id => $_getI64(0);
+  @$pb.TagNumber(1)
+  set id($fixnum.Int64 v) { $_setInt64(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+}
+
+class GetCommentByIdResponse extends $pb.GeneratedMessage {
+  factory GetCommentByIdResponse({
+    CommentModel? comment,
+  }) {
+    final $result = create();
+    if (comment != null) {
+      $result.comment = comment;
+    }
+    return $result;
+  }
+  GetCommentByIdResponse._() : super();
+  factory GetCommentByIdResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetCommentByIdResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetCommentByIdResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'comment'), createEmptyInstance: create)
+    ..aOM<CommentModel>(1, _omitFieldNames ? '' : 'comment', subBuilder: CommentModel.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetCommentByIdResponse clone() => GetCommentByIdResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetCommentByIdResponse copyWith(void Function(GetCommentByIdResponse) updates) => super.copyWith((message) => updates(message as GetCommentByIdResponse)) as GetCommentByIdResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetCommentByIdResponse create() => GetCommentByIdResponse._();
+  GetCommentByIdResponse createEmptyInstance() => create();
+  static $pb.PbList<GetCommentByIdResponse> createRepeated() => $pb.PbList<GetCommentByIdResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetCommentByIdResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetCommentByIdResponse>(create);
+  static GetCommentByIdResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  CommentModel get comment => $_getN(0);
+  @$pb.TagNumber(1)
+  set comment(CommentModel v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasComment() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearComment() => clearField(1);
+  @$pb.TagNumber(1)
+  CommentModel ensureComment() => $_ensure(0);
 }
 
 class AddCommentRequest extends $pb.GeneratedMessage {

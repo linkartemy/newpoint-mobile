@@ -4,9 +4,9 @@ import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/session_data_provider.dart';
 import 'package:newpoint/domain/grpc_clients/network_client.dart';
 import 'package:newpoint/domain/models/feed_element/feed_element.dart';
+import 'package:newpoint/domain/models/nullable_parser.dart';
 import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/protos.dart';
-import 'package:newpoint/src/generated/user.pbgrpc.dart';
 
 class FeedService {
   final _networkClient = NetworkClient();

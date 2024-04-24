@@ -39,11 +39,6 @@ class CommentComponent extends StatelessWidget {
   final Future<void> Function() deleteComment;
   final bool canDelete;
 
-  Future<void> onTap(BuildContext context) async {
-    Navigator.of(context)
-        .pushNamed(MainNavigationRouteNames.post, arguments: id);
-  }
-
   Future<void> onHeaderTap(BuildContext context) async {
     await Navigator.of(context)
         .pushNamed(MainNavigationRouteNames.profile, arguments: userId);

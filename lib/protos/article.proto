@@ -1,7 +1,9 @@
 syntax = "proto3";
 
 import "response.proto";
+import "nullable.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
 
 option csharp_namespace = "NewPoint";
 
@@ -35,8 +37,16 @@ message ArticleModel {
   int32 comments = 12;
   int32 views = 13;
   bool liked = 14;
-  bool bookmarked = 15;
-  google.protobuf.Timestamp creation_timestamp = 16;
+  bool shared = 15;
+  bool bookmarked = 16;
+  google.protobuf.Timestamp creation_timestamp = 17;
+}
+
+message NullableArticle {
+  oneof kind {
+    google.protobuf.NullValue null = 1;
+    article.ArticleModel data = 2;
+  }
 }
 
 message AddArticleRequest {

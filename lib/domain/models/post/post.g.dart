@@ -15,9 +15,10 @@ Post _$PostFromJson(Map<String, dynamic> json) {
     comments: json['comments'] as int,
     views: json['views'] as int,
     liked: json['liked'] as bool,
+    shared: json['shared'] as bool,
     bookmarked: json['bookmarked'] as bool,
     creationTimestamp:
-        parseDateFromString(json['creation_timestamp'] as String?)!,
+        parseDateFromString(json['creation_timestamp'] as String?)!
   );
 }
 
@@ -36,6 +37,7 @@ Post _$PostFromModel(PostModel postModel) {
       comments: postModel.comments,
       views: postModel.views,
       liked: postModel.liked,
+      shared: postModel.shared,
       bookmarked: postModel.bookmarked,
       creationTimestamp: postModel.creationTimestamp.toDateTime(toLocal: true));
 }
@@ -54,12 +56,8 @@ Map<String, dynamic> _$PostToJson(Post post) => <String, dynamic>{
       'comments': post.comments,
       'views': post.views,
       'liked': post.liked,
+      'shared': post.shared,
       'bookmarked': post.bookmarked,
-      'creation_timestamp': post.creationTimestamp.toIso8601String(),
+      'creation_timestamp': post.creationTimestamp.toIso8601String()
     };
 
-extension NullablePostParser on NullablePost {
-  PostModel? parseNullable() {
-    return hasData() ? data : null;
-  }
-}

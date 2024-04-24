@@ -1,6 +1,9 @@
+import 'package:fixnum/src/int64.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:newpoint/domain/models/feed_element/feed_element.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
+import 'package:newpoint/domain/models/nullable_parser.dart';
+import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/protos.dart';
 
 part 'post.g.dart';
@@ -20,6 +23,7 @@ class Post implements FeedEntry {
   int comments;
   int views;
   bool liked;
+  bool shared;
   bool bookmarked;
   @JsonKey(fromJson: parseDateFromString)
   final DateTime creationTimestamp;
@@ -38,8 +42,9 @@ class Post implements FeedEntry {
     required this.comments,
     required this.views,
     required this.liked,
+    required this.shared,
     required this.bookmarked,
-    required this.creationTimestamp,
+    required this.creationTimestamp
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);

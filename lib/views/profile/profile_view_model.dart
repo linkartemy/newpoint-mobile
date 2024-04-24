@@ -52,6 +52,7 @@ class ProfileViewModel extends ChangeNotifier {
           (await image!.readAsBytes()).toList(), image!.name);
       user?.profileImageId = id;
       getProfile();
+      getPosts();
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -243,7 +244,7 @@ class ProfileViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> like(int index) async {
+  Future<void> likePost(int index) async {
     try {
       if (_processingLikePost) {
         return;
@@ -258,6 +259,31 @@ class ProfileViewModel extends ChangeNotifier {
         post.likes++;
       }
       post.liked = !post.liked;
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+    _processingLikePost = false;
+  }
+
+  Future<void> likeArticle(int index) async {
+    try {
+      if (_processingLikePost) {
+        return;
+      }
+      _processingLikePost = true;
+      final article = articles[index];
+      if (article.liked) {
+        await _articleService.unLikeArticle(article.id);
+        article.likes--;
+      } else {
+        await _articleService.likeArticle(article.id);
+        article.likes++;
+      }
+      article.liked = !article.liked;
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
         error = "Something is wrong with the connection to the server";

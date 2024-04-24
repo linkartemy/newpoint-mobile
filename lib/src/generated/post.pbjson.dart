@@ -30,8 +30,9 @@ const PostModel$json = {
     {'1': 'comments', '3': 11, '4': 1, '5': 5, '10': 'comments'},
     {'1': 'views', '3': 12, '4': 1, '5': 5, '10': 'views'},
     {'1': 'liked', '3': 13, '4': 1, '5': 8, '10': 'liked'},
-    {'1': 'bookmarked', '3': 14, '4': 1, '5': 8, '10': 'bookmarked'},
-    {'1': 'creation_timestamp', '3': 15, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'creationTimestamp'},
+    {'1': 'shared', '3': 14, '4': 1, '5': 8, '10': 'shared'},
+    {'1': 'bookmarked', '3': 15, '4': 1, '5': 8, '10': 'bookmarked'},
+    {'1': 'creation_timestamp', '3': 16, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'creationTimestamp'},
   ],
 };
 
@@ -43,8 +44,26 @@ final $typed_data.Uint8List postModelDescriptor = $convert.base64Decode(
     'IYCgdjb250ZW50GAcgASgJUgdjb250ZW50EhYKBmltYWdlcxgIIAEoCVIGaW1hZ2VzEhQKBWxp'
     'a2VzGAkgASgFUgVsaWtlcxIWCgZzaGFyZXMYCiABKAVSBnNoYXJlcxIaCghjb21tZW50cxgLIA'
     'EoBVIIY29tbWVudHMSFAoFdmlld3MYDCABKAVSBXZpZXdzEhQKBWxpa2VkGA0gASgIUgVsaWtl'
-    'ZBIeCgpib29rbWFya2VkGA4gASgIUgpib29rbWFya2VkEkkKEmNyZWF0aW9uX3RpbWVzdGFtcB'
-    'gPIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSEWNyZWF0aW9uVGltZXN0YW1w');
+    'ZBIWCgZzaGFyZWQYDiABKAhSBnNoYXJlZBIeCgpib29rbWFya2VkGA8gASgIUgpib29rbWFya2'
+    'VkEkkKEmNyZWF0aW9uX3RpbWVzdGFtcBgQIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3Rh'
+    'bXBSEWNyZWF0aW9uVGltZXN0YW1w');
+
+@$core.Deprecated('Use nullablePostDescriptor instead')
+const NullablePost$json = {
+  '1': 'NullablePost',
+  '2': [
+    {'1': 'null', '3': 1, '4': 1, '5': 14, '6': '.google.protobuf.NullValue', '9': 0, '10': 'null'},
+    {'1': 'data', '3': 2, '4': 1, '5': 11, '6': '.post.PostModel', '9': 0, '10': 'data'},
+  ],
+  '8': [
+    {'1': 'kind'},
+  ],
+};
+
+/// Descriptor for `NullablePost`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List nullablePostDescriptor = $convert.base64Decode(
+    'CgxOdWxsYWJsZVBvc3QSMAoEbnVsbBgBIAEoDjIaLmdvb2dsZS5wcm90b2J1Zi5OdWxsVmFsdW'
+    'VIAFIEbnVsbBIlCgRkYXRhGAIgASgLMg8ucG9zdC5Qb3N0TW9kZWxIAFIEZGF0YUIGCgRraW5k');
 
 @$core.Deprecated('Use addPostRequestDescriptor instead')
 const AddPostRequest$json = {

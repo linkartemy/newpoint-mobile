@@ -16,9 +16,10 @@ Article _$ArticleFromJson(Map<String, dynamic> json) {
     comments: json['comments'] as int,
     views: json['views'] as int,
     liked: json['liked'] as bool,
+    shared: json['shared'] as bool,
     bookmarked: json['bookmarked'] as bool,
     creationTimestamp:
-        parseDateFromString(json['creation_timestamp'] as String?)!,
+        parseDateFromString(json['creation_timestamp'] as String?)!
   );
 }
 
@@ -38,9 +39,11 @@ Article _$ArticleFromModel(ArticleModel articleModel) {
       comments: articleModel.comments,
       views: articleModel.views,
       liked: articleModel.liked,
+      shared: articleModel.shared,
       bookmarked: articleModel.bookmarked,
       creationTimestamp:
-          articleModel.creationTimestamp.toDateTime(toLocal: true));
+          articleModel.creationTimestamp.toDateTime(toLocal: true)
+  );
 }
 
 Map<String, dynamic> _$ArticleToJson(Article article) => <String, dynamic>{
@@ -58,12 +61,8 @@ Map<String, dynamic> _$ArticleToJson(Article article) => <String, dynamic>{
       'comments': article.comments,
       'views': article.views,
       'liked': article.liked,
+      'shared': article.shared,
       'bookmarked': article.bookmarked,
-      'creation_timestamp': article.creationTimestamp.toIso8601String(),
+      'creation_timestamp': article.creationTimestamp.toIso8601String()
     };
 
-extension NullableArticleParser on NullableArticle {
-  ArticleModel? parseNullable() {
-    return hasData() ? data : null;
-  }
-}

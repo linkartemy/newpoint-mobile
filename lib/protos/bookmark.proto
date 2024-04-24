@@ -16,6 +16,7 @@ service GrpcBookmark {
   rpc GetBookmarkedArticles (GetBookmarkedArticlesRequest) returns (response.Response);
   rpc DeletePostBookmarkByPostId (DeletePostBookmarkByPostIdRequest) returns (response.Response);
   rpc DeleteArticleBookmarkByArticleId (DeleteArticleBookmarkByArticleIdRequest) returns (response.Response);
+  rpc DeleteAllBookmarksByUserId (DeleteAllBookmarksByUserIdRequest) returns (response.Response);
 }
 
 message AddPostBookmarkRequest {
@@ -67,5 +68,13 @@ message DeleteArticleBookmarkByArticleIdRequest {
 }
 
 message DeleteArticleBookmarkByArticleIdResponse {
+  bool deleted = 1;
+}
+
+message DeleteAllBookmarksByUserIdRequest {
+  int64 user_id = 1;
+}
+
+message DeleteAllBookmarksByUserIdResponse {
   bool deleted = 1;
 }

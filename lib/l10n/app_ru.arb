@@ -185,5 +185,18 @@
   "followers": "Подписчики",
   "following": "Подписки",
   "typeHere": "Пишите здесь...",
-  "thereIsNothingHere": "Здесь пока ничего нет"
+
+  "thereIsNothingHere": "Здесь пока ничего нет",
+  "addToBookmarks": "Добавить в закладки",
+  "removeFromBookmarks": "Удалить из закладок",
+  "deleteAllBookmarks": "Удалить все закладки",
+
+  "wouldYouLikeToShare": "Хотите сделать репост?",
+  "wouldYouLikeToDeleteSharedPost": "Хотите удалить пост, которым вы поделились?",
+  "wouldYouLikeToDeleteSharedArticle": "Хотите удалить статью, которой вы поделились?",
+
+  "thisWillDeactivateYourAccount": "Это деактивирует ваш аккаунт",
+  "youAreAboutToStartDeactivation": "Вы собираетесь начать процесс деактивации вашей учетной записи NewPoint. Ваше отображаемое имя, @username и общедоступный профиль больше не будут доступны для просмотра в NewPoint для iOS или NewPoint для Android.",
+  "whatElseYouShouldKnow": "Что еще вам стоит знать",
+  "youCanRestoreYourNewPoint": "- Вы можете восстановить свою учетную запись NewPoint, если она была случайно или ошибочно деактивирована, в течение 30 дней после деактивации.\nЕсли вы просто хотите изменить свое @username, вам не нужно деактивировать свою учетную запись — отредактируйте ее в настройках.\nЧтобы использовать свое текущее имя @username или адрес электронной почты с другой учетной записью NewPoint, измените их перед деактивацией этой учетной записи."
 }
