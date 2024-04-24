@@ -14,8 +14,8 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $7;
-import 'nullable.pb.dart' as $9;
+import 'google/protobuf/timestamp.pb.dart' as $11;
+import 'nullable.pb.dart' as $13;
 
 class UserModel extends $pb.GeneratedMessage {
   factory UserModel({
@@ -23,16 +23,16 @@ class UserModel extends $pb.GeneratedMessage {
     $core.String? login,
     $core.String? name,
     $core.String? surname,
-    $9.NullableString? description,
-    $9.NullableString? location,
-    $9.NullableString? email,
-    $9.NullableString? phone,
+    $13.NullableString? description,
+    $13.NullableString? location,
+    $13.NullableString? email,
+    $13.NullableString? phone,
     $fixnum.Int64? profileImageId,
     $fixnum.Int64? headerImageId,
-    $9.NullableTimestamp? birthDate,
-    $9.NullableTimestamp? registrationTimestamp,
-    $9.NullableTimestamp? lastLoginTimestamp,
-    $9.NullableString? ip,
+    $13.NullableTimestamp? birthDate,
+    $13.NullableTimestamp? registrationTimestamp,
+    $13.NullableTimestamp? lastLoginTimestamp,
+    $13.NullableString? ip,
     $core.int? followers,
     $core.int? following,
   }) {
@@ -96,16 +96,16 @@ class UserModel extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'login')
     ..aOS(3, _omitFieldNames ? '' : 'name')
     ..aOS(4, _omitFieldNames ? '' : 'surname')
-    ..aOM<$9.NullableString>(5, _omitFieldNames ? '' : 'description', subBuilder: $9.NullableString.create)
-    ..aOM<$9.NullableString>(6, _omitFieldNames ? '' : 'location', subBuilder: $9.NullableString.create)
-    ..aOM<$9.NullableString>(7, _omitFieldNames ? '' : 'email', subBuilder: $9.NullableString.create)
-    ..aOM<$9.NullableString>(8, _omitFieldNames ? '' : 'phone', subBuilder: $9.NullableString.create)
+    ..aOM<$13.NullableString>(5, _omitFieldNames ? '' : 'description', subBuilder: $13.NullableString.create)
+    ..aOM<$13.NullableString>(6, _omitFieldNames ? '' : 'location', subBuilder: $13.NullableString.create)
+    ..aOM<$13.NullableString>(7, _omitFieldNames ? '' : 'email', subBuilder: $13.NullableString.create)
+    ..aOM<$13.NullableString>(8, _omitFieldNames ? '' : 'phone', subBuilder: $13.NullableString.create)
     ..aInt64(9, _omitFieldNames ? '' : 'profileImageId')
     ..aInt64(10, _omitFieldNames ? '' : 'headerImageId')
-    ..aOM<$9.NullableTimestamp>(11, _omitFieldNames ? '' : 'birthDate', subBuilder: $9.NullableTimestamp.create)
-    ..aOM<$9.NullableTimestamp>(12, _omitFieldNames ? '' : 'registrationTimestamp', subBuilder: $9.NullableTimestamp.create)
-    ..aOM<$9.NullableTimestamp>(13, _omitFieldNames ? '' : 'lastLoginTimestamp', subBuilder: $9.NullableTimestamp.create)
-    ..aOM<$9.NullableString>(14, _omitFieldNames ? '' : 'ip', subBuilder: $9.NullableString.create)
+    ..aOM<$13.NullableTimestamp>(11, _omitFieldNames ? '' : 'birthDate', subBuilder: $13.NullableTimestamp.create)
+    ..aOM<$13.NullableTimestamp>(12, _omitFieldNames ? '' : 'registrationTimestamp', subBuilder: $13.NullableTimestamp.create)
+    ..aOM<$13.NullableTimestamp>(13, _omitFieldNames ? '' : 'lastLoginTimestamp', subBuilder: $13.NullableTimestamp.create)
+    ..aOM<$13.NullableString>(14, _omitFieldNames ? '' : 'ip', subBuilder: $13.NullableString.create)
     ..a<$core.int>(15, _omitFieldNames ? '' : 'followers', $pb.PbFieldType.O3)
     ..a<$core.int>(16, _omitFieldNames ? '' : 'following', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
@@ -169,48 +169,48 @@ class UserModel extends $pb.GeneratedMessage {
   void clearSurname() => clearField(4);
 
   @$pb.TagNumber(5)
-  $9.NullableString get description => $_getN(4);
+  $13.NullableString get description => $_getN(4);
   @$pb.TagNumber(5)
-  set description($9.NullableString v) { setField(5, v); }
+  set description($13.NullableString v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasDescription() => $_has(4);
   @$pb.TagNumber(5)
   void clearDescription() => clearField(5);
   @$pb.TagNumber(5)
-  $9.NullableString ensureDescription() => $_ensure(4);
+  $13.NullableString ensureDescription() => $_ensure(4);
 
   @$pb.TagNumber(6)
-  $9.NullableString get location => $_getN(5);
+  $13.NullableString get location => $_getN(5);
   @$pb.TagNumber(6)
-  set location($9.NullableString v) { setField(6, v); }
+  set location($13.NullableString v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasLocation() => $_has(5);
   @$pb.TagNumber(6)
   void clearLocation() => clearField(6);
   @$pb.TagNumber(6)
-  $9.NullableString ensureLocation() => $_ensure(5);
+  $13.NullableString ensureLocation() => $_ensure(5);
 
   @$pb.TagNumber(7)
-  $9.NullableString get email => $_getN(6);
+  $13.NullableString get email => $_getN(6);
   @$pb.TagNumber(7)
-  set email($9.NullableString v) { setField(7, v); }
+  set email($13.NullableString v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasEmail() => $_has(6);
   @$pb.TagNumber(7)
   void clearEmail() => clearField(7);
   @$pb.TagNumber(7)
-  $9.NullableString ensureEmail() => $_ensure(6);
+  $13.NullableString ensureEmail() => $_ensure(6);
 
   @$pb.TagNumber(8)
-  $9.NullableString get phone => $_getN(7);
+  $13.NullableString get phone => $_getN(7);
   @$pb.TagNumber(8)
-  set phone($9.NullableString v) { setField(8, v); }
+  set phone($13.NullableString v) { setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasPhone() => $_has(7);
   @$pb.TagNumber(8)
   void clearPhone() => clearField(8);
   @$pb.TagNumber(8)
-  $9.NullableString ensurePhone() => $_ensure(7);
+  $13.NullableString ensurePhone() => $_ensure(7);
 
   @$pb.TagNumber(9)
   $fixnum.Int64 get profileImageId => $_getI64(8);
@@ -231,48 +231,48 @@ class UserModel extends $pb.GeneratedMessage {
   void clearHeaderImageId() => clearField(10);
 
   @$pb.TagNumber(11)
-  $9.NullableTimestamp get birthDate => $_getN(10);
+  $13.NullableTimestamp get birthDate => $_getN(10);
   @$pb.TagNumber(11)
-  set birthDate($9.NullableTimestamp v) { setField(11, v); }
+  set birthDate($13.NullableTimestamp v) { setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasBirthDate() => $_has(10);
   @$pb.TagNumber(11)
   void clearBirthDate() => clearField(11);
   @$pb.TagNumber(11)
-  $9.NullableTimestamp ensureBirthDate() => $_ensure(10);
+  $13.NullableTimestamp ensureBirthDate() => $_ensure(10);
 
   @$pb.TagNumber(12)
-  $9.NullableTimestamp get registrationTimestamp => $_getN(11);
+  $13.NullableTimestamp get registrationTimestamp => $_getN(11);
   @$pb.TagNumber(12)
-  set registrationTimestamp($9.NullableTimestamp v) { setField(12, v); }
+  set registrationTimestamp($13.NullableTimestamp v) { setField(12, v); }
   @$pb.TagNumber(12)
   $core.bool hasRegistrationTimestamp() => $_has(11);
   @$pb.TagNumber(12)
   void clearRegistrationTimestamp() => clearField(12);
   @$pb.TagNumber(12)
-  $9.NullableTimestamp ensureRegistrationTimestamp() => $_ensure(11);
+  $13.NullableTimestamp ensureRegistrationTimestamp() => $_ensure(11);
 
   @$pb.TagNumber(13)
-  $9.NullableTimestamp get lastLoginTimestamp => $_getN(12);
+  $13.NullableTimestamp get lastLoginTimestamp => $_getN(12);
   @$pb.TagNumber(13)
-  set lastLoginTimestamp($9.NullableTimestamp v) { setField(13, v); }
+  set lastLoginTimestamp($13.NullableTimestamp v) { setField(13, v); }
   @$pb.TagNumber(13)
   $core.bool hasLastLoginTimestamp() => $_has(12);
   @$pb.TagNumber(13)
   void clearLastLoginTimestamp() => clearField(13);
   @$pb.TagNumber(13)
-  $9.NullableTimestamp ensureLastLoginTimestamp() => $_ensure(12);
+  $13.NullableTimestamp ensureLastLoginTimestamp() => $_ensure(12);
 
   @$pb.TagNumber(14)
-  $9.NullableString get ip => $_getN(13);
+  $13.NullableString get ip => $_getN(13);
   @$pb.TagNumber(14)
-  set ip($9.NullableString v) { setField(14, v); }
+  set ip($13.NullableString v) { setField(14, v); }
   @$pb.TagNumber(14)
   $core.bool hasIp() => $_has(13);
   @$pb.TagNumber(14)
   void clearIp() => clearField(14);
   @$pb.TagNumber(14)
-  $9.NullableString ensureIp() => $_ensure(13);
+  $13.NullableString ensureIp() => $_ensure(13);
 
   @$pb.TagNumber(15)
   $core.int get followers => $_getIZ(14);
@@ -417,7 +417,7 @@ class RegisterRequest extends $pb.GeneratedMessage {
     $core.String? surname,
     $core.String? email,
     $core.String? phone,
-    $7.Timestamp? birthDate,
+    $11.Timestamp? birthDate,
   }) {
     final $result = create();
     if (login != null) {
@@ -454,7 +454,7 @@ class RegisterRequest extends $pb.GeneratedMessage {
     ..aOS(4, _omitFieldNames ? '' : 'surname')
     ..aOS(5, _omitFieldNames ? '' : 'email')
     ..aOS(6, _omitFieldNames ? '' : 'phone')
-    ..aOM<$7.Timestamp>(7, _omitFieldNames ? '' : 'birthDate', subBuilder: $7.Timestamp.create)
+    ..aOM<$11.Timestamp>(7, _omitFieldNames ? '' : 'birthDate', subBuilder: $11.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -534,15 +534,15 @@ class RegisterRequest extends $pb.GeneratedMessage {
   void clearPhone() => clearField(6);
 
   @$pb.TagNumber(7)
-  $7.Timestamp get birthDate => $_getN(6);
+  $11.Timestamp get birthDate => $_getN(6);
   @$pb.TagNumber(7)
-  set birthDate($7.Timestamp v) { setField(7, v); }
+  set birthDate($11.Timestamp v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasBirthDate() => $_has(6);
   @$pb.TagNumber(7)
   void clearBirthDate() => clearField(7);
   @$pb.TagNumber(7)
-  $7.Timestamp ensureBirthDate() => $_ensure(6);
+  $11.Timestamp ensureBirthDate() => $_ensure(6);
 }
 
 class RegisterResponse extends $pb.GeneratedMessage {
@@ -959,7 +959,7 @@ class UpdateProfileRequest extends $pb.GeneratedMessage {
     $core.String? surname,
     $core.String? description,
     $core.String? location,
-    $7.Timestamp? birthDate,
+    $11.Timestamp? birthDate,
   }) {
     final $result = create();
     if (name != null) {
@@ -988,7 +988,7 @@ class UpdateProfileRequest extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'surname')
     ..aOS(3, _omitFieldNames ? '' : 'description')
     ..aOS(4, _omitFieldNames ? '' : 'location')
-    ..aOM<$7.Timestamp>(5, _omitFieldNames ? '' : 'birthDate', subBuilder: $7.Timestamp.create)
+    ..aOM<$11.Timestamp>(5, _omitFieldNames ? '' : 'birthDate', subBuilder: $11.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -1050,15 +1050,15 @@ class UpdateProfileRequest extends $pb.GeneratedMessage {
   void clearLocation() => clearField(4);
 
   @$pb.TagNumber(5)
-  $7.Timestamp get birthDate => $_getN(4);
+  $11.Timestamp get birthDate => $_getN(4);
   @$pb.TagNumber(5)
-  set birthDate($7.Timestamp v) { setField(5, v); }
+  set birthDate($11.Timestamp v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasBirthDate() => $_has(4);
   @$pb.TagNumber(5)
   void clearBirthDate() => clearField(5);
   @$pb.TagNumber(5)
-  $7.Timestamp ensureBirthDate() => $_ensure(4);
+  $11.Timestamp ensureBirthDate() => $_ensure(4);
 }
 
 class UpdateProfileResponse extends $pb.GeneratedMessage {

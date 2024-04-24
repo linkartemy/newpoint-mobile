@@ -5,6 +5,7 @@ import 'package:newpoint/domain/models/comment/comment.dart';
 import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/domain/services/auth_service.dart';
+import 'package:newpoint/domain/services/bookmark_service.dart';
 import 'package:newpoint/domain/services/comment_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
@@ -14,6 +15,7 @@ class PostViewModel extends ChangeNotifier {
 
   final _userService = UserService();
   final _postService = PostService();
+  final _bookmarkService = BookmarkService();
   final _commentService = CommentService();
   final _blacklistDataProvider = BlacklistDataProvider();
 
@@ -27,6 +29,10 @@ class PostViewModel extends ChangeNotifier {
 
   bool proceedingLikePost = false;
   bool proceedingLikeComment = false;
+  bool proceedingBookmark = false;
+  bool loadingComments = false;
+
+  int lastCommentId = -1;
 
   void onCommentTextChanged(String value) {
     comment = value;
@@ -47,7 +53,11 @@ class PostViewModel extends ChangeNotifier {
 
   Future<void> getPost() async {
     try {
+      proceedingLikePost = true;
+      proceedingBookmark = true;
       post = await _postService.getPostById(postId);
+      proceedingLikePost = false;
+      proceedingBookmark = false;
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -74,6 +84,54 @@ class PostViewModel extends ChangeNotifier {
   Future<void> getComments() async {
     try {
       comments = await _commentService.getCommentsByPostId(postId);
+      for (var i = 0; i < comments.length; ++i) {
+        final comment = comments[i];
+        if (comment.id < lastCommentId || lastCommentId == -1) {
+          lastCommentId = comment.id;
+        }
+      }
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> loadComments() async {
+    try {
+      if (loadingComments) {
+        return;
+      }
+      loadingComments = true;
+      final commentsUpdated = await _commentService.getCommentsByPostId(postId, lastCommentId: lastCommentId - 1);
+      for (var i = 0; i < commentsUpdated.length; ++i) {
+        final comment = commentsUpdated[i];
+        if (comment.id < lastCommentId || lastCommentId == -1) {
+    lastCommentId = comment.id;
+        }
+      }
+      comments.addAll(commentsUpdated);
+      loadingComments = false;
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> reloadComments() async {
+    try {
+      proceedingLikeComment = true;
+      for (var i = 0; i < comments.length; i++) {
+        comments[i] = await _commentService.getCommentById(comments[i].id);
+      }
+      proceedingLikeComment = false;
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -178,6 +236,29 @@ class PostViewModel extends ChangeNotifier {
       error = "Something went wrong, please try again";
     }
     proceedingLikeComment = false;
+  }
+
+  Future<void> bookmark() async {
+    try {
+      if (proceedingBookmark) {
+        return;
+      }
+      proceedingBookmark = true;
+      if (post!.bookmarked) {
+        await _bookmarkService.deletePostBookmarkByPostId(postId);
+      } else {
+        await _bookmarkService.addPostBookmark(user!.id, postId);
+      }
+      post!.bookmarked = !post!.bookmarked;
+      proceedingBookmark = false;
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
   }
 
   Future<void> addToBlacklist() async {

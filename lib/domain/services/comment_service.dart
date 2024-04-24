@@ -13,9 +13,11 @@ class CommentService {
       GrpcCommentClient(_networkClient.clientChannel);
   final _sessionDataProvider = SessionDataProvider();
 
-  Future<List<Comment>> getCommentsByPostId(int id) async {
+  Future<List<Comment>> getCommentsByPostId(int id,
+      {lastCommentId = -1}) async {
     final request = GetCommentsByPostIdRequest();
     request.postId = Int64.parseInt(id.toString());
+    request.lastCommentId = Int64.parseInt(lastCommentId.toString());
     var response = await _commentServiceClient.getCommentsByPostId(request,
         options: await _networkClient.getAuthorizedCallOptions());
     if (await _networkClient.proceed(response) == false) {
@@ -31,6 +33,20 @@ class CommentService {
       comments.add(comment);
     }
     return comments;
+  }
+
+  Future<Comment> getCommentById(int id) async {
+    final request = GetCommentByIdRequest();
+    request.id = Int64.parseInt(id.toString());
+    var response = await _commentServiceClient.getCommentById(request,
+        options: await _networkClient.getAuthorizedCallOptions());
+    if (await _networkClient.proceed(response) == false) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+    var getCommentByIdResponse = GetCommentByIdResponse();
+    return Comment.fromModel(response.data
+        .unpackInto<GetCommentByIdResponse>(getCommentByIdResponse)
+        .comment);
   }
 
   Future<bool> addComment(int id, String content) async {

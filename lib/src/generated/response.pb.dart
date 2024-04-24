@@ -13,13 +13,13 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/any.pb.dart' as $6;
+import 'google/protobuf/any.pb.dart' as $10;
 
 class Response extends $pb.GeneratedMessage {
   factory Response({
     $core.int? status,
     $core.String? error,
-    $6.Any? data,
+    $10.Any? data,
   }) {
     final $result = create();
     if (status != null) {
@@ -40,7 +40,7 @@ class Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Response', package: const $pb.PackageName(_omitMessageNames ? '' : 'response'), createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'status', $pb.PbFieldType.O3)
     ..aOS(2, _omitFieldNames ? '' : 'error')
-    ..aOM<$6.Any>(3, _omitFieldNames ? '' : 'data', subBuilder: $6.Any.create)
+    ..aOM<$10.Any>(3, _omitFieldNames ? '' : 'data', subBuilder: $10.Any.create)
     ..hasRequiredFields = false
   ;
 
@@ -84,15 +84,15 @@ class Response extends $pb.GeneratedMessage {
   void clearError() => clearField(2);
 
   @$pb.TagNumber(3)
-  $6.Any get data => $_getN(2);
+  $10.Any get data => $_getN(2);
   @$pb.TagNumber(3)
-  set data($6.Any v) { setField(3, v); }
+  set data($10.Any v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasData() => $_has(2);
   @$pb.TagNumber(3)
   void clearData() => clearField(3);
   @$pb.TagNumber(3)
-  $6.Any ensureData() => $_ensure(2);
+  $10.Any ensureData() => $_ensure(2);
 }
 
 

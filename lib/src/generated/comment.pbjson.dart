@@ -44,12 +44,14 @@ const GetCommentsByPostIdRequest$json = {
   '1': 'GetCommentsByPostIdRequest',
   '2': [
     {'1': 'post_id', '3': 1, '4': 1, '5': 3, '10': 'postId'},
+    {'1': 'last_comment_id', '3': 2, '4': 1, '5': 3, '10': 'lastCommentId'},
   ],
 };
 
 /// Descriptor for `GetCommentsByPostIdRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getCommentsByPostIdRequestDescriptor = $convert.base64Decode(
-    'ChpHZXRDb21tZW50c0J5UG9zdElkUmVxdWVzdBIXCgdwb3N0X2lkGAEgASgDUgZwb3N0SWQ=');
+    'ChpHZXRDb21tZW50c0J5UG9zdElkUmVxdWVzdBIXCgdwb3N0X2lkGAEgASgDUgZwb3N0SWQSJg'
+    'oPbGFzdF9jb21tZW50X2lkGAIgASgDUg1sYXN0Q29tbWVudElk');
 
 @$core.Deprecated('Use getCommentsByPostIdResponseDescriptor instead')
 const GetCommentsByPostIdResponse$json = {
@@ -63,6 +65,31 @@ const GetCommentsByPostIdResponse$json = {
 final $typed_data.Uint8List getCommentsByPostIdResponseDescriptor = $convert.base64Decode(
     'ChtHZXRDb21tZW50c0J5UG9zdElkUmVzcG9uc2USMQoIY29tbWVudHMYASADKAsyFS5jb21tZW'
     '50LkNvbW1lbnRNb2RlbFIIY29tbWVudHM=');
+
+@$core.Deprecated('Use getCommentByIdRequestDescriptor instead')
+const GetCommentByIdRequest$json = {
+  '1': 'GetCommentByIdRequest',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 3, '10': 'id'},
+  ],
+};
+
+/// Descriptor for `GetCommentByIdRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getCommentByIdRequestDescriptor = $convert.base64Decode(
+    'ChVHZXRDb21tZW50QnlJZFJlcXVlc3QSDgoCaWQYASABKANSAmlk');
+
+@$core.Deprecated('Use getCommentByIdResponseDescriptor instead')
+const GetCommentByIdResponse$json = {
+  '1': 'GetCommentByIdResponse',
+  '2': [
+    {'1': 'comment', '3': 1, '4': 1, '5': 11, '6': '.comment.CommentModel', '10': 'comment'},
+  ],
+};
+
+/// Descriptor for `GetCommentByIdResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getCommentByIdResponseDescriptor = $convert.base64Decode(
+    'ChZHZXRDb21tZW50QnlJZFJlc3BvbnNlEi8KB2NvbW1lbnQYASABKAsyFS5jb21tZW50LkNvbW'
+    '1lbnRNb2RlbFIHY29tbWVudA==');
 
 @$core.Deprecated('Use addCommentRequestDescriptor instead')
 const AddCommentRequest$json = {

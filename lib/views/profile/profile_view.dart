@@ -4,6 +4,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:newpoint/components/article.dart';
 import 'package:newpoint/components/dynamic_sliver_appbar.dart';
 import 'package:newpoint/components/post.dart';
 import 'package:newpoint/components/profile_image.dart';
@@ -62,12 +63,10 @@ class ProfileViewState extends State<ProfileView> {
   }
 
   Future<void> reload() async {
-    setState(() {
-      _isLoadingProfile = true;
-    });
-    getUser();
-    getProfile();
-    getPosts();
+    final model = Provider.of<ProfileViewModel>(context, listen: false);
+    await getProfile();
+    await model.getIsFollowing();
+    setState(() {});
   }
 
   @override
@@ -272,6 +271,16 @@ class _HeaderState extends State<_Header> {
                               },
                             ),
                             TextButton(
+                                onPressed: () async {
+                                  Navigator.of(context).pushNamed(
+                                      MainNavigationRouteNames.imageViewer,
+                                      arguments: model.profile!.profileImageId);
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)!.openPhoto,
+                                  textAlign: TextAlign.center,
+                                )),
+                            TextButton(
                               child: Text(
                                 AppLocalizations.of(context)!.cancel,
                                 textAlign: TextAlign.center,
@@ -292,7 +301,14 @@ class _HeaderState extends State<_Header> {
                       child: ProfileImage(
                         profileImageId: model.profile!.profileImageId,
                       ))
-                  : ProfileImage(profileImageId: model.profile!.profileImageId),
+                  : InkWell(
+                      onTap: () async {
+                        Navigator.of(context).pushNamed(
+                            MainNavigationRouteNames.imageViewer,
+                            arguments: model.profile!.profileImageId);
+                      },
+                      child: ProfileImage(
+                          profileImageId: model.profile!.profileImageId)),
               Container(
                 margin: const EdgeInsets.only(top: 0, left: 16),
                 child: Column(
@@ -317,7 +333,10 @@ class _HeaderState extends State<_Header> {
                                 .textTheme
                                 .bodyLarge!
                                 .copyWith(
-                                    color: AdaptiveTheme.of(context).theme.colorScheme.secondary),
+                                    color: AdaptiveTheme.of(context)
+                                        .theme
+                                        .colorScheme
+                                        .secondary),
                           ))
                     ]),
               ),
@@ -395,18 +414,18 @@ class _Body extends StatelessWidget {
                             .copyWith(),
                       ),
                       TextSpan(
-                        text: "followers",
+                        text: AppLocalizations.of(context)!.followers,
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme
                             .titleSmall!
                             .copyWith(
-                          color: AdaptiveTheme.of(context)
-                              .theme
-                              .colorScheme
-                              .secondary,
-                          fontWeight: FontWeight.w400,
-                        ),
+                              color: AdaptiveTheme.of(context)
+                                  .theme
+                                  .colorScheme
+                                  .secondary,
+                              fontWeight: FontWeight.w400,
+                            ),
                       ),
                     ],
                   ),
@@ -425,18 +444,18 @@ class _Body extends StatelessWidget {
                             .titleSmall,
                       ),
                       TextSpan(
-                        text: "following",
+                        text: AppLocalizations.of(context)!.following,
                         style: AdaptiveTheme.of(context)
                             .theme
                             .textTheme
                             .titleSmall!
                             .copyWith(
-                          color: AdaptiveTheme.of(context)
-                              .theme
-                              .colorScheme
-                              .secondary,
-                          fontWeight: FontWeight.w400,
-                        ),
+                              color: AdaptiveTheme.of(context)
+                                  .theme
+                                  .colorScheme
+                                  .secondary,
+                              fontWeight: FontWeight.w400,
+                            ),
                       ),
                     ],
                   ),
@@ -500,7 +519,9 @@ class _Body extends StatelessWidget {
                 .theme
                 .textTheme
                 .bodyMedium!
-                .copyWith(color: AdaptiveTheme.of(context).theme.colorScheme.secondary),
+                .copyWith(
+                    color:
+                        AdaptiveTheme.of(context).theme.colorScheme.secondary),
           ),
         ],
       ),
@@ -528,7 +549,7 @@ class _FooterPostsState extends State<_FooterPosts> {
     }
 
     Future<void> onLikeTap(BuildContext context, int index) async {
-      await model.like(index);
+      await model.likePost(index);
       setState(() {});
     }
 
@@ -542,6 +563,14 @@ class _FooterPostsState extends State<_FooterPosts> {
       setState(() {});
     }
 
+    Future<void> onTap(BuildContext context, int index) async {
+      await Navigator.of(context).pushNamed(MainNavigationRouteNames.post,
+          arguments: model.posts[index].id);
+      model.posts[index] = await model.getPostById(model.posts[index]);
+      widget.reload();
+      setState(() {});
+    }
+
     return ListView.builder(
         key: PageStorageKey<String>("psk2"),
         itemCount: model.posts.length,
@@ -550,22 +579,50 @@ class _FooterPostsState extends State<_FooterPosts> {
         physics: AlwaysScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           var post = model.posts[index];
+          if (index == model.posts.length - 1) {
+            return VisibilityDetector(
+              key: Key('postkey$index'),
+              onVisibilityChanged: (visibilityInfo) async {
+                if (visibilityInfo.visibleFraction < 0.9 ||
+                    model.posts.length < 5) {
+                  return;
+                }
+                await model.loadPostsFeed();
+                setState(() {});
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+                child: PostComponent(
+                  post: post,
+                  onLikeTap: (BuildContext context) async {
+                    await onLikeTap(context, index);
+                  },
+                  onShareTap: (BuildContext context) async {
+                    await onShareTap(context, index);
+                  },
+                  onBookmarkTap: () async {
+                    await onBookmarkTap(index);
+                  },
+                  onTap: (BuildContext context) async {
+                    await onTap(context, index);
+                  },
+                  canDelete: post.authorId == model.user!.id,
+                  deletePost: () async {
+                    await deletePost(post.id);
+                  },
+                  canAddToBlacklist: post.authorId != model.user!.id,
+                  addToBlacklist: () async {
+                    await model.addToBlacklist(post.authorId);
+                  },
+                ),
+              ),
+            );
+          }
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
             child: PostComponent(
-              id: post.id,
-              login: post.login,
-              name: post.name,
-              surname: post.surname,
-              profileImageId: post.profileImageId,
-              date: post.creationTimestamp,
-              content: post.content,
-              images: [],
-              likes: post.likes,
-              liked: post.liked,
-              shares: post.shares,
-              comments: post.comments,
-              views: post.views,
+              post: post,
               onLikeTap: (BuildContext context) async {
                 await onLikeTap(context, index);
               },
@@ -576,10 +633,7 @@ class _FooterPostsState extends State<_FooterPosts> {
                 await onBookmarkTap(index);
               },
               onTap: (BuildContext context) async {
-                final postUpdated = await Navigator.of(context).pushNamed(
-                    MainNavigationRouteNames.post,
-                    arguments: post.id);
-                widget.reload();
+                await onTap(context, index);
               },
               canDelete: post.authorId == model.user!.id,
               deletePost: () async {
@@ -609,6 +663,135 @@ class _FooterArticlesState extends State<_FooterArticles> {
   Widget build(BuildContext context) {
     final model = Provider.of<ProfileViewModel>(context);
 
-    return SizedBox();
+    Future<void> onShareTap(BuildContext context, int index) async {
+      model.share(index);
+      setState(() {});
+    }
+
+    Future<void> onLikeTap(BuildContext context, int index) async {
+      await model.likeArticle(index);
+      setState(() {});
+    }
+
+    Future<void> onBookmarkTap(int index) async {
+      await model.bookmark(index);
+      setState(() {});
+    }
+
+    Future<void> deletePost(int postId) async {
+      await model.deletePost(postId);
+      setState(() {});
+    }
+
+    Future<void> onTap(BuildContext context, int index) async {
+      await Navigator.of(context).pushNamed(MainNavigationRouteNames.article,
+          arguments: model.articles[index].id);
+      model.articles[index] = await model.getArticleById(model.articles[index]);
+      widget.reload();
+      setState(() {});
+    }
+
+    return ListView.builder(
+        key: PageStorageKey<String>("article_feed_psk"),
+        itemCount: model.articles.length,
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        physics: AlwaysScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          var article = model.articles[index];
+          if (index == model.articles.length - 1) {
+            return VisibilityDetector(
+                key: Key('articlekey$index'),
+                onVisibilityChanged: (visibilityInfo) async {
+                  if (visibilityInfo.visibleFraction < 0.9 ||
+                      model.articles.length < 5) {
+                    return;
+                  }
+                  await model.loadArticlesFeed();
+                  setState(() {});
+                },
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+                  child: ArticleComponent(
+                    id: article.id,
+                    login: article.login,
+                    name: article.name,
+                    surname: article.surname,
+                    profileImageId: article.profileImageId,
+                    date: article.creationTimestamp,
+                    title: article.title,
+                    content: article.content,
+                    images: [],
+                    likes: article.likes,
+                    liked: article.liked,
+                    bookmarked: article.bookmarked,
+                    shares: article.shares,
+                    comments: article.comments,
+                    views: article.views,
+                    onLikeTap: (BuildContext context) async {
+                      await onLikeTap(context, index);
+                    },
+                    onShareTap: (BuildContext context) async {
+                      await onShareTap(context, index);
+                    },
+                    onBookmarkTap: () async {
+                      await onBookmarkTap(index);
+                    },
+                    onTap: (BuildContext context) async {
+                      await onTap(context, index);
+                    },
+                    canDelete: article.authorId == model.user!.id,
+                    deletePost: () async {
+                      await deletePost(article.id);
+                    },
+                    canAddToBlacklist: article.authorId != model.user!.id,
+                    addToBlacklist: () async {
+                      await model.addToBlacklist(article.authorId);
+                    },
+                  ),
+                ));
+          }
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+            child: ArticleComponent(
+              id: article.id,
+              login: article.login,
+              name: article.name,
+              surname: article.surname,
+              profileImageId: article.profileImageId,
+              date: article.creationTimestamp,
+              title: article.title,
+              content: article.content,
+              images: [],
+              likes: article.likes,
+              liked: article.liked,
+              bookmarked: article.bookmarked,
+              shares: article.shares,
+              comments: article.comments,
+              views: article.views,
+              onLikeTap: (BuildContext context) async {
+                await onLikeTap(context, index);
+              },
+              onShareTap: (BuildContext context) async {
+                await onShareTap(context, index);
+              },
+              onBookmarkTap: () async {
+                await onBookmarkTap(index);
+              },
+              onTap: (BuildContext context) async {
+                await onTap(context, index);
+              },
+              canDelete: article.authorId == model.user!.id,
+              deletePost: () async {
+                await deletePost(article.id);
+              },
+              canAddToBlacklist: article.authorId != model.user!.id,
+              addToBlacklist: () async {
+                await model.addToBlacklist(article.authorId);
+              },
+            ),
+          );
+        });
   }
 }

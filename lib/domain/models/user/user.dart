@@ -1,4 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:newpoint/domain/models/feed_element/feed_element.dart';
+import 'package:newpoint/domain/models/nullable_parser.dart';
+import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/protos.dart';
 import 'package:newpoint/src/generated/google/protobuf/timestamp.pb.dart';
 import 'package:fixnum/src/int64.dart';

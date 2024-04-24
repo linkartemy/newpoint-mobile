@@ -15,6 +15,7 @@ import 'package:newpoint/views/navigation/main_navigation.dart';
 import 'package:newpoint/views/post/post_view_model.dart';
 import 'package:newpoint/views/theme/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class PostView extends StatefulWidget {
   const PostView({Key? key}) : super(key: key);
@@ -74,25 +75,32 @@ class PostViewState extends State<PostView> {
     });
   }
 
+  Future<void> reloadComments() async {
+    final model = Provider.of<PostViewModel>(context, listen: false);
+    await model.reloadComments();
+    setState(() {});
+  }
+
   Future<void> reload() async {
-    setState(() {
-      _isLoadingPost = true;
-    });
     await getUser();
     await getPost();
-    await getComments();
+    await reloadComments();
   }
 
   @override
   void initState() {
     super.initState();
-    reload();
+    setState(() {
+      _isLoadingPost = true;
+    });
+    getUser();
+    getPost();
+    getComments();
   }
 
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<PostViewModel>(context);
-    var post = model.post;
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -103,17 +111,13 @@ class PostViewState extends State<PostView> {
             },
             child: const Icon(Icons.arrow_back_rounded, size: 25),
           ),
-          title: Container(
-              alignment: Alignment.centerRight,
-              child: Image.asset(
-                AppImages.logoTitleOutline,
-                width: 100,
-              )),
         ),
         body: RefreshIndicatorComponent(
             onRefresh: onRefresh,
             notificationPredicate: (ScrollNotification notification) {
-              if (model.error.isNotEmpty || _isLoadingPost || post == null) {
+              if (model.error.isNotEmpty ||
+                  _isLoadingPost ||
+                  model.post == null) {
                 return notification.depth == 0;
               }
               return notification.depth == 1;
@@ -129,7 +133,7 @@ class PostViewState extends State<PostView> {
                             .theme
                             .textTheme
                             .bodyMedium))
-                : _isLoadingPost || post == null
+                : _isLoadingPost || model.post == null
                     ? const LoaderView()
                     : model.comments.isEmpty
                         ? Column(
@@ -215,6 +219,7 @@ class _Header extends StatelessWidget {
                           final model = Provider.of<PostViewModel>(context,
                               listen: false);
                           await model.deletePost();
+                          Navigator.of(context).pop();
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();
                         },
@@ -386,8 +391,10 @@ class _Body extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(model.post!.content,
-                        style:
-                            AdaptiveTheme.of(context).theme.textTheme.bodyLarge)
+                        style: AdaptiveTheme.of(context)
+                            .theme
+                            .textTheme
+                            .bodyMedium)
                   ],
                 ))
           ],
@@ -407,7 +414,7 @@ class _FooterState extends State<_Footer> {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<PostViewModel>(context, listen: false);
+    final model = Provider.of<PostViewModel>(context, listen: true);
 
     Future<void> onShareTap() async {
       await model.share();
@@ -509,6 +516,20 @@ class _FooterState extends State<_Footer> {
                           size: 22,
                         ),
                       ]))),
+          Expanded(
+              child: InkWell(
+                  onTap: () async {
+                    await model.bookmark();
+                    setState(() {});
+                  },
+                  child: SizedBox(
+                      height: 46,
+                      child: Icon(
+                        model.post!.bookmarked
+                            ? Icons.bookmark
+                            : Icons.bookmark_border,
+                        size: 22,
+                      )))),
         ],
       ),
       TextFormField(
@@ -588,30 +609,43 @@ class _CommentsState extends State<_Comments> {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: ListView.builder(
+            key: PageStorageKey<String>("psk1"),
+            physics: AlwaysScrollableScrollPhysics(),
             itemCount: widget.comments.length,
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemBuilder: (context, index) {
               var comment = widget.comments[index];
 
-              return CommentComponent(
-                index: index,
-                id: comment.id,
-                userId: comment.userId,
-                login: comment.login,
-                name: comment.name,
-                surname: comment.surname,
-                date: comment.creationTimestamp,
-                content: comment.content,
-                likes: comment.likes,
-                liked: comment.liked,
-                onLikeTap: widget.onLikeTap,
-                reload: widget.reload,
-                deleteComment: () async {
-                  await deleteComment(index);
-                },
-                canDelete: model.user!.id == widget.comments[index].userId,
-              );
+              return VisibilityDetector(
+                  key: Key('commentkey$index'),
+                  onVisibilityChanged: (visibilityInfo) async {
+                    if (visibilityInfo.visibleFraction < 0.9 || widget.comments.length < 5) {
+                      return;
+                    }
+                    if (index == widget.comments.length - 1) {
+                      await model.loadComments();
+                      setState(() {});
+                    }
+                  },
+                  child: CommentComponent(
+                    index: index,
+                    id: comment.id,
+                    userId: comment.userId,
+                    login: comment.login,
+                    name: comment.name,
+                    surname: comment.surname,
+                    date: comment.creationTimestamp,
+                    content: comment.content,
+                    likes: comment.likes,
+                    liked: comment.liked,
+                    onLikeTap: widget.onLikeTap,
+                    reload: widget.reload,
+                    deleteComment: () async {
+                      await deleteComment(index);
+                    },
+                    canDelete: model.user!.id == widget.comments[index].userId,
+                  ));
             }));
   }
 }

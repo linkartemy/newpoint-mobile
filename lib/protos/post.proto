@@ -2,6 +2,8 @@
 
 import "response.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+import "nullable.proto";
 
 option csharp_namespace = "NewPoint";
 
@@ -11,6 +13,7 @@ service GrpcPost {
   rpc AddPost (AddPostRequest) returns (response.Response);
   rpc GetPosts (GetPostsRequest) returns (response.Response);
   rpc GetPostsByUserId (GetPostsByUserIdRequest) returns (response.Response);
+  rpc GetPostsByUserIdAfterTimestamp (GetPostsByUserIdAfterTimestampRequest) returns (response.Response);
   rpc GetPostById (GetPostByIdRequest) returns (response.Response);
   rpc LikePost (LikePostRequest) returns (response.Response);
   rpc UnLikePost (UnLikePostRequest) returns (response.Response);
@@ -33,7 +36,16 @@ message PostModel {
   int32 comments = 11;
   int32 views = 12;
   bool liked = 13;
-  google.protobuf.Timestamp creation_timestamp = 14;
+  bool shared = 14;
+  bool bookmarked = 15;
+  google.protobuf.Timestamp creation_timestamp = 16;
+}
+
+message NullablePost {
+  oneof kind {
+    google.protobuf.NullValue null = 1;
+    PostModel data = 2;
+  }
 }
 
 message AddPostRequest {
@@ -41,7 +53,9 @@ message AddPostRequest {
   string content = 2;
 }
 
-message AddPostResponse {}
+message AddPostResponse {
+  int64 id = 1;
+}
 
 message GetPostsRequest {}
 
@@ -51,9 +65,19 @@ message GetPostsResponse {
 
 message GetPostsByUserIdRequest {
   int64 user_id = 1;
+  int64 last_post_id = 2;
 }
 
 message GetPostsByUserIdResponse {
+  repeated PostModel posts = 1;
+}
+
+message GetPostsByUserIdAfterTimestampRequest {
+  int64 user_id = 1;
+  google.protobuf.Timestamp timestamp = 2;
+}
+
+message GetPostsByUserIdAfterTimestampResponse {
   repeated PostModel posts = 1;
 }
 

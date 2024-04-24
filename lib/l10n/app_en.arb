@@ -109,6 +109,8 @@
   "areYouSure": "Are you sure?",
   "yes": "Yes",
   "deleteComment": "Delete comment",
+  "deleteArticle": "Delete article",
+  "writeTitle": "Write a title",
 
   "setting": "Setting",
 
@@ -176,5 +178,25 @@
   "tellAboutYourself": "Tell about yourself",
   "location": "Location",
   "whereAreYou": "Where are you?",
-  "birthDateString": "Birth date"
+  "birthDateString": "Birth date",
+
+  "ok": "Ok",
+  "openPhoto": "Open photo",
+  "followers": "Followers",
+  "following": "Following",
+  "typeHere": "Type here",
+
+  "thereIsNothingHere": "There is nothing here",
+  "addToBookmarks": "Add to bookmarks",
+  "removeFromBookmarks": "Remove from bookmarks",
+  "deleteAllBookmarks": "Delete all bookmarks",
+
+  "wouldYouLikeToShare": "Would you like to share?",
+  "wouldYouLikeToDeleteSharedPost": "Would you like to delete the shared post?",
+  "wouldYouLikeToDeleteSharedArticle": "Would you like to delete the shared article?",
+
+  "thisWillDeactivateYourAccount": "This will deactivate your account",
+  "youAreAboutToStartDeactivation": "You’re about to start the process of deactivating your NewPoint account. Your display name, @username, and public profile will no longer be viewable on NewPoint for iOS, or NewPoint for Android.",
+  "whatElseYouShouldKnow": "What else you should know",
+  "youCanRestoreYourNewPoint": "- You can restore your NewPoint account if it was accidentally or wrongfully deactivated for up to 30 days after deactivation.\nIf you just want to change your @username, you don’t need to deactivate your account — edit it in your settings.\nTo use your current @username or email address with a different NewPoint account, change them before you deactivate this account."
 }

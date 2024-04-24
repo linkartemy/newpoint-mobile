@@ -54,17 +54,7 @@ Map<String, dynamic> _$UserToJson(User user) => <String, dynamic>{
       'following': user.following
     };
 
-extension NullableStringParser on NullableString {
-  String? parseNullable() {
-    return hasData() ? data : null;
-  }
-}
 
-extension NullableTimestampParser on NullableTimestamp {
-  Timestamp? parseNullable() {
-    return hasData() ? data : null;
-  }
-}
 
 extension DateTimeToTimestamp on DateTime {
   Timestamp toTimestamp() {

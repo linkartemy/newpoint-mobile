@@ -5,7 +5,7 @@ import 'package:newpoint/domain/services/image_service.dart';
 import 'package:newpoint/views/theme/theme.dart';
 
 class ProfileImage extends StatefulWidget {
-  const ProfileImage({Key? key, required this.profileImageId, this.radius})
+  ProfileImage({Key? key, required this.profileImageId, this.radius})
       : super(key: key);
 
   final int profileImageId;
@@ -15,7 +15,8 @@ class ProfileImage extends StatefulWidget {
   _ProfileImageState createState() => _ProfileImageState();
 }
 
-class _ProfileImageState extends State<ProfileImage> {
+class _ProfileImageState extends State<ProfileImage>
+    with AutomaticKeepAliveClientMixin {
   final _imageService = ImageService();
   List<int> profileImage = [];
 
@@ -31,18 +32,35 @@ class _ProfileImageState extends State<ProfileImage> {
   }
 
   @override
+  void didUpdateWidget(ProfileImage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.profileImageId != widget.profileImageId) {
+      loadProfileImage();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final radius = widget.radius?.toDouble() ?? 36;
+    super.build(context);
+    final r = widget.radius?.toDouble() ?? 32;
     return profileImage.isEmpty
         ? Container(
-            padding: EdgeInsets.all(radius / 2),
+            padding: EdgeInsets.all(r / 2),
             child: CircularProgressIndicator(
               color: AppColors.primary,
             ))
-        : CircleAvatar(
-            radius: radius,
-            backgroundImage:
-                Image.memory(Uint8List.fromList(profileImage)).image,
-          );
+        : ClipOval(
+            child: SizedBox.fromSize(
+                size: Size.fromRadius(r),
+                child: Image.memory(
+                  Uint8List.fromList(profileImage),
+                  gaplessPlayback: true,
+                  fit: BoxFit.cover,
+                  width: r,
+                  height: r,
+                )));
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

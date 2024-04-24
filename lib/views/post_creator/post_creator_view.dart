@@ -43,9 +43,7 @@ class PostCreatorViewState extends State<PostCreatorView> {
     getUser();
   }
 
-  void onCommentTextChanged(String value) {
-
-  }
+  void onCommentTextChanged(String value) {}
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +54,39 @@ class PostCreatorViewState extends State<PostCreatorView> {
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
-              Navigator.of(context).pop();
+              AlertDialog alert = AlertDialog(
+                actionsAlignment: MainAxisAlignment.start,
+                actionsOverflowAlignment: OverflowBarAlignment.center,
+                title: Text(
+                  AppLocalizations.of(context)!.areYouSure,
+                  textAlign: TextAlign.center,
+                  style: AdaptiveTheme.of(context).theme.textTheme.titleLarge,
+                ),
+                actions: [
+                  TextButton(
+                    child: Text(AppLocalizations.of(context)!.yes,
+                        textAlign: TextAlign.center),
+                    onPressed: () async {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                      onPressed: () async {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.cancel,
+                        textAlign: TextAlign.center,
+                      )),
+                ],
+              );
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return alert;
+                },
+              );
             },
             child: const Icon(Icons.arrow_back_rounded, size: 25),
           ),
@@ -118,11 +148,12 @@ class PostCreatorViewState extends State<PostCreatorView> {
                             width: 100,
                             child: ButtonComponent(
                                 onPressed: () async {
-                                  await model.createPost();
+                                  var id = await model.createPost();
                                   setState(() {});
                                   if (model.textFieldError.isEmpty &&
                                       model.error.isEmpty) {
-                                    Navigator.of(context).pop();
+                                    Navigator.of(context)
+                                        .pop(id != -1 ? id : null);
                                   }
                                 },
                                 child: Text(

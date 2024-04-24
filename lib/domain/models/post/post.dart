@@ -1,11 +1,15 @@
+import 'package:fixnum/src/int64.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:newpoint/domain/models/feed_element/feed_element.dart';
 import 'package:newpoint/domain/models/date_parser.dart';
+import 'package:newpoint/domain/models/nullable_parser.dart';
+import 'package:newpoint/domain/models/user/user.dart';
 import 'package:newpoint/protos.dart';
 
 part 'post.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class Post {
+class Post implements FeedEntry {
   final int id;
   final int authorId;
   final String login;
@@ -19,6 +23,8 @@ class Post {
   int comments;
   int views;
   bool liked;
+  bool shared;
+  bool bookmarked;
   @JsonKey(fromJson: parseDateFromString)
   final DateTime creationTimestamp;
 
@@ -36,10 +42,13 @@ class Post {
     required this.comments,
     required this.views,
     required this.liked,
-    required this.creationTimestamp,
+    required this.shared,
+    required this.bookmarked,
+    required this.creationTimestamp
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
+
   factory Post.fromModel(PostModel postModel) => _$PostFromModel(postModel);
 
   Map<String, dynamic> toJson() => _$PostToJson(this);

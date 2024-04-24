@@ -6,9 +6,12 @@ abstract class MainNavigationRouteNames {
   static const auth = '/auth';
   static const main = '/main';
   static const post = '/post';
+  static const article = '/article';
   static const postCreator = '/post/creator';
+  static const articleCreator = '/article/creator';
   static const profile = '/profile';
   static const profileEditor = '/profile/editor';
+  static const bookmarks = '/bookmarks';
   static const register = '/register';
   static const login = '/login';
   static const settings = '/settings';
@@ -28,6 +31,8 @@ abstract class MainNavigationRouteNames {
   static const accessibilitySettingsMenu = '/settings/accessibility';
   static const languageSettings = '/settings/accessibility/language';
   static const themeSettings = '/settings/accessibility/theme';
+
+  static const imageViewer = '/image-viewer';
 }
 
 class MainNavigation {
@@ -41,6 +46,9 @@ class MainNavigation {
     MainNavigationRouteNames.main: (_) => _screenFactory.makeMain(),
     MainNavigationRouteNames.postCreator: (_) =>
         _screenFactory.makePostCreator(),
+    MainNavigationRouteNames.articleCreator: (_) =>
+        _screenFactory.makeArticleCreator(),
+    MainNavigationRouteNames.bookmarks: (_) => _screenFactory.makeBookmarks(),
     MainNavigationRouteNames.settings: (_) => _screenFactory.makeSettings(),
     MainNavigationRouteNames.accountSettingsMenu: (_) =>
         _screenFactory.makeAccountSettingsMenu(),
@@ -76,6 +84,12 @@ class MainNavigation {
         return MaterialPageRoute(
           builder: (_) => _screenFactory.makePost(postId),
         );
+      case MainNavigationRouteNames.article:
+        final arguments = settings.arguments;
+        final articleId = arguments is int ? arguments : 0;
+        return MaterialPageRoute(
+          builder: (_) => _screenFactory.makeArticle(articleId),
+        );
       case MainNavigationRouteNames.profile:
         final arguments = settings.arguments;
         final profileId = arguments is int ? arguments : 0;
@@ -87,6 +101,12 @@ class MainNavigation {
         final profileId = arguments is int ? arguments : 0;
         return MaterialPageRoute(
           builder: (_) => _screenFactory.makeProfileEditor(profileId),
+        );
+      case MainNavigationRouteNames.imageViewer:
+        final arguments = settings.arguments;
+        final imageId = arguments is int ? arguments : 0;
+        return MaterialPageRoute(
+          builder: (_) => _screenFactory.makeImageViewer(imageId),
         );
       default:
         return MaterialPageRoute(builder: (_) => _screenFactory.makeMain());

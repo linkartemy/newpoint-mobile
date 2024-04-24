@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:newpoint/views/article/article_view.dart';
+import 'package:newpoint/views/article/article_view_model.dart';
+import 'package:newpoint/views/article_creator/article_creator_view.dart';
+import 'package:newpoint/views/article_creator/article_creator_view_model.dart';
 import 'package:newpoint/views/auth/auth_view.dart';
 import 'package:newpoint/views/auth/auth_view_model.dart';
 import 'package:newpoint/views/auth/login_view.dart';
 import 'package:newpoint/views/auth/login_view_model.dart';
 import 'package:newpoint/views/auth/register_view.dart';
 import 'package:newpoint/views/auth/register_view_model.dart';
+import 'package:newpoint/views/bookmarks/bookmarks_view.dart';
+import 'package:newpoint/views/bookmarks/bookmarks_view_model.dart';
+import 'package:newpoint/views/image_viewer/image_viewer_view.dart';
+import 'package:newpoint/views/image_viewer/image_viewer_view_model.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/loader/loader_view_model.dart';
 import 'package:newpoint/views/main/main_view.dart';
@@ -83,10 +91,24 @@ class ScreenFactory {
     );
   }
 
+  Widget makeArticle(int id) {
+    return ChangeNotifierProvider(
+      create: (_) => ArticleViewModel(id),
+      child: const ArticleView(),
+    );
+  }
+
   Widget makePostCreator() {
     return ChangeNotifierProvider(
       create: (_) => PostCreatorViewModel(),
       child: const PostCreatorView(),
+    );
+  }
+
+  Widget makeArticleCreator() {
+    return ChangeNotifierProvider(
+      create: (_) => ArticleCreatorViewModel(),
+      child: const ArticleCreatorView(),
     );
   }
 
@@ -108,6 +130,13 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => ProfileEditorViewModel(id),
       child: const ProfileEditorView(),
+    );
+  }
+
+  Widget makeBookmarks() {
+    return ChangeNotifierProvider(
+      create: (_) => BookmarksViewModel(),
+      child: const BookmarksView(),
     );
   }
 
@@ -199,6 +228,13 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => ThemeSettingsViewModel(),
       child: const ThemeSettingsView(),
+    );
+  }
+
+  Widget makeImageViewer(int imageId) {
+    return ChangeNotifierProvider(
+      create: (_) => ImageViewerViewModel(imageId),
+      child: const ImageViewerView(),
     );
   }
 }

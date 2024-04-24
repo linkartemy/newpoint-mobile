@@ -2,9 +2,12 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:newpoint/components/article.dart';
 import 'package:newpoint/components/drawer.dart';
 import 'package:newpoint/components/post.dart';
 import 'package:newpoint/components/refresh_indicator.dart';
+import 'package:newpoint/domain/models/article/article.dart';
+import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/resources/resources.dart';
 import 'package:newpoint/views/loader/loader_view.dart';
 import 'package:newpoint/views/main/main_view_model.dart';
@@ -23,9 +26,9 @@ class MainViewState extends State<MainView> {
   bool _isLoadingPosts = false;
   var _user;
 
-  Future<void> getPosts() async {
+  Future<void> getFeed() async {
     final model = Provider.of<MainViewModel>(context, listen: false);
-    model.getPosts();
+    model.getFeed();
     setState(() {
       _isLoadingPosts = false;
     });
@@ -39,22 +42,38 @@ class MainViewState extends State<MainView> {
     });
   }
 
+  Future<void> loadPostById(int postId) async {
+    final model = Provider.of<MainViewModel>(context, listen: false);
+    await model.loadPostById(postId);
+    setState(() {});
+  }
+
+  Future<void> loadArticleById(int articleId) async {
+    final model = Provider.of<MainViewModel>(context, listen: false);
+    await model.loadArticleById(articleId);
+    setState(() {});
+  }
+
   Future<void> reload() async {
+    final model = Provider.of<MainViewModel>(context, listen: false);
     setState(() {
       _isLoadingPosts = true;
     });
+    model.init();
     await getUser();
-    await getPosts();
+    await getFeed();
   }
 
   @override
   void initState() {
+    final model = Provider.of<MainViewModel>(context, listen: false);
     super.initState();
     setState(() {
       _isLoadingPosts = true;
     });
+    model.init();
     getUser();
-    getPosts();
+    getFeed();
   }
 
   @override
@@ -71,7 +90,9 @@ class MainViewState extends State<MainView> {
           title: Container(
               alignment: Alignment.centerRight,
               child: Image.asset(
-                AppImages.logoTitleOutline,
+                AdaptiveTheme.of(context).mode.isLight
+                    ? AppImages.logoTitle
+                    : AppImages.logoTitleDark,
                 width: 100,
               )),
           bottom: TabBar(
@@ -121,18 +142,24 @@ class MainViewState extends State<MainView> {
                   child: Text(AppLocalizations.of(context)!.createPost,
                       textAlign: TextAlign.center),
                   onPressed: () async {
-                    await Navigator.of(context)
+                    final postId = await Navigator.of(context)
                         .pushNamed(MainNavigationRouteNames.postCreator);
                     Navigator.of(context).pop();
-                    await getPosts();
+                    if (postId != null) {
+                      loadPostById(postId as int);
+                    }
                   },
                 ),
                 TextButton(
                   child: Text(AppLocalizations.of(context)!.createArticle,
                       textAlign: TextAlign.center),
                   onPressed: () async {
-                    setState(() {});
+                    final articleId = await Navigator.of(context)
+                        .pushNamed(MainNavigationRouteNames.articleCreator);
                     Navigator.of(context).pop();
+                    if (articleId != null) {
+                      loadArticleById(articleId as int);
+                    }
                   },
                 ),
                 TextButton(
@@ -177,8 +204,9 @@ class _PostsState extends State<_PostsView> {
   Widget build(BuildContext context) {
     Future<void> onRefresh() async {
       final model = Provider.of<MainViewModel>(context, listen: false);
+      model.init();
       await model.getUser();
-      await model.getPosts();
+      await model.getFeed();
       setState(() {});
     }
 
@@ -201,16 +229,17 @@ class _PostsState extends State<_PostsView> {
                           .textTheme
                           .bodyMedium))));
     } else {
-      var posts = model.posts;
+      var feed = model.feed;
       return (widget.isLoading
           ? const LoaderView()
           : RefreshIndicatorComponent(
               onRefresh: onRefresh,
               child: ListView.separated(
+                  controller: model.feedScrollController,
                   key: PageStorageKey<String>("psk1"),
                   shrinkWrap: true,
                   physics: AlwaysScrollableScrollPhysics(),
-                  itemCount: posts.length,
+                  itemCount: feed.length,
                   scrollDirection: Axis.vertical,
                   separatorBuilder: (context, index) => Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30),
@@ -223,9 +252,9 @@ class _PostsState extends State<_PostsView> {
                     final model =
                         Provider.of<MainViewModel>(context, listen: false);
                     Future<void> onShareTap(BuildContext context) async {
-                      model.share(posts[index].id);
+                      model.share(feed[index].id);
                       setState(() {
-                        posts[index].shares++;
+                        feed[index].shares++;
                       });
                     }
 
@@ -242,62 +271,104 @@ class _PostsState extends State<_PostsView> {
                     Future<void> onPostTap(BuildContext context) async {
                       await Navigator.of(context).pushNamed(
                           MainNavigationRouteNames.post,
-                          arguments: posts[index].id);
-                      await widget.reload();
+                          arguments: feed[index].id);
+                      feed[index] = await model.getFeedEntry(feed[index]);
+                      setState(() {});
+                    }
+
+                    Future<void> onArticleTap(BuildContext context) async {
+                      await Navigator.of(context).pushNamed(
+                          MainNavigationRouteNames.article,
+                          arguments: feed[index].id);
+                      feed[index] = await model.getFeedEntry(feed[index]);
+                      setState(() {});
                     }
 
                     Future<void> deletePost() async {
-                      await model.deletePost(posts[index].id);
+                      await model.deletePost(feed[index].id);
                       setState(() {});
                     }
 
                     Future<void> addToBlacklist() async {
-                      await model.addToBlacklist(posts[index].authorId);
+                      await model.addToBlacklist(feed[index].authorId);
                       setState(() {});
                     }
 
                     return VisibilityDetector(
                         key: Key('postkey$index'),
                         onVisibilityChanged: (visibilityInfo) async {
-                          if (visibilityInfo.visibleFraction >= 0.9) {
-                            if (!model.viewedPosts.contains(posts[index].id) &&
+                          if (visibilityInfo.visibleFraction < 0.9) {
+                            return;
+                          }
+                          if (index == feed.length - 1) {
+                            await model.loadFeed();
+                            setState(() {});
+                          }
+                          if (feed[index] is Article) {
+                            if (!model.viewedArticles
+                                    .contains(feed[index].id) &&
                                 !model.isLoadingDatabase) {
-                              model.viewedPosts.add(posts[index].id);
-                              model.addView(posts[index].id);
+                              model.viewedArticles.add(feed[index].id);
+                              model.addArticleView(feed[index].id);
                               setState(() {
-                                posts[index].views++;
+                                feed[index].views++;
+                              });
+                            }
+                          } else {
+                            if (!model.viewedPosts.contains(feed[index].id) &&
+                                !model.isLoadingDatabase) {
+                              model.viewedPosts.add(feed[index].id);
+                              model.addPostView(feed[index].id);
+                              setState(() {
+                                feed[index].views++;
                               });
                             }
                           }
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 16),
-                          child: PostComponent(
-                            id: posts[index].id,
-                            login: posts[index].login,
-                            name: posts[index].name,
-                            surname: posts[index].surname,
-                            profileImageId: posts[index].profileImageId,
-                            date: posts[index].creationTimestamp,
-                            content: posts[index].content,
-                            images: [],
-                            likes: posts[index].likes,
-                            liked: posts[index].liked,
-                            shares: posts[index].shares,
-                            comments: posts[index].comments,
-                            views: posts[index].views,
-                            onLikeTap: onLikeTap,
-                            onShareTap: onShareTap,
-                            onBookmarkTap: onBookmarkTap,
-                            onTap: onPostTap,
-                            canDelete: posts[index].authorId == model.user!.id,
-                            deletePost: deletePost,
-                            canAddToBlacklist:
-                                posts[index].authorId != model.user!.id,
-                            addToBlacklist: addToBlacklist,
-                          ),
-                        ));
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 16),
+                            child: feed[index] is Post
+                                ? PostComponent(
+                              post: feed[index] as Post,
+                                    onLikeTap: onLikeTap,
+                                    onShareTap: onShareTap,
+                                    onBookmarkTap: onBookmarkTap,
+                                    onTap: onPostTap,
+                                    canDelete:
+                                        feed[index].authorId == model.user!.id,
+                                    deletePost: deletePost,
+                                    canAddToBlacklist:
+                                        feed[index].authorId != model.user!.id,
+                                    addToBlacklist: addToBlacklist,
+                                  )
+                                : ArticleComponent(
+                                    id: feed[index].id,
+                                    login: feed[index].login,
+                                    name: feed[index].name,
+                                    surname: feed[index].surname,
+                                    profileImageId: feed[index].profileImageId,
+                                    date: feed[index].creationTimestamp,
+                                    title: (feed[index] as Article).title,
+                                    content: feed[index].content,
+                                    images: [],
+                                    likes: feed[index].likes,
+                                    liked: feed[index].liked,
+                                    bookmarked: feed[index].bookmarked,
+                                    shares: feed[index].shares,
+                                    comments: feed[index].comments,
+                                    views: feed[index].views,
+                                    onLikeTap: onLikeTap,
+                                    onShareTap: onShareTap,
+                                    onBookmarkTap: onBookmarkTap,
+                                    onTap: onArticleTap,
+                                    canDelete:
+                                        feed[index].authorId == model.user!.id,
+                                    deletePost: deletePost,
+                                    canAddToBlacklist:
+                                        feed[index].authorId != model.user!.id,
+                                    addToBlacklist: addToBlacklist,
+                                  )));
                   })));
     }
   }
@@ -319,8 +390,8 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
   Widget build(BuildContext context) {
     Future<void> onRefresh() async {
       final model = Provider.of<MainViewModel>(context, listen: false);
-      await model.getUser();
-      await model.getPosts();
+      model.init();
+      await model.getSubscribedPosts();
       setState(() {});
     }
 
@@ -343,16 +414,17 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
                           .textTheme
                           .bodyMedium))));
     } else {
-      var posts = model.subscribedPosts;
+      var feed = model.subscribedPosts;
       return (widget.isLoading
           ? const LoaderView()
           : RefreshIndicatorComponent(
               onRefresh: onRefresh,
               child: ListView.separated(
+                  controller: model.subscribedFeedScrollController,
                   key: PageStorageKey<String>("psk2"),
                   shrinkWrap: true,
                   physics: AlwaysScrollableScrollPhysics(),
-                  itemCount: posts.length,
+                  itemCount: feed.length,
                   scrollDirection: Axis.vertical,
                   separatorBuilder: (context, index) => Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30),
@@ -365,9 +437,9 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
                     final model =
                         Provider.of<MainViewModel>(context, listen: false);
                     Future<void> onShareTap(BuildContext context) async {
-                      model.share(posts[index].id);
+                      model.share(feed[index].id);
                       setState(() {
-                        posts[index].shares++;
+                        feed[index].shares++;
                       });
                     }
 
@@ -377,24 +449,31 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
                     }
 
                     Future<void> onBookmarkTap() async {
-                      await model.bookmark(index);
+                      await model.bookmarkSubscribed(index);
                       setState(() {});
                     }
 
                     Future<void> onPostTap(BuildContext context) async {
                       await Navigator.of(context).pushNamed(
                           MainNavigationRouteNames.post,
-                          arguments: posts[index].id);
-                      await widget.reload();
+                          arguments: feed[index].id);
+                      feed[index] = await model.getFeedEntry(feed[index]);
+                    }
+
+                    Future<void> onArticleTap(BuildContext context) async {
+                      await Navigator.of(context).pushNamed(
+                          MainNavigationRouteNames.article,
+                          arguments: feed[index].id);
+                      feed[index] = await model.getFeedEntry(feed[index]);
                     }
 
                     Future<void> deletePost() async {
-                      await model.deletePost(posts[index].id);
+                      await model.deletePost(feed[index].id);
                       setState(() {});
                     }
 
                     Future<void> addToBlacklist() async {
-                      await model.addToBlacklist(posts[index].authorId);
+                      await model.addToBlacklist(feed[index].authorId);
                       setState(() {});
                     }
 
@@ -402,44 +481,76 @@ class _SubscribedPostsState extends State<_SubscribedPostsView> {
                         key: Key('postkey$index'),
                         onVisibilityChanged: (visibilityInfo) async {
                           if (visibilityInfo.visibleFraction >= 0.9) {
-                            if (!model.viewedPosts.contains(posts[index].id) &&
-                                !model.isLoadingDatabase) {
-                              model.viewedPosts.add(posts[index].id);
-                              model.addView(posts[index].id);
-                              setState(() {
-                                posts[index].views++;
-                              });
+                            if (index == feed.length - 1 && feed.length > 5) {
+                              await model.loadSubscribedFeed();
+                              setState(() {});
+                            }
+                            if (feed[index] is Article) {
+                              if (!model.viewedArticles
+                                      .contains(feed[index].id) &&
+                                  !model.isLoadingDatabase) {
+                                model.viewedArticles.add(feed[index].id);
+                                model.addArticleView(feed[index].id);
+                                setState(() {
+                                  feed[index].views++;
+                                });
+                              }
+                            } else {
+                              if (!model.viewedPosts.contains(feed[index].id) &&
+                                  !model.isLoadingDatabase) {
+                                model.viewedPosts.add(feed[index].id);
+                                model.addPostView(feed[index].id);
+                                setState(() {
+                                  feed[index].views++;
+                                });
+                              }
                             }
                           }
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 16),
-                          child: PostComponent(
-                            id: posts[index].id,
-                            login: posts[index].login,
-                            name: posts[index].name,
-                            surname: posts[index].surname,
-                            profileImageId: posts[index].profileImageId,
-                            date: posts[index].creationTimestamp,
-                            content: posts[index].content,
-                            images: [],
-                            likes: posts[index].likes,
-                            liked: posts[index].liked,
-                            shares: posts[index].shares,
-                            comments: posts[index].comments,
-                            views: posts[index].views,
-                            onLikeTap: onLikeTap,
-                            onShareTap: onShareTap,
-                            onBookmarkTap: onBookmarkTap,
-                            onTap: onPostTap,
-                            canDelete: posts[index].authorId == model.user!.id,
-                            deletePost: deletePost,
-                            canAddToBlacklist:
-                                posts[index].authorId != model.user!.id,
-                            addToBlacklist: addToBlacklist,
-                          ),
-                        ));
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 16),
+                            child: feed[index] is Post
+                                ? PostComponent(
+                                    post: feed[index] as Post,
+                                    onLikeTap: onLikeTap,
+                                    onShareTap: onShareTap,
+                                    onBookmarkTap: onBookmarkTap,
+                                    onTap: onPostTap,
+                                    canDelete:
+                                        feed[index].authorId == model.user!.id,
+                                    deletePost: deletePost,
+                                    canAddToBlacklist:
+                                        feed[index].authorId != model.user!.id,
+                                    addToBlacklist: addToBlacklist,
+                                  )
+                                : ArticleComponent(
+                                    id: feed[index].id,
+                                    login: feed[index].login,
+                                    name: feed[index].name,
+                                    surname: feed[index].surname,
+                                    profileImageId: feed[index].profileImageId,
+                                    date: feed[index].creationTimestamp,
+                                    title: (feed[index] as Article).title,
+                                    content: feed[index].content,
+                                    images: [],
+                                    likes: feed[index].likes,
+                                    liked: feed[index].liked,
+                                    bookmarked: feed[index].bookmarked,
+                                    shares: feed[index].shares,
+                                    comments: feed[index].comments,
+                                    views: feed[index].views,
+                                    onLikeTap: onLikeTap,
+                                    onShareTap: onShareTap,
+                                    onBookmarkTap: onBookmarkTap,
+                                    onTap: onArticleTap,
+                                    canDelete:
+                                        feed[index].authorId == model.user!.id,
+                                    deletePost: deletePost,
+                                    canAddToBlacklist:
+                                        feed[index].authorId != model.user!.id,
+                                    addToBlacklist: addToBlacklist,
+                                  )));
                   })));
     }
   }

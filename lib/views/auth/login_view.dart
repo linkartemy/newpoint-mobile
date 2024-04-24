@@ -30,7 +30,9 @@ class LoginView extends StatelessWidget {
               icon: const Icon(Icons.arrow_back_ios_new_rounded)),
           centerTitle: true,
           title: Image.asset(
-            AppImages.logoTitleOutline,
+            AdaptiveTheme.of(context).mode.isLight
+                ? AppImages.logoTitle
+                : AppImages.logoTitleDark,
             width: 100,
           ),
         ),
@@ -189,7 +191,17 @@ class _AuthButtonWidget extends StatelessWidget {
             child: CircularProgressIndicator(strokeWidth: 2),
           )
         : Text(AppLocalizations.of(context)!.next,
-            style: AdaptiveTheme.of(context).theme.textTheme.bodySmall);
+            style: AdaptiveTheme.of(context)
+                .theme
+                .textTheme
+                .bodySmall!
+                .copyWith(
+                    color: AdaptiveTheme.of(context)
+                        .theme
+                        .elevatedButtonTheme
+                        .style!
+                        .textStyle!
+                        .resolve({MaterialState.disabled})!.color));
     return ButtonComponent(
       onPressed: onPressed,
       child: child,

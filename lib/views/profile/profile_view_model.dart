@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newpoint/domain/data_providers/blacklist_data_provider.dart';
+import 'package:newpoint/domain/models/article/article.dart';
 import 'package:newpoint/domain/models/exceptions/api_client_exception.dart';
 import 'package:newpoint/domain/data_providers/database/post_view_table.dart';
 import 'package:newpoint/domain/models/post/post.dart';
 import 'package:newpoint/domain/models/post_view_entry/post_view_entry.dart';
 import 'package:newpoint/domain/models/user/user.dart';
+import 'package:newpoint/domain/services/article_service.dart';
 import 'package:newpoint/domain/services/image_service.dart';
 import 'package:newpoint/domain/services/post_service.dart';
 import 'package:newpoint/domain/services/user_service.dart';
@@ -15,6 +17,7 @@ class ProfileViewModel extends ChangeNotifier {
 
   final _userService = UserService();
   final _postService = PostService();
+  final _articleService = ArticleService();
   final postViewEntryTable = PostViewEntryTable();
   final _blacklistDataProvider = BlacklistDataProvider();
 
@@ -22,11 +25,17 @@ class ProfileViewModel extends ChangeNotifier {
   User? user;
   User? profile;
   List<Post> posts = [];
+  List<Article> articles = [];
   var viewedPosts = <int>[];
   var isLoadingDatabase = true;
   String error = "";
   bool following = false;
   bool _processingLikePost = false;
+
+  bool loadingPostsFeed = false;
+  bool loadingArticlesFeed = false;
+  int lastArticleId = -1;
+  int lastPostId = -1;
 
   ImagePicker picker = ImagePicker();
   XFile? image;
@@ -43,6 +52,7 @@ class ProfileViewModel extends ChangeNotifier {
           (await image!.readAsBytes()).toList(), image!.name);
       user?.profileImageId = id;
       getProfile();
+      getPosts();
       notifyListeners();
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
@@ -51,21 +61,6 @@ class ProfileViewModel extends ChangeNotifier {
     } catch (e) {
       error = "Something went wrong, please try again";
     }
-  }
-
-  Future<List<PostViewEntry>> getViewedPosts() async {
-    try {
-      final viewedPostsEntries =
-          await postViewEntryTable.getAllByUserId(userId: user!.id);
-      isLoadingDatabase = false;
-      for (var i = 0; i < viewedPostsEntries.length; ++i) {
-        viewedPosts.add(viewedPostsEntries[i].postId);
-      }
-      return viewedPostsEntries;
-    } catch (e) {
-      error = "Something went wrong, please try again";
-    }
-    return <PostViewEntry>[];
   }
 
   Future<void> deletePost(int postId) async {
@@ -122,11 +117,108 @@ class ProfileViewModel extends ChangeNotifier {
     }
   }
 
+  Future<Post> getPostById(Post post) async {
+    try {
+      return await _postService.getPostById(post.id);
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      } else {
+        error = e.error;
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+    return post;
+  }
+
+  Future<Article> getArticleById(Article article) async {
+    try {
+      return await _articleService.getArticleById(article.id);
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      } else {
+        error = e.error;
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+    return article;
+  }
+
   Future<void> getPosts() async {
     try {
       error = "";
       posts = await _postService.getPostsByUserId(profileId);
+      lastPostId = posts.isNotEmpty ? posts[0].id : -1;
+      for (var post in posts) {
+        if (post.id < lastPostId || lastPostId == -1) {
+          lastPostId = post.id;
+        }
+      }
+      articles = await _articleService.getArticlesByUserId(profileId);
+      lastArticleId = posts.isNotEmpty ? posts[0].id : -1;
+      for (var article in articles) {
+        if (article.id < lastArticleId || lastArticleId == -1) {
+          lastArticleId = article.id;
+        }
+      }
       notifyListeners();
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      } else {
+        error = e.error;
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> loadPostsFeed() async {
+    try {
+      if (loadingPostsFeed) {
+        return;
+      }
+      loadingPostsFeed = true;
+      final postsFeed = await _postService.getPostsByUserId(profileId,
+          lastPostId: lastPostId - 1);
+      for (var i = 0; i < postsFeed.length; ++i) {
+        final post = postsFeed[i];
+        if (post.id < lastPostId || lastPostId == -1) {
+          lastPostId = post.id;
+        }
+      }
+      posts.addAll(postsFeed);
+      loadingPostsFeed = false;
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      } else {
+        error = e.error;
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+  }
+
+  Future<void> loadArticlesFeed() async {
+    try {
+      if (loadingArticlesFeed) {
+        return;
+      }
+      loadingArticlesFeed = true;
+      final articlesFeed = await _articleService.getArticlesByUserId(profileId,
+          lastArticleId: lastArticleId - 1);
+      for (var i = 0; i < articlesFeed.length; ++i) {
+        final article = articlesFeed[i];
+        if (article.id < lastArticleId || lastArticleId == -1) {
+          lastArticleId = article.id;
+        }
+      }
+      articles.addAll(articlesFeed);
+      loadingArticlesFeed = false;
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
         error = "Something is wrong with the connection to the server";
@@ -152,7 +244,7 @@ class ProfileViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> like(int index) async {
+  Future<void> likePost(int index) async {
     try {
       if (_processingLikePost) {
         return;
@@ -167,6 +259,31 @@ class ProfileViewModel extends ChangeNotifier {
         post.likes++;
       }
       post.liked = !post.liked;
+    } on ApiClientException catch (e) {
+      if (e.type == ApiClientExceptionType.network) {
+        error = "Something is wrong with the connection to the server";
+      }
+    } catch (e) {
+      error = "Something went wrong, please try again";
+    }
+    _processingLikePost = false;
+  }
+
+  Future<void> likeArticle(int index) async {
+    try {
+      if (_processingLikePost) {
+        return;
+      }
+      _processingLikePost = true;
+      final article = articles[index];
+      if (article.liked) {
+        await _articleService.unLikeArticle(article.id);
+        article.likes--;
+      } else {
+        await _articleService.likeArticle(article.id);
+        article.likes++;
+      }
+      article.liked = !article.liked;
     } on ApiClientException catch (e) {
       if (e.type == ApiClientExceptionType.network) {
         error = "Something is wrong with the connection to the server";
