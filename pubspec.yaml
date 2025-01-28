@@ -40,10 +40,9 @@ dependencies:
     sdk: flutter
   adaptive_theme: ^3.2.0
   json_annotation: ^4.8.1
-  intl: ^0.18.0
+  intl: ^0.19.0
   grpc: ^3.2.3
   email_validator: ^2.1.16
-  protoc_plugin: ^21.1.1
   image_picker: ^1.0.4
   timeago: ^3.6.0
   visibility_detector: ^0.4.0+2
@@ -81,10 +80,10 @@ flutter:
         - asset: assets/fonts/Roboto/Roboto-Regular.ttf
     - family: SF-Mono
       fonts:
-        - asset: assets/fonts/SF/SF-Mono/SFMono-Regular.otf
+        - asset: assets/fonts/SF/SF-Mono/SF-Mono-Regular.otf
     - family: SF-NY
       fonts:
-        - asset: assets/fonts/SF/NY/NY.otf
+        - asset: assets/fonts/SF/NY/NewYork.ttf
   generate: true
   uses-material-design: true
 

@@ -39,6 +39,7 @@ class PostService {
     List<Post> posts = [];
     for (final postModel in postModels) {
       final post = Post.fromModel(postModel);
+      print(post);
       posts.add(post);
     }
     return posts;

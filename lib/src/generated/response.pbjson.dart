@@ -19,14 +19,7 @@ const Response$json = {
   '2': [
     {'1': 'status', '3': 1, '4': 1, '5': 5, '10': 'status'},
     {'1': 'error', '3': 2, '4': 1, '5': 9, '10': 'error'},
-    {
-      '1': 'data',
-      '3': 3,
-      '4': 1,
-      '5': 11,
-      '6': '.google.protobuf.Any',
-      '10': 'data'
-    },
+    {'1': 'data', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.Any', '10': 'data'},
   ],
 };
 
@@ -34,3 +27,4 @@ const Response$json = {
 final $typed_data.Uint8List responseDescriptor = $convert.base64Decode(
     'CghSZXNwb25zZRIWCgZzdGF0dXMYASABKAVSBnN0YXR1cxIUCgVlcnJvchgCIAEoCVIFZXJyb3'
     'ISKAoEZGF0YRgDIAEoCzIULmdvb2dsZS5wcm90b2J1Zi5BbnlSBGRhdGE=');
+

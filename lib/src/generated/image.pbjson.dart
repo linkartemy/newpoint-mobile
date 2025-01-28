@@ -38,21 +38,14 @@ const GetImageByIdRequest$json = {
 };
 
 /// Descriptor for `GetImageByIdRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getImageByIdRequestDescriptor = $convert
-    .base64Decode('ChNHZXRJbWFnZUJ5SWRSZXF1ZXN0Eg4KAmlkGAEgASgDUgJpZA==');
+final $typed_data.Uint8List getImageByIdRequestDescriptor = $convert.base64Decode(
+    'ChNHZXRJbWFnZUJ5SWRSZXF1ZXN0Eg4KAmlkGAEgASgDUgJpZA==');
 
 @$core.Deprecated('Use getImageByIdResponseDescriptor instead')
 const GetImageByIdResponse$json = {
   '1': 'GetImageByIdResponse',
   '2': [
-    {
-      '1': 'image',
-      '3': 1,
-      '4': 1,
-      '5': 11,
-      '6': '.image.ImageModel',
-      '10': 'image'
-    },
+    {'1': 'image', '3': 1, '4': 1, '5': 11, '6': '.image.ImageModel', '10': 'image'},
   ],
 };
 
@@ -60,3 +53,4 @@ const GetImageByIdResponse$json = {
 final $typed_data.Uint8List getImageByIdResponseDescriptor = $convert.base64Decode(
     'ChRHZXRJbWFnZUJ5SWRSZXNwb25zZRInCgVpbWFnZRgBIAEoCzIRLmltYWdlLkltYWdlTW9kZW'
     'xSBWltYWdl');
+

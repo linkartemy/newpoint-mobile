@@ -26,9 +26,9 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    namespace 'com.newpoint.newpoint'
     // Добавлено после ошибки о том, что flutter_secure_storage требует минимум 18 версию
     // В AndroidManifest тоже исправлено, потому что этот файл перезаписывает все, что есть здесь
-
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 

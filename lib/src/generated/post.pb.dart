@@ -88,17 +88,10 @@ class PostModel extends $pb.GeneratedMessage {
     return $result;
   }
   PostModel._() : super();
-  factory PostModel.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory PostModel.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory PostModel.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory PostModel.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'PostModel',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PostModel', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'id')
     ..aInt64(2, _omitFieldNames ? '' : 'authorId')
     ..aOS(3, _omitFieldNames ? '' : 'login')
@@ -114,19 +107,20 @@ class PostModel extends $pb.GeneratedMessage {
     ..aOB(13, _omitFieldNames ? '' : 'liked')
     ..aOB(14, _omitFieldNames ? '' : 'shared')
     ..aOB(15, _omitFieldNames ? '' : 'bookmarked')
-    ..aOM<$11.Timestamp>(16, _omitFieldNames ? '' : 'creationTimestamp',
-        subBuilder: $11.Timestamp.create)
-    ..hasRequiredFields = false;
+    ..aOM<$11.Timestamp>(16, _omitFieldNames ? '' : 'creationTimestamp', subBuilder: $11.Timestamp.create)
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   PostModel clone() => PostModel()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  PostModel copyWith(void Function(PostModel) updates) =>
-      super.copyWith((message) => updates(message as PostModel)) as PostModel;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  PostModel copyWith(void Function(PostModel) updates) => super.copyWith((message) => updates(message as PostModel)) as PostModel;
 
   $pb.BuilderInfo get info_ => _i;
 
@@ -135,17 +129,13 @@ class PostModel extends $pb.GeneratedMessage {
   PostModel createEmptyInstance() => create();
   static $pb.PbList<PostModel> createRepeated() => $pb.PbList<PostModel>();
   @$core.pragma('dart2js:noInline')
-  static PostModel getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PostModel>(create);
+  static PostModel getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PostModel>(create);
   static PostModel? _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get id => $_getI64(0);
   @$pb.TagNumber(1)
-  set id($fixnum.Int64 v) {
-    $_setInt64(0, v);
-  }
-
+  set id($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
@@ -154,10 +144,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $fixnum.Int64 get authorId => $_getI64(1);
   @$pb.TagNumber(2)
-  set authorId($fixnum.Int64 v) {
-    $_setInt64(1, v);
-  }
-
+  set authorId($fixnum.Int64 v) { $_setInt64(1, v); }
   @$pb.TagNumber(2)
   $core.bool hasAuthorId() => $_has(1);
   @$pb.TagNumber(2)
@@ -166,10 +153,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.String get login => $_getSZ(2);
   @$pb.TagNumber(3)
-  set login($core.String v) {
-    $_setString(2, v);
-  }
-
+  set login($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
   $core.bool hasLogin() => $_has(2);
   @$pb.TagNumber(3)
@@ -178,10 +162,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.String get name => $_getSZ(3);
   @$pb.TagNumber(4)
-  set name($core.String v) {
-    $_setString(3, v);
-  }
-
+  set name($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
   $core.bool hasName() => $_has(3);
   @$pb.TagNumber(4)
@@ -190,10 +171,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.String get surname => $_getSZ(4);
   @$pb.TagNumber(5)
-  set surname($core.String v) {
-    $_setString(4, v);
-  }
-
+  set surname($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(5)
   $core.bool hasSurname() => $_has(4);
   @$pb.TagNumber(5)
@@ -202,10 +180,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $fixnum.Int64 get profileImageId => $_getI64(5);
   @$pb.TagNumber(6)
-  set profileImageId($fixnum.Int64 v) {
-    $_setInt64(5, v);
-  }
-
+  set profileImageId($fixnum.Int64 v) { $_setInt64(5, v); }
   @$pb.TagNumber(6)
   $core.bool hasProfileImageId() => $_has(5);
   @$pb.TagNumber(6)
@@ -214,10 +189,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.String get content => $_getSZ(6);
   @$pb.TagNumber(7)
-  set content($core.String v) {
-    $_setString(6, v);
-  }
-
+  set content($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
   $core.bool hasContent() => $_has(6);
   @$pb.TagNumber(7)
@@ -226,10 +198,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(8)
   $core.String get images => $_getSZ(7);
   @$pb.TagNumber(8)
-  set images($core.String v) {
-    $_setString(7, v);
-  }
-
+  set images($core.String v) { $_setString(7, v); }
   @$pb.TagNumber(8)
   $core.bool hasImages() => $_has(7);
   @$pb.TagNumber(8)
@@ -238,10 +207,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   $core.int get likes => $_getIZ(8);
   @$pb.TagNumber(9)
-  set likes($core.int v) {
-    $_setSignedInt32(8, v);
-  }
-
+  set likes($core.int v) { $_setSignedInt32(8, v); }
   @$pb.TagNumber(9)
   $core.bool hasLikes() => $_has(8);
   @$pb.TagNumber(9)
@@ -250,10 +216,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   $core.int get shares => $_getIZ(9);
   @$pb.TagNumber(10)
-  set shares($core.int v) {
-    $_setSignedInt32(9, v);
-  }
-
+  set shares($core.int v) { $_setSignedInt32(9, v); }
   @$pb.TagNumber(10)
   $core.bool hasShares() => $_has(9);
   @$pb.TagNumber(10)
@@ -262,10 +225,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(11)
   $core.int get comments => $_getIZ(10);
   @$pb.TagNumber(11)
-  set comments($core.int v) {
-    $_setSignedInt32(10, v);
-  }
-
+  set comments($core.int v) { $_setSignedInt32(10, v); }
   @$pb.TagNumber(11)
   $core.bool hasComments() => $_has(10);
   @$pb.TagNumber(11)
@@ -274,10 +234,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
   $core.int get views => $_getIZ(11);
   @$pb.TagNumber(12)
-  set views($core.int v) {
-    $_setSignedInt32(11, v);
-  }
-
+  set views($core.int v) { $_setSignedInt32(11, v); }
   @$pb.TagNumber(12)
   $core.bool hasViews() => $_has(11);
   @$pb.TagNumber(12)
@@ -286,10 +243,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(13)
   $core.bool get liked => $_getBF(12);
   @$pb.TagNumber(13)
-  set liked($core.bool v) {
-    $_setBool(12, v);
-  }
-
+  set liked($core.bool v) { $_setBool(12, v); }
   @$pb.TagNumber(13)
   $core.bool hasLiked() => $_has(12);
   @$pb.TagNumber(13)
@@ -298,10 +252,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(14)
   $core.bool get shared => $_getBF(13);
   @$pb.TagNumber(14)
-  set shared($core.bool v) {
-    $_setBool(13, v);
-  }
-
+  set shared($core.bool v) { $_setBool(13, v); }
   @$pb.TagNumber(14)
   $core.bool hasShared() => $_has(13);
   @$pb.TagNumber(14)
@@ -310,10 +261,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(15)
   $core.bool get bookmarked => $_getBF(14);
   @$pb.TagNumber(15)
-  set bookmarked($core.bool v) {
-    $_setBool(14, v);
-  }
-
+  set bookmarked($core.bool v) { $_setBool(14, v); }
   @$pb.TagNumber(15)
   $core.bool hasBookmarked() => $_has(14);
   @$pb.TagNumber(15)
@@ -322,10 +270,7 @@ class PostModel extends $pb.GeneratedMessage {
   @$pb.TagNumber(16)
   $11.Timestamp get creationTimestamp => $_getN(15);
   @$pb.TagNumber(16)
-  set creationTimestamp($11.Timestamp v) {
-    setField(16, v);
-  }
-
+  set creationTimestamp($11.Timestamp v) { setField(16, v); }
   @$pb.TagNumber(16)
   $core.bool hasCreationTimestamp() => $_has(15);
   @$pb.TagNumber(16)
@@ -334,7 +279,11 @@ class PostModel extends $pb.GeneratedMessage {
   $11.Timestamp ensureCreationTimestamp() => $_ensure(15);
 }
 
-enum NullablePost_Kind { null_1, data, notSet }
+enum NullablePost_Kind {
+  null_1, 
+  data, 
+  notSet
+}
 
 class NullablePost extends $pb.GeneratedMessage {
   factory NullablePost({
@@ -351,53 +300,40 @@ class NullablePost extends $pb.GeneratedMessage {
     return $result;
   }
   NullablePost._() : super();
-  factory NullablePost.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory NullablePost.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory NullablePost.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory NullablePost.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static const $core.Map<$core.int, NullablePost_Kind> _NullablePost_KindByTag =
-      {
-    1: NullablePost_Kind.null_1,
-    2: NullablePost_Kind.data,
-    0: NullablePost_Kind.notSet
+  static const $core.Map<$core.int, NullablePost_Kind> _NullablePost_KindByTag = {
+    1 : NullablePost_Kind.null_1,
+    2 : NullablePost_Kind.data,
+    0 : NullablePost_Kind.notSet
   };
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'NullablePost',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'NullablePost', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..oo(0, [1, 2])
-    ..e<$12.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE,
-        defaultOrMaker: $12.NullValue.NULL_VALUE,
-        valueOf: $12.NullValue.valueOf,
-        enumValues: $12.NullValue.values)
-    ..aOM<PostModel>(2, _omitFieldNames ? '' : 'data',
-        subBuilder: PostModel.create)
-    ..hasRequiredFields = false;
+    ..e<$12.NullValue>(1, _omitFieldNames ? '' : 'null', $pb.PbFieldType.OE, defaultOrMaker: $12.NullValue.NULL_VALUE, valueOf: $12.NullValue.valueOf, enumValues: $12.NullValue.values)
+    ..aOM<PostModel>(2, _omitFieldNames ? '' : 'data', subBuilder: PostModel.create)
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   NullablePost clone() => NullablePost()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  NullablePost copyWith(void Function(NullablePost) updates) =>
-      super.copyWith((message) => updates(message as NullablePost))
-          as NullablePost;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  NullablePost copyWith(void Function(NullablePost) updates) => super.copyWith((message) => updates(message as NullablePost)) as NullablePost;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static NullablePost create() => NullablePost._();
   NullablePost createEmptyInstance() => create();
-  static $pb.PbList<NullablePost> createRepeated() =>
-      $pb.PbList<NullablePost>();
+  static $pb.PbList<NullablePost> createRepeated() => $pb.PbList<NullablePost>();
   @$core.pragma('dart2js:noInline')
-  static NullablePost getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<NullablePost>(create);
+  static NullablePost getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NullablePost>(create);
   static NullablePost? _defaultInstance;
 
   NullablePost_Kind whichKind() => _NullablePost_KindByTag[$_whichOneof(0)]!;
@@ -406,10 +342,7 @@ class NullablePost extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $12.NullValue get null_1 => $_getN(0);
   @$pb.TagNumber(1)
-  set null_1($12.NullValue v) {
-    setField(1, v);
-  }
-
+  set null_1($12.NullValue v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasNull_1() => $_has(0);
   @$pb.TagNumber(1)
@@ -418,10 +351,7 @@ class NullablePost extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   PostModel get data => $_getN(1);
   @$pb.TagNumber(2)
-  set data(PostModel v) {
-    setField(2, v);
-  }
-
+  set data(PostModel v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasData() => $_has(1);
   @$pb.TagNumber(2)
@@ -445,51 +375,40 @@ class AddPostRequest extends $pb.GeneratedMessage {
     return $result;
   }
   AddPostRequest._() : super();
-  factory AddPostRequest.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory AddPostRequest.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory AddPostRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddPostRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'AddPostRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddPostRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'authorId')
     ..aOS(2, _omitFieldNames ? '' : 'content')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   AddPostRequest clone() => AddPostRequest()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  AddPostRequest copyWith(void Function(AddPostRequest) updates) =>
-      super.copyWith((message) => updates(message as AddPostRequest))
-          as AddPostRequest;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AddPostRequest copyWith(void Function(AddPostRequest) updates) => super.copyWith((message) => updates(message as AddPostRequest)) as AddPostRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static AddPostRequest create() => AddPostRequest._();
   AddPostRequest createEmptyInstance() => create();
-  static $pb.PbList<AddPostRequest> createRepeated() =>
-      $pb.PbList<AddPostRequest>();
+  static $pb.PbList<AddPostRequest> createRepeated() => $pb.PbList<AddPostRequest>();
   @$core.pragma('dart2js:noInline')
-  static AddPostRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<AddPostRequest>(create);
+  static AddPostRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddPostRequest>(create);
   static AddPostRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get authorId => $_getI64(0);
   @$pb.TagNumber(1)
-  set authorId($fixnum.Int64 v) {
-    $_setInt64(0, v);
-  }
-
+  set authorId($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasAuthorId() => $_has(0);
   @$pb.TagNumber(1)
@@ -498,10 +417,7 @@ class AddPostRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.String get content => $_getSZ(1);
   @$pb.TagNumber(2)
-  set content($core.String v) {
-    $_setString(1, v);
-  }
-
+  set content($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
   $core.bool hasContent() => $_has(1);
   @$pb.TagNumber(2)
@@ -519,50 +435,39 @@ class AddPostResponse extends $pb.GeneratedMessage {
     return $result;
   }
   AddPostResponse._() : super();
-  factory AddPostResponse.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory AddPostResponse.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory AddPostResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddPostResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'AddPostResponse',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddPostResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'id')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   AddPostResponse clone() => AddPostResponse()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  AddPostResponse copyWith(void Function(AddPostResponse) updates) =>
-      super.copyWith((message) => updates(message as AddPostResponse))
-          as AddPostResponse;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AddPostResponse copyWith(void Function(AddPostResponse) updates) => super.copyWith((message) => updates(message as AddPostResponse)) as AddPostResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static AddPostResponse create() => AddPostResponse._();
   AddPostResponse createEmptyInstance() => create();
-  static $pb.PbList<AddPostResponse> createRepeated() =>
-      $pb.PbList<AddPostResponse>();
+  static $pb.PbList<AddPostResponse> createRepeated() => $pb.PbList<AddPostResponse>();
   @$core.pragma('dart2js:noInline')
-  static AddPostResponse getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<AddPostResponse>(create);
+  static AddPostResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddPostResponse>(create);
   static AddPostResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get id => $_getI64(0);
   @$pb.TagNumber(1)
-  set id($fixnum.Int64 v) {
-    $_setInt64(0, v);
-  }
-
+  set id($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
@@ -572,40 +477,32 @@ class AddPostResponse extends $pb.GeneratedMessage {
 class GetPostsRequest extends $pb.GeneratedMessage {
   factory GetPostsRequest() => create();
   GetPostsRequest._() : super();
-  factory GetPostsRequest.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory GetPostsRequest.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory GetPostsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPostsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'GetPostsRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
-    ..hasRequiredFields = false;
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPostsRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   GetPostsRequest clone() => GetPostsRequest()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  GetPostsRequest copyWith(void Function(GetPostsRequest) updates) =>
-      super.copyWith((message) => updates(message as GetPostsRequest))
-          as GetPostsRequest;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPostsRequest copyWith(void Function(GetPostsRequest) updates) => super.copyWith((message) => updates(message as GetPostsRequest)) as GetPostsRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static GetPostsRequest create() => GetPostsRequest._();
   GetPostsRequest createEmptyInstance() => create();
-  static $pb.PbList<GetPostsRequest> createRepeated() =>
-      $pb.PbList<GetPostsRequest>();
+  static $pb.PbList<GetPostsRequest> createRepeated() => $pb.PbList<GetPostsRequest>();
   @$core.pragma('dart2js:noInline')
-  static GetPostsRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<GetPostsRequest>(create);
+  static GetPostsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPostsRequest>(create);
   static GetPostsRequest? _defaultInstance;
 }
 
@@ -620,42 +517,33 @@ class GetPostsResponse extends $pb.GeneratedMessage {
     return $result;
   }
   GetPostsResponse._() : super();
-  factory GetPostsResponse.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory GetPostsResponse.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory GetPostsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPostsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'GetPostsResponse',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
-    ..pc<PostModel>(1, _omitFieldNames ? '' : 'posts', $pb.PbFieldType.PM,
-        subBuilder: PostModel.create)
-    ..hasRequiredFields = false;
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPostsResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
+    ..pc<PostModel>(1, _omitFieldNames ? '' : 'posts', $pb.PbFieldType.PM, subBuilder: PostModel.create)
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   GetPostsResponse clone() => GetPostsResponse()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  GetPostsResponse copyWith(void Function(GetPostsResponse) updates) =>
-      super.copyWith((message) => updates(message as GetPostsResponse))
-          as GetPostsResponse;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPostsResponse copyWith(void Function(GetPostsResponse) updates) => super.copyWith((message) => updates(message as GetPostsResponse)) as GetPostsResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static GetPostsResponse create() => GetPostsResponse._();
   GetPostsResponse createEmptyInstance() => create();
-  static $pb.PbList<GetPostsResponse> createRepeated() =>
-      $pb.PbList<GetPostsResponse>();
+  static $pb.PbList<GetPostsResponse> createRepeated() => $pb.PbList<GetPostsResponse>();
   @$core.pragma('dart2js:noInline')
-  static GetPostsResponse getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<GetPostsResponse>(create);
+  static GetPostsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPostsResponse>(create);
   static GetPostsResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -677,53 +565,40 @@ class GetPostsByUserIdRequest extends $pb.GeneratedMessage {
     return $result;
   }
   GetPostsByUserIdRequest._() : super();
-  factory GetPostsByUserIdRequest.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory GetPostsByUserIdRequest.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory GetPostsByUserIdRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPostsByUserIdRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'GetPostsByUserIdRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPostsByUserIdRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'userId')
     ..aInt64(2, _omitFieldNames ? '' : 'lastPostId')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
-  GetPostsByUserIdRequest clone() =>
-      GetPostsByUserIdRequest()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  GetPostsByUserIdRequest copyWith(
-          void Function(GetPostsByUserIdRequest) updates) =>
-      super.copyWith((message) => updates(message as GetPostsByUserIdRequest))
-          as GetPostsByUserIdRequest;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetPostsByUserIdRequest clone() => GetPostsByUserIdRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPostsByUserIdRequest copyWith(void Function(GetPostsByUserIdRequest) updates) => super.copyWith((message) => updates(message as GetPostsByUserIdRequest)) as GetPostsByUserIdRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static GetPostsByUserIdRequest create() => GetPostsByUserIdRequest._();
   GetPostsByUserIdRequest createEmptyInstance() => create();
-  static $pb.PbList<GetPostsByUserIdRequest> createRepeated() =>
-      $pb.PbList<GetPostsByUserIdRequest>();
+  static $pb.PbList<GetPostsByUserIdRequest> createRepeated() => $pb.PbList<GetPostsByUserIdRequest>();
   @$core.pragma('dart2js:noInline')
-  static GetPostsByUserIdRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<GetPostsByUserIdRequest>(create);
+  static GetPostsByUserIdRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPostsByUserIdRequest>(create);
   static GetPostsByUserIdRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get userId => $_getI64(0);
   @$pb.TagNumber(1)
-  set userId($fixnum.Int64 v) {
-    $_setInt64(0, v);
-  }
-
+  set userId($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasUserId() => $_has(0);
   @$pb.TagNumber(1)
@@ -732,10 +607,7 @@ class GetPostsByUserIdRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $fixnum.Int64 get lastPostId => $_getI64(1);
   @$pb.TagNumber(2)
-  set lastPostId($fixnum.Int64 v) {
-    $_setInt64(1, v);
-  }
-
+  set lastPostId($fixnum.Int64 v) { $_setInt64(1, v); }
   @$pb.TagNumber(2)
   $core.bool hasLastPostId() => $_has(1);
   @$pb.TagNumber(2)
@@ -753,44 +625,33 @@ class GetPostsByUserIdResponse extends $pb.GeneratedMessage {
     return $result;
   }
   GetPostsByUserIdResponse._() : super();
-  factory GetPostsByUserIdResponse.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory GetPostsByUserIdResponse.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory GetPostsByUserIdResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPostsByUserIdResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'GetPostsByUserIdResponse',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
-    ..pc<PostModel>(1, _omitFieldNames ? '' : 'posts', $pb.PbFieldType.PM,
-        subBuilder: PostModel.create)
-    ..hasRequiredFields = false;
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPostsByUserIdResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
+    ..pc<PostModel>(1, _omitFieldNames ? '' : 'posts', $pb.PbFieldType.PM, subBuilder: PostModel.create)
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
-  GetPostsByUserIdResponse clone() =>
-      GetPostsByUserIdResponse()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  GetPostsByUserIdResponse copyWith(
-          void Function(GetPostsByUserIdResponse) updates) =>
-      super.copyWith((message) => updates(message as GetPostsByUserIdResponse))
-          as GetPostsByUserIdResponse;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetPostsByUserIdResponse clone() => GetPostsByUserIdResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPostsByUserIdResponse copyWith(void Function(GetPostsByUserIdResponse) updates) => super.copyWith((message) => updates(message as GetPostsByUserIdResponse)) as GetPostsByUserIdResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static GetPostsByUserIdResponse create() => GetPostsByUserIdResponse._();
   GetPostsByUserIdResponse createEmptyInstance() => create();
-  static $pb.PbList<GetPostsByUserIdResponse> createRepeated() =>
-      $pb.PbList<GetPostsByUserIdResponse>();
+  static $pb.PbList<GetPostsByUserIdResponse> createRepeated() => $pb.PbList<GetPostsByUserIdResponse>();
   @$core.pragma('dart2js:noInline')
-  static GetPostsByUserIdResponse getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<GetPostsByUserIdResponse>(create);
+  static GetPostsByUserIdResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPostsByUserIdResponse>(create);
   static GetPostsByUserIdResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -812,58 +673,40 @@ class GetPostsByUserIdAfterTimestampRequest extends $pb.GeneratedMessage {
     return $result;
   }
   GetPostsByUserIdAfterTimestampRequest._() : super();
-  factory GetPostsByUserIdAfterTimestampRequest.fromBuffer(
-          $core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory GetPostsByUserIdAfterTimestampRequest.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory GetPostsByUserIdAfterTimestampRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPostsByUserIdAfterTimestampRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'GetPostsByUserIdAfterTimestampRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPostsByUserIdAfterTimestampRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'userId')
-    ..aOM<$11.Timestamp>(2, _omitFieldNames ? '' : 'timestamp',
-        subBuilder: $11.Timestamp.create)
-    ..hasRequiredFields = false;
+    ..aOM<$11.Timestamp>(2, _omitFieldNames ? '' : 'timestamp', subBuilder: $11.Timestamp.create)
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
-  GetPostsByUserIdAfterTimestampRequest clone() =>
-      GetPostsByUserIdAfterTimestampRequest()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  GetPostsByUserIdAfterTimestampRequest copyWith(
-          void Function(GetPostsByUserIdAfterTimestampRequest) updates) =>
-      super.copyWith((message) =>
-              updates(message as GetPostsByUserIdAfterTimestampRequest))
-          as GetPostsByUserIdAfterTimestampRequest;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetPostsByUserIdAfterTimestampRequest clone() => GetPostsByUserIdAfterTimestampRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPostsByUserIdAfterTimestampRequest copyWith(void Function(GetPostsByUserIdAfterTimestampRequest) updates) => super.copyWith((message) => updates(message as GetPostsByUserIdAfterTimestampRequest)) as GetPostsByUserIdAfterTimestampRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static GetPostsByUserIdAfterTimestampRequest create() =>
-      GetPostsByUserIdAfterTimestampRequest._();
+  static GetPostsByUserIdAfterTimestampRequest create() => GetPostsByUserIdAfterTimestampRequest._();
   GetPostsByUserIdAfterTimestampRequest createEmptyInstance() => create();
-  static $pb.PbList<GetPostsByUserIdAfterTimestampRequest> createRepeated() =>
-      $pb.PbList<GetPostsByUserIdAfterTimestampRequest>();
+  static $pb.PbList<GetPostsByUserIdAfterTimestampRequest> createRepeated() => $pb.PbList<GetPostsByUserIdAfterTimestampRequest>();
   @$core.pragma('dart2js:noInline')
-  static GetPostsByUserIdAfterTimestampRequest getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          GetPostsByUserIdAfterTimestampRequest>(create);
+  static GetPostsByUserIdAfterTimestampRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPostsByUserIdAfterTimestampRequest>(create);
   static GetPostsByUserIdAfterTimestampRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get userId => $_getI64(0);
   @$pb.TagNumber(1)
-  set userId($fixnum.Int64 v) {
-    $_setInt64(0, v);
-  }
-
+  set userId($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasUserId() => $_has(0);
   @$pb.TagNumber(1)
@@ -872,10 +715,7 @@ class GetPostsByUserIdAfterTimestampRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $11.Timestamp get timestamp => $_getN(1);
   @$pb.TagNumber(2)
-  set timestamp($11.Timestamp v) {
-    setField(2, v);
-  }
-
+  set timestamp($11.Timestamp v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasTimestamp() => $_has(1);
   @$pb.TagNumber(2)
@@ -895,48 +735,33 @@ class GetPostsByUserIdAfterTimestampResponse extends $pb.GeneratedMessage {
     return $result;
   }
   GetPostsByUserIdAfterTimestampResponse._() : super();
-  factory GetPostsByUserIdAfterTimestampResponse.fromBuffer(
-          $core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory GetPostsByUserIdAfterTimestampResponse.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory GetPostsByUserIdAfterTimestampResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPostsByUserIdAfterTimestampResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'GetPostsByUserIdAfterTimestampResponse',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
-    ..pc<PostModel>(1, _omitFieldNames ? '' : 'posts', $pb.PbFieldType.PM,
-        subBuilder: PostModel.create)
-    ..hasRequiredFields = false;
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPostsByUserIdAfterTimestampResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
+    ..pc<PostModel>(1, _omitFieldNames ? '' : 'posts', $pb.PbFieldType.PM, subBuilder: PostModel.create)
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
-  GetPostsByUserIdAfterTimestampResponse clone() =>
-      GetPostsByUserIdAfterTimestampResponse()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  GetPostsByUserIdAfterTimestampResponse copyWith(
-          void Function(GetPostsByUserIdAfterTimestampResponse) updates) =>
-      super.copyWith((message) =>
-              updates(message as GetPostsByUserIdAfterTimestampResponse))
-          as GetPostsByUserIdAfterTimestampResponse;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetPostsByUserIdAfterTimestampResponse clone() => GetPostsByUserIdAfterTimestampResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPostsByUserIdAfterTimestampResponse copyWith(void Function(GetPostsByUserIdAfterTimestampResponse) updates) => super.copyWith((message) => updates(message as GetPostsByUserIdAfterTimestampResponse)) as GetPostsByUserIdAfterTimestampResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static GetPostsByUserIdAfterTimestampResponse create() =>
-      GetPostsByUserIdAfterTimestampResponse._();
+  static GetPostsByUserIdAfterTimestampResponse create() => GetPostsByUserIdAfterTimestampResponse._();
   GetPostsByUserIdAfterTimestampResponse createEmptyInstance() => create();
-  static $pb.PbList<GetPostsByUserIdAfterTimestampResponse> createRepeated() =>
-      $pb.PbList<GetPostsByUserIdAfterTimestampResponse>();
+  static $pb.PbList<GetPostsByUserIdAfterTimestampResponse> createRepeated() => $pb.PbList<GetPostsByUserIdAfterTimestampResponse>();
   @$core.pragma('dart2js:noInline')
-  static GetPostsByUserIdAfterTimestampResponse getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          GetPostsByUserIdAfterTimestampResponse>(create);
+  static GetPostsByUserIdAfterTimestampResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPostsByUserIdAfterTimestampResponse>(create);
   static GetPostsByUserIdAfterTimestampResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -954,50 +779,39 @@ class GetPostByIdRequest extends $pb.GeneratedMessage {
     return $result;
   }
   GetPostByIdRequest._() : super();
-  factory GetPostByIdRequest.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory GetPostByIdRequest.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory GetPostByIdRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPostByIdRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'GetPostByIdRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPostByIdRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'id')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   GetPostByIdRequest clone() => GetPostByIdRequest()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  GetPostByIdRequest copyWith(void Function(GetPostByIdRequest) updates) =>
-      super.copyWith((message) => updates(message as GetPostByIdRequest))
-          as GetPostByIdRequest;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPostByIdRequest copyWith(void Function(GetPostByIdRequest) updates) => super.copyWith((message) => updates(message as GetPostByIdRequest)) as GetPostByIdRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static GetPostByIdRequest create() => GetPostByIdRequest._();
   GetPostByIdRequest createEmptyInstance() => create();
-  static $pb.PbList<GetPostByIdRequest> createRepeated() =>
-      $pb.PbList<GetPostByIdRequest>();
+  static $pb.PbList<GetPostByIdRequest> createRepeated() => $pb.PbList<GetPostByIdRequest>();
   @$core.pragma('dart2js:noInline')
-  static GetPostByIdRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<GetPostByIdRequest>(create);
+  static GetPostByIdRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPostByIdRequest>(create);
   static GetPostByIdRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get id => $_getI64(0);
   @$pb.TagNumber(1)
-  set id($fixnum.Int64 v) {
-    $_setInt64(0, v);
-  }
-
+  set id($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1015,51 +829,39 @@ class GetPostByIdResponse extends $pb.GeneratedMessage {
     return $result;
   }
   GetPostByIdResponse._() : super();
-  factory GetPostByIdResponse.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory GetPostByIdResponse.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory GetPostByIdResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPostByIdResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'GetPostByIdResponse',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
-    ..aOM<PostModel>(1, _omitFieldNames ? '' : 'post',
-        subBuilder: PostModel.create)
-    ..hasRequiredFields = false;
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetPostByIdResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
+    ..aOM<PostModel>(1, _omitFieldNames ? '' : 'post', subBuilder: PostModel.create)
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   GetPostByIdResponse clone() => GetPostByIdResponse()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  GetPostByIdResponse copyWith(void Function(GetPostByIdResponse) updates) =>
-      super.copyWith((message) => updates(message as GetPostByIdResponse))
-          as GetPostByIdResponse;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPostByIdResponse copyWith(void Function(GetPostByIdResponse) updates) => super.copyWith((message) => updates(message as GetPostByIdResponse)) as GetPostByIdResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static GetPostByIdResponse create() => GetPostByIdResponse._();
   GetPostByIdResponse createEmptyInstance() => create();
-  static $pb.PbList<GetPostByIdResponse> createRepeated() =>
-      $pb.PbList<GetPostByIdResponse>();
+  static $pb.PbList<GetPostByIdResponse> createRepeated() => $pb.PbList<GetPostByIdResponse>();
   @$core.pragma('dart2js:noInline')
-  static GetPostByIdResponse getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<GetPostByIdResponse>(create);
+  static GetPostByIdResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPostByIdResponse>(create);
   static GetPostByIdResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   PostModel get post => $_getN(0);
   @$pb.TagNumber(1)
-  set post(PostModel v) {
-    setField(1, v);
-  }
-
+  set post(PostModel v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasPost() => $_has(0);
   @$pb.TagNumber(1)
@@ -1079,50 +881,39 @@ class LikePostRequest extends $pb.GeneratedMessage {
     return $result;
   }
   LikePostRequest._() : super();
-  factory LikePostRequest.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory LikePostRequest.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory LikePostRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory LikePostRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'LikePostRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'LikePostRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'postId')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   LikePostRequest clone() => LikePostRequest()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  LikePostRequest copyWith(void Function(LikePostRequest) updates) =>
-      super.copyWith((message) => updates(message as LikePostRequest))
-          as LikePostRequest;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  LikePostRequest copyWith(void Function(LikePostRequest) updates) => super.copyWith((message) => updates(message as LikePostRequest)) as LikePostRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static LikePostRequest create() => LikePostRequest._();
   LikePostRequest createEmptyInstance() => create();
-  static $pb.PbList<LikePostRequest> createRepeated() =>
-      $pb.PbList<LikePostRequest>();
+  static $pb.PbList<LikePostRequest> createRepeated() => $pb.PbList<LikePostRequest>();
   @$core.pragma('dart2js:noInline')
-  static LikePostRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<LikePostRequest>(create);
+  static LikePostRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LikePostRequest>(create);
   static LikePostRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get postId => $_getI64(0);
   @$pb.TagNumber(1)
-  set postId($fixnum.Int64 v) {
-    $_setInt64(0, v);
-  }
-
+  set postId($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasPostId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1140,50 +931,39 @@ class LikePostResponse extends $pb.GeneratedMessage {
     return $result;
   }
   LikePostResponse._() : super();
-  factory LikePostResponse.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory LikePostResponse.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory LikePostResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory LikePostResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'LikePostResponse',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'LikePostResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aOB(1, _omitFieldNames ? '' : 'liked')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   LikePostResponse clone() => LikePostResponse()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  LikePostResponse copyWith(void Function(LikePostResponse) updates) =>
-      super.copyWith((message) => updates(message as LikePostResponse))
-          as LikePostResponse;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  LikePostResponse copyWith(void Function(LikePostResponse) updates) => super.copyWith((message) => updates(message as LikePostResponse)) as LikePostResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static LikePostResponse create() => LikePostResponse._();
   LikePostResponse createEmptyInstance() => create();
-  static $pb.PbList<LikePostResponse> createRepeated() =>
-      $pb.PbList<LikePostResponse>();
+  static $pb.PbList<LikePostResponse> createRepeated() => $pb.PbList<LikePostResponse>();
   @$core.pragma('dart2js:noInline')
-  static LikePostResponse getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<LikePostResponse>(create);
+  static LikePostResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LikePostResponse>(create);
   static LikePostResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get liked => $_getBF(0);
   @$pb.TagNumber(1)
-  set liked($core.bool v) {
-    $_setBool(0, v);
-  }
-
+  set liked($core.bool v) { $_setBool(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasLiked() => $_has(0);
   @$pb.TagNumber(1)
@@ -1201,50 +981,39 @@ class UnLikePostRequest extends $pb.GeneratedMessage {
     return $result;
   }
   UnLikePostRequest._() : super();
-  factory UnLikePostRequest.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory UnLikePostRequest.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory UnLikePostRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UnLikePostRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'UnLikePostRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UnLikePostRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'postId')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   UnLikePostRequest clone() => UnLikePostRequest()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  UnLikePostRequest copyWith(void Function(UnLikePostRequest) updates) =>
-      super.copyWith((message) => updates(message as UnLikePostRequest))
-          as UnLikePostRequest;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UnLikePostRequest copyWith(void Function(UnLikePostRequest) updates) => super.copyWith((message) => updates(message as UnLikePostRequest)) as UnLikePostRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static UnLikePostRequest create() => UnLikePostRequest._();
   UnLikePostRequest createEmptyInstance() => create();
-  static $pb.PbList<UnLikePostRequest> createRepeated() =>
-      $pb.PbList<UnLikePostRequest>();
+  static $pb.PbList<UnLikePostRequest> createRepeated() => $pb.PbList<UnLikePostRequest>();
   @$core.pragma('dart2js:noInline')
-  static UnLikePostRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<UnLikePostRequest>(create);
+  static UnLikePostRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UnLikePostRequest>(create);
   static UnLikePostRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get postId => $_getI64(0);
   @$pb.TagNumber(1)
-  set postId($fixnum.Int64 v) {
-    $_setInt64(0, v);
-  }
-
+  set postId($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasPostId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1262,50 +1031,39 @@ class UnLikePostResponse extends $pb.GeneratedMessage {
     return $result;
   }
   UnLikePostResponse._() : super();
-  factory UnLikePostResponse.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory UnLikePostResponse.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory UnLikePostResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UnLikePostResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'UnLikePostResponse',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UnLikePostResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aOB(1, _omitFieldNames ? '' : 'liked')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   UnLikePostResponse clone() => UnLikePostResponse()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  UnLikePostResponse copyWith(void Function(UnLikePostResponse) updates) =>
-      super.copyWith((message) => updates(message as UnLikePostResponse))
-          as UnLikePostResponse;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UnLikePostResponse copyWith(void Function(UnLikePostResponse) updates) => super.copyWith((message) => updates(message as UnLikePostResponse)) as UnLikePostResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static UnLikePostResponse create() => UnLikePostResponse._();
   UnLikePostResponse createEmptyInstance() => create();
-  static $pb.PbList<UnLikePostResponse> createRepeated() =>
-      $pb.PbList<UnLikePostResponse>();
+  static $pb.PbList<UnLikePostResponse> createRepeated() => $pb.PbList<UnLikePostResponse>();
   @$core.pragma('dart2js:noInline')
-  static UnLikePostResponse getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<UnLikePostResponse>(create);
+  static UnLikePostResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UnLikePostResponse>(create);
   static UnLikePostResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get liked => $_getBF(0);
   @$pb.TagNumber(1)
-  set liked($core.bool v) {
-    $_setBool(0, v);
-  }
-
+  set liked($core.bool v) { $_setBool(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasLiked() => $_has(0);
   @$pb.TagNumber(1)
@@ -1323,50 +1081,39 @@ class SharePostRequest extends $pb.GeneratedMessage {
     return $result;
   }
   SharePostRequest._() : super();
-  factory SharePostRequest.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory SharePostRequest.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory SharePostRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SharePostRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'SharePostRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SharePostRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'postId')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   SharePostRequest clone() => SharePostRequest()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  SharePostRequest copyWith(void Function(SharePostRequest) updates) =>
-      super.copyWith((message) => updates(message as SharePostRequest))
-          as SharePostRequest;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SharePostRequest copyWith(void Function(SharePostRequest) updates) => super.copyWith((message) => updates(message as SharePostRequest)) as SharePostRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static SharePostRequest create() => SharePostRequest._();
   SharePostRequest createEmptyInstance() => create();
-  static $pb.PbList<SharePostRequest> createRepeated() =>
-      $pb.PbList<SharePostRequest>();
+  static $pb.PbList<SharePostRequest> createRepeated() => $pb.PbList<SharePostRequest>();
   @$core.pragma('dart2js:noInline')
-  static SharePostRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<SharePostRequest>(create);
+  static SharePostRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SharePostRequest>(create);
   static SharePostRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get postId => $_getI64(0);
   @$pb.TagNumber(1)
-  set postId($fixnum.Int64 v) {
-    $_setInt64(0, v);
-  }
-
+  set postId($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasPostId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1384,50 +1131,39 @@ class SharePostResponse extends $pb.GeneratedMessage {
     return $result;
   }
   SharePostResponse._() : super();
-  factory SharePostResponse.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory SharePostResponse.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory SharePostResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SharePostResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'SharePostResponse',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SharePostResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aOB(1, _omitFieldNames ? '' : 'shared')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   SharePostResponse clone() => SharePostResponse()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  SharePostResponse copyWith(void Function(SharePostResponse) updates) =>
-      super.copyWith((message) => updates(message as SharePostResponse))
-          as SharePostResponse;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SharePostResponse copyWith(void Function(SharePostResponse) updates) => super.copyWith((message) => updates(message as SharePostResponse)) as SharePostResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static SharePostResponse create() => SharePostResponse._();
   SharePostResponse createEmptyInstance() => create();
-  static $pb.PbList<SharePostResponse> createRepeated() =>
-      $pb.PbList<SharePostResponse>();
+  static $pb.PbList<SharePostResponse> createRepeated() => $pb.PbList<SharePostResponse>();
   @$core.pragma('dart2js:noInline')
-  static SharePostResponse getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<SharePostResponse>(create);
+  static SharePostResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SharePostResponse>(create);
   static SharePostResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get shared => $_getBF(0);
   @$pb.TagNumber(1)
-  set shared($core.bool v) {
-    $_setBool(0, v);
-  }
-
+  set shared($core.bool v) { $_setBool(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasShared() => $_has(0);
   @$pb.TagNumber(1)
@@ -1449,51 +1185,40 @@ class AddPostViewRequest extends $pb.GeneratedMessage {
     return $result;
   }
   AddPostViewRequest._() : super();
-  factory AddPostViewRequest.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory AddPostViewRequest.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory AddPostViewRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddPostViewRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'AddPostViewRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddPostViewRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'userId')
     ..aInt64(2, _omitFieldNames ? '' : 'postId')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   AddPostViewRequest clone() => AddPostViewRequest()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  AddPostViewRequest copyWith(void Function(AddPostViewRequest) updates) =>
-      super.copyWith((message) => updates(message as AddPostViewRequest))
-          as AddPostViewRequest;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AddPostViewRequest copyWith(void Function(AddPostViewRequest) updates) => super.copyWith((message) => updates(message as AddPostViewRequest)) as AddPostViewRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static AddPostViewRequest create() => AddPostViewRequest._();
   AddPostViewRequest createEmptyInstance() => create();
-  static $pb.PbList<AddPostViewRequest> createRepeated() =>
-      $pb.PbList<AddPostViewRequest>();
+  static $pb.PbList<AddPostViewRequest> createRepeated() => $pb.PbList<AddPostViewRequest>();
   @$core.pragma('dart2js:noInline')
-  static AddPostViewRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<AddPostViewRequest>(create);
+  static AddPostViewRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddPostViewRequest>(create);
   static AddPostViewRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get userId => $_getI64(0);
   @$pb.TagNumber(1)
-  set userId($fixnum.Int64 v) {
-    $_setInt64(0, v);
-  }
-
+  set userId($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasUserId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1502,10 +1227,7 @@ class AddPostViewRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $fixnum.Int64 get postId => $_getI64(1);
   @$pb.TagNumber(2)
-  set postId($fixnum.Int64 v) {
-    $_setInt64(1, v);
-  }
-
+  set postId($fixnum.Int64 v) { $_setInt64(1, v); }
   @$pb.TagNumber(2)
   $core.bool hasPostId() => $_has(1);
   @$pb.TagNumber(2)
@@ -1523,50 +1245,39 @@ class AddPostViewResponse extends $pb.GeneratedMessage {
     return $result;
   }
   AddPostViewResponse._() : super();
-  factory AddPostViewResponse.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory AddPostViewResponse.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory AddPostViewResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddPostViewResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'AddPostViewResponse',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddPostViewResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'views')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   AddPostViewResponse clone() => AddPostViewResponse()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  AddPostViewResponse copyWith(void Function(AddPostViewResponse) updates) =>
-      super.copyWith((message) => updates(message as AddPostViewResponse))
-          as AddPostViewResponse;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AddPostViewResponse copyWith(void Function(AddPostViewResponse) updates) => super.copyWith((message) => updates(message as AddPostViewResponse)) as AddPostViewResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static AddPostViewResponse create() => AddPostViewResponse._();
   AddPostViewResponse createEmptyInstance() => create();
-  static $pb.PbList<AddPostViewResponse> createRepeated() =>
-      $pb.PbList<AddPostViewResponse>();
+  static $pb.PbList<AddPostViewResponse> createRepeated() => $pb.PbList<AddPostViewResponse>();
   @$core.pragma('dart2js:noInline')
-  static AddPostViewResponse getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<AddPostViewResponse>(create);
+  static AddPostViewResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddPostViewResponse>(create);
   static AddPostViewResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get views => $_getI64(0);
   @$pb.TagNumber(1)
-  set views($fixnum.Int64 v) {
-    $_setInt64(0, v);
-  }
-
+  set views($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasViews() => $_has(0);
   @$pb.TagNumber(1)
@@ -1584,50 +1295,39 @@ class DeletePostRequest extends $pb.GeneratedMessage {
     return $result;
   }
   DeletePostRequest._() : super();
-  factory DeletePostRequest.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory DeletePostRequest.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory DeletePostRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeletePostRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'DeletePostRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'DeletePostRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aInt64(1, _omitFieldNames ? '' : 'postId')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   DeletePostRequest clone() => DeletePostRequest()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  DeletePostRequest copyWith(void Function(DeletePostRequest) updates) =>
-      super.copyWith((message) => updates(message as DeletePostRequest))
-          as DeletePostRequest;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DeletePostRequest copyWith(void Function(DeletePostRequest) updates) => super.copyWith((message) => updates(message as DeletePostRequest)) as DeletePostRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static DeletePostRequest create() => DeletePostRequest._();
   DeletePostRequest createEmptyInstance() => create();
-  static $pb.PbList<DeletePostRequest> createRepeated() =>
-      $pb.PbList<DeletePostRequest>();
+  static $pb.PbList<DeletePostRequest> createRepeated() => $pb.PbList<DeletePostRequest>();
   @$core.pragma('dart2js:noInline')
-  static DeletePostRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<DeletePostRequest>(create);
+  static DeletePostRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeletePostRequest>(create);
   static DeletePostRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $fixnum.Int64 get postId => $_getI64(0);
   @$pb.TagNumber(1)
-  set postId($fixnum.Int64 v) {
-    $_setInt64(0, v);
-  }
-
+  set postId($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasPostId() => $_has(0);
   @$pb.TagNumber(1)
@@ -1645,56 +1345,45 @@ class DeletePostResponse extends $pb.GeneratedMessage {
     return $result;
   }
   DeletePostResponse._() : super();
-  factory DeletePostResponse.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory DeletePostResponse.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory DeletePostResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeletePostResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'DeletePostResponse',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'post'),
-      createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'DeletePostResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'post'), createEmptyInstance: create)
     ..aOB(1, _omitFieldNames ? '' : 'deleted')
-    ..hasRequiredFields = false;
+    ..hasRequiredFields = false
+  ;
 
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-      'Will be removed in next major version')
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   DeletePostResponse clone() => DeletePostResponse()..mergeFromMessage(this);
-  @$core.Deprecated('Using this can add significant overhead to your binary. '
-      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-      'Will be removed in next major version')
-  DeletePostResponse copyWith(void Function(DeletePostResponse) updates) =>
-      super.copyWith((message) => updates(message as DeletePostResponse))
-          as DeletePostResponse;
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DeletePostResponse copyWith(void Function(DeletePostResponse) updates) => super.copyWith((message) => updates(message as DeletePostResponse)) as DeletePostResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static DeletePostResponse create() => DeletePostResponse._();
   DeletePostResponse createEmptyInstance() => create();
-  static $pb.PbList<DeletePostResponse> createRepeated() =>
-      $pb.PbList<DeletePostResponse>();
+  static $pb.PbList<DeletePostResponse> createRepeated() => $pb.PbList<DeletePostResponse>();
   @$core.pragma('dart2js:noInline')
-  static DeletePostResponse getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<DeletePostResponse>(create);
+  static DeletePostResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeletePostResponse>(create);
   static DeletePostResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get deleted => $_getBF(0);
   @$pb.TagNumber(1)
-  set deleted($core.bool v) {
-    $_setBool(0, v);
-  }
-
+  set deleted($core.bool v) { $_setBool(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasDeleted() => $_has(0);
   @$pb.TagNumber(1)
   void clearDeleted() => clearField(1);
 }
 
+
 const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
-const _omitMessageNames =
-    $core.bool.fromEnvironment('protobuf.omit_message_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

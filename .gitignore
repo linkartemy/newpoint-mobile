@@ -106,4 +106,5 @@ unlinked_spec.ds
 **/assets/**/*
 **/lib/src/**/*
 .env
-src/**/*
+src/generated/*
+src/generated
