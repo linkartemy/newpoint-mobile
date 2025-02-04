@@ -1,0 +1,202 @@
+{
+  "theBestPlace": "Лучшее место для писателей и читателей со всего мира",
+  "signIn": "Войти",
+  "signUp": "Зарегистрироваться",
+
+  "createA": "Создайте",
+  "newBlue": "новый",
+  "account": "аккаунт",
+
+  "forYou": "Для вас",
+  "youRead": "Вы читаете",
+  "nComments": "{count, plural, =0{0 комментариев} =1{1 комментарий} =2{2 комментария} many{{count} комментариев} other{{count} комментариев}}",
+  "@nComments": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "nCompact": "{count, plural, other{{count}}}",
+    "@nCompact": {
+      "placeholders": {
+        "count": {
+          "type": "num",
+          "format": "compact"
+        }
+      }
+    },
+    "nDecimalPattern": "{count, plural, other{{count}}}",
+      "@nDecimalPattern": {
+        "placeholders": {
+          "count": {
+            "type": "num",
+            "format": "decimalPattern"
+          }
+        }
+      },
+  "postDateTime": "{date} {time}",
+  "@postDateTime": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMMd"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "jm"
+      }
+    }
+  },
+  "commentDateTime": "{date} {time}",
+  "@commentDateTime": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "jm"
+      }
+    }
+  },
+  "main": "Главная",
+  "profile": "Профиль",
+  "bookMarks": "Заметки",
+  "settings": "Настройки",
+  "logOut": "Выйти",
+  "logOutConfirmation": "Вы точно хотите выйти?",
+  "cancel": "Отмена",
+  "registrationDate": "В NewPoint с {date}",
+  "@registrationDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
+  "birthDate": "{date}",
+  "@birthDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
+  "nPosts": "{count, plural, other{Постов: {count}}}",
+  "@nPosts": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "posts": "Посты",
+  "articles": "Статьи",
+  "yourThoughts": "Ваши мысли?",
+  "profileImages": "Изображения профиля",
+  "changeProfileImage": "Изменить изображение профиля",
+  "actions": "Действия",
+  "createPost": "Написать пост",
+  "createArticle": "Написать статью",
+  "wordsHaveAGreatPower": "Слова имеют большую силу",
+  "deletePost": "Удалить пост",
+  "areYouSure": "Вы уверены?",
+  "yes": "Да",
+  "deleteComment": "Удалить комментарий",
+  "deleteArticle": "Удалить статью",
+  "writeTitle": "Напишите заголовок",
+
+  "setting": "Настройка",
+
+  "accountSettings": "Аккаунт",
+  "accountSettingsDescription": "Смотрите информацию о Вашем аккаунте или изучите возможность деактивировать Ваш аккаунт.",
+  "accountInformation": "Данные аккаунта",
+  "accountInformationDescription": "Управляйте информацией о своем аккаунте, включая логин, почту и телефон.",
+  "changePassword": "Сменить пароль",
+  "changePasswordDescription": "Измените пароль своей учетной записи.",
+  "deleteAccount": "Удалить аккаунт",
+  "deleteAccountDescription": "Изучите, как Вы можете удалить свой аккаунт.",
+
+  "securitySettings": "Безопасность и доступ",
+  "securitySettingsDescription": "Управляйте безопасностью своего аккаунта.",
+  "twoFactorAuthentication": "Двухфакторная аутентификация",
+  "twoFactorAuthenticationDescription": "Включите двухфакторную аутентификацию для усиления безопасности своего аккаунта.",
+  "twoFactorAuthenticationText": "На данный момент доступна только двухфакторная аутентификация через почту.",
+
+  "privacySettings": "Приватность и сохранность данных",
+  "privacySettingsDescription": "Управляйте приватностью и сохранностью данных своего аккаунта, а также информацией, которой вы делитесь и которую вы видите на NewPoint.",
+  "sensitiveContent": "Чувствительный контент",
+  "sensitiveContentDescription": "Управляйте отображением чувствительного контента на NewPoint.",
+  "showSensitiveContent": "Показывать чувствительный контент",
+  "blacklistSettings": "Черный список",
+  "blacklistSettingsDescription": "Управляйте черным списком пользователей, которых вы заблокировали.",
+  "addToBlacklist": "Добавить в черный список",
+  "removeFromBlacklist": "Удалить из черного списка",
+
+  "accessibilitySettings": "Доступность, экран и языки",
+  "accessibilitySettingsDescription": "Управляйте отображением контента на NewPoint.",
+  "accessibilitySettingsMenuDescription": "Настройте цветовую схему и другие параметры, чтобы сделать NewPoint удобнее для вас.",
+  "languagesSettings": "Язык",
+  "languagesSettingsDescription": "Измените язык интерфейса NewPoint.",
+  "themeSettings": "Тема",
+  "themeSettingsDescription": "Измените тему интерфейса NewPoint.",
+
+  "currentPassword": "Текущий пароль",
+  "newPassword": "Новый пароль",
+  "confirmNewPassword": "Подтвердите новый пароль",
+
+  "email": "Почта",
+  "changeEmail": "Сменить почту",
+  "changePhone": "Сменить телефон",
+  "code": "Код",
+  "sentCode": "Мы отправили код на вашу почту",
+  "resendCode": "Отправить код еще раз",
+  "back": "Назад",
+  "apply": "Применить",
+  "save": "Сохранить",
+
+  "loginOrEmail": "Логин или почта",
+  "login": "Логин",
+  "password": "Пароль",
+  "passwordConfirmation": "Подтверждение пароля",
+  "previous": "Назад",
+  "next": "Далее",
+
+  "welcomeBackGladToSee": "Добро пожаловать!\nРады видеть ",
+  "you": "Вас",
+  "again": ", снова!",
+
+  "name": "Имя",
+  "surname": "Фамилия",
+  "description": "Описание",
+  "tellAboutYourself": "Расскажите о себе",
+  "location": "Локация",
+  "whereAreYou": "Где Вы?",
+  "birthDateString": "Дата рождения",
+
+  "ok": "Ок",
+  "openPhoto": "Открыть фото",
+  "followers": "Подписчики",
+  "following": "Подписки",
+  "typeHere": "Пишите здесь...",
+
+  "thereIsNothingHere": "Здесь пока ничего нет",
+  "addToBookmarks": "Добавить в закладки",
+  "removeFromBookmarks": "Удалить из закладок",
+  "deleteAllBookmarks": "Удалить все закладки",
+
+  "wouldYouLikeToShare": "Хотите сделать репост?",
+  "wouldYouLikeToDeleteSharedPost": "Хотите удалить пост, которым вы поделились?",
+  "wouldYouLikeToDeleteSharedArticle": "Хотите удалить статью, которой вы поделились?",
+
+  "thisWillDeactivateYourAccount": "Это деактивирует ваш аккаунт",
+  "youAreAboutToStartDeactivation": "Вы собираетесь начать процесс деактивации вашей учетной записи NewPoint. Ваше отображаемое имя, @username и общедоступный профиль больше не будут доступны для просмотра в NewPoint для iOS или NewPoint для Android.",
+  "whatElseYouShouldKnow": "Что еще вам стоит знать",
+  "youCanRestoreYourNewPoint": "- Вы можете восстановить свою учетную запись NewPoint, если она была случайно или ошибочно деактивирована, в течение 30 дней после деактивации.\nЕсли вы просто хотите изменить свое @username, вам не нужно деактивировать свою учетную запись — отредактируйте ее в настройках.\nЧтобы использовать свое текущее имя @username или адрес электронной почты с другой учетной записью NewPoint, измените их перед деактивацией этой учетной записи."
+}

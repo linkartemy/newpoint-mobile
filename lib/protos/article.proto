@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+import "response.proto";
+import "nullable.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+option csharp_namespace = "NewPoint";
+
+package article;
+
+service GrpcArticle {
+  rpc AddArticle (AddArticleRequest) returns (response.Response);
+  rpc GetArticles (GetArticlesRequest) returns (response.Response);
+  rpc GetArticlesByUserId (GetArticlesByUserIdRequest) returns (response.Response);
+  rpc GetArticlesByUserIdAfterTimestamp (GetArticlesByUserIdAfterTimestampRequest) returns (response.Response);
+  rpc GetArticleById (GetArticleByIdRequest) returns (response.Response);
+  rpc LikeArticle (LikeArticleRequest) returns (response.Response);
+  rpc UnLikeArticle (UnLikeArticleRequest) returns (response.Response);
+  rpc ShareArticle (ShareArticleRequest) returns (response.Response);
+  rpc AddArticleView (AddArticleViewRequest) returns (response.Response);
+  rpc DeleteArticle (DeleteArticleRequest) returns (response.Response);
+}
+
+message ArticleModel {
+  int64 id = 1;
+  int64 author_id = 2;
+  string login = 3;
+  string name = 4;
+  string surname = 5;
+  int64 profile_image_id = 6;
+  string title = 7;
+  string content = 8;
+  string images = 9;
+  int32 likes = 10;
+  int32 shares = 11;
+  int32 comments = 12;
+  int32 views = 13;
+  bool liked = 14;
+  bool shared = 15;
+  bool bookmarked = 16;
+  google.protobuf.Timestamp creation_timestamp = 17;
+}
+
+message NullableArticle {
+  oneof kind {
+    google.protobuf.NullValue null = 1;
+    article.ArticleModel data = 2;
+  }
+}
+
+message AddArticleRequest {
+  int64 author_id = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message AddArticleResponse {
+  int64 id = 1;
+}
+
+message GetArticlesRequest {}
+
+message GetArticlesResponse {
+  repeated ArticleModel articles = 1;
+}
+
+message GetArticlesByUserIdRequest {
+  int64 user_id = 1;
+  int64 last_article_id = 2;
+}
+
+message GetArticlesByUserIdResponse {
+  repeated ArticleModel articles = 1;
+}
+
+message GetArticlesByUserIdAfterTimestampRequest {
+  int64 user_id = 1;
+  google.protobuf.Timestamp timestamp = 2;
+}
+
+message GetArticlesByUserIdAfterTimestampResponse {
+  repeated ArticleModel articles = 1;
+}
+
+message GetArticleByIdRequest {
+  int64 id = 1;
+}
+
+message GetArticleByIdResponse {
+  ArticleModel article = 1;
+}
+
+message LikeArticleRequest {
+  int64 article_id = 1;
+}
+
+message LikeArticleResponse {
+  bool liked = 1;
+}
+
+message UnLikeArticleRequest {
+  int64 article_id = 1;
+}
+
+message UnLikeArticleResponse {
+  bool liked = 1;
+}
+
+message ShareArticleRequest {
+  int64 article_id = 1;
+}
+
+message ShareArticleResponse {
+  bool shared = 1;
+}
+
+message AddArticleViewRequest {
+  int64 user_id = 1;
+  int64 article_id = 2;
+}
+
+message AddArticleViewResponse {
+  int64 views = 1;
+}
+
+message DeleteArticleRequest {
+  int64 article_id = 1;
+}
+
+message DeleteArticleResponse {
+  bool deleted = 1;
+}

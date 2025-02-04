@@ -1,0 +1,182 @@
+syntax = "proto3";
+
+import "response.proto";
+import "google/protobuf/timestamp.proto";
+import "nullable.proto";
+
+option csharp_namespace = "NewPoint";
+
+package user;
+
+service GrpcUser {
+  rpc Login (LoginRequest) returns (response.Response);
+  rpc Register (RegisterRequest) returns (response.Response);
+  rpc GetUserByToken (GetUserByTokenRequest) returns (response.Response);
+  rpc GetProfileById (GetProfileByIdRequest) returns (response.Response);
+  rpc ValidateUser (ValidateUserRequest) returns (response.Response);
+  rpc UpdateProfile (UpdateProfileRequest) returns (response.Response);
+  rpc UpdateProfileImage (UpdateProfileImageRequest) returns (response.Response);
+  rpc Follow (FollowRequest) returns (response.Response);
+  rpc IsFollowing (IsFollowingRequest) returns (response.Response);
+  rpc ChangeEmail (ChangeEmailRequest) returns (response.Response);
+  rpc ChangePassword (ChangePasswordRequest) returns (response.Response);
+  rpc VerifyPassword (VerifyPasswordRequest) returns (response.Response);
+  rpc GetTwoFactorByToken (GetTwoFactorByTokenRequest) returns (response.Response);
+  rpc UpdateTwoFactor (UpdateTwoFactorRequest) returns (response.Response);
+  rpc GetUserByLogin (GetUserByLoginRequest) returns (response.Response);
+}
+
+message UserModel {
+  int64 id = 1;
+  string login = 2;
+  string name = 3;
+  string surname = 4;
+  NullableString description = 5;
+  NullableString location = 6;
+  NullableString email = 7;
+  NullableString phone = 8;
+  int64 profile_image_id = 9;
+  int64 header_image_id = 10;
+  NullableTimestamp birth_date = 11;
+  NullableTimestamp registration_timestamp = 12;
+  NullableTimestamp last_login_timestamp = 13;
+  NullableString ip = 14;
+  int32 followers = 15;
+  int32 following = 16;
+}
+
+message LoginRequest {
+  string login = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  UserModel user = 1;
+}
+
+message RegisterRequest {
+  string login = 1;
+  string password = 2;
+  string name = 3;
+  string surname = 4;
+  string email = 5;
+  string phone = 6;
+  google.protobuf.Timestamp birth_date = 7;
+}
+
+message RegisterResponse {
+  UserModel user = 1;
+}
+
+message GetUserByTokenRequest {}
+
+message GetUserByTokenResponse {
+  UserModel user = 1;
+}
+
+message GetProfileByIdRequest {
+  int64 id = 1;
+}
+
+message GetProfileByIdResponse {
+  UserModel user = 1;
+}
+
+message ValidateUserRequest {
+  string login = 1;
+  string password = 2;
+  string name = 3;
+  string surname = 4;
+  string email = 5;
+  string phone = 6;
+}
+
+message ValidateUserResponse {
+  bool valid = 1;
+}
+
+message UpdateProfileRequest {
+  string name = 1;
+  string surname = 2;
+  string description = 3;
+  string location = 4;
+  google.protobuf.Timestamp birth_date = 5;
+}
+
+message UpdateProfileResponse {
+  UserModel user = 1;
+}
+
+message UpdateProfileImageRequest {
+  bytes data = 1;
+  string name = 2;
+}
+
+message UpdateProfileImageResponse {
+  int64 id = 1;
+}
+
+message ChangeEmailRequest {
+  string email = 1;
+}
+
+message ChangeEmailResponse {
+  bool changed = 1;
+}
+
+message ChangePasswordRequest {
+  string current_password = 1;
+  string new_password = 2;
+}
+
+message ChangePasswordResponse {
+  bool changed = 1;
+}
+
+message VerifyPasswordRequest {
+  string password = 1;
+}
+
+message VerifyPasswordResponse {
+  bool verified = 1;
+}
+
+message FollowRequest {
+  int64 user_id = 1;
+}
+
+message FollowResponse {
+  bool following = 1;
+}
+
+message IsFollowingRequest {
+  int64 user_id = 1;
+}
+
+message IsFollowingResponse {
+  bool following = 1;
+}
+
+message GetTwoFactorByTokenRequest {
+  string token = 1;
+}
+
+message GetTwoFactorByTokenResponse {
+  bool enabled = 1;
+}
+
+message UpdateTwoFactorRequest {
+  bool enabled = 1;
+}
+
+message UpdateTwoFactorResponse {
+  bool updated = 1;
+}
+
+message GetUserByLoginRequest {
+  string login = 1;
+}
+
+message GetUserByLoginResponse {
+  UserModel user = 1;
+}

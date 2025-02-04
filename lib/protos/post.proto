@@ -1,0 +1,131 @@
+﻿syntax = "proto3";
+
+import "response.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+import "nullable.proto";
+
+option csharp_namespace = "NewPoint";
+
+package post;
+
+service GrpcPost {
+  rpc AddPost (AddPostRequest) returns (response.Response);
+  rpc GetPosts (GetPostsRequest) returns (response.Response);
+  rpc GetPostsByUserId (GetPostsByUserIdRequest) returns (response.Response);
+  rpc GetPostsByUserIdAfterTimestamp (GetPostsByUserIdAfterTimestampRequest) returns (response.Response);
+  rpc GetPostById (GetPostByIdRequest) returns (response.Response);
+  rpc LikePost (LikePostRequest) returns (response.Response);
+  rpc UnLikePost (UnLikePostRequest) returns (response.Response);
+  rpc SharePost (SharePostRequest) returns (response.Response);
+  rpc AddPostView (AddPostViewRequest) returns (response.Response);
+  rpc DeletePost (DeletePostRequest) returns (response.Response);
+}
+
+message PostModel {
+  int64 id = 1;
+  int64 author_id = 2;
+  string login = 3;
+  string name = 4;
+  string surname = 5;
+  int64 profile_image_id = 6;
+  string content = 7;
+  string images = 8;
+  int32 likes = 9;
+  int32 shares = 10;
+  int32 comments = 11;
+  int32 views = 12;
+  bool liked = 13;
+  bool shared = 14;
+  bool bookmarked = 15;
+  google.protobuf.Timestamp creation_timestamp = 16;
+}
+
+message NullablePost {
+  oneof kind {
+    google.protobuf.NullValue null = 1;
+    PostModel data = 2;
+  }
+}
+
+message AddPostRequest {
+  int64 author_id = 1;
+  string content = 2;
+}
+
+message AddPostResponse {
+  int64 id = 1;
+}
+
+message GetPostsRequest {}
+
+message GetPostsResponse {
+  repeated PostModel posts = 1;
+}
+
+message GetPostsByUserIdRequest {
+  int64 user_id = 1;
+  int64 last_post_id = 2;
+}
+
+message GetPostsByUserIdResponse {
+  repeated PostModel posts = 1;
+}
+
+message GetPostsByUserIdAfterTimestampRequest {
+  int64 user_id = 1;
+  google.protobuf.Timestamp timestamp = 2;
+}
+
+message GetPostsByUserIdAfterTimestampResponse {
+  repeated PostModel posts = 1;
+}
+
+message GetPostByIdRequest {
+  int64 id = 1;
+}
+
+message GetPostByIdResponse {
+  PostModel post = 1;
+}
+
+message LikePostRequest {
+  int64 post_id = 1;
+}
+
+message LikePostResponse {
+  bool liked = 1;
+}
+
+message UnLikePostRequest {
+  int64 post_id = 1;
+}
+
+message UnLikePostResponse {
+  bool liked = 1;
+}
+
+message SharePostRequest {
+  int64 post_id = 1;
+}
+
+message SharePostResponse {
+  bool shared = 1;
+}
+
+message AddPostViewRequest {
+  int64 user_id = 1;
+  int64 post_id = 2;
+}
+
+message AddPostViewResponse {
+  int64 views = 1;
+}
+
+message DeletePostRequest {
+  int64 post_id = 1;
+}
+
+message DeletePostResponse {
+  bool deleted = 1;
+}

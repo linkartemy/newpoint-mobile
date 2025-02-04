@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+import "response.proto";
+import "google/protobuf/timestamp.proto";
+import "nullable.proto";
+
+option csharp_namespace = "NewPoint";
+
+package image;
+
+service GrpcImage {
+  rpc GetImageById (GetImageByIdRequest) returns (response.Response);
+}
+
+message ImageModel {
+  int64 id = 1;
+  bytes data = 2;
+  string bucket_name = 3;
+  string name = 4;
+}
+
+message GetImageByIdRequest {
+  int64 id = 1;
+}
+
+message GetImageByIdResponse {
+  ImageModel image = 1;
+}
